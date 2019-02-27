@@ -1,0 +1,11 @@
+kind: pipeline
+name: build
+
+clone:
+  skip_verify: true
+steps:
+- name: main
+  image: mono
+  commands:
+  - nuget restore
+  - msbuild
