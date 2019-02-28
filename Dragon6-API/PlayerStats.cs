@@ -135,13 +135,13 @@ namespace Dragon6.API
             {
                 Casual_Kills = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "0"),
                 Casual_Deaths = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_death:infinite"] ?? "0"),
-                Casual_KD = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "0") /
-                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_death:infinite"] ?? "0"),
+                Casual_KD = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "1") /
+                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_death:infinite"] ?? "1"),
 
                 Casual_Wins = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchwon:infinite"] ?? "0"),
                 Casual_Losses = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchlost:infinite"] ?? "0"),
-                Casual_WL = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchwon:infinite"] ?? "0") /
-                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchlost:infinite"] ?? "0"),
+                Casual_WL = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchwon:infinite"] ?? "1") /
+                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchlost:infinite"] ?? "1"),
 
                 Barricades = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_barricadedeployed:infinite"] ??
                                        "0"),
@@ -159,8 +159,8 @@ namespace Dragon6.API
 
                 THunt_Kills = int.Parse((string) PlayerObj["results"][GUID]["generalpve_kills:infinite"] ?? "0"),
                 THunt_Deaths = int.Parse((string) PlayerObj["results"][GUID]["generalpve_death:infinite"] ?? "0"),
-                THunt_KD = float.Parse((string) PlayerObj["results"][GUID]["generalpve_kills:infinite"] ?? "0") /
-                           float.Parse((string) PlayerObj["results"][GUID]["generalpve_death:infinite"] ?? "0"),
+                THunt_KD = float.Parse((string) PlayerObj["results"][GUID]["generalpve_kills:infinite"] ?? "1") /
+                           float.Parse((string) PlayerObj["results"][GUID]["generalpve_death:infinite"] ?? "1"),
 
                 HIScore_Secure =
                     int.Parse((string) PlayerObj["results"][GUID]["secureareapvp_bestscore:infinite"] ?? "0"),
@@ -180,13 +180,13 @@ namespace Dragon6.API
 
                 Ranked_Wins = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchwon:infinite"] ?? "0"),
                 Ranked_Losses = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchlost:infinite"] ?? "0"),
-                Ranked_WL = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchwon:infinite"] ?? "0") /
-                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchlost:infinite"] ?? "0"),
+                Ranked_WL = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchwon:infinite"] ?? "1") /
+                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchlost:infinite"] ?? "1"),
 
                 Ranked_Kills = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_kills:infinite"] ?? "0"),
                 Ranked_Deaths = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_death:infinite"] ?? "0"),
-                Ranked_KD = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_kills:infinite"] ?? "0") /
-                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_death:infinite"] ?? "0"),
+                Ranked_KD = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_kills:infinite"] ?? "1") /
+                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_death:infinite"] ?? "1"),
 
                 Wins = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_matchwon:infinite"] ?? "0"),
                 Losses = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_matchlost:infinite"] ?? "0"),
