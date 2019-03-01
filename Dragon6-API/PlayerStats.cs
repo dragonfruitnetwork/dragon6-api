@@ -85,9 +85,7 @@ namespace Dragon6.API
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            return (int) await Task.Run(async () =>
-                JObject.Parse(await request.Content.ReadAsStringAsync())["player_profiles"]
-                    [0]["level"]);
+            return await Alignments.AlignLevel(await request.Content.ReadAsStringAsync());
         }
 
         /// <summary>
@@ -129,70 +127,9 @@ namespace Dragon6.API
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            var PlayerObj = await Task.Run(async () => JObject.Parse(await request.Content.ReadAsStringAsync()));
+            var PlayerObj = await request.Content.ReadAsStringAsync();
 
-            return new PlayerStats
-            {
-                Casual_Kills = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "0"),
-                Casual_Deaths = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_death:infinite"] ?? "0"),
-                Casual_KD = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "1") /
-                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_death:infinite"] ?? "1"),
-
-                Casual_Wins = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchwon:infinite"] ?? "0"),
-                Casual_Losses = int.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchlost:infinite"] ?? "0"),
-                Casual_WL = float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchwon:infinite"] ?? "1") /
-                            float.Parse((string) PlayerObj["results"][GUID]["casualpvp_matchlost:infinite"] ?? "1"),
-
-                Barricades = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_barricadedeployed:infinite"] ??
-                                       "0"),
-                Reinforcements =
-                    int.Parse((string) PlayerObj["results"][GUID]["generalpvp_reinforcementdeploy:infinite"] ?? "0"),
-
-                Downs = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_dbno:infinite"] ?? "0"),
-                Revives = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_revive:infinite"] ?? "0"),
-
-                Headshots = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_headshot:infinite"] ?? "0"),
-                Knifes = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_meleekills:infinite"] ?? "0"),
-
-                Assists = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_killassists:infinite"] ?? "0"),
-                Suicides = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_suicide:infinite"] ?? "0"),
-
-                THunt_Kills = int.Parse((string) PlayerObj["results"][GUID]["generalpve_kills:infinite"] ?? "0"),
-                THunt_Deaths = int.Parse((string) PlayerObj["results"][GUID]["generalpve_death:infinite"] ?? "0"),
-                THunt_KD = float.Parse((string) PlayerObj["results"][GUID]["generalpve_kills:infinite"] ?? "1") /
-                           float.Parse((string) PlayerObj["results"][GUID]["generalpve_death:infinite"] ?? "1"),
-
-                HIScore_Secure =
-                    int.Parse((string) PlayerObj["results"][GUID]["secureareapvp_bestscore:infinite"] ?? "0"),
-                HIScore_Bomb = int.Parse((string) PlayerObj["results"][GUID]["plantbombpvp_bestscore:infinite"] ?? "0"),
-                HIScore_Hostage =
-                    int.Parse((string) PlayerObj["results"][GUID]["rescuehostagepvp_bestscore:infinite"] ?? "0"),
-
-                TimePlayed_Casual =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string) PlayerObj["results"][GUID]["casualpvp_timeplayed:infinite"] ?? "0")),
-                TimePlayed_THunt =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string) PlayerObj["results"][GUID]["generalpve_timeplayed:infinite"] ?? "0")),
-                TimePlayed_Ranked =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string) PlayerObj["results"][GUID]["rankedpvp_timeplayed:infinite"] ?? "0")),
-
-                Ranked_Wins = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchwon:infinite"] ?? "0"),
-                Ranked_Losses = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchlost:infinite"] ?? "0"),
-                Ranked_WL = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchwon:infinite"] ?? "1") /
-                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_matchlost:infinite"] ?? "1"),
-
-                Ranked_Kills = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_kills:infinite"] ?? "0"),
-                Ranked_Deaths = int.Parse((string) PlayerObj["results"][GUID]["rankedpvp_death:infinite"] ?? "0"),
-                Ranked_KD = float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_kills:infinite"] ?? "1") /
-                            float.Parse((string) PlayerObj["results"][GUID]["rankedpvp_death:infinite"] ?? "1"),
-
-                Wins = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_matchwon:infinite"] ?? "0"),
-                Losses = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_matchlost:infinite"] ?? "0"),
-                Kills = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_kills:infinite"] ?? "0"),
-                Deaths = int.Parse((string) PlayerObj["results"][GUID]["generalpvp_death:infinite"] ?? "0")
-            };
+            return await Alignments.AlignGeneralStats(PlayerObj,GUID);
         }
     }
 }

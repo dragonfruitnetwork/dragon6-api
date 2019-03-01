@@ -1,10 +1,10 @@
 kind: pipeline
-name: build
+name: package
 
 clone:
   skip_verify: true
 steps:
-- name: main
+- name: test
   image: mono
   commands:
   - nuget restore

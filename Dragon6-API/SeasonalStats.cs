@@ -64,19 +64,9 @@ namespace Dragon6.API
             if (content.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            var response = await Task.Run(async () =>
-                JObject.Parse(await content.Content.ReadAsStringAsync()));
+            var response = await content.Content.ReadAsStringAsync();
 
-            return new SeasonalStats
-            {
-                Season = SeasonNumber,
-                Rank = (int) response["players"][uuid]["rank"],
-                Max_Rank = (int) response["players"][uuid]["max_rank"],
-                Wins = (int) response["players"][uuid]["wins"],
-                Losses = (int) response["players"][uuid]["losses"],
-                Abandons = (int) response["players"][uuid]["abandons"],
-                MMR = (int) response["players"][uuid]["mmr"]
-            };
+            return await Alignments.AlignSeason(response, uuid);
         }
 
     }

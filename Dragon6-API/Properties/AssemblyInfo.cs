@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Dragon6 API")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Dragon6 API - A Rainbow Six Siege API for .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DragonFruit Network")]
 [assembly: AssemblyProduct("Dragon6 API")]
