@@ -4,8 +4,16 @@ name: package
 clone:
   skip_verify: true
 steps:
-- name: test
+- name: build
   image: mono
   commands:
   - nuget restore
   - msbuild
+
+- name: nuget
+  image: mono
+  commands:
+  - nuget restore
+  - msbuild
+  - cd Dragon6-API
+  - nuget setApiKey from_secret: apiKey
