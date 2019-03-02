@@ -127,9 +127,7 @@ namespace Dragon6.API
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            var PlayerObj = await request.Content.ReadAsStringAsync();
-
-            return await Alignments.AlignGeneralStats(PlayerObj,GUID);
+            return await Alignments.AlignGeneralStats(await request.Content.ReadAsStringAsync(), GUID);
         }
     }
 }

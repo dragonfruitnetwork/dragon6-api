@@ -51,16 +51,8 @@ namespace Dragon6.API
             var response = await client.GetAsync(uri + "&nameOnPlatform=" + name);
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
-            var values = await Task.Run(async () => JObject.Parse(await response.Content.ReadAsStringAsync()));
 
-            return new AccountInfo
-            {
-                PlayerName = values["profiles"][0]["nameOnPlatform"].ToString(),
-                Image =
-                    $"https://ubisoft-avatars.akamaized.net/{values["profiles"][0]["profileId"]}/default_146_146.png?appId=39baebad-39e5-4552-8c25-2c9b919064e2",
-                GUID = values["profiles"][0]["profileId"].ToString(),
-                Platform = platform
-            };
+            return await Alignments.AlignAccount(await response.Content.ReadAsStringAsync());
         }
 
         /// <summary>

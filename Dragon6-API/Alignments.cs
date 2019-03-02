@@ -6,11 +6,42 @@ using Newtonsoft.Json.Linq;
 
 namespace Dragon6.API
 {
+    /// <summary>
+    /// Takes Ubisoft JSON and pareses it into a Dragon6 Class
+    /// </summary>
+    /// <param name="json"></param>
+    /// <param name="GUID"></param>
+    /// <returns></returns>
     class Alignments
     {
+        /// <summary>
+        /// Aligns into an AccountInfo Class
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public static async Task<AccountInfo> AlignAccount(string json)
+        {
+            var values = await Task.Run(() => JObject.Parse(json));
+
+            var Ai = new AccountInfo
+            {
+                PlayerName = values["profiles"][0]["nameOnPlatform"].ToString(),
+                Image =
+                    $"https://ubisoft-avatars.akamaized.net/{values["profiles"][0]["profileId"]}/default_146_146.png?appId=39baebad-39e5-4552-8c25-2c9b919064e2",
+                GUID = values["profiles"][0]["profileId"].ToString(),
+                Platform = (string)values["profiles"][0]["platformType"] == "uplay"? References.Platforms.PC : (string)values["profiles"][0]["platformType"] == "psn" ? References.Platforms.PSN:References.Platforms.XB1
+            };
+            return Ai;
+        }
+
+        /// <summary>
+        /// Aligns into an PlayerStats Class
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         public static async Task<PlayerStats> AlignGeneralStats(string json,string GUID)
         {
-            var PlayerObj = await Task.Run(async () => JObject.Parse(json));
+            var PlayerObj = await Task.Run( () => JObject.Parse(json));
             return new PlayerStats
             {
                 Casual_Kills = int.Parse((string)PlayerObj["results"][GUID]["casualpvp_kills:infinite"] ?? "0"),
@@ -76,6 +107,11 @@ namespace Dragon6.API
 
         }
 
+        /// <summary>
+        /// Aligns into an SeasonalStats Class
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         public static async Task<SeasonalStats> AlignSeason(string json,string GUID)
         {
             var response = await Task.Run(() =>
@@ -94,6 +130,11 @@ namespace Dragon6.API
 
         }
 
+        /// <summary>
+        /// Gets the User's Level as an int32
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
         public static async Task<int> AlignLevel(string json)
         {
             return (int)await Task.Run(() =>
