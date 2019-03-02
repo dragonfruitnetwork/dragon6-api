@@ -9,12 +9,3 @@ steps:
   commands:
   - nuget restore
   - msbuild
-
-- name: nuget
-  image: mono
-  commands:
-  - cd Dragon6-API
-  - nuget setApiKey ${Key}
-  environment:
-    Key:
-      from_secret: apiKey

@@ -6,7 +6,7 @@
     <RootNamespace>Dragon6.API</RootNamespace>
     <PackageId>Dragon6.API</PackageId>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageTitle>Dragon6 API</PackageTitle>
     <PackageSummary>A Rainbow Six Stats API</PackageSummary>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/31821773?s=200&amp;v=4</PackageIconUrl>
@@ -16,6 +16,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageTags>r6stats, r6api, r6, rainbowsix</PackageTags>
+    <Authors>DragonFruit Network</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,10 @@
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="$(SolutionDir)AssemblyVersionPatch.exe $(ProjectDir)Properties\AssemblyInfo.cs" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del $(SolutionDir)Nuget\*.nupkg&#xD;&#xA;copy $(ProjectDir)$(OutDir)*.dll $(SolutionDir)Nuget\lib\&#xD;&#xA;$(SolutionDir)nuget.exe pack $(SolutionDir)Nuget\Nuget.nuspec  -OutputDirectory $(SolutionDir)Nuget" />
   </Target>
 
 </Project>
