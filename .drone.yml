@@ -10,7 +10,7 @@ steps:
   - nuget restore
   - msbuild
 - name: mirror
-  image: git
+  image: alpine/git
   commands:
   - git push --mirror "https://$$LOGIN@github.com/dragonfruitnetwork/Dragon6-API.git"
   environment:
