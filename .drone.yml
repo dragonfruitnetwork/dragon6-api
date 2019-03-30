@@ -10,13 +10,6 @@ steps:
   - nuget restore
   - msbuild /p:Configuration=Release
   - cd Nuget
-  - apt update
-  - apt install wget
-  - wget -O nugetcli.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-  - mono nugetcli.exe push *.nupkg -ApiKey $$APIKEY -Source https://api.nuget.org/v3/index.json
-  environment:
-    APIKEY:
-      from_secret: Nuget
   when:
     branch:
     - master
