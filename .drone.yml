@@ -16,3 +16,10 @@ steps:
   when:
     branch:
     - master
+- name: mirror
+  image: alpine/git
+  commands:
+  - git push --mirror "https://$$LOGIN@github.com/dragonfruitnetwork/Dragon6-API.git"
+  environment:
+    LOGIN:
+      from_secret: gitlogin
