@@ -4,7 +4,7 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 > To build this, make sure that there a copy of `nuget.exe` present in `C:\Windows`
 
 ## Dragon6 API
-***
+
   - Easy to use
   - Full Async support
   - General Stats
@@ -13,7 +13,7 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
   - PC ID Reverse Engineer Support
  
 ## Usage
-***
+
 ```C#
 using Dragon6.API;
 

@@ -9,3 +9,10 @@ steps:
   commands:
   - nuget restore
   - msbuild
+  - nuget push Nuget/*.nupkg -k $$APIKEY
+  environment:
+    APIKEY:
+      from_secret: Nuget
+  when:
+    branch:
+    - master

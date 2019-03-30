@@ -3,7 +3,7 @@
   <metadata>
     <id>Dragon6.API</id>
     <title>Dragon6 API</title>
-    <version>2019.0203.08</version>
+    <version>2019.0330.08</version>
     <authors>DragonFruit Network</authors>
     <owners>DragonFruit Network</owners>
     <licenseUrl>https://github.com/dragonfruitnetwork/Dragon6-API/blob/master/LICENSE.md</licenseUrl>
@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Dragon6 API - A Rainbow Six Stats API for .NET</description>
     <summary>Dragon6 API - A Rainbow Six Stats API for .NET</summary>
-    <releaseNotes>Edits to how the program processes JSON data</releaseNotes>
+    <releaseNotes>Edit Endpoints</releaseNotes>
     <copyright>Copyright 2019 DragonFruit Network</copyright>
     <tags>dragon6 r6stats rainbowsixapi api rainbowsix</tags>
     <dependencies>

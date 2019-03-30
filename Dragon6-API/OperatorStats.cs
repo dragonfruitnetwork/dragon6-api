@@ -65,7 +65,7 @@ namespace Dragon6.API
 
             var rawStats = await Task.Run(async () => JObject.Parse(await request.Content.ReadAsStringAsync()));
             var OperatorObj = await Task.Run(async () => JObject.Parse(await client
-                .GetAsync("https://dragonfruitnetwork.github.io/Dragon6-Data/OperatorInfo.json")
+                .GetAsync("https://assets.dragon6.dragonfruit.ml/operatorinfo.json")
                 .Result.Content.ReadAsStringAsync()));
             var PlayerObj = (JObject) rawStats["results"][GUID];
 
