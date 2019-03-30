@@ -9,7 +9,7 @@ steps:
   commands:
   - nuget restore
   - msbuild
-  - nuget push Nuget/*.nupkg -k $$APIKEY
+  - nuget push Nuget/*.nupkg -ApiKey $$APIKEY
   environment:
     APIKEY:
       from_secret: Nuget
