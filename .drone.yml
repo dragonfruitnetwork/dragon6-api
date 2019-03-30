@@ -5,12 +5,12 @@ clone:
   skip_verify: true
 steps:
 - name: build
-  image: mono
+  image: mcr.microsoft.com/dotnet/core/sdk
   commands:
-  - nuget restore
-  - msbuild
+  - dotnet restore
+  - dotnet msbuild
   - cd Nuget
-  - nuget push *.nupkg -ApiKey $$APIKEY -Source https://api.nuget.org/v3/index.json
+  - dotnet nuget push *.nupkg -k $$APIKEY -s https://api.nuget.org/v3/index.json
   environment:
     APIKEY:
       from_secret: Nuget
