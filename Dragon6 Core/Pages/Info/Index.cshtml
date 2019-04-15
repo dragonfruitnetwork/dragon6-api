@@ -1,9 +1,79 @@
 ﻿@page
 @model DragonFruit.Six.Core.Pages.Info.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "About Dragon6";
     Layout = "~/Pages/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1 class="display-4" style="text-align: center">
+    Dragon6 
+</h1>
+<br />
+<h1 style="text-align:center">
+    <span id="version" class="badge badge-info" runat="server">Version @System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString()</span>
+</h1>
+<hr class="bg-dark" />
+<br />
+<h2>Contributors</h2>
+<br />
+<div class="card text-white bg-dark mb-3" runat="server">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4" style="align-content: center">
+                @*<%--developers--%>*@
+                @foreach (var x in Model.Developers)
+                {
+                    <div class="row">
+                        <ul class="list-inline">
+                            <li class="list-inline-item" style="padding-left: 1rem;">
+                                <img style="max-width: 4rem" src="@x.Image" runat="server" class="rounded-circle" />
+                            </li>
+                            <li class="list-inline-item" style="padding-left: 1rem">
+                                <a href="./Stats/PC/@x.PlayerName" class="lead" style="vertical-align: text-top;">@x.PlayerName</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                }
+            </div>
+            <div class="col-md-4" style="text-align: center">
+                @*<%-- designers --%>
+                    <%--                    <div class="row">
+                        <ul class="list-inline">
+                            <li class="list-inline-item" style="padding-left: 1rem;">
+                                <img style="max-width: 4rem" id="photo3" runat="server" class="rounded-circle" />
+                            </li>
+                            <li class="list-inline-item" style="padding-left: 1rem"><a id="design1" class="lead" runat="server" style="vertical-align: text-top;">Frost_Bites</a></li>
+                        </ul>
+                    </div>--%>*@
+            </div>
+            <div class="col-md-4" style="text-align: center">
+                @*<%-- everyone else --%>*@
+            </div>
+        </div>
 
+    </div>
+    <div class="card-footer text-muted">
+        <div class="row">
+            <div class="col-md-4" style="padding-left: 1rem">
+                <div class="text-muted">Developers</div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-muted" style="padding-left: 1rem; visibility: hidden">Designers</div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-muted" style="padding-left: 1rem; visibility: hidden">Misc.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<h2>3rd Parties</h2>
+<br />
+<ul class="list-group-flush">
+    <li class="lead">Ubisoft: Stats, Rank Icons and Backgrounds</li>
+    <li class="lead">Google: Resource, Asset and Hosting</li>
+    <li class="lead">Telerik AD: Web Components (Partially Copyright. All Rights Reserved)</li>
+    <li class="lead">Feather: Icons</li>
+    <li class="lead">Bootstrap: CSS &amp; Site Design (MIT)</li>
+</ul><br />

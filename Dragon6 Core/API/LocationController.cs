@@ -21,6 +21,8 @@ namespace DragonFruit.Six.Core.API
             try
             {
                 ip = HttpContext.Request.Headers.ContainsKey("X-Forwarded-For") ? HttpContext.Request.Headers["X-Forwarded-For"] : HttpContext.Request.Headers["x-appengine-user-ip"];
+                if(ip == null || ip == "null")
+                    ip = HttpContext.Connection.RemoteIpAddress.ToString();
             }
             catch { }
 

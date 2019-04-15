@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Dragon6.API;
 using Microsoft.AspNetCore.Http;
-using DragonFruit.Six.Core;
 
 namespace DragonFruit.Six.Core.Pages.Stats
 {
@@ -63,9 +62,9 @@ namespace DragonFruit.Six.Core.Pages.Stats
             Info = await AccountInfo.GetFromName(UserName, (References.Platforms)Enum.Parse(typeof(References.Platforms), Platform, true), Token);
 
             //3. start all the tasks simultaneously
+            OperatorStatsTask = Task.Run(async () => await OperatorStats.GetOperatorStats(Info, Token));
             GeneralStatsTask = Task.Run(async () => await PlayerStats.GetStats(Info, Token));
             RankedStatsTask = Task.Run(async () => await SeasonalStats.GetSeason(Info,-1,Region, Token));
-            OperatorStatsTask = Task.Run(async () => await OperatorStats.GetOperatorStats(Info, Token));
             GetLevelStatTask = Task.Run(async () => await PlayerStats.GetLevel(Info, Token));
 
             //4. verified accounts

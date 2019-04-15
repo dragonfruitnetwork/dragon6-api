@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>DragonFruit.Six.Core</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,5 +27,4 @@
     <Folder Include="wwwroot\vendor\kendo\" />
     <Folder Include="wwwroot\vendor\bootstrap\" />
   </ItemGroup>
-
 </Project>
