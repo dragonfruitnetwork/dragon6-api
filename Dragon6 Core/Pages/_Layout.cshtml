@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script src="~/vendor/kendo/js/kendo.all.min.js"></script>
+    <script src="~/vendor/kendo/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/vendor/cookies/cookies.js"></script>
+    <script src="~/JS/search.js"></script>
+
+    <link rel="stylesheet" href="~/vendor/kendo/css/kendo.bootstrap-v4.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        .k-dropdown .k-dropdown-wrap .k-select, .k-ie .k-dropdown .k-dropdown-wrap .k-widget .k-select, .k-ff .k-dropdown .k-dropdown-wrap .k-select {
+            color: blue !important;
+        }
+        .center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 110px;
+            height: 110px;
+            margin-top: -55px; /* Half the height */
+            margin-left: -55px; /* Half the width */
+        }
+
+        span.blue {
+            background: #5178D0;
+            border-radius: 0.8em;
+            -moz-border-radius: 0.8em;
+            -webkit-border-radius: 0.8em;
+            color: #ffffff;
+            display: inline-block;
+            font-weight: bold;
+            line-height: 1.6em;
+            margin-right: 15px;
+            text-align: center;
+            /*width: 1.6em;*/
+            max-width: 50px;
+            max-height: 50px
+        }
+    </style>
+
+</head>
+<body>
+    <div class="bg-dark text-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto"></ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto order-2" href="~/">Dragon6</a>
+            </div>
+
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://discord.gg/VA26u5Z">
+                            <img src="~/assets/discord.svg" width="20" height="20" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Info">
+                            <img src="~/assets/info.svg" width="20" height="20" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="container mt-3">
+            @RenderBody()
+        </div>
+        <footer id="footer" class="text-light text-muted text-center text-small">
+            <br />
+            <p class="mb-1">&copy; @DateTime.Now.Year DragonFruit Network</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="~/Info/Privacy">Privacy</a></li>
+                <li class="list-inline-item"><a href="~/Info/RemoveData">Remove Account</a></li>
+                <li class="list-inline-item"><a href="~/Info/About">About Dragon6</a></li>
+            </ul>
+
+        </footer>
+        <br />
+    </div>
+</body>
+</html>

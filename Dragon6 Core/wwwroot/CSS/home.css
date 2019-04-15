@@ -1,0 +1,22 @@
+﻿body, html {
+    height: 100%;
+}
+
+.bg {
+    /* The image used */
+    background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ), url("/assets/bg/outback.jpg");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.vertical-center {
+    min-height: 80%; /* Fallback for browsers do NOT support vh unit */
+    min-height: 80vh; /* These two lines are counted as one :-)       */
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}

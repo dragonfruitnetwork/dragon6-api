@@ -1,0 +1,123 @@
+﻿@page
+@model DragonFruit.Six.Core.Pages.IndexModel
+@{
+    Layout = null;
+}
+@using Kendo.Mvc.UI
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dragon6 Home</title>
+
+    <script src="~/vendor/jquery/jquery.js"></script>
+    <script src="~/vendor/kendo/js/kendo.all.min.js"></script>
+    <script src="~/vendor/kendo/js/kendo.aspnetmvc.min.js"></script>
+    <script src="~/vendor/cookies/cookies.js"></script>
+    <script src="~/JS/home.js"></script>
+    <script src="~/JS/search.js"></script>
+
+    <link rel="stylesheet" href="~/CSS/home.css" />
+    <link rel="stylesheet" href="~/vendor/kendo/css/kendo.bootstrap-v4.min.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        .k-dropdown .k-dropdown-wrap .k-select, .k-ie .k-dropdown .k-dropdown-wrap .k-widget .k-select, .k-ff .k-dropdown .k-dropdown-wrap .k-select {
+            color: blue !important;
+        }
+    </style>
+</head>
+<body class="bg">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto"></ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto order-2" href="~/">Dragon6</a>
+        </div>
+
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="https://discord.gg/VA26u5Z">
+                        <img src="~/assets/discord.svg" width="20" height="20" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Info">
+                        <img src="~/assets/info.svg" width="20" height="20" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    @(Html.Kendo().Dialog()
+        .Name("dialog")
+        .Title("Welcome To Dragon6")
+        .Content("<p>We need you to agree to some stuff before you continue<p>")
+        .Width(400)
+        .Modal(false).Visible(false)
+        .Actions(actions =>
+        {
+            actions.Add().Text("View the stuff").Action("showTOS");
+            actions.Add().Text("I Agree...").Primary(true).Action("agreetoTOS");
+        })
+    )
+    <div class="container">
+        <br />
+        <form class="vertical-center" onsubmit="startSearch();return false">
+            <h3 style="text-align: center" class="display-4 text-light py-4">Dragon6</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    @(Html.Kendo().DropDownList()
+          .Name("platform")
+          .BindTo(Enum.GetNames(typeof(Dragon6.API.References.Platforms)))
+          .Value("pc")
+          .HtmlAttributes(new { style = "width:110%;" })
+                    )
+                </div>
+                <input type="text" ID="PlayerName" placeholder="Player Name" class="form-control" />
+                <div class="input-group-append">
+                    <div class="btn-group" role="group">
+                        <button type="submit" class="btn btn-success">Search</button>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-inline" style="text-align: center">
+                <li class="list-inline-item">
+                    <p class="lead text-light">Current Ranked Region: EMEA</p>
+                </li>
+                <li class="list-inline-item"><a href="~/ChangeRegion">Change Region <i class="material-icons" style="vertical-align: text-top;">trending_flat</i></a></li>
+            </ul>
+
+            @if (Model.SellAndroid)
+            {
+                <a ID="androidapp" visible="false" href='https://play.google.com/store/apps/details?id=com.dragon.six&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="65" style="display: block;margin-left: auto;margin-right: auto" src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png' /></a>
+            }
+            else if (Model.SellWindows)
+            {
+                <a id="windowsapp" visible="false" href='//www.microsoft.com/store/apps/9N88CQPKGS15?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='English badge' style='width: 142px; height: 53px;position:fixed;right:20px;bottom:20px;' /></a>
+            }
+
+            @*<a id="iosapp" href="./" visible="false"><img src="./res/appstore-icon.svg" height="50" style="display: block;margin-left: auto;margin-right: auto" /></a>*@
+            <br />
+        </form>
+    </div>
+    
+    <footer id="footer" class="text-light text-muted text-center text-small">
+        <br />
+        <p class="mb-1">&copy; @DateTime.Now.Year DragonFruit Network</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="~/Info/Privacy">Privacy</a></li>
+            <li class="list-inline-item"><a href="~/Info/RemoveData">Remove Account</a></li>
+            <li class="list-inline-item"><a href="~/Info/About">About Dragon6</a></li>
+        </ul>
+
+    </footer>
+
+</body>
+</html>

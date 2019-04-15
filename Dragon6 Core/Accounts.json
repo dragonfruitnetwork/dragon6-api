@@ -1,0 +1,38 @@
+[
+  {
+    "GUID": "14c01250-ef26-4a32-92ba-e04aa557d619",
+    "IsVerified": true,
+    "IsBlocked": false,
+    "YTLink": "",
+    "TwitchLink": ""
+  },
+  {
+    "GUID": "21d95808-d692-4bf3-b825-f5ad3396d079",
+    "IsVerified": true,
+    "YTLink": "https://www.youtube.com/channel/UCUlE6M4dBe1CudbcTms3iow",
+    "TwitchLink": "https://www.twitch.tv/frost_bites_tv",
+    "IsBlocked": false
+  },
+  {
+    "GUID": "d38ade45-e581-4d63-a5f0-0ab61445e5ab",
+    "IsVerified": true,
+    "YTLink": "https://www.youtube.com/channel/UCwVJBAOJ2m_euQJvVnzou_g",
+    "TwitchLink": "https://www.twitch.tv/ri_zq",
+    "IsBlocked": false
+  },
+  {
+    "GUID": "1b50085a-8a20-4ce6-b75f-db6a00e4d718",
+    "IsBlocked": true,
+    "IsVerified": false,
+    "YTLink": "",
+    "TwitchLink": ""
+
+  },
+  {
+    "GUID": "532dae03-7c7f-42a1-89d4-f5bbd8f67573",
+    "IsBlocked": true,
+    "IsVerified": false,
+    "YTLink": "",
+    "TwitchLink": ""
+  }
+]
