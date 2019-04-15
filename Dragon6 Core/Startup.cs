@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Core
 {
@@ -54,11 +49,6 @@ namespace DragonFruit.Six.Core
                     TwitchLink = (string)x["TwitchLink"]
                 });
             }
-
-            //AccountStatus.UsersList = JArray.Parse(File.ReadAllText(Path.Combine(env.ContentRootPath, "Accounts.json"))).ToObject<List<AccountStatus>>();
-
-
-
 
         }
     }
