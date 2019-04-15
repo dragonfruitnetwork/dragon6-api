@@ -1,0 +1,65 @@
+[
+  {
+    "id": 13,
+    "operation": "Burnt Horizon",
+    "year": 4,
+    "sequence": 1,
+    "accent": "#e70247"
+  },
+  {
+    "id": 12,
+    "operation": "Wind Bastion",
+    "year": 3,
+    "sequence": 4,
+    "accent": "#d58749"
+  },
+  {
+    "id": 11,
+    "operation": "Grim Sky",
+    "year": 3,
+    "sequence": 3,
+    "accent": "#607d8b"
+  },
+  {
+    "id": 10,
+    "operation": "Para Bellum",
+    "year": 3,
+    "sequence": 2,
+    "accent": "#28a745"
+  },
+  {
+    "id": 9,
+    "operation": "Chimera",
+    "year": 3,
+    "sequence": 1,
+    "accent": "#ff9800"
+  },
+  {
+    "id": 8,
+    "operation": "White Noise",
+    "year": 2,
+    "sequence": 4,
+    "accent": "#607d8b"
+  },
+  {
+    "id": 7,
+    "operation": "Blood Orchid",
+    "year": 2,
+    "sequence": 3,
+    "accent": "#dc3545"
+  },
+  {
+    "id": 6,
+    "operation": "Health",
+    "year": 2,
+    "sequence": 2,
+    "accent": "#007bff"
+  },
+  {
+    "id": 5,
+    "operation": "Velvet Shell",
+    "year": 2,
+    "sequence": 1,
+    "accent": "#673ab7"
+  }
+]

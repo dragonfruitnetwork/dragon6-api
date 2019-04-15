@@ -1,9 +1,139 @@
-﻿@page
+﻿@page "{Year=4}/{Platform}/{UserName}"
 @model DragonFruit.Six.Core.Pages.Stats.RankedModel
 @{
     ViewData["Title"] = "Ranked";
     Layout = "~/Pages/_Layout.cshtml";
 }
+@using Kendo.Mvc.UI
 
-<h2>Ranked</h2>
+<form onsubmit="startSearch(); return false;">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            @(Html.Kendo().DropDownList()
+            .Name("platform")
+            .BindTo(Enum.GetNames(typeof(Dragon6.API.References.Platforms)))
+            .Value(Model.Platform)
+            .HtmlAttributes(new { style = "width:110%;" })
+            )
+        </div>
+        <input type="text" ID="PlayerName" placeholder="Player Name" class="form-control" />
+        <div class="input-group-append">
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-success">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<div class="row">
+    <div class="col-md-2">
+        <img src="@Model.Info.Image" style="max-height: 146px; max-width: 146px;" class="rounded-circle" />
+    </div>
+    <div class="col-md-6">
+        <p class="display-4">@Model.Info.PlayerName</p>
+        @*@if (Model.Status.IsVerifed)
+        {
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <p class="lead">Verified Account ✔</p>
+                </li>
+                @if (!string.IsNullOrEmpty(Model.Status.YTLink))
+                {
+                    <li class="list-inline-item">
+                        <a class="lead" target="_blank" href="@Model.Status.YTLink">YouTube</a>
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Status.TwitchLink))
+                {
+                    <li class="list-inline-item">
+                        <a class="lead" target="_blank" href="@Model.Status.TwitchLink">Twitch</a>
+                    </li>
+                }
+            </ul>
+        }*@
+    </div>
+</div>
+<br /><br />
+@foreach (var x in Model.Cards.OrderByDescending(x => x.sequence).ToList())
+{
 
+    Dragon6.API.SeasonalStats SeasonStats = Model.Stats.Where(z => x.id == z.Season).First();
+
+    <div class="card text-white mb-3" style="background-color: @x.accent">
+
+    <div class="card-header">Year @x.year Season @x.sequence (Operation @x.operation)</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@Url.Content($"~/assets/rank/{SeasonStats.Max_Rank}.svg")" class="center" />
+            </div>
+            <div class="col-md-4">
+                <img src="@Url.Content($"~/assets/rank/{SeasonStats.Rank}.svg")" class="center" />
+            </div>
+            <div class="col-md-4" style="align-content: center">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="lead">@SeasonStats.Wins Wins</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="lead">@SeasonStats.Losses Losses</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-wifi-off">
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                    <line x1="12" y1="20" x2="12" y2="20"></line>
+                                </svg>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="lead">@SeasonStats.Abandons Abandons</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-light" style="text-align: center">Highest Rank</div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-light" style="text-align: center">End Rank</div>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div class="text-light" style="text-align: center">Season Summary</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <br />
+}

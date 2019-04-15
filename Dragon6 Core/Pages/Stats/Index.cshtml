@@ -133,10 +133,10 @@
         </ul>
         <script>
             function gotoYear(season) {
-                var x = window.location.href;
+                var x = window.location.origin;
                 if (x[x.length - 1] === "/")
                     x = x.substring(0, x.length - 1);
-                window.location.href = x + "/ranked/" + season;
+                window.location.href = x + "/Stats/Ranked/" + season + "/" + document.getElementById("playerplatform").value + "/" + document.getElementById("playername").value;
             }
         </script>
     </div>
@@ -415,6 +415,10 @@
                 <input type="text" ID="playerid" Style="text-align: center" onclick="this.select();" ReadOnly class="form-control bg-dark text-light" value="@Model.Info.GUID"/>
             </div>
         </div>
+    </div>
+    <div style="display:none">
+        <input type="text" id="playername" value="@Model.UserName"/>
+        <input type="text" id="playerplatform" value="@Model.Platform"/>
     </div>
 </div>
 <br />

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\assets\NewFolder\**" />
+    <Content Remove="wwwroot\assets\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\assets\NewFolder\**" />
+    <None Remove="wwwroot\assets\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="API\TokenController.cs" />
   </ItemGroup>
 
@@ -22,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\assets\bg\" />
-    <Folder Include="wwwroot\assets\NewFolder\" />
     <Folder Include="wwwroot\CSS\" />
     <Folder Include="wwwroot\vendor\kendo\" />
     <Folder Include="wwwroot\vendor\bootstrap\" />

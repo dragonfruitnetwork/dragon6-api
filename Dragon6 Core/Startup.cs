@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace DragonFruit.Six.Core
 {
@@ -27,6 +28,7 @@ namespace DragonFruit.Six.Core
             }
             else
                 app.UseExceptionHandler("/");
+
             app.UseStaticFiles(); //wwwroot enable
             app.UseMvc(); //Pages folder enable
 
@@ -38,6 +40,7 @@ namespace DragonFruit.Six.Core
             CultureInfo.DefaultThreadCurrentCulture = ci;
             CultureInfo.DefaultThreadCurrentUICulture = ci;
 
+            //verified accounts
             foreach (JToken x in JArray.Parse(File.ReadAllText(Path.Combine(env.ContentRootPath, "Accounts.json"))))
             {
                 AccountStatus.UsersList.Add(new AccountStatus
@@ -50,6 +53,8 @@ namespace DragonFruit.Six.Core
                 });
             }
 
+            //ranked cards
+            API.RankedCards.Setup(env);
         }
     }
 }
