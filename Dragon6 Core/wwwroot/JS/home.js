@@ -11,5 +11,9 @@ window.addEventListener("load", function () {
         $('#dialog').data("kendoDialog").open();
         return;
     }
+    var v = Cookies.get("region");
+    if (v !== undefined) {
+        document.getElementById("regionbar").innerHTML = "Current Ranked Region: "+v ;
+    }
 
 });

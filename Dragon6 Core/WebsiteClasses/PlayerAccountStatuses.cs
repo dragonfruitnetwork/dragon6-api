@@ -6,6 +6,15 @@ using System.Threading.Tasks;
 
 namespace DragonFruit.Six.Core
 {
+    public class Regions
+    {
+        public enum Region
+        {
+            EMEA,
+            NCSA,
+            APAC
+        };
+    }
     public class AccountStatus
     {
         public bool IsVerifed { get; set; }

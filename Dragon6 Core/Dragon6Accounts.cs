@@ -20,7 +20,7 @@ namespace DragonFruit.Six.Core
     }
     public class GoogleServices
     {
-        private static readonly string FirestoreCollection = "dragon6test";
+        private static readonly string FirestoreCollection = "dragon6";
         private static readonly string FirestoreName = "dragon6-224813";
         private static GoogleCredential creds;
 

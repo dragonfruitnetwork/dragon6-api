@@ -30,7 +30,8 @@ namespace DragonFruit.Six.Core
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            else
+                app.UseExceptionHandler("/");
             app.UseStaticFiles(); //wwwroot enable
             app.UseMvc(); //Pages folder enable
 
