@@ -9,13 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\assets\NewFolder\**" />
-    <Content Remove="wwwroot\assets\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\assets\NewFolder\**" />
-    <None Remove="wwwroot\assets\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="API\TokenController.cs" />
   </ItemGroup>
 

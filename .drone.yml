@@ -5,11 +5,13 @@ clone:
   skip_verify: true
 
 steps:
-- name: heroku
-  image: ruby
-  commands:
-  - gem install dpl
-  - dpl --provider=heroku --app=dragon6 --api-key=$KEY
-  environment:
-    KEY:
+- name: dockerize
+  image: plugins/docker
+  settings:
+    username: 
+      from_secret: HEROKU_USR
+    password:
       from_secret: HEROKU_KEY
+    repo: registry.heroku.com/dragonsix/web
+    registry: registry.heroku.com
+    dockerfile: Dragon6 Core/Dockerfile
