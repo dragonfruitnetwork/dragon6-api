@@ -6,11 +6,38 @@ clone:
 
 steps:
 
-- name: toheroku
-  image: ruby
+- name: dockerise
+  image: docker
+  volumes:
+  - name: artifact
+    path: /root/artifact
   commands:
-  - gem install dpl
-  - dpl --provider=heroku --app=dragonsix --api-key=$KEY
+  - mkdir "Image"
+  - cd "Dragon6 Core"
+  - docker build -t dragonsix
+  - docker save -o "/root/artifact/d6.tar" dragonsix
+
+
+- name: publish
+  image: docker
+  volumes:
+  - name: artifact
+    path: /root/artifact
+  commands:
+  - docker load -i "/root/artifact/d6.tar"
+  - docker login --username=$USERNAME --password=$KEY registry.heroku.com
+  - docker tag dragonsix registry.heroku.com/dragonsix/web
+  - docker push registry.heroku.com/dragonsix/web
   environment:
     KEY:
       from_secret: HEROKU_KEY
+    USERNAME:
+      from_secret: HEROKU_USR
+  when:
+    branch:
+    - master
+
+
+volumes:
+- name: artifact
+  temp: {}

@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>DragonFruit.Six.Core</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <UserSecretsId>dd9c746a-4649-4566-8da4-e27032d550cc</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +25,7 @@
     <PackageReference Include="Google.Cloud.Firestore" Version="1.0.0-beta19" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2019.1.220" />
   </ItemGroup>
