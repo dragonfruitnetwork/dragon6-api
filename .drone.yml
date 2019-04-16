@@ -5,12 +5,6 @@ clone:
   skip_verify: true
 
 steps:
-- name: build
-  image: mcr.microsoft.com/dotnet/core/sdk:2.1-stretch
-  commands:
-  - dotnet restore
-  - dotnet build -c Release
-
 - name: heroku
   image: ruby
   commands:

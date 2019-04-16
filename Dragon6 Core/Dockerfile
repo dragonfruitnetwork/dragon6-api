@@ -1,7 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.1-stretch-slim AS base
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch AS build
 WORKDIR /src
@@ -17,4 +15,5 @@ RUN dotnet publish "Dragon6 Core.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "Dragon6 Core.dll"]
+ENV ASPNETCORE_URLS=http://*:$PORT
+ENTRYPOINT ["dotnet", "--no-launch-profile", "Dragon6 Core.dll"]
