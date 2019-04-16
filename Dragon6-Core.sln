@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7F44080-82C1-4248-AFF3-BA03285FB649}"
 	ProjectSection(SolutionItems) = preProject
 		.drone.yml = .drone.yml
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KendoPCL", "KendoPCL", "{F2307897-342D-47C7-9E87-A14A01082DC9}"
