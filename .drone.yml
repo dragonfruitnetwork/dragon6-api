@@ -8,38 +8,11 @@ steps:
 
 - name: dockerise
   image: plugins/docker
-  volumes:
-  - name: artifact
-    path: /root/artifact
-  commands:
-  - mkdir "Image"
-  - cd "Dragon6 Core"
-  - nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
-  - docker build -t dragonsix .
-  - docker save -o "/root/artifact/d6.tar" dragonsix
-
-
-- name: publish
-  image: plugins/docker
-  volumes:
-  - name: artifact
-    path: /root/artifact
-  commands:
-  - nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
-  - docker load -i "/root/artifact/d6.tar"
-  - docker login --username=$USERNAME --password=$KEY registry.heroku.com
-  - docker tag dragonsix registry.heroku.com/dragonsix/web
-  - docker push registry.heroku.com/dragonsix/web
-  environment:
-    KEY:
-      from_secret: HEROKU_KEY
-    USERNAME:
+  settings:
+    username: 
       from_secret: HEROKU_USR
-  when:
-    branch:
-    - master
-
-
-volumes:
-- name: artifact
-  temp: {}
+    password:
+      from_secret: HEROKU_KEY
+    repo: registry.heroku.com/dragonsix/web
+    registry: registry.heroku.com
+    dockerfile: Dragon6 Core/Dockerfile
