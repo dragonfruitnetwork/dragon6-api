@@ -1,42 +1,21 @@
 kind: pipeline
-name: stage
+name: deploy
 
 clone:
   skip_verify: true
 
 steps:
-
-- name: dockerize
-  image: plugins/docker
-  volumes:
-  - name: store
-    path: /root/files
-  settings:
-    username: 
-      from_secret: HEROKU_USR
-    password:
-      from_secret: HEROKU_KEY
-    repo: registry.heroku.com/dragonsix/web
-    registry: registry.heroku.com
-    dockerfile: Dragon6 Core/Dockerfile
-    build_args: "--iidfile /root/files/iid.txt"
-
-- name: deploy
-  image: alpine
-  volumes:
-  - name: store
-    path: /root/files
-  environment:
-    token: 
-      from_secret: HEROKU_KEY
+- name: build
+  image: mcr.microsoft.com/dotnet/core/sdk:2.1-stretch
   commands:
-  - apk update
-  - apk add --no-cache curl
-  - echo "Docker Image ID is $(cat /root/files/iid.txt)"
-  - |-
-    curl -X PATCH https://api.heroku.com/apps/my-awesome-app/formation --header "Content-Type: application/json" --header "Accept: application/vnd.heroku+json; version=3.docker-releases" --header "Authorization: Bearer ${token}" --data '{ "updates": [ { "type": "web", "docker_image": "'$(cat /root/files/iid.txt)'" } ] }'
+  - dotnet restore
+  - dotnet build -c Release
 
-
-volumes:
-- name: store
-  temp: {}
+- name: heroku
+  image: ruby
+  commands:
+  - gem install dpl
+  - dpl --provider=heroku --app=dragonsix --api-key=$KEY
+  environment:
+    KEY:
+      from_secret: HEROKU_KEY
