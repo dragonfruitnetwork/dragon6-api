@@ -7,7 +7,7 @@ clone:
 steps:
 
 - name: dockerise
-  image: docker
+  image: plugins/docker
   volumes:
   - name: artifact
     path: /root/artifact
@@ -19,7 +19,7 @@ steps:
 
 
 - name: publish
-  image: docker
+  image: plugins/docker
   volumes:
   - name: artifact
     path: /root/artifact
