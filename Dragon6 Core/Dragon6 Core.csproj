@@ -34,4 +34,16 @@
       <HintPath>..\KendoPCL\Kendo.Mvc.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Accounts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="google.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="RankedCards.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

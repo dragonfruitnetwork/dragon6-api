@@ -15,5 +15,6 @@ RUN dotnet publish "Dragon6 Core.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+
 ENV ASPNETCORE_URLS=http://+:$PORT
-CMD "dotnet --no-launch-profile Dragon6 Core.dll"
+CMD "dotnet --no-launch-profile `"Dragon6 Core.dll`""
