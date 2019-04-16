@@ -14,7 +14,7 @@ steps:
   commands:
   - mkdir "Image"
   - cd "Dragon6 Core"
-  - docker build -t dragonsix
+  - docker build -t dragonsix .
   - docker save -o "/root/artifact/d6.tar" dragonsix
 
 
