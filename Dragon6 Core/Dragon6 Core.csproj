@@ -27,7 +27,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
-    <PackageReference Include="Telerik.UI.for.AspNet.Core" Version="2019.1.220" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,5 +34,11 @@
     <Folder Include="wwwroot\CSS\" />
     <Folder Include="wwwroot\vendor\kendo\" />
     <Folder Include="wwwroot\vendor\bootstrap\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\KendoPCL\Kendo.Mvc.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

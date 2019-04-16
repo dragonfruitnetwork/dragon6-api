@@ -10,6 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.drone.yml = .drone.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KendoPCL", "KendoPCL", "{F2307897-342D-47C7-9E87-A14A01082DC9}"
+	ProjectSection(SolutionItems) = preProject
+		KendoPCL\Kendo.Mvc.dll = KendoPCL\Kendo.Mvc.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +28,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2307897-342D-47C7-9E87-A14A01082DC9} = {C7F44080-82C1-4248-AFF3-BA03285FB649}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {464246B0-ADD4-43C0-B1BA-46B9D33EB7B9}
