@@ -26,17 +26,11 @@ namespace DragonFruit.Six.Core
 
         public static void SetupGoogleServices(IHostingEnvironment environment)
         {
-            if (environment.IsDevelopment())
-            {
-                creds = GoogleCredential.FromFile(Path.Combine(environment.ContentRootPath, "google.json"));
-                ChannelCredentials channelCredentials = creds.ToChannelCredentials();
-                Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
+            creds = GoogleCredential.FromFile(Path.Combine(environment.ContentRootPath, "google.json"));
+            ChannelCredentials channelCredentials = creds.ToChannelCredentials();
+            Channel channel = new Channel(FirestoreClient.DefaultEndpoint.ToString(), channelCredentials);
 
-                Accounts.Dragon6DB = FirestoreDb.Create(FirestoreName, FirestoreClient.Create(channel)).Collection(FirestoreCollection);
-            }
-            else
-                Accounts.Dragon6DB = FirestoreDb.Create(FirestoreName).Collection(FirestoreCollection);
-
+            Accounts.Dragon6DB = FirestoreDb.Create(FirestoreName, FirestoreClient.Create(channel)).Collection(FirestoreCollection);
         }
     }
 }
