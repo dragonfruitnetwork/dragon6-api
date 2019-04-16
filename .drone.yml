@@ -6,7 +6,7 @@ clone:
 
 steps:
 
-- name: dockerise
+- name: dockerize
   image: plugins/docker
   settings:
     username: 

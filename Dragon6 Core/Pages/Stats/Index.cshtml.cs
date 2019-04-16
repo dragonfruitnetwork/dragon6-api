@@ -59,7 +59,14 @@ namespace DragonFruit.Six.Core.Pages.Stats
 
 
             //2. get account info
-            Info = await AccountInfo.GetFromName(UserName, (References.Platforms)Enum.Parse(typeof(References.Platforms), Platform, true), Token);
+            try
+            {
+                Info = await AccountInfo.GetFromName(UserName, (References.Platforms)Enum.Parse(typeof(References.Platforms), Platform, true), Token);
+            }
+            catch
+            {
+                Response.Redirect("~/");
+            }
 
             //3. start all the tasks simultaneously
             OperatorStatsTask = Task.Run(async () => await OperatorStats.GetOperatorStats(Info, Token));
