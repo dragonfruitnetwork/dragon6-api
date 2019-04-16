@@ -10,7 +10,7 @@ steps:
   image: ruby
   commands:
   - gem install dpl
-  - dpl --provider=heroku --app=dragonsix-tts --api-key=$KEY
+  - dpl --provider=heroku --app=dragonsix --api-key=$KEY
   environment:
     KEY:
       from_secret: HEROKU_KEY
