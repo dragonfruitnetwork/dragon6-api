@@ -5,13 +5,6 @@ clone:
   skip_verify: true
 
 steps:
-- name: mirror
-  image: alpine/git
-  commands:
-  - git push --mirror "https://$$LOGIN@github.com/aspriddell/Dragon6-Deploy.git"
-  environment:
-    LOGIN:
-      from_secret: gitlogin
 - name: dockerize
   image: plugins/docker
   settings:
