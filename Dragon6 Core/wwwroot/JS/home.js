@@ -13,7 +13,7 @@ window.addEventListener("load", function () {
     }
     var v = Cookies.get("region");
     if (v !== undefined) {
-        document.getElementById("regionbar").innerHTML = "Current Ranked Region: "+v ;
+        document.getElementById("regionbar").innerHTML = "Current Ranked Region: " + v.toUpperCase() ;
     }
 
 });
