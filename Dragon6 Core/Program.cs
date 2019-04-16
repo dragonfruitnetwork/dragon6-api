@@ -12,6 +12,7 @@ namespace DragonFruit.Six.Core
 {
     public class Program
     {
+        public static bool redirectHTTPS = true;
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

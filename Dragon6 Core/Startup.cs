@@ -29,7 +29,6 @@ namespace DragonFruit.Six.Core
             else
             {
                 app.UseExceptionHandler("/");
-                app.UseHttpsRedirection(); //force https
             }
 
             app.UseStaticFiles(); //wwwroot enable

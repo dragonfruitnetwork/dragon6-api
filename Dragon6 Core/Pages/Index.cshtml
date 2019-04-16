@@ -19,6 +19,15 @@
     <script src="~/JS/home.js"></script>
     <script src="~/JS/search.js"></script>
 
+    @if (DragonFruit.Six.Core.Program.redirectHTTPS)
+    {
+        <script>
+            if (location.protocol !== "https:") {
+                location.protocol = "https:";
+            }
+        </script>
+    }
+
     <link rel="stylesheet" href="~/CSS/home.css" />
     <link rel="stylesheet" href="~/vendor/kendo/css/kendo.bootstrap-v4.min.css" />
     <link rel="stylesheet" href="~/vendor/bootstrap/bootstrap.min.css" />
