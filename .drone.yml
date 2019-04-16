@@ -14,6 +14,7 @@ steps:
   commands:
   - mkdir "Image"
   - cd "Dragon6 Core"
+  - nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
   - docker build -t dragonsix .
   - docker save -o "/root/artifact/d6.tar" dragonsix
 
@@ -24,6 +25,7 @@ steps:
   - name: artifact
     path: /root/artifact
   commands:
+  - nohup docker daemon -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock &
   - docker load -i "/root/artifact/d6.tar"
   - docker login --username=$USERNAME --password=$KEY registry.heroku.com
   - docker tag dragonsix registry.heroku.com/dragonsix/web
