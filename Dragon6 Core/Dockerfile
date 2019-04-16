@@ -16,4 +16,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 ENV ASPNETCORE_URLS=http://+:$PORT
-ENTRYPOINT ["dotnet", "--no-launch-profile", "Dragon6 Core.dll"]
+CMD "dotnet --no-launch-profile Dragon6 Core.dll"
