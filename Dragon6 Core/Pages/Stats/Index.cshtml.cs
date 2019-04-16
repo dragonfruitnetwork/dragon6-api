@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Dragon6.API;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace DragonFruit.Six.Core.Pages.Stats
 {
@@ -35,6 +36,12 @@ namespace DragonFruit.Six.Core.Pages.Stats
         private Task<List<OperatorStats>> OperatorStatsTask;
         private Task<int> GetLevelStatTask;
 
+        IHostingEnvironment _env;
+        public IndexModel(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+
         public async Task OnGetAsync()
         {
             //1a. token
@@ -53,7 +60,14 @@ namespace DragonFruit.Six.Core.Pages.Stats
 
             //1b. region
             if (!Request.Cookies.ContainsKey("region"))
-                Region = "emea";
+            {
+                CookieOptions option = new CookieOptions{
+                    Expires = DateTime.Now.AddYears(50)
+                };
+                var x = await WebsiteClasses.LocationAPI.GetRegionAsync(HttpContext,_env);
+                Response.Cookies.Append("region", x, option);
+                Region = x;
+            }
             else
                 Region = Request.Cookies["region"];
 

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
+using System.Threading;
+using System.Timers;
 
 namespace DragonFruit.Six.Core
 {
@@ -57,6 +59,24 @@ namespace DragonFruit.Six.Core
 
             //ranked cards
             API.RankedCards.Setup(env);
+
+            //setup forced garbage collection every 2 mins
+            System.Timers.Timer GCTimer = new System.Timers.Timer()
+            {
+                Interval = new TimeSpan(0, 2, 0).TotalMilliseconds,
+            };
+            GCTimer.Elapsed += new ElapsedEventHandler(Collect);
+            GCTimer.Start();
+        }
+
+        /// <summary>
+        /// Forces the system to release all unused memory
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Collect(object sender, ElapsedEventArgs e)
+        {
+            Task.Run(() => GC.Collect());
         }
     }
 }

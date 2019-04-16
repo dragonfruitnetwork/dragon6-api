@@ -1,5 +1,5 @@
 ﻿function showTOS() {
-    //show tos here
+    window.location.href = "/Info/Privacy";
 }
 function agreetoTOS() {
     Cookies.set('tos', 'true', { expires: 60000 });

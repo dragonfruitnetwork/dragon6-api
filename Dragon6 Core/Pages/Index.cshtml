@@ -2,6 +2,7 @@
 @model DragonFruit.Six.Core.Pages.IndexModel
 @{
     Layout = null;
+    var mobile = DragonFruit.Six.Core.MobDevice.IsMobileBrowser(HttpContext.Request);
 }
 @using Kendo.Mvc.UI
 
@@ -19,13 +20,16 @@
     <script src="~/JS/home.js"></script>
     <script src="~/JS/search.js"></script>
 
+    <meta name="theme-color" content="#ff6600" />
+
     @if (DragonFruit.Six.Core.Program.redirectHTTPS)
     {
         <script>
             if (location.protocol !== "https:") {
                 location.protocol = "https:";
             }
-        </script>
+
+/**/</script>
     }
 
     <link rel="stylesheet" href="~/CSS/home.css" />
@@ -40,34 +44,37 @@
     </style>
 </head>
 <body class="bg">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto"></ul>
-        </div>
-        <div class="mx-auto order-0">
-            <a class="navbar-brand mx-auto order-2" href="~/">Dragon6</a>
-        </div>
+    @if (!mobile)
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto"></ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto order-2" href="~/">Dragon6</a>
+            </div>
 
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://discord.gg/VA26u5Z">
-                        <img src="~/assets/discord.svg" width="20" height="20" alt="">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Info">
-                        <img src="~/assets/info.svg" width="20" height="20" alt="">
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" target="_blank" href="https://discord.gg/VA26u5Z">
+                            <img src="~/assets/discord.svg" width="20" height="20" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Info">
+                            <img src="~/assets/info.svg" width="20" height="20" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    }
 
     @(Html.Kendo().Dialog()
         .Name("dialog")
         .Title("Welcome To Dragon6")
-        .Content("<p>We need you to agree to some stuff before you continue<p>")
+        .Content("<p>We need you to agree to some terms before you continue<p>")
         .Width(400)
         .Modal(false).Visible(false)
         .Actions(actions =>
@@ -96,12 +103,15 @@
                     </div>
                 </div>
             </div>
-            <ul class="list-inline" style="text-align: center">
-                <li class="list-inline-item">
-                    <p class="lead text-light" id="regionbar">Current Ranked Region: EMEA</p>
-                </li>
-                <li class="list-inline-item"><a href="~/ChangeRegion">Change Region <i class="material-icons" style="vertical-align: text-top;">trending_flat</i></a></li>
-            </ul>
+            @if (!mobile)
+            {
+                <ul class="list-inline" style="text-align: center">
+                    <li class="list-inline-item">
+                        <p class="lead text-light" id="regionbar">Current Ranked Region: EMEA</p>
+                    </li>
+                    <li class="list-inline-item"><a href="~/ChangeRegion">Change Region <i class="material-icons" style="vertical-align: text-top;">trending_flat</i></a></li>
+                </ul>
+            }
 
             @if (Model.SellAndroid)
             {
@@ -116,7 +126,7 @@
             <br />
         </form>
     </div>
-    
+
     <footer id="footer" class="text-light text-muted text-center text-small">
         <br />
         <p class="mb-1">&copy; @DateTime.Now.Year DragonFruit Network</p>
