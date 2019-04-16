@@ -12,6 +12,9 @@ steps:
       from_secret: HEROKU_USR
     password:
       from_secret: HEROKU_KEY
-    repo: registry.heroku.com/dragon6-test/web
+    repo: registry.heroku.com/dragonsix/web
     registry: registry.heroku.com
     dockerfile: Dragon6 Core/Dockerfile
+  when:
+    branch:
+    - master
