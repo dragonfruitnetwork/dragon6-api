@@ -34,263 +34,166 @@
         <p class="display-4">@Model.Info.PlayerName</p>
         @if (Model.Status.IsVerifed)
         {
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <p class="lead">Verified Account ✔</p>
-            </li>
-            @if (!string.IsNullOrEmpty(Model.Status.YTLink))
-            {
-            <li class="list-inline-item">
-                <a class="lead" target="_blank" href="@Model.Status.YTLink">YouTube</a>
-            </li>
-            }
-            @if (!string.IsNullOrEmpty(Model.Status.TwitchLink))
-            {
-            <li class="list-inline-item">
-                <a class="lead" target="_blank" href="@Model.Status.TwitchLink">Twitch</a>
-            </li>
-            }
-        </ul>
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <p class="lead">Verified Account ✔</p>
+                </li>
+                @if (!string.IsNullOrEmpty(Model.Status.YTLink))
+                {
+                    <li class="list-inline-item">
+                        <a class="lead" target="_blank" href="@Model.Status.YTLink">YouTube</a>
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Status.TwitchLink))
+                {
+                    <li class="list-inline-item">
+                        <a class="lead" target="_blank" href="@Model.Status.TwitchLink">Twitch</a>
+                    </li>
+                }
+            </ul>
         }
     </div>
-    <div class="col-md-4">
-        @*Hide this on mobiles (side colunm)*@
-        <div class="row">
-            <div class="col-md-2">
+    @if (!Model.Status.IsBlocked)
+    {
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart">
-                    <line x1="12" y1="20" x2="12" y2="10"></line>
-                    <line x1="18" y1="20" x2="18" y2="4"></line>
-                    <line x1="6" y1="20" x2="6" y2="16"></line>
-                </svg>
-            </div>
-            <div class="col-md-4">
-                <p class="lead">Level @Model.PlayerLevel</p>
-            </div>
-        </div>
-        @*<div class="row">
-            <div class="col-md-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-crosshair">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="22" y1="12" x2="18" y2="12"></line>
-                    <line x1="6" y1="12" x2="2" y2="12"></line>
-                    <line x1="12" y1="6" x2="12" y2="2"></line>
-                    <line x1="12" y1="22" x2="12" y2="18"></line>
-                </svg>
-            </div>
-            <div class="col-md-4">
-                <p class="lead">@Math.Round(Model.Stats.Casual_KD, 0) K/D</p>
-            </div>
-        </div>*@
-        <div class="row">
-            <div class="col-md-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="6"></circle>
-                    <circle cx="12" cy="12" r="2"></circle>
-                </svg>
-            </div>
-            <div class="col-md-4">
-                <p class="lead">@Model.CurrentSeason.MMR MMR</p>
-            </div>
-        </div>
+        <div class="col-md-4">
+            @*Hide this on mobiles (side colunm)*@
+            <div class="row">
+                <div class="col-md-2">
 
-        <div class="row">
-            <div class="col-md-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map">
-                    <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
-                    <line x1="8" y1="2" x2="8" y2="18"></line>
-                    <line x1="16" y1="6" x2="16" y2="22"></line>
-                </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart">
+                        <line x1="12" y1="20" x2="12" y2="10"></line>
+                        <line x1="18" y1="20" x2="18" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="16"></line>
+                    </svg>
+                </div>
+                <div class="col-md-4">
+                    <p class="lead">Level @Model.PlayerLevel</p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <a href="~/Info/Region" title="Ranked Region (Click to change)" target="_blank">
-                    <p class="lead">@Model.Region.ToUpper()</p>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-<br />
-<div class="card text-white bg-dark mb-3" id="rankedsummary">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link bg-dark" href="javascript:void(0);">Ranked - Current Season</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:gotoYear(4)">Year 4</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:gotoYear(3)">Year 3</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:gotoYear(2)">Year 2</a>
-            </li>
-            <li class="nav-item">
-                <span id="ranked_y1" class="nav-link disabled">Year 1</span>
-            </li>
-        </ul>
-        <script>
-            function gotoYear(season) {
-                var x = window.location.origin;
-                if (x[x.length - 1] === "/")
-                    x = x.substring(0, x.length - 1);
-                window.location.href = x + "/Stats/Ranked/" + season + "/" + document.getElementById("playerplatform").value + "/" + document.getElementById("playername").value;
-            }
-        </script>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="@Url.Content($"~/assets/rank/{Model.CurrentSeason.Max_Rank}.svg")" class="center" />
-            </div>
-            <div class="col-md-4">
-                <img src="@Url.Content($"~/assets/rank/{Model.CurrentSeason.Rank}.svg")" class="center" />
-            </div>
-            <div class="col-md-4" style="align-content: center">
-                <div class="row">
+            @*<div class="row">
                     <div class="col-md-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-crosshair">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="22" y1="12" x2="18" y2="12"></line>
+                            <line x1="6" y1="12" x2="2" y2="12"></line>
+                            <line x1="12" y1="6" x2="12" y2="2"></line>
+                            <line x1="12" y1="22" x2="12" y2="18"></line>
+                        </svg>
                     </div>
-                    <div class="col-md-8">
-                        <div id="rankedinf">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                </div>
-                                <div class="col-md-8">
-                                    <p class="lead">@Model.CurrentSeason.Wins Wins</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="15" y1="9" x2="9" y2="15"></line>
-                                        <line x1="9" y1="9" x2="15" y2="15"></line>
-                                    </svg>
-                                </div>
-                                <div class="col-md-8">
-                                    <p class="lead">@Model.CurrentSeason.Losses Losses</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-wifi-off">
-                                        <line x1="1" y1="1" x2="23" y2="23"></line>
-                                        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
-                                        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
-                                        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
-                                        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
-                                        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
-                                        <line x1="12" y1="20" x2="12" y2="20"></line>
-                                    </svg>
-                                </div>
-                                <div class="col-md-8">
-                                    <p class="lead">@Model.CurrentSeason.Abandons Abandons</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-4">
+                        <p class="lead">@Math.Round(Model.Stats.Casual_KD, 0) K/D</p>
                     </div>
+                </div>*@
+            <div class="row">
+                <div class="col-md-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-target">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                </div>
+                <div class="col-md-4">
+                    <p class="lead">@Model.CurrentSeason.MMR MMR</p>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map">
+                        <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                        <line x1="8" y1="2" x2="8" y2="18"></line>
+                        <line x1="16" y1="6" x2="16" y2="22"></line>
+                    </svg>
+                </div>
+                <div class="col-md-4">
+                    <a href="~/Info/Region" title="Ranked Region (Click to change)" target="_blank">
+                        <p class="lead">@Model.Region.ToUpper()</p>
+                    </a>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div class="card-footer text-muted">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="text-muted" id="hirank_bottom" style="text-align: center">Highest Rank</div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Current Rank</div>
-            </div>
-            <div class="col-md-4">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-8">
-                    <div class="text-muted" id="rankinf_bottom" style="text-align: center">Season Summary</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 <br />
+<br />   
+@if (!Model.Status.IsBlocked)
+{
     @*<%--Casual Stats--%>*@
-<div class="card-deck">
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">Casual</div>
-        <div class="card-body">
-            <h5 class="card-title">Casual K/D</h5>
-            @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Casual_KD / 2f * 100))
-            <br />
-            <p class="lead">@($"{Model.Stats.Casual_KD:0.00} K/D ({Model.Stats.Casual_Kills:n0} Kills / {Model.Stats.Casual_Deaths:n0} Deaths)")</p>
+    <div class="card-deck">
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Casual</div>
+            <div class="card-body">
+                <h5 class="card-title">Casual K/D</h5>
+                @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Casual_KD / 2f * 100))
+                <br />
+                <p class="lead">@($"{Model.Stats.Casual_KD:0.00} K/D ({Model.Stats.Casual_Kills:n0} Kills / {Model.Stats.Casual_Deaths:n0} Deaths)")</p>
+            </div>
+        </div>
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Casual</div>
+            <div class="card-body">
+                <h5 class="card-title">Casual W/L</h5>
+                @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Casual_WL / 2f * 100))
+                <br />
+                <p class="lead">@($"{Model.Stats.Casual_WL,0:0.00} W/L ({Model.Stats.Casual_Wins:n0} Wins / {Model.Stats.Casual_Losses:n0} Losses)")</p>
+            </div>
         </div>
     </div>
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">Casual</div>
-        <div class="card-body">
-            <h5 class="card-title">Casual W/L</h5>
-            @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Casual_WL / 2f * 100))
-            <br />
-            <p class="lead">@($"{Model.Stats.Casual_WL,0:0.00} W/L ({Model.Stats.Casual_Wins:n0} Wins / {Model.Stats.Casual_Losses:n0} Losses)")</p>
-        </div>
-    </div>
-</div>
-<br />
+    <br />
 
     @*<%--Ranked Stats--%>*@
-<div class="card-deck" id="ranked_deck">
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">Ranked</div>
-        <div class="card-body">
-            <h5 class="card-title">Ranked K/D</h5>
-            @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Ranked_KD / 2f * 100))
-            <br />
-            <p class="lead">@($"{Model.Stats.Ranked_KD:0.00} K/D ({Model.Stats.Ranked_Kills:n0} Kills / {Model.Stats.Ranked_Deaths:n0} Deaths)")</p>
+    <div class="card-deck" id="ranked_deck">
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Ranked</div>
+            <div class="card-body">
+                <h5 class="card-title">Ranked K/D</h5>
+                @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Ranked_KD / 2f * 100))
+                <br />
+                <p class="lead">@($"{Model.Stats.Ranked_KD:0.00} K/D ({Model.Stats.Ranked_Kills:n0} Kills / {Model.Stats.Ranked_Deaths:n0} Deaths)")</p>
+            </div>
+        </div>
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Ranked</div>
+            <div class="card-body">
+                <h5 class="card-title">Ranked W/L</h5>
+                @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Ranked_WL / 2f * 100))
+                <br />
+                <p class="lead">@($"{Model.Stats.Ranked_WL,0:0.00} W/L ({Model.Stats.Ranked_Wins:n0} Wins / {Model.Stats.Ranked_Losses:n0} Losses)")</p>
+            </div>
         </div>
     </div>
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">Ranked</div>
-        <div class="card-body">
-            <h5 class="card-title">Ranked W/L</h5>
-            @Html.Raw(DragonFruit.Six.Core.HTMLElements.DualToneBar(Model.Stats.Ranked_WL / 2f * 100))
-            <br />
-            <p class="lead">@($"{Model.Stats.Ranked_WL,0:0.00} W/L ({Model.Stats.Ranked_Wins:n0} Wins / {Model.Stats.Ranked_Losses:n0} Losses)")</p>
-        </div>
-    </div>
-</div>
-<br />
-<br />
+    <br />
+    <br />
     @*<%--General Comparisons--%>*@
-<div class="card-deck">
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">General</div>
-        <div class="card-body">
-            <h5 class="card-title">Headshots</h5>
-            <asp:Literal ID="headshotbar"></asp:Literal>
-            <br />
-            <p class="lead">@($"{Model.Stats.Headshots:n0} Headshots")</p>
+    <div class="card-deck">
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">General</div>
+            <div class="card-body">
+                <h5 class="card-title">Headshots</h5>
+                <asp:Literal ID="headshotbar"></asp:Literal>
+                <br />
+                <p class="lead">@($"{Model.Stats.Headshots:n0} Headshots")</p>
+            </div>
+        </div>
+        <div class="card text-white bg-dark mb-3" id="Div1">
+            <div class="card-header">General</div>
+            <div class="card-body">
+                <h5 class="card-title">DBNOs vs Revives</h5>
+                <asp:Literal ID="dbno_r"></asp:Literal>
+                <br />
+                <p class="lead">@($"{Model.Stats.Downs:n0} Downs / {Model.Stats.Revives:n0} Revives")</p>
+            </div>
         </div>
     </div>
-    <div class="card text-white bg-dark mb-3" id="Div1">
-        <div class="card-header">General</div>
-        <div class="card-body">
-            <h5 class="card-title">DBNOs vs Revives</h5>
-            <asp:Literal ID="dbno_r"></asp:Literal>
-            <br />
-            <p class="lead">@($"{Model.Stats.Downs:n0} Downs / {Model.Stats.Revives:n0} Revives")</p>
-        </div>
-    </div>
-</div>
-<br />
-<br />
+    <br />
+    <br />
 
-<div class="card text-dark bg-light mb-3">
-    <div class="card-header" style="text-align: center">Operator Stats</div>
-    <div class="card-body" style="max-height:550px;overflow-y:scroll">
-        @(Html.Kendo().Grid<Dragon6.API.OperatorStats>(Model.OPStats)
+    <div class="card text-dark bg-light mb-3">
+        <div class="card-header" style="text-align: center">Operator Stats</div>
+        <div class="card-body" style="max-height:550px;overflow-y:scroll">
+            @(Html.Kendo().Grid<Dragon6.API.OperatorStats>(Model.OPStats)
         .Name("operatorgrid")
         .Columns(columns =>
         {
@@ -301,124 +204,239 @@
             columns.Bound(c => c.WL).Title("W/L");
             columns.Bound(c => c.Wins).Title("Wins");
             columns.Bound(c => c.Losses).Title("Losses");
-        }).Sortable().DataSource(dataSource => dataSource        
+        }).Sortable().DataSource(dataSource => dataSource
         .Ajax()
         .ServerOperation(false))
-        )
+            )
+        </div>
     </div>
-</div>
-<br />
-<br />
+    <br />
+    <br />
     @*<%--Time Played--%>*@
-<div class="card text-white bg-dark mb-3">
-    <div class="card-header" style="text-align: center">Time Played</div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.TimePlayed_THunt.TotalHours:n0} Hours")</p>
+    <div class="card text-white bg-dark mb-3">
+        <div class="card-header" style="text-align: center">Time Played</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.TimePlayed_THunt.TotalHours:n0} Hours")</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.TimePlayed_Casual.TotalHours:n0} Hours")</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.TimePlayed_Ranked.TotalHours:n0} Hours")</p>
+                </div>
             </div>
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.TimePlayed_Casual.TotalHours:n0} Hours")</p>
-            </div>
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.TimePlayed_Ranked.TotalHours:n0} Hours")</p>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Terrorist Hunt</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Casual</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Ranked</div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card-footer text-muted">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Terrorist Hunt</div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Casual</div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Ranked</div>
-            </div>
-        </div>
-    </div>
-</div>
-<br />
-<br />
+    <br />
+    <br />
     @*<%--Other Stats--%>*@
-<div class="card-deck">
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">Terrorist Hunt</div>
-        <div class="card-body">
-            <h5 class="card-title">PvE K/D</h5>
+    <div class="card-deck">
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Terrorist Hunt</div>
+            <div class="card-body">
+                <h5 class="card-title">PvE K/D</h5>
 
-            <p class="lead">@($"{Model.Stats.THunt_KD:0.00} K/D")</p>
+                <p class="lead">@($"{Model.Stats.THunt_KD:0.00} K/D")</p>
 
+            </div>
+        </div>
+
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">General</div>
+            <div class="card-body">
+                <h5 class="card-title">Suicides</h5>
+                <p class="lead">@($"{Model.Stats.Suicides:n0} Suicides")</p>
+            </div>
+        </div>
+
+        <div class="card text-white bg-dark mb-3">
+            <div class="card-header">General</div>
+            <div class="card-body">
+                <h5 class="card-title">Melee Kills</h5>
+                <p class="lead">@($"{Model.Stats.Knifes:n0} Melee Kills")</p>
+            </div>
         </div>
     </div>
-
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">General</div>
-        <div class="card-body">
-            <h5 class="card-title">Suicides</h5>
-            <p class="lead">@($"{Model.Stats.Suicides:n0} Suicides")</p>
-        </div>
-    </div>
-
-    <div class="card text-white bg-dark mb-3">
-        <div class="card-header">General</div>
-        <div class="card-body">
-            <h5 class="card-title">Melee Kills</h5>
-            <p class="lead">@($"{Model.Stats.Knifes:n0} Melee Kills")</p>
-        </div>
-    </div>
-</div>
-<br />
-<br />
+    <br />
+    <br />
 
     @*<%--Highscores--%>*@
-<div class="card text-white bg-dark mb-3" id="Div2">
-    <div class="card-header" style="text-align: center">Highscores</div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.HIScore_Secure:n0} Points")</p>
+    <div class="card text-white bg-dark mb-3" id="Div2">
+        <div class="card-header" style="text-align: center">Highscores</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.HIScore_Secure:n0} Points")</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.HIScore_Bomb:n0} Points")</p>
+                </div>
+                <div class="col-md-4" style="text-align: center">
+                    <p class="lead">@($"{Model.Stats.HIScore_Hostage:n0} Points")</p>
+                </div>
             </div>
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.HIScore_Bomb:n0} Points")</p>
-            </div>
-            <div class="col-md-4" style="text-align: center">
-                <p class="lead">@($"{Model.Stats.HIScore_Hostage:n0} Points")</p>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Secure Area</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Bomb</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Hostage</div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="card-footer text-muted">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Secure Area</div>
+    <div id="playeridsection">
+        <br />
+        <br />
+        @*<%--Share Profile--%>*@
+        <div class="card text-center text-white bg-dark mb-3">
+            <div class="card-header">
+                Player ID
             </div>
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Bomb</div>
-            </div>
-            <div class="col-md-4">
-                <div class="text-muted" style="text-align: center">Hostage</div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" ID="playerid" Style="text-align: center" onclick="this.select();" ReadOnly class="form-control bg-dark text-light" value="@Model.Info.GUID" />
+                </div>
             </div>
         </div>
+        <div style="display:none">
+            <input type="text" id="playername" value="@Model.UserName" />
+            <input type="text" id="playerplatform" value="@Model.Platform" />
+        </div>
     </div>
-</div>
-<div id="playeridsection">
-    <br />
-    <br />
-    @*<%--Share Profile--%>*@
-    <div class="card text-center text-white bg-dark mb-3">
+    <div class="card text-white bg-dark mb-3" id="rankedsummary">
         <div class="card-header">
-            Player ID
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link bg-dark" href="javascript:void(0);">Ranked - Current Season</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:gotoYear(4)">Year 4</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:gotoYear(3)">Year 3</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:gotoYear(2)">Year 2</a>
+                </li>
+                <li class="nav-item">
+                    <span id="ranked_y1" class="nav-link disabled">Year 1</span>
+                </li>
+            </ul>
+            <script>
+                function gotoYear(season) {
+                    var x = window.location.origin;
+                    if (x[x.length - 1] === "/")
+                        x = x.substring(0, x.length - 1);
+                    window.location.href = x + "/Stats/Ranked/" + season + "/" + document.getElementById("playerplatform").value + "/" + document.getElementById("playername").value;
+                }
+            </script>
         </div>
         <div class="card-body">
-            <div class="input-group">
-                <input type="text" ID="playerid" Style="text-align: center" onclick="this.select();" ReadOnly class="form-control bg-dark text-light" value="@Model.Info.GUID"/>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="@Url.Content($"~/assets/rank/{Model.CurrentSeason.Max_Rank}.svg")" class="center" />
+                </div>
+                <div class="col-md-4">
+                    <img src="@Url.Content($"~/assets/rank/{Model.CurrentSeason.Rank}.svg")" class="center" />
+                </div>
+                <div class="col-md-4" style="align-content: center">
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div id="rankedinf">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="lead">@Model.CurrentSeason.Wins Wins</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="lead">@Model.CurrentSeason.Losses Losses</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-wifi-off">
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                            <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                                            <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                                            <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                                            <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                                            <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                                            <line x1="12" y1="20" x2="12" y2="20"></line>
+                                        </svg>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <p class="lead">@Model.CurrentSeason.Abandons Abandons</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-muted" id="hirank_bottom" style="text-align: center">Highest Rank</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted" style="text-align: center">Current Rank</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="text-muted" id="rankinf_bottom" style="text-align: center">Season Summary</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div style="display:none">
-        <input type="text" id="playername" value="@Model.UserName"/>
-        <input type="text" id="playerplatform" value="@Model.Platform"/>
+    <br />
+    <br />
+
+}
+else
+{
+    <div style="min-height: 80%; min-height: 80vh; flex-direction: column; display: flex; justify-content: center;">
+        <h1 class="display-4" style="text-align:center">
+            The Owner of <strong>@Model.Info.PlayerName</strong> has blocked access to view stats.
+        </h1>
     </div>
-</div>
-<br />
+}
