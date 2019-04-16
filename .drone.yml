@@ -5,7 +5,7 @@ clone:
   skip_verify: true
 
 steps:
-- name: dockerize
+- name: dockerize-heroku
   image: plugins/docker
   settings:
     username: 
@@ -14,7 +14,7 @@ steps:
       from_secret: HEROKU_KEY
     repo: registry.heroku.com/dragonsix/web
     registry: registry.heroku.com
-    dockerfile: Dragon6 Core/Dockerfile
+    dockerfile: Dragon6 Core/Dockerfile-heroku
   when:
     branch:
     - master

@@ -5,9 +5,11 @@
 ## Overview
 
 Dragon6 Core is a Combination of the REST API and the Web Frontend.
-It is a .NET Core 2.2 Project, with a Dockerfile configured for heroku in the project folder
+It is a .NET Core 2.2 Project, with a Dockerfile configured for heroku and general linux in the project folder
 
-The CI will auto build and upload it to the Heroku Container Registry, but will need to be manually updated using the command:
+### Heroku Container
+
+The CI will auto build and upload the heroku container to the Heroku Container Registry, but will need to be manually updated using the command:
 
 > `heroku container:release web -a dragon6`
 
@@ -17,3 +19,9 @@ If you wish to manually do this:
 - find the output of the above command and copy the Dockerfile
 - `docker build -t dragon6:latest`
 - upload to container registry and go!
+
+### Linux Container
+
+The linux container is the same but uses commands unavaliable in the heroku config. It needs to be setup with a reverse proxy for port `5000`
+
+Docker Images need to be built by right clicking on the dockerfile and clicking `Build Docker Image`
