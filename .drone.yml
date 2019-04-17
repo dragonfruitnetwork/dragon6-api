@@ -5,6 +5,17 @@ clone:
   skip_verify: true
 
 steps:
+- name: mirror
+  image: alpine/git
+  commands:
+  - git push --mirror "https://$$LOGIN@github.com/dragonfruitnetwork/Dragon6-API.git"
+  environment:
+    LOGIN:
+      from_secret: gitlogin
+  when:
+    branch:
+    - dev
+
 - name: dockerize-heroku
   image: plugins/docker
   settings:
@@ -17,4 +28,4 @@ steps:
     dockerfile: Dragon6 Core/Dockerfile-heroku
   when:
     branch:
-    - master
+    - heroku-prod
