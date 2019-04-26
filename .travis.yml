@@ -1,7 +1,8 @@
-language: csharp
-mono: none
-dotnet: 2.2.100
+language: generic
 script:
+ - apt update
+ - apt upgrade
+ - apt install dpkg git dotnet-sdk-2.2 -y
  - dotnet restore
  - dotnet build
  - cd "Dragon6-Test/bin/Debug/netcoreapp2.2"
