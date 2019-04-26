@@ -22,6 +22,8 @@ namespace Dragon6.API
         public decimal WL { get; set; }
 
         public int Headshots { get; set; }
+        public int DBNO { get; set; }
+        public int RoundsPlayed { get; set; }
 
         /// <summary>
         /// Get a collection of all individual operator stats in a List
@@ -79,6 +81,9 @@ namespace Dragon6.API
                 var KillsIdentifier = $"operatorpvp_kills:{index}:infinite";
                 var DeathsIdentifier = $"operatorpvp_death:{index}:infinite";
                 var HeadshotsIdentifier = $"operatorpvp_headshot:{index}:infinite";
+                var DBNOIdentifier = $"operatorpvp_dbno:{index}:infinite";
+                var RoundsPlayedIdentifier = $"operatorpvp_roundplayed:{index}:infinite";
+
                 var stats = new OperatorStats
                 {
                     Name = (string) OperatorObj[index],
@@ -87,16 +92,21 @@ namespace Dragon6.API
                     Wins = int.Parse((string) PlayerObj[WinsIdentifier] ?? "0"),
                     Losses = int.Parse((string) PlayerObj[LossIdentifier] ?? "0"),
                     Headshots = int.Parse((string) PlayerObj[HeadshotsIdentifier] ?? "0"),
+                    DBNO = int.Parse((string)PlayerObj[DBNOIdentifier] ?? "0"),
+                    RoundsPlayed = int.Parse((string)PlayerObj[RoundsPlayedIdentifier] ?? "0"),
                     KD = decimal.Round(decimal.Parse((string) PlayerObj[KillsIdentifier] ?? "1") /
                                        decimal.Parse((string) PlayerObj[DeathsIdentifier] ?? "1"), 2),
                     WL = decimal.Round(decimal.Parse((string) PlayerObj[WinsIdentifier] ?? "1") /
                                        decimal.Parse((string) PlayerObj[LossIdentifier] ?? "1"), 2)
                 };
+
                 PlayerObj.Remove(WinsIdentifier);
                 PlayerObj.Remove(LossIdentifier);
                 PlayerObj.Remove(KillsIdentifier);
                 PlayerObj.Remove(DeathsIdentifier);
                 PlayerObj.Remove(HeadshotsIdentifier);
+                PlayerObj.Remove(DBNOIdentifier);
+                PlayerObj.Remove(RoundsPlayedIdentifier);
                 Collection.Add(stats);
             }
 
