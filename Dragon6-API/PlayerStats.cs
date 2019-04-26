@@ -16,14 +16,16 @@ namespace Dragon6.API
         public int Losses { get; set; }
         public int Kills { get; set; }
         public int Deaths { get; set; }
+        public float WL { get; set; }
+        public int MatchesPlayed { get; set; }
 
         public int Casual_Kills { get; set; }
         public int Casual_Deaths { get; set; }
         public float Casual_KD { get; set; }
-
         public int Casual_Wins { get; set; }
         public int Casual_Losses { get; set; }
         public float Casual_WL { get; set; }
+        public int Casual_MatchesPlayed { get; set; }
 
         public int Barricades { get; set; }
         public int Reinforcements { get; set; }
@@ -37,6 +39,10 @@ namespace Dragon6.API
         public int THunt_Kills { get; set; }
         public int THunt_Deaths { get; set; }
         public float THunt_KD { get; set; }
+        public int THunt_Wins { get; set; }
+        public int THunt_Losses { get; set; }
+        public float THunt_WL { get; set; }
+        public int THunt_MatchesPlayed { get; set; }
 
         public int HIScore_Bomb { get; set; }
         public int HIScore_Secure { get; set; }
@@ -45,11 +51,16 @@ namespace Dragon6.API
         public TimeSpan TimePlayed_THunt { get; set; }
         public TimeSpan TimePlayed_Casual { get; set; }
         public TimeSpan TimePlayed_Ranked { get; set; }
+        public TimeSpan TimePlayed_General { get; set; }
+        public TimeSpan TimePlayed_Custom { get; set; }
 
 
         public int Ranked_Wins { get; set; }
         public int Ranked_Losses { get; set; }
         public float Ranked_WL { get; set; }
+        public float Ranked_MatchesPlayed { get; set; }
+
+        public int rankedpvp_matchplayed { get; set; }
 
         public int Ranked_Kills { get; set; }
         public int Ranked_Deaths { get; set; }
