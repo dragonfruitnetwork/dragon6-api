@@ -1,0 +1,9 @@
+language: csharp
+mono: none
+dotnet: 2.2.203
+dist: xenial
+script:
+ - dotnet restore
+ - dotnet build
+ - cd "Dragon6-Test"
+ - dotnet run
