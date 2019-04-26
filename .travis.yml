@@ -1,9 +1,7 @@
 language: csharp
 mono: none
 dotnet: 2.2.203
-include:
-    - os: linux
-      dist: bionic
+dist: xenial
 script:
  - dotnet restore
  - dotnet build
