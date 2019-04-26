@@ -8,7 +8,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{593E4F09-213D-4097-AEED-A0EADD24D198}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
-		AssemblyVersionPatch.exe = AssemblyVersionPatch.exe
 		LICENSE.md = LICENSE.md
 		Nuget.nuspec = Nuget.nuspec
 		README.md = README.md
