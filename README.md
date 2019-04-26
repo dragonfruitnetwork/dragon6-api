@@ -25,8 +25,15 @@ PlayerStats stats = PlayerStats.GetStats(Player,token);
 Console.WriteLine($"Kills: {stats.Casual_Kills} Deaths: {stats.Casual_Deaths}");
 ```
 
-## Dragon6 PC
+## In Production
 ***
-If you want to see the API in action, download the Dragon6 PC app from the Microsoft Store
 
-<a target="_blank" href='//www.microsoft.com/store/apps/9n88cqpkgs15?ocid=badge'><img src='https://assets.windowsphone.com/13484911-a6ab-4170-8b7e-795c1e8b4165/English_get_L_InvariantCulture_Default.png' alt='English badge' style='width: 127px; height: 52px;'/></a>
+- Dragon6 Web: [https://dragon6.me](https://dragon6.me)
+- Dragon6 Mobile: [https://play.google.com/store/apps/details?id=com.dragon.six](https://play.google.com/store/apps/details?id=com.dragon.six)
+- Dragon6 PC: [https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15](https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15)
+
+## Contributing
+***
+
+Feel free to add an Issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
+Contributors are awarded a verified profile on the Dragon6 Apps. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info and the twitch/YT links to add. You will also need to prove that you have actually contributed somehow.

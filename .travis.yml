@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 2.2.100
+script:
+ - dotnet restore
+ - dotnet build
+ - cd "Dragon6-Test/bin/Debug/netcoreapp2.2"
+ - dotnet run Dragon6-Test.dll
