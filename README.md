@@ -18,12 +18,47 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 ```C#
 using Dragon6.API;
 
-Token.SetCredentials("Email","Password");
-var token = await Token.GetToken(); //call this too many times and your account will be locked for 2 hours. Make sure you store this and set an expiry for one hour
-AccountInfo Player = await AccountInfo.GetFromName("Curry.",References.Platform.PC,token);
-Console.WriteLine(player.GUID);
-PlayerStats stats = PlayerStats.GetStats(Player,token);
-Console.WriteLine($"Kills: {stats.Casual_Kills} Deaths: {stats.Casual_Deaths}");
+namespace Dragon6.EXAMPLE
+{
+    public class IStats
+    {
+		private string email = "youremail@gmail.com";
+		private string password = "yourpassword";
+		private string token;
+		private PlayerStats stats = null;
+
+		public async Task UpdatePlayerStats(string username)
+		{
+			Token.SetCredentials(email, password);
+			token = await Token.GetToken(); //call this too many times and your account will be locked for 2 hours. Make sure you store this and set an expiry for one hour
+
+			try
+			{
+				AccountInfo player = await AccountInfo.GetFromName(username ,References.Platform.PC,token);		
+				try
+				{
+		
+					stats = await PlayerStats.GetStats(player,token);
+				}
+				catch
+				{
+					stats = null;
+				}
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				Console.WriteLine("The username you entered doesn't exist.");
+				stats = null;
+			}
+		}
+
+		public PlayerStats GetCasualKills()
+		{ 
+			if (stats == null) return 0;
+			else return stats.Casual_Kills; 
+		}
+	}
+}
 ```
 
 ## In Production
