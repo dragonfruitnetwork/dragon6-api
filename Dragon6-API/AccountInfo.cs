@@ -18,7 +18,11 @@ namespace Dragon6.API
         /// <summary>
         /// URL to Player's Avatar
         /// </summary>
-        public string Image { get; set; }
+        public string Image {
+            get {
+                return $"https://ubisoft-avatars.akamaized.net/{GUID}/default_256_256.png?appId=39baebad-39e5-4552-8c25-2c9b919064e2";
+            }
+        }
         /// <summary>
         /// Platform the user is on
         /// </summary>
@@ -80,8 +84,6 @@ namespace Dragon6.API
             {
                 PlayerName = response["profiles"][0]["nameOnPlatform"].ToString(),
                 GUID = GUID,
-                Image =
-                    $"https://ubisoft-avatars.akamaized.net/{GUID}/default_146_146.png?appId=39baebad-39e5-4552-8c25-2c9b919064e2",
                 Platform = References.Platforms.PC
             };
         }
