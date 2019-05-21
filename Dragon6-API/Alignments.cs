@@ -26,8 +26,6 @@ namespace Dragon6.API
             var Ai = new AccountInfo
             {
                 PlayerName = values["profiles"][0]["nameOnPlatform"].ToString(),
-                Image =
-                    $"https://ubisoft-avatars.akamaized.net/{values["profiles"][0]["profileId"]}/default_146_146.png?appId=39baebad-39e5-4552-8c25-2c9b919064e2",
                 GUID = values["profiles"][0]["profileId"].ToString(),
                 Platform = (string)values["profiles"][0]["platformType"] == "uplay"? References.Platforms.PC : (string)values["profiles"][0]["platformType"] == "psn" ? References.Platforms.PSN:References.Platforms.XB1
             };
