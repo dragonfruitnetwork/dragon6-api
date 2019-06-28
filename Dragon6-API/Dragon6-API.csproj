@@ -6,7 +6,7 @@
     <RootNamespace>Dragon6.API</RootNamespace>
     <PackageId>Dragon6.API</PackageId>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTitle>Dragon6 API</PackageTitle>
     <PackageSummary>A Rainbow Six Stats API</PackageSummary>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/31821773?s=200&amp;v=4</PackageIconUrl>

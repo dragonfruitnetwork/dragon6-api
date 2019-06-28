@@ -12,6 +12,7 @@ namespace Dragon6.API
     public class OperatorStats
     {
         public string Name { get; set; }
+        public string Index { get; set; }
 
         public int Kills { get; set; }
         public int Deaths { get; set; }
@@ -87,6 +88,7 @@ namespace Dragon6.API
                 var stats = new OperatorStats
                 {
                     Name = (string) OperatorObj[index],
+                    Index = index,
                     Kills = int.Parse((string) PlayerObj[KillsIdentifier] ?? "0"),
                     Deaths = int.Parse((string) PlayerObj[DeathsIdentifier] ?? "0"),
                     Wins = int.Parse((string) PlayerObj[WinsIdentifier] ?? "0"),
