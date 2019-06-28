@@ -8,13 +8,15 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTitle>Dragon6 API</PackageTitle>
+    <PackageVersion>2019.628.16.2</PackageVersion>
+    <PackageDescription>A Rainbow Six Stats API for .NET</PackageDescription>
     <PackageSummary>A Rainbow Six Stats API</PackageSummary>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/31821773?s=200&amp;v=4</PackageIconUrl>
     <PackageProjectUrl>https://github.com/dragonfruitnetwork/Dragon6-API</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/dragonfruitnetwork/Dragon6-API/blob/master/LICENSE.md</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/dragonfruitnetwork/Dragon6-API</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>r6stats, r6api, r6, rainbowsix</PackageTags>
     <Authors>DragonFruit Network</Authors>
   </PropertyGroup>

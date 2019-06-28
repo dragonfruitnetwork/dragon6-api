@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Dragon6.API
@@ -13,6 +15,7 @@ namespace Dragon6.API
     {
         public string Name { get; set; }
         public string Index { get; set; }
+        public string ImageURL { get; set; }
 
         public int Kills { get; set; }
         public int Deaths { get; set; }
@@ -27,13 +30,26 @@ namespace Dragon6.API
         public int RoundsPlayed { get; set; }
 
         /// <summary>
-        /// Get a collection of all individual operator stats in a List
+        /// Get a collection of all individual operator stats in a List (do not use OperatorIconIndex unless you know what it is)
         /// </summary>
         /// <param name="player"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<List<OperatorStats>> GetOperatorStats(AccountInfo player,string token)
+        public static async Task<List<OperatorStats>> GetOperatorStats(AccountInfo player, string token, string OperatorIconIndex = null)
         {
+            Dictionary<string, string> OperatorIconMap = new Dictionary<string, string>();
+            bool UseMap = false;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(OperatorIconIndex) && File.Exists(OperatorIconIndex))
+                {
+                    OperatorIconMap = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(OperatorIconIndex));
+                    UseMap = true;
+                }
+            }
+            catch { }
+
             var GUID = player.GUID;
             var client = new HttpClient();
 
@@ -70,7 +86,7 @@ namespace Dragon6.API
             var OperatorObj = await Task.Run(async () => JObject.Parse(await client
                 .GetAsync("https://assets.dragon6.dragonfruit.ml/operatorinfo.json")
                 .Result.Content.ReadAsStringAsync()));
-            var PlayerObj = (JObject) rawStats["results"][GUID];
+            var PlayerObj = (JObject)rawStats["results"][GUID];
 
             //form strings to get data
             var Collection = new List<OperatorStats>();
@@ -87,20 +103,29 @@ namespace Dragon6.API
 
                 var stats = new OperatorStats
                 {
-                    Name = (string) OperatorObj[index],
+                    Name = (string)OperatorObj[index],
                     Index = index,
-                    Kills = int.Parse((string) PlayerObj[KillsIdentifier] ?? "0"),
-                    Deaths = int.Parse((string) PlayerObj[DeathsIdentifier] ?? "0"),
-                    Wins = int.Parse((string) PlayerObj[WinsIdentifier] ?? "0"),
-                    Losses = int.Parse((string) PlayerObj[LossIdentifier] ?? "0"),
-                    Headshots = int.Parse((string) PlayerObj[HeadshotsIdentifier] ?? "0"),
+                    Kills = int.Parse((string)PlayerObj[KillsIdentifier] ?? "0"),
+                    Deaths = int.Parse((string)PlayerObj[DeathsIdentifier] ?? "0"),
+                    Wins = int.Parse((string)PlayerObj[WinsIdentifier] ?? "0"),
+                    Losses = int.Parse((string)PlayerObj[LossIdentifier] ?? "0"),
+                    Headshots = int.Parse((string)PlayerObj[HeadshotsIdentifier] ?? "0"),
                     DBNO = int.Parse((string)PlayerObj[DBNOIdentifier] ?? "0"),
                     RoundsPlayed = int.Parse((string)PlayerObj[RoundsPlayedIdentifier] ?? "0"),
-                    KD = decimal.Round(decimal.Parse((string) PlayerObj[KillsIdentifier] ?? "1") /
-                                       decimal.Parse((string) PlayerObj[DeathsIdentifier] ?? "1"), 2),
-                    WL = decimal.Round(decimal.Parse((string) PlayerObj[WinsIdentifier] ?? "1") /
-                                       decimal.Parse((string) PlayerObj[LossIdentifier] ?? "1"), 2)
+                    KD = decimal.Round(decimal.Parse((string)PlayerObj[KillsIdentifier] ?? "1") /
+                                       decimal.Parse((string)PlayerObj[DeathsIdentifier] ?? "1"), 2),
+                    WL = decimal.Round(decimal.Parse((string)PlayerObj[WinsIdentifier] ?? "1") /
+                                       decimal.Parse((string)PlayerObj[LossIdentifier] ?? "1"), 2)
                 };
+
+                try
+                {
+                    if (UseMap)
+                    {
+                        stats.ImageURL = OperatorIconMap[index];
+                    }
+                }
+                catch { }
 
                 PlayerObj.Remove(WinsIdentifier);
                 PlayerObj.Remove(LossIdentifier);
