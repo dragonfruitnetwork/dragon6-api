@@ -11,7 +11,7 @@ namespace Dragon6.API.Test
     {
         async static Task Main(string[] args)
         {
-            string token = await new HttpClient().GetAsync("https://dragon6.me/api/token").Result.Content.ReadAsStringAsync(); //YOU ARE PROHIBITED FROM USING THIS ENDPOINT IN NON-DRAGONFRUIT OFFICIAL PROJECTS
+            string token = await new HttpClient().GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content.ReadAsStringAsync(); //YOU ARE PROHIBITED FROM USING THIS ENDPOINT IN NON-DRAGONFRUIT OFFICIAL PROJECTS
             var PlayerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
 
             var GeneralStats = await PlayerStats.GetStats(PlayerInfo, token);
