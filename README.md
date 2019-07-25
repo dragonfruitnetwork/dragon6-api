@@ -64,13 +64,13 @@ namespace Dragon6.EXAMPLE
 ## In Production
 
 
-- Dragon6 Web: [https://dragon6.me](https://dragon6.me)
+- Dragon6 Web: [https://dragon6.dragonfruit.network](https://dragon6.dragonfruit.network)
 - Dragon6 Mobile: [https://play.google.com/store/apps/details?id=com.dragon.six](https://play.google.com/store/apps/details?id=com.dragon.six)
 - Dragon6 PC: [https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15](https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15)
 
 ## Contributing
 
 
-Feel free to add an Issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
+Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
 
-Contributors are awarded a verified profile on the Dragon6 Apps. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info and the twitch/YT links to add. You will also need to prove that you have actually contributed somehow.
+Contributors are awarded a verified profile on the Dragon6 Apps. This gives you access to beta features, custom backgrounds on your profile and squads. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info and the Twitch/YT links to add.
