@@ -37,10 +37,9 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static async Task<PlayerStats> AlignGeneralStats(string json,string GUID)
+        public static PlayerStats AlignGeneralStats(string json,string GUID)
         {
-            var PlayerObj = await Task.Run(() => JObject.Parse(json));
-            PlayerObj = JObject.FromObject(PlayerObj["results"][GUID]);
+            var PlayerObj = (JObject)JObject.Parse(json)["results"][GUID];
 
             return new PlayerStats
             {
