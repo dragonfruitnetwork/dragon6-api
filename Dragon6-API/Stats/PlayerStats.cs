@@ -63,8 +63,6 @@ namespace Dragon6.API
         public float Ranked_WL { get; set; }
         public float Ranked_MatchesPlayed { get; set; }
 
-        public int rankedpvp_matchplayed { get; set; }
-
         public int Ranked_Kills { get; set; }
         public int Ranked_Deaths { get; set; }
         public float Ranked_KD { get; set; }
@@ -141,7 +139,7 @@ namespace Dragon6.API
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            return await Alignments.AlignGeneralStats(await request.Content.ReadAsStringAsync(), GUID);
+            return Alignments.AlignGeneralStats(await request.Content.ReadAsStringAsync(), GUID);
         }
     }
 }
