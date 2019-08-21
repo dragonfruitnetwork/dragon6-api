@@ -2,8 +2,18 @@ language: csharp
 mono: none
 dotnet: 2.2.203
 dist: xenial
-script:
- - dotnet restore
- - dotnet build
- - cd "Dragon6-Test"
- - dotnet run
+jobs:
+  include:
+  - stage: test
+  script:
+   - dotnet restore
+   - dotnet build
+   - cd "Dragon6-Test"
+   - dotnet run
+  - stage: pack
+  script:
+   - dotnet build -c Release
+   - mon=`date +%m`
+   - day=`date +%d`
+   - dotnet pack "Dragon6-API/Dragon6-API.csproj" /p:PackageVersion=2019.$mon.$day -o .. -c Release 
+   - nuget push *.nupkg -ApiKey $NUGET_KEY -Source "https://api.nuget.org/v3/index.json"
