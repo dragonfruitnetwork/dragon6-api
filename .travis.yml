@@ -1,19 +1,22 @@
 language: csharp
-mono: none
-dotnet: 2.2.203
 dist: xenial
 jobs:
   include:
   - stage: test
+    mono: none
+    dotnet: 2.2.203
     script:
      - dotnet restore
      - dotnet build
      - cd "Dragon6-Test"
      - dotnet run
   - stage: pack
+    mono: latest
     script:
-     - dotnet build -c Release
+     - nuget restore Dragon6-API.sln
+     - msbuild "Dragon6-API/Dragon6-API.csproj" /p:Configuration=Release
+     - year=`date +%Y`
      - mon=`date +%m`
      - day=`date +%d`
-     - dotnet pack "Dragon6-API/Dragon6-API.csproj" /p:PackageVersion=2019.$mon.$day -o .. -c Release 
-     - dotnet nuget push *.nupkg -k $nugetkey -s "https://api.nuget.org/v3/index.json"
+     - nuget pack "Dragon6-API/Dragon6-API.csproj" -OutputDirectory "../" -Properties Configuration=Release PackageVersion=$year.$mon.$day
+     - nuget push "./Dragon6.API.$year.$mon.$day.nupkg" -ApiKey $nugetkey -Source "https://api.nuget.org/v3/index.json"
