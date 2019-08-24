@@ -39,7 +39,8 @@ namespace Dragon6.API
             {17, "Platinum 3"},
             {18, "Platinum 2"},
             {19, "Platinum 1"},
-            {20, "Diamond"}
+            {20, "Diamond"},
+            {21, "Champion"}
         };
 
     }
