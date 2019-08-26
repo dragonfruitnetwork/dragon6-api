@@ -19,4 +19,4 @@ jobs:
      - mon=`date +%m`
      - day=`date +%d`
      - dotnet pack "Dragon6-API/Dragon6-API.csproj" /p:PackageVersion=$year.$mon.$day -o $outdir -c Release 
-     - dotnet nuget push $outdir/Dragon6.API.$year.$mon.$day.nupkg --api-key $nugetkey --source "https://api.nuget.org/v3/index.json"
+     - dotnet nuget push $outdir/*.nupkg --api-key $nugetkey --source "https://api.nuget.org/v3/index.json"
