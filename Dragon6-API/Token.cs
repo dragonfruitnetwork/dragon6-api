@@ -29,8 +29,7 @@ namespace Dragon6.API
                     $"Basic {credentials}"); //change this to the current user's credentials
                 client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
                 var response =
-                    await client.PostAsync("https://uplayconnect.ubi.com/ubiservices/v2/profiles/sessions",
-                        content);
+                    await client.PostAsync(Http.Endpoints.TokenServer, content);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                     throw new UnauthorizedAccessException();
 

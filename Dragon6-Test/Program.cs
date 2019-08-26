@@ -5,6 +5,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
+using Dragon6.API.Stats;
+
 namespace Dragon6.API.Test
 {
     class Program
@@ -14,10 +16,11 @@ namespace Dragon6.API.Test
             string token = await new HttpClient().GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content.ReadAsStringAsync(); //YOU MUST GET PERMISSION BEFORE USING OUR TOKEN SERVER
             var PlayerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
 
-            var GeneralStats = await PlayerStats.GetStats(PlayerInfo, token);
-            var SeasonStats = await SeasonalStats.GetSeason(PlayerInfo, -1, "EMEA", token);
-            var OPStats = await OperatorStats.GetOperatorStats(PlayerInfo, token);
-            var Level = await PlayerStats.GetLevel(PlayerInfo, token);
+            var GeneralStats = await General.GetStats(PlayerInfo, token);
+            var SeasonStats = await Season.GetSeason(PlayerInfo, "EMEA", token);
+            var OPStats = await Operator.GetOperatorStats(PlayerInfo, token);
+            var Weapons = await Weapon.GetWeaponStats(PlayerInfo, token);
+            var Level = await General.GetLevel(PlayerInfo, token);
 
             var Account = new JObject()
             {
@@ -25,7 +28,8 @@ namespace Dragon6.API.Test
                 {"Level",Level},
                 {"GeneralStats",JToken.FromObject(GeneralStats)},
                 {"Ranked",JToken.FromObject(SeasonStats)},
-                {"Operator",JToken.FromObject(OPStats)}
+                {"Operator",JToken.FromObject(OPStats)},
+                {"Weapon", JToken.FromObject(Weapons) }
             };
 
             Console.WriteLine(JsonConvert.SerializeObject(Account, Formatting.Indented));

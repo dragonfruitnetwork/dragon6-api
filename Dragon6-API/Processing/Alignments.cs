@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Dragon6.API.Stats;
 
 namespace Dragon6.API
 {
@@ -37,11 +38,11 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static PlayerStats AlignGeneralStats(string json,string GUID)
+        public static General AlignGeneralStats(string json,string GUID)
         {
             var PlayerObj = (JObject)JObject.Parse(json)["results"][GUID];
 
-            return new PlayerStats
+            return new General
             {
                 // Casual
                 Casual_Kills = int.Parse((string)PlayerObj[Consts.Casual.Kills] ?? "0"),
@@ -140,14 +141,14 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static async Task<SeasonalStats> AlignSeason(string json,string GUID)
+        public static async Task<Season> AlignSeason(string json,string GUID)
         {
             var response = await Task.Run(() => JObject.Parse(json));
             response = JObject.FromObject(response["players"][GUID]);
 
-            return new SeasonalStats
+            return new Season
             {
-                Season = (int)response[Consts.RankedSeason.Season],
+                SeasonID = (int)response[Consts.RankedSeason.Season],
                 Rank = (int)response[Consts.RankedSeason.Rank],
                 Max_Rank = (int)response[Consts.RankedSeason.MaxRank],
                 Wins = (int)response[Consts.RankedSeason.Wins],

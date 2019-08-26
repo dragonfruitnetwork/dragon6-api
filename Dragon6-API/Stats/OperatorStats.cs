@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Dragon6.API
+namespace Dragon6.API.Stats
 {
-    public class OperatorStats
+    public class Operator
     {
         public string Name { get; set; }
         public string Index { get; set; }
@@ -35,7 +35,7 @@ namespace Dragon6.API
         /// <param name="player"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<List<OperatorStats>> GetOperatorStats(AccountInfo player, string token, string OperatorIconIndex = null)
+        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token, string OperatorIconIndex = null)
         {
             Dictionary<string, string> OperatorIconMap = new Dictionary<string, string>();
             bool UseMap = false;
@@ -50,46 +50,19 @@ namespace Dragon6.API
             }
             catch { }
 
-            var GUID = player.GUID;
-            var client = new HttpClient();
-
-            string uri;
-            switch (player.Platform)
-            {
-                case References.Platforms.PSN:
-                    uri =
-                        "https://public-ubiservices.ubi.com/v1/spaces/05bfb3f7-6c21-4c42-be1f-97a33fb5cf66/sandboxes/OSBOR_PS4_LNCH_A/playerstats2/statistics?populations=";
-                    break;
-                case References.Platforms.XB1:
-                    uri =
-                        "https://public-ubiservices.ubi.com/v1/spaces/98a601e5-ca91-4440-b1c5-753f601a2c90/sandboxes/OSBOR_XBOXONE_LNCH_A/playerstats2/statistics?populations=";
-                    break;
-                default:
-                    uri =
-                        "https://public-ubiservices.ubi.com/v1/spaces/5172a557-50b5-4665-b7db-e3f2e8c5041d/sandboxes/OSBOR_PC_LNCH_A/playerstats2/statistics?populations=";
-                    break;
-            }
-
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("Authorization",
-                "Ubi_v1 t=" + token);
-            client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
+            var client = Http.Preset.GetClient(token);
 
             var request = await client
-                .GetAsync(uri + GUID +
-                          "&statistics=operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon");
+                .GetAsync(Http.Preset.FormStatsURL(player,"operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"));
 
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            var rawStats = await Task.Run(async () => JObject.Parse(await request.Content.ReadAsStringAsync()));
-            var OperatorObj = await Task.Run(async () => JObject.Parse(await client
-                .GetAsync("https://dragon6-224813.firebaseapp.com/operatorinfo.json")
-                .Result.Content.ReadAsStringAsync()));
-            var PlayerObj = (JObject)rawStats["results"][GUID];
+            var OperatorObj = await Task.Run(async () => JObject.Parse(await client.GetAsync("https://dragon6-224813.firebaseapp.com/operatorinfo.json").Result.Content.ReadAsStringAsync()));
+            var PlayerObj = (JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][player.GUID];
 
             //form strings to get data
-            var Collection = new List<OperatorStats>();
+            var Collection = new List<Operator>();
 
             foreach (var index in OperatorObj.ToObject<Dictionary<string, string>>().Keys.ToArray())
             {
@@ -101,7 +74,7 @@ namespace Dragon6.API
                 var DBNOIdentifier = $"operatorpvp_dbno:{index}:infinite";
                 var RoundsPlayedIdentifier = $"operatorpvp_roundplayed:{index}:infinite";
 
-                var stats = new OperatorStats
+                var stats = new Operator
                 {
                     Name = (string)OperatorObj[index],
                     Index = index,
@@ -127,13 +100,6 @@ namespace Dragon6.API
                 }
                 catch { }
 
-                PlayerObj.Remove(WinsIdentifier);
-                PlayerObj.Remove(LossIdentifier);
-                PlayerObj.Remove(KillsIdentifier);
-                PlayerObj.Remove(DeathsIdentifier);
-                PlayerObj.Remove(HeadshotsIdentifier);
-                PlayerObj.Remove(DBNOIdentifier);
-                PlayerObj.Remove(RoundsPlayedIdentifier);
                 Collection.Add(stats);
             }
 

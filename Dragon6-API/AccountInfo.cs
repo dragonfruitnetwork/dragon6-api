@@ -41,16 +41,12 @@ namespace Dragon6.API
         /// <returns></returns>
         public static async Task<AccountInfo> GetFromName(string name, References.Platforms platform,string token)
         {
-            var client = new HttpClient();
-            var uri = "https://public-ubiservices.ubi.com/v2/profiles?platformType=";
+            var client = Http.Preset.GetClient(token);
+            var uri = $"{Http.Endpoints.UplayIDServer}?platformType=";
 
             if (platform == References.Platforms.PC) uri += "uplay";
             if (platform == References.Platforms.PSN) uri += "psn";
             if (platform == References.Platforms.XB1) uri += "xbl";
-
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("Authorization", "Ubi_v1 t=" + token);
-            client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
 
             var response = await client.GetAsync(uri + "&nameOnPlatform=" + name);
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -67,14 +63,10 @@ namespace Dragon6.API
         /// <returns></returns>
         public static async Task<AccountInfo> ReverseID_PC(string GUID,string token)
         {
-            var client = new HttpClient();
-            var uri = "https://public-ubiservices.ubi.com/v2/profiles?platformType=uplay";
+            var client = Http.Preset.GetClient(token);
 
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Add("Authorization", "Ubi_v1 t=" + token);
-            client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
+            var content = await client.GetAsync($"{Http.Endpoints.UplayIDServer}?platformType=uplay&idOnPlatform={GUID}");
 
-            var content = await client.GetAsync(uri + "&idOnPlatform=" + GUID);
             if (content.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
