@@ -17,7 +17,7 @@ namespace Dragon6.API
 
         public static string[] Regions = {"EMEA", "APAC", "NCSA"};
 
-        public static Dictionary<int, string> RankNames = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
         {
             {0, "Unranked"},
             {1, "Copper 4"},
@@ -43,5 +43,15 @@ namespace Dragon6.API
             {21, "Champion"}
         };
 
+        public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
+        {
+            {1, "Assault Rifle"},
+            {2, "SMG"},
+            {3, "LMG"},
+            {4, "Marksman Rifle"},
+            {5, "Handgun"},
+            {6, "Shotgun"},
+            {7, "Machine Pistol"}
+        };
     }
 }
