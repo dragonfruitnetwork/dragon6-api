@@ -17,6 +17,7 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 
 ```C#
 using Dragon6.API;
+using Dragon6.API.Stats;
 
 namespace Dragon6.EXAMPLE
 {
@@ -25,12 +26,13 @@ namespace Dragon6.EXAMPLE
 		private string email = "youremail@gmail.com";
 		private string password = "yourpassword";
 		private string token;
-		private PlayerStats stats = null;
+		private General stats = null;
+		private Season RankedStats = null;
 
 		public async Task UpdatePlayerStats(string username)
 		{
 			Token.SetCredentials(email, password);
-			token = await Token.GetToken(); //call this too many times and your account will be locked for 2 hours. Make sure you store this and set an expiry for one hour
+			token = await Token.GetToken(); //call this too many times and your account will be locked for 2 hours. Make sure you store this and set an expiry for two hours. When it expires you will need a new one.
 
 			try
 			{
@@ -38,7 +40,8 @@ namespace Dragon6.EXAMPLE
 				try
 				{
 		
-					stats = await PlayerStats.GetStats(player,token);
+					stats = await General.GetStats(player,token);
+					RankedStats = await Season.GetSeason(player, "EMEA", token, -1); //-1 = current season but if excluded it is the default
 				}
 				catch
 				{
