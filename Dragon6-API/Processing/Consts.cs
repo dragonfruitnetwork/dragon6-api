@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-/// <summary>
+﻿/// <summary>
 /// the consts used by ubi to identify stats
 /// </summary>
 namespace Dragon6.API.Consts
 {
+    /// <summary>
+    /// casual stats
+    /// </summary>
     public class Casual
     {
         public const string Kills = "casualpvp_kills:infinite";
@@ -19,8 +18,11 @@ namespace Dragon6.API.Consts
         public const string Time = "casualpvp_timeplayed:infinite";
     }
 
+    /// <summary>
+    /// permanent ranked stats (not seasonal)
+    /// </summary>
     public class Ranked
-    { 
+    {
         public const string Kills = "rankedpvp_kills:infinite";
         public const string Deaths = "rankedpvp_death:infinite";
 
@@ -31,6 +33,9 @@ namespace Dragon6.API.Consts
         public const string Time = "rankedpvp_timeplayed:infinite";
     }
 
+    /// <summary>
+    /// Stats relating to a ranked season
+    /// </summary>
     public class RankedSeason
     {
         public const string Season = "season";
@@ -42,6 +47,9 @@ namespace Dragon6.API.Consts
         public const string MMR = "mmr";
     }
 
+    /// <summary>
+    /// Stats relating to terrorist hunt, the PvE mode.
+    /// </summary>
     public class PvE
     {
         public const string Kills = "generalpve_kills:infinite";
@@ -97,5 +105,25 @@ namespace Dragon6.API.Consts
         public const string WL = "generalpvp_matchwlratio:infinite";
 
         public const string Time = "generalpvp_timeplayed:infinite";
+    }
+
+    public class Weapon
+    {
+        public const string Kills = "weapontypepvp_kills:{0}:infinite";
+        public const string Headshots = "weapontypepvp_headshot:{0}:infinite";
+        public const string ShotsFired = "weapontypepvp_bulletfired:{0}:infinite";
+        public const string ShotsHit = "weapontypepvp_bullethit:{0}:infinite";
+    }
+
+    public class Operator
+    {
+        public const string Kills = "operatorpvp_roundwon:{0}:infinite";
+        public const string Deaths = "operatorpvp_roundlost:{0}:infinite";
+        public const string Wins = "operatorpvp_kills:{0}:infinite";
+        public const string Losses = "operatorpvp_death:{0}:infinite";
+        public const string Downs = "operatorpvp_headshot:{0}:infinite";
+        public const string Headshots = "operatorpvp_dbno:{0}:infinite";
+        public const string Rounds = "operatorpvp_roundplayed:{0}:infinite";
+
     }
 }

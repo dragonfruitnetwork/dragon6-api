@@ -11,7 +11,9 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
   - General Stats
   - Operator Specific Stats
   - Ranked Season Support
-  - PC ID Reverse Engineer Support
+  - PC ID Reversal Support
+  - `HttpClient` Presets
+  - JSON Deserialisers (Download the data using your own system)
  
 ## Usage
 
@@ -27,7 +29,7 @@ namespace Dragon6.EXAMPLE
 		private string password = "yourpassword";
 		private string token;
 		private General stats = null;
-		private Season RankedStats = null;
+		private Season rankedstats = null;
 
 		public async Task UpdatePlayerStats(string username)
 		{
@@ -36,12 +38,12 @@ namespace Dragon6.EXAMPLE
 
 			try
 			{
-				AccountInfo player = await AccountInfo.GetFromName(username ,References.Platform.PC,token);		
+				AccountInfo player = await AccountInfo.GetFromName(username, References.Platform.PC, token);		
 				try
 				{
 		
 					stats = await General.GetStats(player,token);
-					RankedStats = await Season.GetSeason(player, "EMEA", token, -1); //-1 = current season but if excluded it is the default
+					rankedstats = await Season.GetSeason(player, "EMEA", token, -1); //-1 = current season but if excluded is the default
 				}
 				catch
 				{
@@ -76,4 +78,4 @@ namespace Dragon6.EXAMPLE
 
 Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
 
-Contributors are awarded a verified profile on the Dragon6 Apps. This gives you access to beta features, custom backgrounds on your profile and squads. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info and the Twitch/YT links to add.
+Contributors can claim a verified profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info.

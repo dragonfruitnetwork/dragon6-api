@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Dragon6.API.Helpers;
 using Dragon6.API.Stats;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Threading.Tasks;
 
 namespace Dragon6.API
 {
     /// <summary>
     /// Takes Ubisoft JSON and pareses it into a Dragon6 Class
     /// </summary>
-    /// <param name="json"></param>
-    /// <param name="GUID"></param>
-    /// <returns></returns>
-    class Alignments
+    internal class Alignments
     {
         /// <summary>
         /// Aligns into an AccountInfo Class
@@ -29,7 +25,7 @@ namespace Dragon6.API
             {
                 PlayerName = values["nameOnPlatform"].ToString(),
                 GUID = values["profileId"].ToString(),
-                Platform = (string)values["platformType"] == "uplay" ? References.Platforms.PC : (string)values["platformType"] == "psn" ? References.Platforms.PSN:References.Platforms.XB1
+                Platform = (string)values["platformType"] == "uplay" ? References.Platforms.PC : (string)values["platformType"] == "psn" ? References.Platforms.PSN : References.Platforms.XB1
             };
         }
 
@@ -38,100 +34,83 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static General AlignGeneralStats(string json,string GUID)
+        public static General AlignGeneralStats(string json, string GUID)
         {
             var PlayerObj = (JObject)JObject.Parse(json)["results"][GUID];
+            var JSON = new JSONConverter(PlayerObj);
+
+            if (PlayerObj == null)
+            {
+                return new General();
+            }
 
             return new General
             {
                 // Casual
-                Casual_Kills = int.Parse((string)PlayerObj[Consts.Casual.Kills] ?? "0"),
-                Casual_Deaths = int.Parse((string)PlayerObj[Consts.Casual.Deaths] ?? "0"),
-                Casual_KD = float.Parse((string)PlayerObj[Consts.Casual.Kills] ?? "1") /
-                            float.Parse((string)PlayerObj[Consts.Casual.Deaths] ?? "1"),
+                Casual_Kills = JSON.GetInt32(Consts.Casual.Kills),
+                Casual_Deaths = JSON.GetInt32(Consts.Casual.Deaths),
+                Casual_KD = JSON.GetFloat(Consts.Casual.Kills, 1) / JSON.GetFloat(Consts.Casual.Deaths, 1),
 
-                Casual_Wins = int.Parse((string)PlayerObj[Consts.Casual.Wins] ?? "0"),
-                Casual_Losses = int.Parse((string)PlayerObj[Consts.Casual.Losses] ?? "0"),
-                Casual_WL = float.Parse((string)PlayerObj[Consts.Casual.Wins] ?? "1") /
-                            float.Parse((string)PlayerObj[Consts.Casual.Losses] ?? "1"),
+                Casual_Wins = JSON.GetInt32(Consts.Casual.Wins),
+                Casual_Losses = JSON.GetInt32(Consts.Casual.Losses),
+                Casual_WL = JSON.GetFloat(Consts.Casual.Wins, 1) / JSON.GetFloat(Consts.Casual.Losses, 1),
 
-                Casual_MatchesPlayed = int.Parse((string)PlayerObj[Consts.Casual.Time] ?? "0"),
+                Casual_MatchesPlayed = JSON.GetInt32(Consts.Casual.Time),
 
                 // General
-                Barricades = int.Parse((string)PlayerObj[Consts.General.Barricades] ?? "0"),
-                Reinforcements = int.Parse((string)PlayerObj[Consts.General.Reinforcements] ?? "0"),
+                Barricades = JSON.GetInt32(Consts.General.Barricades),
+                Reinforcements = JSON.GetInt32(Consts.General.Reinforcements),
 
-                Downs = int.Parse((string)PlayerObj[Consts.General.Downs] ?? "0"),
-                Revives = int.Parse((string)PlayerObj[Consts.General.Revives] ?? "0"),
+                Downs = JSON.GetInt32(Consts.General.Downs),
+                Revives = JSON.GetInt32(Consts.General.Revives),
 
-                Penetrations = int.Parse((string)PlayerObj[Consts.General.Penetrations] ?? "0"),
-                Headshots = int.Parse((string)PlayerObj[Consts.General.Headshots] ?? "0"),
-                Knifes = int.Parse((string)PlayerObj[Consts.General.Knives] ?? "0"),
+                Penetrations = JSON.GetInt32(Consts.General.Penetrations),
+                Headshots = JSON.GetInt32(Consts.General.Headshots),
+                Knifes = JSON.GetInt32(Consts.General.Knives),
 
-                Assists = int.Parse((string)PlayerObj[Consts.General.Assists] ?? "0"),
-                Suicides = int.Parse((string)PlayerObj[Consts.General.Suicides] ?? "0"),
+                Assists = JSON.GetInt32(Consts.General.Assists),
+                Suicides = JSON.GetInt32(Consts.General.Suicides),
 
-                ShotsFired = long.Parse((string)PlayerObj[Consts.General.BulletFired] ?? "0"),
-                ShotsConnected = long.Parse((string)PlayerObj[Consts.General.BulletHit] ?? "0"),
+                ShotsFired = JSON.GetInt64(Consts.General.BulletFired),
+                ShotsConnected = JSON.GetInt64(Consts.General.BulletHit),
 
                 // Terrorist Hunt
-                THunt_Kills = int.Parse((string)PlayerObj[Consts.PvE.Kills] ?? "0"),
-                THunt_Deaths = int.Parse((string)PlayerObj[Consts.PvE.Deaths] ?? "0"),
-                THunt_KD = float.Parse((string)PlayerObj[Consts.PvE.Kills] ?? "1") /
-                           float.Parse((string)PlayerObj[Consts.PvE.Deaths] ?? "1"),
+                THunt_Kills = JSON.GetInt32(Consts.PvE.Kills),
+                THunt_Deaths = JSON.GetInt32(Consts.PvE.Deaths),
+                THunt_KD = JSON.GetFloat(Consts.PvE.Kills, 1) / JSON.GetFloat(Consts.PvE.Deaths, 1),
 
-                THunt_Wins = int.Parse((string)PlayerObj[Consts.PvE.Wins] ?? "0"),
-                THunt_Losses = int.Parse((string)PlayerObj[Consts.PvE.Losses] ?? "0"),
-                THunt_WL = float.Parse((string)PlayerObj[Consts.PvE.Wins] ?? "1") /
-                           float.Parse((string)PlayerObj[Consts.PvE.Losses] ?? "1"),
-                THunt_MatchesPlayed = int.Parse((string)PlayerObj[Consts.PvE.Wins] ?? "0") + int.Parse((string)PlayerObj[Consts.PvE.Losses] ?? "0"),
+                THunt_Wins = JSON.GetInt32(Consts.PvE.Wins),
+                THunt_Losses = JSON.GetInt32(Consts.PvE.Losses),
+                THunt_WL = JSON.GetFloat(Consts.PvE.Wins, 1) / JSON.GetFloat(Consts.PvE.Losses, 1),
 
                 // Gamemodes
-                HIScore_Secure =
-                    int.Parse((string)PlayerObj[Consts.ModeScores.Secure] ?? "0"),
-                HIScore_Bomb = int.Parse((string)PlayerObj[Consts.ModeScores.Bomb] ?? "0"),
-                HIScore_Hostage =
-                    int.Parse((string)PlayerObj[Consts.ModeScores.Hostage] ?? "0"),
+                HIScore_Secure = JSON.GetInt32(Consts.ModeScores.Secure),
+                HIScore_Bomb = JSON.GetInt32(Consts.ModeScores.Bomb),
+                HIScore_Hostage = JSON.GetInt32(Consts.ModeScores.Hostage),
 
                 // Time Played
-                TimePlayed_Casual =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string)PlayerObj[Consts.Casual.Time] ?? "0")),
-                TimePlayed_THunt =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string)PlayerObj[Consts.PvE.Time] ?? "0")),
-                TimePlayed_Ranked =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string)PlayerObj[Consts.Ranked.Time] ?? "0")),
-                TimePlayed_General =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string)PlayerObj[Consts.Overall.Time] ?? "0")),
-                TimePlayed_Custom =
-                    TimeSpan.FromSeconds(
-                        double.Parse((string)PlayerObj[Consts.CustomGame.Time] ?? "0")),
+                TimePlayed_Casual = TimeSpan.FromSeconds(JSON.GetDouble(Consts.Casual.Time)),
+                TimePlayed_THunt = TimeSpan.FromSeconds(JSON.GetDouble(Consts.PvE.Time)),
+                TimePlayed_Ranked = TimeSpan.FromSeconds(JSON.GetDouble(Consts.Ranked.Time)),
+                TimePlayed_General = TimeSpan.FromSeconds(JSON.GetDouble(Consts.Overall.Time)),
+                TimePlayed_Custom = TimeSpan.FromSeconds(JSON.GetDouble(Consts.CustomGame.Time)),
 
                 // Ranked
-                Ranked_Wins = int.Parse((string)PlayerObj[Consts.Ranked.Wins] ?? "0"),
-                Ranked_Losses = int.Parse((string)PlayerObj[Consts.Ranked.Losses] ?? "0"),
-                Ranked_WL = float.Parse((string)PlayerObj[Consts.Ranked.Wins] ?? "1") /
-                            float.Parse((string)PlayerObj[Consts.Ranked.Losses] ?? "1"),
-                Ranked_MatchesPlayed = int.Parse((string)PlayerObj[Consts.Ranked.MatchesPlayed] ?? "0"),
+                Ranked_Wins = JSON.GetInt32(Consts.Ranked.Wins),
+                Ranked_Losses = JSON.GetInt32(Consts.Ranked.Losses),
+                Ranked_WL = JSON.GetFloat(Consts.Ranked.Wins, 1) / JSON.GetFloat(Consts.Ranked.Losses, 1),
+                Ranked_MatchesPlayed = JSON.GetInt32(Consts.Ranked.MatchesPlayed),
 
-                Ranked_Kills = int.Parse((string)PlayerObj[Consts.Ranked.Kills] ?? "0"),
-                Ranked_Deaths = int.Parse((string)PlayerObj[Consts.Ranked.Deaths] ?? "0"),
-                Ranked_KD = float.Parse((string)PlayerObj[Consts.Ranked.Kills] ?? "1") /
-                            float.Parse((string)PlayerObj[Consts.Ranked.Deaths] ?? "1"),
+                Ranked_Kills = JSON.GetInt32(Consts.Ranked.Kills),
+                Ranked_Deaths = JSON.GetInt32(Consts.Ranked.Deaths),
+                Ranked_KD = JSON.GetFloat(Consts.Ranked.Kills, 1) / JSON.GetFloat(Consts.Ranked.Deaths, 1),
 
-                // General
-                Wins = int.Parse((string)PlayerObj[Consts.Overall.Wins] ?? "0"),
-                Losses = int.Parse((string)PlayerObj[Consts.Overall.Losses] ?? "0"),
-                Kills = int.Parse((string)PlayerObj[Consts.Overall.Kills] ?? "0"),
-                Deaths = int.Parse((string)PlayerObj[Consts.Overall.Deaths] ?? "0"),
-                WL = float.Parse((string)PlayerObj[Consts.Overall.WL] ?? "0"),
-                MatchesPlayed = int.Parse((string)PlayerObj[Consts.Ranked.MatchesPlayed] ?? "0")
-                              + int.Parse((string)PlayerObj[Consts.Casual.MatchesPlayed] ?? "0")
-                              + int.Parse((string)PlayerObj[Consts.PvE.Wins] ?? "0")
-                              + int.Parse((string)PlayerObj[Consts.PvE.Losses] ?? "0")
+                // General (Overall Stats)
+                Wins = JSON.GetInt32(Consts.Overall.Wins),
+                Losses = JSON.GetInt32(Consts.Overall.Losses),
+                Kills = JSON.GetInt32(Consts.Overall.Kills),
+                Deaths = JSON.GetInt32(Consts.Overall.Deaths),
+                WL = JSON.GetFloat(Consts.Overall.WL),
             };
 
         }
@@ -141,20 +120,19 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static async Task<Season> AlignSeason(string json,string GUID)
+        public static async Task<Season> AlignSeason(string json, string GUID)
         {
-            var response = await Task.Run(() => JObject.Parse(json));
-            response = JObject.FromObject(response["players"][GUID]);
+            var JSON = new JSONConverter((JObject)JObject.Parse(json)["players"][GUID]);
 
             return new Season
             {
-                SeasonID = (int)response[Consts.RankedSeason.Season],
-                Rank = (int)response[Consts.RankedSeason.Rank],
-                Max_Rank = (int)response[Consts.RankedSeason.MaxRank],
-                Wins = (int)response[Consts.RankedSeason.Wins],
-                Losses = (int)response[Consts.RankedSeason.Losses],
-                Abandons = (int)response[Consts.RankedSeason.Abandons],
-                MMR = (int)response[Consts.RankedSeason.MMR]
+                SeasonID = JSON.GetInt32(Consts.RankedSeason.Season),
+                Rank = JSON.GetInt32(Consts.RankedSeason.Rank),
+                Max_Rank = JSON.GetInt32(Consts.RankedSeason.MaxRank),
+                Wins = JSON.GetInt32(Consts.RankedSeason.Wins),
+                Losses = JSON.GetInt32(Consts.RankedSeason.Losses),
+                Abandons = JSON.GetInt32(Consts.RankedSeason.Abandons),
+                MMR = JSON.GetInt32(Consts.RankedSeason.MMR)
             };
 
         }
@@ -166,9 +144,7 @@ namespace Dragon6.API
         /// <returns></returns>
         public static async Task<int> AlignLevel(string json)
         {
-            return (int)await Task.Run(() =>
-                JObject.Parse(json)["player_profiles"]
-                    [0][Consts.General.Level]);
+            return (int)await Task.Run(() => JObject.Parse(json)["player_profiles"][0][Consts.General.Level]);
         }
     }
 }
