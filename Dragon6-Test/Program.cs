@@ -13,9 +13,13 @@ namespace Dragon6.API.Test
     {
         async static Task Main(string[] args)
         {
-            string token = await new HttpClient().GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content.ReadAsStringAsync(); //YOU MUST GET PERMISSION BEFORE USING OUR TOKEN SERVER
-            var PlayerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
+            //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
+            var SetupVerificationTask = Task.Run(() => Verification.Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
+            string token = await new HttpClient().GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content.ReadAsStringAsync(); 
 
+            await SetupVerificationTask;
+
+            var PlayerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
             var GeneralStats = await General.GetStats(PlayerInfo, token);
             var SeasonStats = await Season.GetSeason(PlayerInfo, "EMEA", token);
             var OPStats = await Operator.GetOperatorStats(PlayerInfo, token);

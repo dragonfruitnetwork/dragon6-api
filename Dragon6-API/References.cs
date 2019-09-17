@@ -15,8 +15,16 @@ namespace Dragon6.API
             XB1
         }
 
-        public static string[] Regions = {"EMEA", "APAC", "NCSA"};
+        public static string[] Regions = 
+        {
+            "EMEA",
+            "APAC",
+            "NCSA"
+        };
 
+        /// <summary>
+        /// English Versions of Rank ID -> Names
+        /// </summary>
         public static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
         {
             {0, "Unranked"},
@@ -43,6 +51,9 @@ namespace Dragon6.API
             {21, "Champion"}
         };
 
+        /// <summary>
+        /// English Names of Weapon Types
+        /// </summary>
         public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
         {
             {1, "Assault Rifle"},

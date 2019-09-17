@@ -17,7 +17,7 @@ namespace Dragon6.API.Stats
         public int Kills { get; set; }
         public int Deaths { get; set; }
         public float WL { get; set; }
-        public int MatchesPlayed { get; set; }
+        public int MatchesPlayed { get => Casual_MatchesPlayed + Ranked_MatchesPlayed + THunt_MatchesPlayed; }
 
         public int Casual_Kills { get; set; }
         public int Casual_Deaths { get; set; }
@@ -45,7 +45,7 @@ namespace Dragon6.API.Stats
         public int THunt_Wins { get; set; }
         public int THunt_Losses { get; set; }
         public float THunt_WL { get; set; }
-        public int THunt_MatchesPlayed { get; set; }
+        public int THunt_MatchesPlayed { get => THunt_Losses + THunt_Wins; }
 
         public int HIScore_Bomb { get; set; }
         public int HIScore_Secure { get; set; }
@@ -61,7 +61,7 @@ namespace Dragon6.API.Stats
         public int Ranked_Wins { get; set; }
         public int Ranked_Losses { get; set; }
         public float Ranked_WL { get; set; }
-        public float Ranked_MatchesPlayed { get; set; }
+        public int Ranked_MatchesPlayed { get; set; }
 
         public int Ranked_Kills { get; set; }
         public int Ranked_Deaths { get; set; }

@@ -29,7 +29,7 @@ namespace Dragon6.API.Http
         /// <param name="Query"></param>
         /// <returns></returns>
         public static string FormStatsURL(AccountInfo Info, string Query) => $"{Http.Endpoints.Stats[Info.Platform]}?populations={Info.GUID}&statistics={Query}";
-        public static string FormAccountInfoURL(References.Platforms Platform, string PlayerIDS) => $"{Http.Endpoints.ProfileInfo[Platform]}?profile_ids={PlayerIDS}";
+        public static string FormAccountInfoURL(References.Platforms Platform, string PlayerIDS) => $"{Endpoints.ProfileInfo[Platform]}?profile_ids={PlayerIDS}";
 
     }
 }

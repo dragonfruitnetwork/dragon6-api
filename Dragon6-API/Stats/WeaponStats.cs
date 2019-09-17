@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Dragon6.API.Helpers;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,37 +22,23 @@ namespace Dragon6.API.Stats
         public static async Task<IEnumerable<Weapon>> GetWeaponStats(AccountInfo UserInfo, string token)
         {
             var request = await Http.Preset.GetClient(token).GetAsync(Http.Preset.FormStatsURL(UserInfo, "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"));
-
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
 
-            var PlayerObj = (JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][UserInfo.GUID];
-
-            //form strings to get data
+            var JSON = new JSONConverter((JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][UserInfo.GUID]);
             var Collection = new List<Weapon>();
             foreach (int index in References.WeaponClasses.Keys)
-            {
-                var KillsIdentifier = $"weapontypepvp_kills:{index}:infinite";
-                var HeadshotsIdentifier = $"weapontypepvp_headshot:{index}:infinite";
-                var BulletFiredIdentifier = $"weapontypepvp_bulletfired:{index}:infinite";
-                var BulletHitIdentifier = $"weapontypepvp_bullethit:{index}:infinite";
-
-                var stats = new Weapon
+                Collection.Add(new Weapon
                 {
-                    WeaponClass = (string)References.WeaponClasses[index],
+                    WeaponClass = References.WeaponClasses[index],
                     WeaponClassID = index,
-                    Kills = int.Parse((string)PlayerObj[KillsIdentifier] ?? "0"),
-                    Headshots = int.Parse((string)PlayerObj[HeadshotsIdentifier] ?? "0"),
-                    BulletsFired = long.Parse((string)PlayerObj[BulletFiredIdentifier] ?? "0"),
-                    BulletsHit = long.Parse((string)PlayerObj[BulletHitIdentifier] ?? "0"),
-
-                };
-
-                Collection.Add(stats);
-            }
+                    Kills = JSON.GetInt32(string.Format(Consts.Weapon.Kills, index)),
+                    Headshots = JSON.GetInt32(string.Format(Consts.Weapon.Headshots, index)),
+                    BulletsFired = JSON.GetInt32(string.Format(Consts.Weapon.ShotsFired, index)),
+                    BulletsHit = JSON.GetInt32(string.Format(Consts.Weapon.ShotsHit, index)),
+                });
 
             return Collection;
-
         }
     }
 }

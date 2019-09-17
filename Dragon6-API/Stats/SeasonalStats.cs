@@ -22,12 +22,7 @@ namespace Dragon6.API.Stats
         /// <summary>
         /// Get Stats for a specific season (-1 is current)
         /// </summary>
-        /// <param name="Player"></param>
-        /// <param name="SeasonNumber"></param>
-        /// <param name="Region"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static async Task<Season> GetSeason(AccountInfo Player, string Region,string token, int SeasonNumber = -1)
+        public static async Task<Season> GetSeason(AccountInfo Player, string Region, string token, int SeasonNumber = -1)
         {
             var content = await Http.Preset.GetClient(token).GetAsync($"{Http.Endpoints.RankedStats[Player.Platform]}?board_id=pvp_ranked&profile_ids={Player.GUID}&region_id={Region.ToLower()}&season_id={SeasonNumber}");
 
