@@ -1,8 +1,6 @@
 ﻿using Dragon6.API.Helpers;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Dragon6.API.Stats
@@ -23,11 +21,14 @@ namespace Dragon6.API.Stats
         {
             var request = await Http.Preset.GetClient(token).GetAsync(Http.Preset.FormStatsURL(UserInfo, "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"));
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
+            }
 
             var JSON = new JSONConverter((JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][UserInfo.GUID]);
             var Collection = new List<Weapon>();
             foreach (int index in References.WeaponClasses.Keys)
+            {
                 Collection.Add(new Weapon
                 {
                     WeaponClass = References.WeaponClasses[index],
@@ -37,6 +38,7 @@ namespace Dragon6.API.Stats
                     BulletsFired = JSON.GetInt32(string.Format(Consts.Weapon.ShotsFired, index)),
                     BulletsHit = JSON.GetInt32(string.Format(Consts.Weapon.ShotsHit, index)),
                 });
+            }
 
             return Collection;
         }

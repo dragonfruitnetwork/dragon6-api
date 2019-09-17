@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Dragon6.API.Verification
@@ -19,10 +19,13 @@ namespace Dragon6.API.Verification
             IsInit = true;
         }
 
-        public static Verification GetUser(string GUID) => IsInit ? Users.SingleOrDefault(x => x.GUID.Equals(GUID, StringComparison.OrdinalIgnoreCase)) : new Verification()
+        public static Verification GetUser(string GUID)
         {
-            GUID = GUID,
-            AccountLevel = Level.Normal
-        };
+            return IsInit ? Users.SingleOrDefault(x => x.GUID.Equals(GUID, StringComparison.OrdinalIgnoreCase)) : new Verification()
+            {
+                GUID = GUID,
+                AccountLevel = Level.Normal
+            };
+        }
     }
 }

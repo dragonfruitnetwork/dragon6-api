@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Dragon6.API
 {
@@ -31,12 +29,14 @@ namespace Dragon6.API
                 var response =
                     await client.PostAsync(Http.Endpoints.TokenServer, content);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
                     throw new UnauthorizedAccessException();
+                }
 
                 var values =
                     JsonConvert.DeserializeObject<Dictionary<string, string>>(
                         await response.Content.ReadAsStringAsync());
-                
+
                 return values["ticket"];
             }
         }

@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Dragon6.API.Verification
 {
@@ -27,7 +25,9 @@ namespace Dragon6.API.Verification
         public string UID { get; set; }
         public List<string> OwnedSquads { get; set; }
 
-        public Dictionary<string, object> ToDictionary() => new Dictionary<string, object>
+        public Dictionary<string, object> ToDictionary()
+        {
+            return new Dictionary<string, object>
         {
             {"Level", AccountLevel },
             {"Twitch", Twitch },
@@ -38,6 +38,6 @@ namespace Dragon6.API.Verification
             {"platform", Platform },
             {"img", Image }
         };
-
+        }
     }
 }

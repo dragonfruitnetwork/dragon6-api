@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Text;
+﻿using System.Net.Http.Headers;
 
 namespace Dragon6.API.Http
 {
@@ -28,8 +25,14 @@ namespace Dragon6.API.Http
         /// <param name="Info"></param>
         /// <param name="Query"></param>
         /// <returns></returns>
-        public static string FormStatsURL(AccountInfo Info, string Query) => $"{Http.Endpoints.Stats[Info.Platform]}?populations={Info.GUID}&statistics={Query}";
-        public static string FormAccountInfoURL(References.Platforms Platform, string PlayerIDS) => $"{Endpoints.ProfileInfo[Platform]}?profile_ids={PlayerIDS}";
+        public static string FormStatsURL(AccountInfo Info, string Query)
+        {
+            return $"{Http.Endpoints.Stats[Info.Platform]}?populations={Info.GUID}&statistics={Query}";
+        }
 
+        public static string FormAccountInfoURL(References.Platforms Platform, string PlayerIDS)
+        {
+            return $"{Endpoints.ProfileInfo[Platform]}?profile_ids={PlayerIDS}";
+        }
     }
 }

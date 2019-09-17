@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dragon6.API.Helpers
 {
@@ -14,16 +11,31 @@ namespace Dragon6.API.Helpers
 
         internal readonly JObject Source;
 
-        public bool IsValid { get => Source != null; }
-        public int GetInt32(string key, int @default = 0) => ((int?)GetBase(key)).GetValueOrDefault(@default);
+        public bool IsValid => Source != null;
+        public int GetInt32(string key, int @default = 0)
+        {
+            return ((int?)GetBase(key)).GetValueOrDefault(@default);
+        }
 
-        public long GetInt64(string key, long @default = 0) => ((long?)GetBase(key)).GetValueOrDefault(@default);
+        public long GetInt64(string key, long @default = 0)
+        {
+            return ((long?)GetBase(key)).GetValueOrDefault(@default);
+        }
 
-        public double GetDouble(string key, double @default = 0) => ((double?)GetBase(key)).GetValueOrDefault(@default);
+        public double GetDouble(string key, double @default = 0)
+        {
+            return ((double?)GetBase(key)).GetValueOrDefault(@default);
+        }
 
-        public float GetFloat(string key, float @default = 0) => ((float?)GetBase(key)).GetValueOrDefault(@default);
+        public float GetFloat(string key, float @default = 0)
+        {
+            return ((float?)GetBase(key)).GetValueOrDefault(@default);
+        }
 
-        public bool GetBool(string key, bool @default = false) => ((bool?)GetBase(key)).GetValueOrDefault(@default);
+        public bool GetBool(string key, bool @default = false)
+        {
+            return ((bool?)GetBase(key)).GetValueOrDefault(@default);
+        }
 
         /// <summary>
         /// gets the value from JSON, returning null in event of issue

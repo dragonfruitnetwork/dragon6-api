@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-/// <summary>
+﻿/// <summary>
 /// the consts used by ubi to identify stats
 /// </summary>
 namespace Dragon6.API.Consts
@@ -26,7 +22,7 @@ namespace Dragon6.API.Consts
     /// permanent ranked stats (not seasonal)
     /// </summary>
     public class Ranked
-    { 
+    {
         public const string Kills = "rankedpvp_kills:infinite";
         public const string Deaths = "rankedpvp_death:infinite";
 

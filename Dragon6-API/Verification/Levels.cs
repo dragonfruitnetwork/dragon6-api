@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dragon6.API.Verification
+﻿namespace Dragon6.API.Verification
 {
     public enum Level
     {

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dragon6.API.Helpers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Dragon6.API.Helpers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Dragon6.API.Stats
 {
@@ -29,7 +29,7 @@ namespace Dragon6.API.Stats
         /// <summary>
         /// Get a collection of all individual operator stats in a List (do not use OperatorIconIndex unless you know what it is)
         /// </summary>
-        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token, Dictionary<string,string> OperatorNameIndex = null, string OperatorIconIndex = null)
+        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token, Dictionary<string, string> OperatorNameIndex = null, string OperatorIconIndex = null)
         {
             #region OperatorIconIndex Setup
             Dictionary<string, string> OperatorIconMap = new Dictionary<string, string>();
@@ -47,10 +47,12 @@ namespace Dragon6.API.Stats
             #endregion
 
             var client = Http.Preset.GetClient(token); //client is used at least once but can be used upto twice in this situation
-            var request = await client.GetAsync(Http.Preset.FormStatsURL(player,"operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"));
+            var request = await client.GetAsync(Http.Preset.FormStatsURL(player, "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"));
 
             if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
+            }
 
             var OperatorObj = OperatorNameIndex != null ? OperatorNameIndex : JObject.Parse(await client.GetAsync("https://dragon6-224813.firebaseapp.com/operatorinfo.json").Result.Content.ReadAsStringAsync()).ToObject<Dictionary<string, string>>();
             var JSON = new JSONConverter((JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][player.GUID]);

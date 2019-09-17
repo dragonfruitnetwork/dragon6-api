@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace Dragon6.API
 {
@@ -31,18 +31,29 @@ namespace Dragon6.API
         /// <param name="platform">The Platform the user is located on</param>
         /// <param name="token">Valid Token from </param>
         /// <returns></returns>
-        public static async Task<AccountInfo> GetFromName(string name, References.Platforms platform,string token)
+        public static async Task<AccountInfo> GetFromName(string name, References.Platforms platform, string token)
         {
             var uri = $"{Http.Endpoints.UplayIDServer}?platformType=";
 
-            if (platform == References.Platforms.PC) uri += "uplay";
-            else if (platform == References.Platforms.PSN) uri += "psn";
-            else if (platform == References.Platforms.XB1) uri += "xbl";
+            if (platform == References.Platforms.PC)
+            {
+                uri += "uplay";
+            }
+            else if (platform == References.Platforms.PSN)
+            {
+                uri += "psn";
+            }
+            else if (platform == References.Platforms.XB1)
+            {
+                uri += "xbl";
+            }
 
             var response = await Http.Preset.GetClient(token).GetAsync(uri + "&nameOnPlatform=" + name);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
+            }
 
             return await Alignments.AlignAccount(await response.Content.ReadAsStringAsync());
         }
@@ -53,14 +64,16 @@ namespace Dragon6.API
         /// <param name="GUID"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<AccountInfo> ReverseID_PC(string GUID,string token)
+        public static async Task<AccountInfo> ReverseID_PC(string GUID, string token)
         {
             var content = await Http.Preset.GetClient(token).GetAsync($"{Http.Endpoints.UplayIDServer}?platformType=uplay&idOnPlatform={GUID}");
 
             if (content.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
+            }
 
-            var response = await Task.Run(async() => JObject.Parse(await content.Content.ReadAsStringAsync()));
+            var response = await Task.Run(async () => JObject.Parse(await content.Content.ReadAsStringAsync()));
 
             return new AccountInfo
             {

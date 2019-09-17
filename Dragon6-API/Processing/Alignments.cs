@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using Dragon6.API.Helpers;
 using Dragon6.API.Stats;
-using Dragon6.API.Helpers;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Threading.Tasks;
 
 namespace Dragon6.API
 {
     /// <summary>
     /// Takes Ubisoft JSON and pareses it into a Dragon6 Class
     /// </summary>
-    class Alignments
+    internal class Alignments
     {
         /// <summary>
         /// Aligns into an AccountInfo Class
@@ -27,7 +25,7 @@ namespace Dragon6.API
             {
                 PlayerName = values["nameOnPlatform"].ToString(),
                 GUID = values["profileId"].ToString(),
-                Platform = (string)values["platformType"] == "uplay" ? References.Platforms.PC : (string)values["platformType"] == "psn" ? References.Platforms.PSN:References.Platforms.XB1
+                Platform = (string)values["platformType"] == "uplay" ? References.Platforms.PC : (string)values["platformType"] == "psn" ? References.Platforms.PSN : References.Platforms.XB1
             };
         }
 
@@ -36,13 +34,15 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static General AlignGeneralStats(string json,string GUID)
+        public static General AlignGeneralStats(string json, string GUID)
         {
             var PlayerObj = (JObject)JObject.Parse(json)["results"][GUID];
             var JSON = new JSONConverter(PlayerObj);
 
             if (PlayerObj == null)
+            {
                 return new General();
+            }
 
             return new General
             {

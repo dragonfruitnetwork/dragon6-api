@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
+﻿using System.Threading.Tasks;
 
 namespace Dragon6.API.Stats
 {
@@ -27,7 +20,9 @@ namespace Dragon6.API.Stats
             var content = await Http.Preset.GetClient(token).GetAsync($"{Http.Endpoints.RankedStats[Player.Platform]}?board_id=pvp_ranked&profile_ids={Player.GUID}&region_id={Region.ToLower()}&season_id={SeasonNumber}");
 
             if (content.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
                 throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
+            }
 
             var response = await content.Content.ReadAsStringAsync();
 
