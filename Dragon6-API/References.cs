@@ -6,9 +6,9 @@ namespace Dragon6.API
     {
         public enum Platforms
         {
-            PC,
-            PSN,
-            XB1
+            PC = 1,
+            PSN = 2,
+            XB1 = 3
         }
 
         public static string[] Regions =
