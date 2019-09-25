@@ -18,10 +18,37 @@ namespace Dragon6.API
             "NCSA"
         };
 
+        public static string GetWeaponClass(int id)
+        {
+            try
+            {
+                return WeaponClasses[id];
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string GetRankName(int id)
+        {
+            try
+            {
+                return RankNames[id];
+            }
+            catch
+            {
+                if(id > 21)
+                    return RankNames[20]; //temp fix for broken ubi api
+            }
+
+            return RankNames[0];
+        }
+
         /// <summary>
         /// English Versions of Rank ID -> Names
         /// </summary>
-        public static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
         {
             {0, "Unranked"},
             {1, "Copper 4"},
@@ -50,7 +77,7 @@ namespace Dragon6.API
         /// <summary>
         /// English Names of Weapon Types
         /// </summary>
-        public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
+        private static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
         {
             {1, "Assault Rifle"},
             {2, "SMG"},
@@ -60,5 +87,6 @@ namespace Dragon6.API
             {6, "Shotgun"},
             {7, "Machine Pistol"}
         };
+
     }
 }
