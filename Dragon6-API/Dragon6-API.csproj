@@ -8,7 +8,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTitle>Dragon6 API</PackageTitle>
-    <PackageVersion>2019.925.0</PackageVersion>
+    <PackageVersion>2019.925.1</PackageVersion>
     <PackageDescription>A Rainbow Six Stats API for .NET</PackageDescription>
     <PackageSummary>A Rainbow Six Stats API</PackageSummary>
     <PackageIconUrl>https://avatars0.githubusercontent.com/t/3256633?s=280</PackageIconUrl>
