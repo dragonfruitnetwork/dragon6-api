@@ -22,7 +22,7 @@ namespace Dragon6.API
         /// <summary>
         /// English Versions of Rank ID -> Names (for operations prior to ember rise)
         /// </summary>
-        private static readonly Dictionary<int, string> LeagacyRankNames = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> LeagacyRankNames = new Dictionary<int, string>
         {
             {0, "Unranked"},
             
@@ -56,7 +56,7 @@ namespace Dragon6.API
         /// <summary>
         /// English Versions of Rank ID -> Names
         /// </summary>
-        private static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
+        public static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
         {
             {0, "Unranked"},
 
