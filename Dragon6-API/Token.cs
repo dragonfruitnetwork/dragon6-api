@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Dragon6.API
 {
@@ -14,7 +14,7 @@ namespace Dragon6.API
         private static string credentials;
 
         /// <summary>
-        /// Get the token using the credentials set using Token.SetCredentials().
+        ///     Get the token using the credentials set using Token.SetCredentials().
         /// </summary>
         /// <returns>Token to be used to access stats</returns>
         public static async Task<string> GetToken()
@@ -27,7 +27,7 @@ namespace Dragon6.API
                     $"Basic {credentials}"); //change this to the current user's credentials
                 client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
                 var response =
-                    await client.PostAsync(Http.Endpoints.TokenServer, content);
+                    await client.PostAsync(Endpoints.TokenServer, content);
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException();
@@ -42,7 +42,7 @@ namespace Dragon6.API
         }
 
         /// <summary>
-        /// Sets the Credentials to get the Token.
+        ///     Sets the Credentials to get the Token.
         /// </summary>
         /// <param name="username">The username to be used (It's usually the email)</param>
         /// <param name="password">The account's password</param>

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Dragon6.API.Helpers;
 
 namespace Dragon6.API.Stats
 {
@@ -13,21 +14,17 @@ namespace Dragon6.API.Stats
         public int MMR { get; set; }
 
         /// <summary>
-        /// Get Stats for a specific season (-1 is current)
+        ///     Get Stats for a specific season (-1 is current)
         /// </summary>
-        public static async Task<Season> GetSeason(AccountInfo Player, string Region, string token, int SeasonNumber = -1)
+        public static async Task<Season> GetSeason(AccountInfo player, string region, string token,
+            int seasonNumber = -1)
         {
-            var content = await Http.Preset.GetClient(token).GetAsync($"{Http.Endpoints.RankedStats[Player.Platform]}?board_id=pvp_ranked&profile_ids={Player.GUID}&region_id={Region.ToLower()}&season_id={SeasonNumber}");
+            var rawData = await Task.Run(() =>
+                d6WebRequest.GetWebJObject(
+                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLower()}&season_id={seasonNumber}",
+                    token));
 
-            if (content.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
-            }
-
-            var response = await content.Content.ReadAsStringAsync();
-
-            return await Alignments.AlignSeason(response, Player.GUID);
+            return await Alignments.AlignSeason(rawData, player.GUID);
         }
-
     }
 }

@@ -1,46 +1,47 @@
-﻿using Dragon6.API.Helpers;
-using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dragon6.API.Helpers;
 
 namespace Dragon6.API.Stats
 {
     public class Weapon
     {
         /// <summary>
-        /// Name of weapon class in english
+        ///     Name of weapon class in english
         /// </summary>
         public string WeaponClass { get; set; }
+
         public int WeaponClassID { get; set; }
         public int Kills { get; set; }
         public int Headshots { get; set; }
         public long BulletsFired { get; set; }
         public long BulletsHit { get; set; }
 
-        public static async Task<IEnumerable<Weapon>> GetWeaponStats(AccountInfo UserInfo, string token)
+        public static async Task<IEnumerable<Weapon>> GetWeaponStats(AccountInfo userInfo, string token)
         {
-            var request = await Http.Preset.GetClient(token).GetAsync(Http.Preset.FormStatsURL(UserInfo, "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"));
-            if (request.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                throw new Exceptions.TokenInvalidException("The Token Provided is invalid or has expired");
-            }
+            var rawData = await Task.Run(() =>
+                d6WebRequest.GetWebJObject(
+                    d6WebRequest.FormStatsUrl(userInfo,
+                        "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"),
+                    token));
 
-            var JSON = new JSONConverter((JObject)JObject.Parse(await request.Content.ReadAsStringAsync())["results"][UserInfo.GUID]);
-            var Collection = new List<Weapon>();
-            foreach (int index in References.WeaponClasses.Keys)
+            var json = new JSONConverter(rawData["results"][userInfo.GUID]);
+            var collection = new List<Weapon>();
+
+            foreach (var index in References.WeaponClasses.Keys)
             {
-                Collection.Add(new Weapon
+                collection.Add(new Weapon
                 {
                     WeaponClass = References.WeaponClasses[index],
                     WeaponClassID = index,
-                    Kills = JSON.GetInt32(string.Format(Consts.Weapon.Kills, index)),
-                    Headshots = JSON.GetInt32(string.Format(Consts.Weapon.Headshots, index)),
-                    BulletsFired = JSON.GetInt32(string.Format(Consts.Weapon.ShotsFired, index)),
-                    BulletsHit = JSON.GetInt32(string.Format(Consts.Weapon.ShotsHit, index)),
+                    Kills = json.GetInt32(string.Format(Consts.Weapon.Kills, index)),
+                    Headshots = json.GetInt32(string.Format(Consts.Weapon.Headshots, index)),
+                    BulletsFired = json.GetInt32(string.Format(Consts.Weapon.ShotsFired, index)),
+                    BulletsHit = json.GetInt32(string.Format(Consts.Weapon.ShotsHit, index))
                 });
             }
 
-            return Collection;
+            return collection;
         }
     }
 }

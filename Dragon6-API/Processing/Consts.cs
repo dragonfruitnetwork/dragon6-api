@@ -1,10 +1,7 @@
-﻿/// <summary>
-/// the consts used by ubi to identify stats
-/// </summary>
-namespace Dragon6.API.Consts
+﻿namespace Dragon6.API.Consts
 {
     /// <summary>
-    /// casual stats
+    ///     casual stats
     /// </summary>
     public class Casual
     {
@@ -19,7 +16,7 @@ namespace Dragon6.API.Consts
     }
 
     /// <summary>
-    /// permanent ranked stats (not seasonal)
+    ///     permanent ranked stats (not seasonal)
     /// </summary>
     public class Ranked
     {
@@ -34,7 +31,7 @@ namespace Dragon6.API.Consts
     }
 
     /// <summary>
-    /// Stats relating to a ranked season
+    ///     Stats relating to a ranked season
     /// </summary>
     public class RankedSeason
     {
@@ -48,7 +45,7 @@ namespace Dragon6.API.Consts
     }
 
     /// <summary>
-    /// Stats relating to terrorist hunt, the PvE mode.
+    ///     Stats relating to terrorist hunt, the PvE mode.
     /// </summary>
     public class PvE
     {
@@ -124,6 +121,5 @@ namespace Dragon6.API.Consts
         public const string Downs = "operatorpvp_headshot:{0}:infinite";
         public const string Headshots = "operatorpvp_dbno:{0}:infinite";
         public const string Rounds = "operatorpvp_roundplayed:{0}:infinite";
-
     }
 }
