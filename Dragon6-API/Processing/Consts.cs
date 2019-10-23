@@ -1,4 +1,4 @@
-﻿namespace Dragon6.API.Consts
+﻿namespace Dragon6.API.Processing
 {
     /// <summary>
     ///     casual stats

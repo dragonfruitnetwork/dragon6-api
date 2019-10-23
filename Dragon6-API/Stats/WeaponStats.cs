@@ -25,23 +25,7 @@ namespace Dragon6.API.Stats
                         "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"),
                     token));
 
-            var json = new JSONConverter(rawData["results"][userInfo.GUID]);
-            var collection = new List<Weapon>();
-
-            foreach (var index in References.WeaponClasses.Keys)
-            {
-                collection.Add(new Weapon
-                {
-                    WeaponClass = References.WeaponClasses[index],
-                    WeaponClassID = index,
-                    Kills = json.GetInt32(string.Format(Consts.Weapon.Kills, index)),
-                    Headshots = json.GetInt32(string.Format(Consts.Weapon.Headshots, index)),
-                    BulletsFired = json.GetInt32(string.Format(Consts.Weapon.ShotsFired, index)),
-                    BulletsHit = json.GetInt32(string.Format(Consts.Weapon.ShotsHit, index))
-                });
-            }
-
-            return collection;
+            return await Task.Run(() => rawData.AlignWeapons(userInfo.GUID));
         }
     }
 }

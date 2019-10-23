@@ -53,7 +53,7 @@ namespace Dragon6.API
             }
 
             return await Task.Run(() =>
-                Alignments.AlignAccount(d6WebRequest.GetWebJObject($"{uri}&nameOnPlatform={name}", token)));
+                d6WebRequest.GetWebJObject($"{uri}&nameOnPlatform={name}", token).AlignAccount());
         }
 
         /// <summary>

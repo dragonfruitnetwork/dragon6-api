@@ -19,7 +19,7 @@ namespace Dragon6.API
         };
 
         /// <summary>
-        /// English Versions of Rank ID -> Names (for operations prior to ember rise)
+        ///     English Versions of Rank ID -> Names (for operations prior to ember rise)
         /// </summary>
         public static readonly Dictionary<int, string> LegacyRankNames = new Dictionary<int, string>
         {
@@ -49,11 +49,11 @@ namespace Dragon6.API
             {18, "Platinum 2"},
             {19, "Platinum 1"},
 
-            {20, "Diamond"},
+            {20, "Diamond"}
         };
-        
+
         /// <summary>
-        /// English Versions of Rank ID -> Names
+        ///     English Versions of Rank ID -> Names
         /// </summary>
         public static readonly Dictionary<int, string> RankNames = new Dictionary<int, string>
         {
@@ -92,7 +92,7 @@ namespace Dragon6.API
 
 
         /// <summary>
-        /// English Names of Weapon Types
+        ///     English Names of Weapon Types
         /// </summary>
         public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
         {
@@ -104,6 +104,5 @@ namespace Dragon6.API
             {6, "Shotgun"},
             {7, "Machine Pistol"}
         };
-
     }
 }

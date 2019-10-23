@@ -24,7 +24,7 @@ namespace Dragon6.API.Stats
                     $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLower()}&season_id={seasonNumber}",
                     token));
 
-            return await Alignments.AlignSeason(rawData, player.GUID);
+            return await Task.Run(() => rawData.AlignSeason(player.GUID));
         }
     }
 }

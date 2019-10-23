@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 using Newtonsoft.Json;
@@ -58,48 +57,8 @@ namespace Dragon6.API.Stats
                         "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"),
                     token));
 
-            var operatorObj = OperatorNameIndex ??
-                              d6WebRequest.GetWebObject<Dictionary<string, string>>(
-                                  "https://dragon6-224813.firebaseapp.com/operatorinfo.json");
-            var JSON = new JSONConverter(request["results"][player.GUID]);
-
-            //form strings to get data
-            var collection = new List<Operator>();
-
-            foreach (var index in operatorObj.Keys.ToArray())
-            {
-                var stats = new Operator
-                {
-                    Name = operatorObj[index],
-                    Index = index,
-                    Kills = JSON.GetInt32(string.Format(Consts.Operator.Kills, index)),
-                    Deaths = JSON.GetInt32(string.Format(Consts.Operator.Deaths, index)),
-                    Wins = JSON.GetInt32(string.Format(Consts.Operator.Wins, index)),
-                    Losses = JSON.GetInt32(string.Format(Consts.Operator.Losses, index)),
-                    Headshots = JSON.GetInt32(string.Format(Consts.Operator.Headshots, index)),
-                    Downs = JSON.GetInt32(string.Format(Consts.Operator.Downs, index)),
-                    RoundsPlayed = JSON.GetInt32(string.Format(Consts.Operator.Rounds, index)),
-                    KD = JSON.GetFloat(string.Format(Consts.Operator.Kills, index), 1) /
-                         JSON.GetFloat(string.Format(Consts.Operator.Deaths, index), 1),
-                    WL = JSON.GetFloat(string.Format(Consts.Operator.Wins, index), 1) /
-                         JSON.GetFloat(string.Format(Consts.Operator.Losses, index), 1)
-                };
-
-                try
-                {
-                    if (UseMap)
-                    {
-                        stats.ImageURL = OperatorIconMap[index];
-                    }
-                }
-                catch
-                {
-                }
-
-                collection.Add(stats);
-            }
-
-            return collection;
+            return await Task.Run(() =>
+                request.AlignOperators(player.GUID, OperatorNameIndex, UseMap, OperatorIconMap));
         }
     }
 }
