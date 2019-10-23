@@ -30,7 +30,7 @@ namespace Dragon6.API.Test
             var weapons = await Weapon.GetWeaponStats(playerInfo, token);
             var level = await General.GetLevel(playerInfo, token);
 
-            var account = new JObject()
+            var account = new JObject
             {
                 {"PlayerInfo", JToken.FromObject(playerInfo)},
                 {"Level", level},
