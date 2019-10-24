@@ -43,7 +43,9 @@ namespace Dragon6.API
         public static General AlignGeneralStats(this JObject jObject, string GUID)
         {
             if (jObject == null)
+            {
                 return new General();
+            }
 
             var json = new JSONConverter(jObject["results"][GUID]);
             return new General
@@ -185,6 +187,7 @@ namespace Dragon6.API
 
                 //if a dictionary in the form ID -> op icon url is specified, set the link
                 if (operatorIconMap.Any())
+                {
                     try
                     {
                         stats.ImageURL = operatorIconMap[index];
@@ -193,6 +196,7 @@ namespace Dragon6.API
                     {
                         //cannot find the operator icon index - it's not the end of the world, just continue
                     }
+                }
 
 
                 collection.Add(stats);

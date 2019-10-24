@@ -34,6 +34,7 @@ namespace Dragon6.API.Stats
 
             Dictionary<string, string> operatorIconMap = new Dictionary<string, string>();
             if (!string.IsNullOrEmpty(operatorIconIndex) && File.Exists(operatorIconIndex))
+            {
                 try
                 {
                     operatorIconMap =
@@ -43,6 +44,7 @@ namespace Dragon6.API.Stats
                 {
                     //cannot find the operator icon index - it's not the end of the world, just continue
                 }
+            }
 
             #endregion
 
