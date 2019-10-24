@@ -19,18 +19,48 @@ namespace Dragon6.API.Helpers
         }
 
         /// <summary>
+        ///     Memory-Aware method to stream a JSON string to specified Type (T) using the Ubisoft Client
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static T GetWebObject<T>(string uri, string token)
+        {
+            using (HttpClient client = GetUbisoftClient(token))
+            using (Stream s = client.GetStreamAsync(uri).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+                return JsonSerializer.Deserialize<T>(reader);
+        }
+
+        /// <summary>
         ///     Memory-Aware method to stream a JSON string to specified Type (T)
         /// </summary>
         /// <param name="uri"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static T GetWebObject<T>(string uri, string token = "")
+        public static T GetWebObject<T>(string uri)
         {
-            using (HttpClient client = string.IsNullOrWhiteSpace(token) ? GetDragon6Client() : GetUbisoftClient(token))
+            using (HttpClient client = GetDragon6Client())
             using (Stream s = client.GetStreamAsync(uri).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
                 return JsonSerializer.Deserialize<T>(reader);
+        }
+
+        /// <summary>
+        ///     Memory-Aware method to stream a JSON string to a JObject using the Ubisoft Client
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="token"></param>
+        /// <returns>JObject to be used to extract data</returns>
+        public static JObject GetWebJObject(string uri, string token)
+        {
+            using (HttpClient client = GetUbisoftClient(token))
+            using (Stream s = client.GetStreamAsync(uri).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+                return JObject.Load(reader);
         }
 
         /// <summary>
@@ -39,9 +69,9 @@ namespace Dragon6.API.Helpers
         /// <param name="uri"></param>
         /// <param name="token"></param>
         /// <returns>JObject to be used to extract data</returns>
-        public static JObject GetWebJObject(string uri, string token = "")
+        public static JObject GetWebJObject(string uri)
         {
-            using (HttpClient client = string.IsNullOrWhiteSpace(token) ? GetDragon6Client() : GetUbisoftClient(token))
+            using (HttpClient client = GetDragon6Client())
             using (Stream s = client.GetStreamAsync(uri).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))

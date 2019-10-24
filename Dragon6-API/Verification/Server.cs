@@ -15,21 +15,20 @@ namespace Dragon6.API.Verification
             Users = d6WebRequest.GetWebObject<IEnumerable<Verification>>(endpoint);
         }
 
-        public static Verification GetUser(string GUID)
+        public static Verification GetUser(string guid)
         {
             try
             {
-                return Users.Single(x => x.GUID.Equals(GUID, StringComparison.OrdinalIgnoreCase));
+                return Users.Single(x => x.GUID.Equals(guid, StringComparison.OrdinalIgnoreCase));
             }
             catch
             {
+                return new Verification
+                {
+                    GUID = guid,
+                    AccountLevel = Level.Normal
+                };
             }
-
-            return new Verification
-            {
-                GUID = GUID,
-                AccountLevel = Level.Normal
-            };
         }
     }
 }

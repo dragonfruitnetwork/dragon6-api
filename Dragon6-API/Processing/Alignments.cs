@@ -22,16 +22,16 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static AccountInfo AlignAccount(this JObject json)
+        public static AccountInfo AlignAccount(this JObject jObject)
         {
-            var values = JObject.FromObject(json["profiles"][0]);
+            var json = JObject.FromObject(jObject["profiles"][0]);
 
             return new AccountInfo
             {
-                PlayerName = values["nameOnPlatform"].ToString(),
-                GUID = values["profileId"].ToString(),
-                Platform = (string) values["platformType"] == "uplay" ? References.Platforms.PC :
-                    (string) values["platformType"] == "psn" ? References.Platforms.PSN : References.Platforms.XB1
+                PlayerName = json["nameOnPlatform"].ToString(),
+                GUID = json["profileId"].ToString(),
+                Platform = (string)json["platformType"] == "uplay" ? References.Platforms.PC :
+                    (string)json["platformType"] == "psn" ? References.Platforms.PSN : References.Platforms.XB1
             };
         }
 
@@ -43,9 +43,7 @@ namespace Dragon6.API
         public static General AlignGeneralStats(this JObject jObject, string GUID)
         {
             if (jObject == null)
-            {
                 return new General();
-            }
 
             var json = new JSONConverter(jObject["results"][GUID]);
             return new General
@@ -123,19 +121,19 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static Season AlignSeason(this JObject json, string GUID)
+        public static Season AlignSeason(this JObject jObject, string GUID)
         {
-            var JSON = new JSONConverter(json["players"][GUID]);
+            var json = new JSONConverter(jObject["players"][GUID]);
 
             return new Season
             {
-                SeasonID = JSON.GetInt32(RankedSeason.Season),
-                Rank = JSON.GetInt32(RankedSeason.Rank),
-                Max_Rank = JSON.GetInt32(RankedSeason.MaxRank),
-                Wins = JSON.GetInt32(RankedSeason.Wins),
-                Losses = JSON.GetInt32(RankedSeason.Losses),
-                Abandons = JSON.GetInt32(RankedSeason.Abandons),
-                MMR = JSON.GetInt32(RankedSeason.MMR)
+                SeasonID = json.GetInt32(RankedSeason.Season),
+                Rank = json.GetInt32(RankedSeason.Rank),
+                Max_Rank = json.GetInt32(RankedSeason.MaxRank),
+                Wins = json.GetInt32(RankedSeason.Wins),
+                Losses = json.GetInt32(RankedSeason.Losses),
+                Abandons = json.GetInt32(RankedSeason.Abandons),
+                MMR = json.GetInt32(RankedSeason.MMR)
             };
         }
 
@@ -146,60 +144,56 @@ namespace Dragon6.API
         /// <returns></returns>
         public static async Task<int> AlignLevel(this JObject json)
         {
-            return (int) await Task.Run(() => json["player_profiles"][0][Processing.General.Level]);
+            return (int)await Task.Run(() => json["player_profiles"][0][Processing.General.Level]);
         }
 
         /// <summary>
-        ///     gets list of operators with their stats
+        ///     gets list of operators with their stats - if you don't have a icon map send an empty dictionary instead
         /// </summary>
         /// <param name="json"></param>
         /// <param name="guid"></param>
         /// <param name="operatorNameIndex"></param>
         /// <param name="UseMap"></param>
-        /// <param name="OperatorIconMap"></param>
+        /// <param name="operatorIconMap"></param>
         /// <returns></returns>
-        public static List<Operator> AlignOperators(this JObject json, string guid,
-            Dictionary<string, string> operatorNameIndex, bool UseMap, Dictionary<string, string> OperatorIconMap)
+        public static List<Operator> AlignOperators(this JObject jObject, string guid,
+            Dictionary<string, string> operatorNameIndex, Dictionary<string, string> operatorIconMap)
         {
-            var JSON = new JSONConverter(json["results"][guid]);
+            var json = new JSONConverter(jObject["results"][guid]);
 
             //get map of operator ids to names
-            var operatorObj = operatorNameIndex ??
-                              d6WebRequest.GetWebObject<Dictionary<string, string>>(
-                                  "https://dragon6-224813.firebaseapp.com/operatorinfo.json");
-
 
             var collection = new List<Operator>();
-            foreach (var index in operatorObj.Keys.ToArray())
+            foreach (var index in operatorNameIndex.Keys.ToArray())
             {
                 var stats = new Operator
                 {
-                    Name = operatorObj[index],
+                    Name = operatorNameIndex[index],
                     Index = index,
-                    Kills = JSON.GetInt32(string.Format(Processing.Operator.Kills, index)),
-                    Deaths = JSON.GetInt32(string.Format(Processing.Operator.Deaths, index)),
-                    Wins = JSON.GetInt32(string.Format(Processing.Operator.Wins, index)),
-                    Losses = JSON.GetInt32(string.Format(Processing.Operator.Losses, index)),
-                    Headshots = JSON.GetInt32(string.Format(Processing.Operator.Headshots, index)),
-                    Downs = JSON.GetInt32(string.Format(Processing.Operator.Downs, index)),
-                    RoundsPlayed = JSON.GetInt32(string.Format(Processing.Operator.Rounds, index)),
-                    KD = JSON.GetFloat(string.Format(Processing.Operator.Kills, index), 1) /
-                         JSON.GetFloat(string.Format(Processing.Operator.Deaths, index), 1),
-                    WL = JSON.GetFloat(string.Format(Processing.Operator.Wins, index), 1) /
-                         JSON.GetFloat(string.Format(Processing.Operator.Losses, index), 1)
+                    Kills = json.GetInt32(string.Format(Processing.Operator.Kills, index)),
+                    Deaths = json.GetInt32(string.Format(Processing.Operator.Deaths, index)),
+                    Wins = json.GetInt32(string.Format(Processing.Operator.Wins, index)),
+                    Losses = json.GetInt32(string.Format(Processing.Operator.Losses, index)),
+                    Headshots = json.GetInt32(string.Format(Processing.Operator.Headshots, index)),
+                    Downs = json.GetInt32(string.Format(Processing.Operator.Downs, index)),
+                    RoundsPlayed = json.GetInt32(string.Format(Processing.Operator.Rounds, index)),
+                    KD = json.GetFloat(string.Format(Processing.Operator.Kills, index), 1) /
+                         json.GetFloat(string.Format(Processing.Operator.Deaths, index), 1),
+                    WL = json.GetFloat(string.Format(Processing.Operator.Wins, index), 1) /
+                         json.GetFloat(string.Format(Processing.Operator.Losses, index), 1)
                 };
 
                 //if a dictionary in the form ID -> op icon url is specified, set the link
-                try
-                {
-                    if (UseMap)
+                if (operatorIconMap.Any())
+                    try
                     {
-                        stats.ImageURL = OperatorIconMap[index];
+                        stats.ImageURL = operatorIconMap[index];
                     }
-                }
-                catch
-                {
-                }
+                    catch
+                    {
+                        //cannot find the operator icon index - it's not the end of the world, just continue
+                    }
+
 
                 collection.Add(stats);
             }

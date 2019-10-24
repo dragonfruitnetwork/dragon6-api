@@ -25,7 +25,7 @@ namespace Dragon6.API.Stats
                         "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"),
                     token));
 
-            return await Task.Run(() => rawData.AlignWeapons(userInfo.GUID));
+            return await Task.Run(() => rawData.AlignWeapons(userInfo.GUID)).ConfigureAwait(false);
         }
     }
 }

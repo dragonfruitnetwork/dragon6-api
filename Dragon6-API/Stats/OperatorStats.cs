@@ -25,31 +25,29 @@ namespace Dragon6.API.Stats
         public int RoundsPlayed { get; set; }
 
         /// <summary>
-        ///     Get a collection of all individual operator stats in a List (do not use OperatorIconIndex unless you know what it
-        ///     is)
+        ///     Get a collection of all individual operator stats in a List with the icon property filled
         /// </summary>
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token,
-            Dictionary<string, string> OperatorNameIndex = null, string OperatorIconIndex = null)
+            Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
         {
-            #region OperatorIconIndex Setup
+            #region operatorIconIndex Setup
 
-            Dictionary<string, string> OperatorIconMap = new Dictionary<string, string>();
-            bool UseMap = false;
-
-            try
-            {
-                if (!string.IsNullOrEmpty(OperatorIconIndex) && File.Exists(OperatorIconIndex))
+            Dictionary<string, string> operatorIconMap = new Dictionary<string, string>();
+            if (!string.IsNullOrEmpty(operatorIconIndex) && File.Exists(operatorIconIndex))
+                try
                 {
-                    OperatorIconMap =
-                        JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(OperatorIconIndex));
-                    UseMap = true;
+                    operatorIconMap =
+                        JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(operatorIconIndex));
                 }
-            }
-            catch
-            {
-            }
+                catch
+                {
+                    //cannot find the operator icon index - it's not the end of the world, just continue
+                }
 
             #endregion
+
+            var operatorIndex = operatorNameIndex ??
+                                d6WebRequest.GetWebObject<Dictionary<string, string>>(Endpoints.OperatorIndex);
 
             var request = await Task.Run(() =>
                 d6WebRequest.GetWebJObject(
@@ -57,8 +55,9 @@ namespace Dragon6.API.Stats
                         "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"),
                     token));
 
-            return await Task.Run(() =>
-                request.AlignOperators(player.GUID, OperatorNameIndex, UseMap, OperatorIconMap));
+
+            return await Task.Run(() => request.AlignOperators(player.GUID, operatorIndex, operatorIconMap))
+                .ConfigureAwait(false);
         }
     }
 }

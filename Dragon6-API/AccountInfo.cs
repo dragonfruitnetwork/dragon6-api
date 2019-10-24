@@ -41,14 +41,14 @@ namespace Dragon6.API
 
             switch (platform)
             {
-                case References.Platforms.PC:
-                    uri += "uplay";
-                    break;
                 case References.Platforms.PSN:
                     uri += "psn";
                     break;
                 case References.Platforms.XB1:
                     uri += "xbl";
+                    break;
+                default:
+                    uri += "uplay";
                     break;
             }
 
