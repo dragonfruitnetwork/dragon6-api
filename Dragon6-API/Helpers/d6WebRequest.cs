@@ -27,10 +27,9 @@ namespace Dragon6.API.Helpers
         public static T GetWebObject<T>(string uri, string token)
         {
             using (HttpClient client = GetUbisoftClient(token))
-            using (Stream s = client.GetStreamAsync(uri).Result)
-            using (StreamReader sr = new StreamReader(s))
-            using (JsonReader reader = new JsonTextReader(sr))
-                return JsonSerializer.Deserialize<T>(reader);
+            {
+                return StreamGenericObject<T>(uri, client);
+            }
         }
 
         /// <summary>
@@ -42,10 +41,9 @@ namespace Dragon6.API.Helpers
         public static T GetWebObject<T>(string uri)
         {
             using (HttpClient client = GetDragon6Client())
-            using (Stream s = client.GetStreamAsync(uri).Result)
-            using (StreamReader sr = new StreamReader(s))
-            using (JsonReader reader = new JsonTextReader(sr))
-                return JsonSerializer.Deserialize<T>(reader);
+            {
+                return StreamGenericObject<T>(uri, client);
+            }
         }
 
         /// <summary>
@@ -57,10 +55,9 @@ namespace Dragon6.API.Helpers
         public static JObject GetWebJObject(string uri, string token)
         {
             using (HttpClient client = GetUbisoftClient(token))
-            using (Stream s = client.GetStreamAsync(uri).Result)
-            using (StreamReader sr = new StreamReader(s))
-            using (JsonReader reader = new JsonTextReader(sr))
-                return JObject.Load(reader);
+            {
+                return StreamJObject(uri, client);
+            }
         }
 
         /// <summary>
@@ -72,10 +69,41 @@ namespace Dragon6.API.Helpers
         public static JObject GetWebJObject(string uri)
         {
             using (HttpClient client = GetDragon6Client())
+            {
+                return StreamJObject(uri, client);
+            }
+        }
+
+        /// <summary>
+        ///     internal method for streaming an object
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static JObject StreamJObject(string uri, HttpClient client)
+        {
             using (Stream s = client.GetStreamAsync(uri).Result)
             using (StreamReader sr = new StreamReader(s))
             using (JsonReader reader = new JsonTextReader(sr))
+            {
                 return JObject.Load(reader);
+            }
+        }
+
+        /// <summary>
+        ///     internal method for streaming an object
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
+        internal static T StreamGenericObject<T>(string uri, HttpClient client)
+        {
+            using (Stream s = client.GetStreamAsync(uri).Result)
+            using (StreamReader sr = new StreamReader(s))
+            using (JsonReader reader = new JsonTextReader(sr))
+            {
+                return JsonSerializer.Deserialize<T>(reader);
+            }
         }
 
         /// <summary>
