@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Dragon6.API.Helpers;
 
 namespace Dragon6.API.Verification
 {
@@ -13,22 +12,23 @@ namespace Dragon6.API.Verification
 
         public static async Task Init(string endpoint)
         {
-            Users = JsonConvert.DeserializeObject<IEnumerable<Verification>>(await new HttpClient().GetAsync(endpoint).Result.Content.ReadAsStringAsync());
+            Users = d6WebRequest.GetWebObject<IEnumerable<Verification>>(endpoint);
         }
 
-        public static Verification GetUser(string GUID)
+        public static Verification GetUser(string guid)
         {
             try
             {
-                return Users.Single(x => x.GUID.Equals(GUID, StringComparison.OrdinalIgnoreCase));
+                return Users.Single(x => x.GUID.Equals(guid, StringComparison.OrdinalIgnoreCase));
             }
-            catch { }
-
-            return new Verification()
+            catch
             {
-                GUID = GUID,
-                AccountLevel = Level.Normal
-            };
+                return new Verification
+                {
+                    GUID = guid,
+                    AccountLevel = Level.Normal
+                };
+            }
         }
     }
 }

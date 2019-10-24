@@ -10,5 +10,4 @@
         Supporter = 4,
         Developer = 100
     }
-
 }
