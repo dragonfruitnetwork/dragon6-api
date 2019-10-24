@@ -20,7 +20,7 @@ namespace Dragon6.API.Stats
         {
             var rawData = await Task.Run(() =>
                 d6WebRequest.GetWebJObject(
-                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLower()}&season_id=-1",
+                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLowerInvariant()}&season_id=-1",
                     token));
 
             return await Task.Run(() => rawData.AlignSeason(player.GUID)).ConfigureAwait(false);

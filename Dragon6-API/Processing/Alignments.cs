@@ -42,7 +42,10 @@ namespace Dragon6.API
         /// <returns></returns>
         public static General AlignGeneralStats(this JObject jObject, string GUID)
         {
-            if (jObject == null) return new General();
+            if (jObject == null)
+            {
+                return new General();
+            }
 
             var json = new JSONConverter(jObject["results"][GUID]);
             return new General
@@ -184,6 +187,7 @@ namespace Dragon6.API
 
                 //if a dictionary in the form ID -> op icon url is specified, set the link
                 if (operatorIconMap.Any())
+                {
                     try
                     {
                         stats.ImageURL = operatorIconMap[index];
@@ -192,6 +196,7 @@ namespace Dragon6.API
                     {
                         //cannot find the operator icon index - it's not the end of the world, just continue
                     }
+                }
 
 
                 collection.Add(stats);
@@ -212,6 +217,7 @@ namespace Dragon6.API
             var collection = new List<Weapon>();
 
             foreach (var index in References.WeaponClasses.Keys)
+            {
                 collection.Add(new Weapon
                 {
                     WeaponClass = References.WeaponClasses[index],
@@ -221,6 +227,7 @@ namespace Dragon6.API
                     BulletsFired = json.GetInt32(string.Format(Processing.Weapon.ShotsFired, index)),
                     BulletsHit = json.GetInt32(string.Format(Processing.Weapon.ShotsHit, index))
                 });
+            }
 
             return collection;
         }
