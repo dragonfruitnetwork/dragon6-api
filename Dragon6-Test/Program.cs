@@ -26,7 +26,7 @@ namespace Dragon6.API.Test
             var playerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
             var generalStats = await General.GetStats(playerInfo, token);
             var seasonStats = await Season.GetSeason(playerInfo, "EMEA", token);
-            var opStats = await Operator.GetOperatorStats(playerInfo, token);
+            var opStats = await Operator.GetOperatorStats(playerInfo, token, null, null);
             var weapons = await Weapon.GetWeaponStats(playerInfo, token);
             var level = await General.GetLevel(playerInfo, token);
 
