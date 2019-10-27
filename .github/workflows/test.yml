@@ -11,7 +11,7 @@ jobs:
     - name: Setup Environment
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.100
+        dotnet-version: 2.2.402
     - name: Test
       run: |
         dotnet restore
