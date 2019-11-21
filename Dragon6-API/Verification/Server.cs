@@ -1,7 +1,9 @@
-﻿using System;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 
 namespace Dragon6.API.Verification
@@ -10,7 +12,7 @@ namespace Dragon6.API.Verification
     {
         internal static IEnumerable<Verification> Users { get; private set; }
 
-        public static async Task Init(string endpoint)
+        public static void Init(string endpoint)
         {
             Users = d6WebRequest.GetWebObject<IEnumerable<Verification>>(endpoint);
         }

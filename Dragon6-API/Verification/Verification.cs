@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Dragon6.API.Verification
@@ -16,24 +19,16 @@ namespace Dragon6.API.Verification
         [JsonProperty("ImageHeaderLink")] public string Image { get; set; }
 
         //dragon6 server specifics below
-        public References.Platforms Platform { get; set; }
-        public string UserName { get; set; }
         public string UID { get; set; }
-        public List<string> OwnedSquads { get; set; }
 
-        public Dictionary<string, object> ToDictionary()
-        {
-            return new Dictionary<string, object>
+        public Dictionary<string, object> ToDictionary() =>
+            new Dictionary<string, object>
             {
                 {"Level", AccountLevel},
                 {"Twitch", Twitch},
                 {"YouTube", YouTube},
                 {"uid", UID},
-                {"username", UserName},
-                {"squads", OwnedSquads},
-                {"platform", Platform},
                 {"img", Image}
             };
-        }
     }
 }

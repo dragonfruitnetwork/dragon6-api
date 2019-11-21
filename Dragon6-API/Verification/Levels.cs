@@ -1,4 +1,7 @@
-﻿namespace Dragon6.API.Verification
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+namespace Dragon6.API.Verification
 {
     public enum Level
     {

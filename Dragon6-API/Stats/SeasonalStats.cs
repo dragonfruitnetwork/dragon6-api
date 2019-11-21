@@ -1,17 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 
 namespace Dragon6.API.Stats
 {
     public class Season
     {
-        public int SeasonID { get; set; }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-        public int Abandons { get; set; }
-        public int Max_Rank { get; set; }
-        public int Rank { get; set; }
-        public int MMR { get; set; }
+        public byte SeasonId { get; set; }
+        public uint Wins { get; set; }
+        public uint Losses { get; set; }
+        public uint Abandons { get; set; }
+        public uint Max_Rank { get; set; }
+        public uint Rank { get; set; }
+        public uint MMR { get; set; }
 
         /// <summary>
         ///     Get Stats for the current season
@@ -20,10 +23,10 @@ namespace Dragon6.API.Stats
         {
             var rawData = await Task.Run(() =>
                 d6WebRequest.GetWebJObject(
-                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLowerInvariant()}&season_id=-1",
+                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.Guid}&region_id={region.ToLowerInvariant()}&season_id=-1",
                     token));
 
-            return await Task.Run(() => rawData.AlignSeason(player.GUID)).ConfigureAwait(false);
+            return await Task.Run(() => rawData.AlignSeason(player.Guid)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -33,10 +36,10 @@ namespace Dragon6.API.Stats
         {
             var rawData = await Task.Run(() =>
                 d6WebRequest.GetWebJObject(
-                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.GUID}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}",
+                    $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.Guid}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}",
                     token));
 
-            return await Task.Run(() => rawData.AlignSeason(player.GUID)).ConfigureAwait(false);
+            return await Task.Run(() => rawData.AlignSeason(player.Guid)).ConfigureAwait(false);
         }
     }
 }

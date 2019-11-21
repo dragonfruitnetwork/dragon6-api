@@ -1,7 +1,10 @@
-﻿namespace Dragon6.API.Processing
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+namespace Dragon6.API.Processing
 {
     /// <summary>
-    ///     casual stats
+    ///     General Casual/Quick Match Stats
     /// </summary>
     public class Casual
     {
@@ -16,7 +19,7 @@
     }
 
     /// <summary>
-    ///     permanent ranked stats (not seasonal)
+    ///     General Ranked Stats
     /// </summary>
     public class Ranked
     {
@@ -31,7 +34,7 @@
     }
 
     /// <summary>
-    ///     Stats relating to a ranked season
+    ///     Season-Specific Ranked Stats
     /// </summary>
     public class RankedSeason
     {
@@ -45,7 +48,7 @@
     }
 
     /// <summary>
-    ///     Stats relating to terrorist hunt, the PvE mode.
+    ///     Terrorist Hunt Stats
     /// </summary>
     public class PvE
     {

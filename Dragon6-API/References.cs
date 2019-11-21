@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 
 namespace Dragon6.API
 {
@@ -94,7 +97,7 @@ namespace Dragon6.API
         /// <summary>
         ///     English Names of Weapon Types
         /// </summary>
-        public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
+        public static readonly Dictionary<byte, string> WeaponClasses = new Dictionary<byte, string>
         {
             {1, "Assault Rifle"},
             {2, "SMG"},
