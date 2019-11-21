@@ -1,24 +1,27 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
 using Dragon6.API.Stats;
 using Dragon6.API.Verification;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Dragon6.API.Test
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             var client = new HttpClient();
 
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
-            var setupVerificationTask = Task.Run(() => Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
-            string token = await client.GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content.ReadAsStringAsync(); 
+            var setupVerificationTask =
+                Task.Run(() => Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
+            string token = await client.GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content
+                .ReadAsStringAsync();
 
             client.Dispose();
             await setupVerificationTask;
@@ -37,7 +40,7 @@ namespace Dragon6.API.Test
                 {"GeneralStats", JToken.FromObject(generalStats)},
                 {"Ranked", JToken.FromObject(seasonStats)},
                 {"Operator", JToken.FromObject(opStats)},
-                {"Weapon", JToken.FromObject(weapons) }
+                {"Weapon", JToken.FromObject(weapons)}
             };
 
             Console.Write(JsonConvert.SerializeObject(account, Formatting.Indented));
