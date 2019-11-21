@@ -1,10 +1,10 @@
-﻿using System.IO;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using DragonFruit.Common.Storage;
 using DragonFruit.Common.Storage.Web;
+using Newtonsoft.Json.Linq;
 
 namespace Dragon6.API.Helpers
 {

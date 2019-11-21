@@ -1,10 +1,9 @@
-﻿using System;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Dragon6.API.Helpers;
-using Dragon6.API.Processing;
-using Dragon6.API.Stats;
 using DragonFruit.Common.Storage.Shared;
 using Newtonsoft.Json.Linq;
 using General = Dragon6.API.Stats.General;
@@ -43,10 +42,7 @@ namespace Dragon6.API
         /// <returns></returns>
         public static General AlignGeneralStats(this JObject jObject, string GUID)
         {
-            if (jObject == null)
-            {
-                return new General();
-            }
+            if (jObject == null) return new General();
 
             var json = new JsonProcessor(jObject["results"][GUID]);
             return new General
@@ -145,7 +141,8 @@ namespace Dragon6.API
         /// </summary>
         /// <param name="json"></param>
         /// <returns></returns>
-        public static uint AlignLevel(this JObject json) => ((uint?) json["player_profiles"][0][Processing.General.Level]).GetValueOrDefault(0);
+        public static uint AlignLevel(this JObject json) =>
+            ((uint?) json["player_profiles"][0][Processing.General.Level]).GetValueOrDefault(0);
 
         /// <summary>
         ///     Get list of operators and stats
@@ -182,7 +179,6 @@ namespace Dragon6.API
 
                 //if a dictionary in the form ID -> op icon url is specified, set the link
                 if (operatorIconMap != null)
-                {
                     try
                     {
                         stats.ImageURL = operatorIconMap[index];
@@ -191,7 +187,6 @@ namespace Dragon6.API
                     {
                         //cannot find the operator icon index - it's not the end of the world, just continue
                     }
-                }
 
                 yield return stats;
             }

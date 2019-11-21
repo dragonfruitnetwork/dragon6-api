@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 using Dragon6.API.Verification;
 
@@ -37,7 +40,7 @@ namespace Dragon6.API
         /// <returns></returns>
         public static async Task<AccountInfo> GetFromName(string name, References.Platforms platform, string token)
         {
-            var uri = $"{Endpoints.UplayIDServer}?platformType=";
+            var uri = $"{Endpoints.UplayIdServer}?platformType=";
 
             uri += platform switch
             {
@@ -59,7 +62,7 @@ namespace Dragon6.API
         public static async Task<AccountInfo> ReverseID_PC(string guid, string token)
         {
             var response = await Task.Run(() =>
-                d6WebRequest.GetWebJObject($"{Endpoints.UplayIDServer}?platformType=uplay&idOnPlatform={guid}", token));
+                d6WebRequest.GetWebJObject($"{Endpoints.UplayIdServer}?platformType=uplay&idOnPlatform={guid}", token));
 
             return new AccountInfo
             {

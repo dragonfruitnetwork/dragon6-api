@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -27,10 +30,7 @@ namespace Dragon6.API
             client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
             var response =
                 await client.PostAsync(Endpoints.TokenServer, content);
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new UnauthorizedAccessException();
-            }
+            if (response.StatusCode == HttpStatusCode.Unauthorized) throw new UnauthorizedAccessException();
 
             var values =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(

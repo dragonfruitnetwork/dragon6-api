@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 using DragonFruit.Common.Storage.File;
-using Newtonsoft.Json;
 
 namespace Dragon6.API.Stats
 {
@@ -31,7 +32,6 @@ namespace Dragon6.API.Stats
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token,
             Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
         {
-
             #region operatorIconIndex Setup
 
             var operatorIconMap = new Dictionary<string, string>();

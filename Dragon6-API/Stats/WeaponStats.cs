@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 
@@ -10,6 +13,7 @@ namespace Dragon6.API.Stats
         ///     Class Name
         /// </summary>
         public string WeaponClass { get; set; }
+
         public byte WeaponClassID { get; set; }
 
         public uint Kills { get; set; }
