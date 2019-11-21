@@ -19,26 +19,24 @@ namespace Dragon6.API
         /// <returns>Token to be used to access stats</returns>
         public static async Task<string> GetToken()
         {
-            using (var client = new HttpClient())
+            using var client = new HttpClient();
+            HttpContent content = new StringContent("", Encoding.UTF8);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            client.DefaultRequestHeaders.Add("Authorization",
+                $"Basic {credentials}"); //change this to the current user's credentials
+            client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
+            var response =
+                await client.PostAsync(Endpoints.TokenServer, content);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                HttpContent content = new StringContent("", Encoding.UTF8);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                client.DefaultRequestHeaders.Add("Authorization",
-                    $"Basic {credentials}"); //change this to the current user's credentials
-                client.DefaultRequestHeaders.Add("Ubi-Appid", "39baebad-39e5-4552-8c25-2c9b919064e2");
-                var response =
-                    await client.PostAsync(Endpoints.TokenServer, content);
-                if (response.StatusCode == HttpStatusCode.Unauthorized)
-                {
-                    throw new UnauthorizedAccessException();
-                }
-
-                var values =
-                    JsonConvert.DeserializeObject<Dictionary<string, string>>(
-                        await response.Content.ReadAsStringAsync());
-
-                return values["ticket"];
+                throw new UnauthorizedAccessException();
             }
+
+            var values =
+                JsonConvert.DeserializeObject<Dictionary<string, string>>(
+                    await response.Content.ReadAsStringAsync());
+
+            return values["ticket"];
         }
 
         /// <summary>

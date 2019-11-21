@@ -94,7 +94,7 @@ namespace Dragon6.API
         /// <summary>
         ///     English Names of Weapon Types
         /// </summary>
-        public static readonly Dictionary<int, string> WeaponClasses = new Dictionary<int, string>
+        public static readonly Dictionary<byte, string> WeaponClasses = new Dictionary<byte, string>
         {
             {1, "Assault Rifle"},
             {2, "SMG"},

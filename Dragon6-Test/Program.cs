@@ -12,7 +12,7 @@ namespace Dragon6.API.Test
 {
     class Program
     {
-        async static Task Main(string[] args)
+        static async Task Main(string[] args)
         {
             var client = new HttpClient();
 

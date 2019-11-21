@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using Dragon6.API.Helpers;
+using DragonFruit.Common.Storage.File;
 using Newtonsoft.Json;
 
 namespace Dragon6.API.Stats
@@ -12,17 +13,17 @@ namespace Dragon6.API.Stats
         public string Index { get; set; }
         public string ImageURL { get; set; }
 
-        public int Kills { get; set; }
-        public int Deaths { get; set; }
+        public uint Kills { get; set; }
+        public uint Deaths { get; set; }
         public float KD { get; set; }
 
-        public int Wins { get; set; }
-        public int Losses { get; set; }
+        public uint Wins { get; set; }
+        public uint Losses { get; set; }
         public float WL { get; set; }
 
-        public int Headshots { get; set; }
-        public int Downs { get; set; }
-        public int RoundsPlayed { get; set; }
+        public uint Headshots { get; set; }
+        public uint Downs { get; set; }
+        public uint RoundsPlayed { get; set; }
 
         /// <summary>
         ///     Get a collection of all individual operator stats in a List with the icon property filled
@@ -30,20 +31,17 @@ namespace Dragon6.API.Stats
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo player, string token,
             Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
         {
+
             #region operatorIconIndex Setup
 
-            Dictionary<string, string> operatorIconMap = new Dictionary<string, string>();
-            if (!string.IsNullOrEmpty(operatorIconIndex) && File.Exists(operatorIconIndex))
+            var operatorIconMap = new Dictionary<string, string>();
+            try
             {
-                try
-                {
-                    operatorIconMap =
-                        JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(operatorIconIndex));
-                }
-                catch
-                {
-                    //cannot find the operator icon index - it's not the end of the world, just continue
-                }
+                operatorIconMap = FileServices.ReadFile<Dictionary<string, string>>(operatorIconIndex);
+            }
+            catch
+            {
+                //cannot find the operator icon index - it's not the end of the world, just continue
             }
 
             #endregion
@@ -58,7 +56,7 @@ namespace Dragon6.API.Stats
                     token));
 
 
-            return await Task.Run(() => request.AlignOperators(player.GUID, operatorIndex, operatorIconMap))
+            return await Task.Run(() => request.AlignOperators(player.Guid, operatorIndex, operatorIconMap))
                 .ConfigureAwait(false);
         }
     }

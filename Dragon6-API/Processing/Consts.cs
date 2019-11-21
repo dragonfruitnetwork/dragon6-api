@@ -1,7 +1,7 @@
 ﻿namespace Dragon6.API.Processing
 {
     /// <summary>
-    ///     casual stats
+    ///     General Casual/Quick Match Stats
     /// </summary>
     public class Casual
     {
@@ -16,7 +16,7 @@
     }
 
     /// <summary>
-    ///     permanent ranked stats (not seasonal)
+    ///     General Ranked Stats
     /// </summary>
     public class Ranked
     {
@@ -31,7 +31,7 @@
     }
 
     /// <summary>
-    ///     Stats relating to a ranked season
+    ///     Season-Specific Ranked Stats
     /// </summary>
     public class RankedSeason
     {
@@ -45,7 +45,7 @@
     }
 
     /// <summary>
-    ///     Stats relating to terrorist hunt, the PvE mode.
+    ///     Terrorist Hunt Stats
     /// </summary>
     public class PvE
     {

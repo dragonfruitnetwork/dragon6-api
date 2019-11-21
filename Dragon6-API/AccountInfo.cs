@@ -14,19 +14,19 @@ namespace Dragon6.API
         /// <summary>
         ///     URL to Player's Avatar
         /// </summary>
-        public string Image => $"https://ubisoft-avatars.akamaized.net/{GUID}/default_256_256.png";
+        public string Image => $"https://ubisoft-avatars.akamaized.net/{Guid}/default_256_256.png";
 
         /// <summary>
-        ///     Platform the user is on
+        ///     User Platform
         /// </summary>
         public References.Platforms Platform { get; set; }
 
         /// <summary>
         ///     User's GUID - used to get stats
         /// </summary>
-        public string GUID { get; set; }
+        public string Guid { get; set; }
 
-        public Verification.Verification AccountStatus => Server.GetUser(GUID);
+        public Verification.Verification AccountStatus => Server.GetUser(Guid);
 
         /// <summary>
         ///     Get the Account info from Player's name
@@ -39,18 +39,12 @@ namespace Dragon6.API
         {
             var uri = $"{Endpoints.UplayIDServer}?platformType=";
 
-            switch (platform)
+            uri += platform switch
             {
-                case References.Platforms.PSN:
-                    uri += "psn";
-                    break;
-                case References.Platforms.XB1:
-                    uri += "xbl";
-                    break;
-                default:
-                    uri += "uplay";
-                    break;
-            }
+                References.Platforms.PSN => "psn",
+                References.Platforms.XB1 => "xbl",
+                _ => "uplay"
+            };
 
             return await Task.Run(() =>
                 d6WebRequest.GetWebJObject($"{uri}&nameOnPlatform={name}", token).AlignAccount());
@@ -59,18 +53,18 @@ namespace Dragon6.API
         /// <summary>
         ///     Get the player's name from GUID (PC ONLY)
         /// </summary>
-        /// <param name="GUID"></param>
+        /// <param name="guid"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public static async Task<AccountInfo> ReverseID_PC(string GUID, string token)
+        public static async Task<AccountInfo> ReverseID_PC(string guid, string token)
         {
             var response = await Task.Run(() =>
-                d6WebRequest.GetWebJObject($"{Endpoints.UplayIDServer}?platformType=uplay&idOnPlatform={GUID}", token));
+                d6WebRequest.GetWebJObject($"{Endpoints.UplayIDServer}?platformType=uplay&idOnPlatform={guid}", token));
 
             return new AccountInfo
             {
                 PlayerName = response["profiles"][0]["nameOnPlatform"].ToString(),
-                GUID = GUID,
+                Guid = guid,
                 Platform = References.Platforms.PC
             };
         }

@@ -10,7 +10,7 @@ namespace Dragon6.API.Verification
     {
         internal static IEnumerable<Verification> Users { get; private set; }
 
-        public static async Task Init(string endpoint)
+        public static void Init(string endpoint)
         {
             Users = d6WebRequest.GetWebObject<IEnumerable<Verification>>(endpoint);
         }

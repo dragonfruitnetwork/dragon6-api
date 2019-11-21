@@ -16,24 +16,17 @@ namespace Dragon6.API.Verification
         [JsonProperty("ImageHeaderLink")] public string Image { get; set; }
 
         //dragon6 server specifics below
-        public References.Platforms Platform { get; set; }
-        public string UserName { get; set; }
         public string UID { get; set; }
-        public List<string> OwnedSquads { get; set; }
 
-        public Dictionary<string, object> ToDictionary()
-        {
-            return new Dictionary<string, object>
+        public Dictionary<string, object> ToDictionary() => 
+            new Dictionary<string, object>
             {
                 {"Level", AccountLevel},
                 {"Twitch", Twitch},
                 {"YouTube", YouTube},
                 {"uid", UID},
-                {"username", UserName},
-                {"squads", OwnedSquads},
-                {"platform", Platform},
                 {"img", Image}
             };
-        }
+        
     }
 }
