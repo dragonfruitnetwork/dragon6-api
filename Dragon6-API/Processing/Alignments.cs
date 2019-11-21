@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dragon6.API.Processing;
+using Dragon6.API.Stats;
 using DragonFruit.Common.Storage.Shared;
 using Newtonsoft.Json.Linq;
 using General = Dragon6.API.Stats.General;
