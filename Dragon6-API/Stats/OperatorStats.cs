@@ -50,7 +50,7 @@ namespace Dragon6.API.Stats
                                 d6WebRequest.GetWebObject<Dictionary<string, string>>(Endpoints.OperatorIndex);
 
             var request = await Task.Run(() =>
-                d6WebRequest.GetWebJObject(
+                d6WebRequest.GetWebObject(
                     d6WebRequest.FormStatsUrl(player,
                         "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"),
                     token));

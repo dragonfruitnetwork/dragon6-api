@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dragon6.API.Helpers;
 using Dragon6.API.Processing;
 using Dragon6.API.Stats;
 using DragonFruit.Common.Storage.Shared;
@@ -26,14 +27,13 @@ namespace Dragon6.API
         /// <returns></returns>
         public static AccountInfo AlignAccount(this JObject jObject)
         {
-            var json = JObject.FromObject(jObject["profiles"][0]);
+            var json = (JObject)jObject["profiles"][0];
 
             return new AccountInfo
             {
-                PlayerName = json["nameOnPlatform"].ToString(),
-                Guid = json["profileId"].ToString(),
-                Platform = (string) json["platformType"] == "uplay" ? References.Platforms.PC :
-                    (string) json["platformType"] == "psn" ? References.Platforms.PSN : References.Platforms.XB1
+                PlayerName = json.GetString("nameOnPlatform"),
+                Guid = json.GetString("profileId"),
+                Platform = PlatformParser.GetUbiPlatform(json.GetString("platformType"))
             };
         }
 
@@ -46,7 +46,8 @@ namespace Dragon6.API
         {
             if (jObject == null) return new General();
 
-            var json = new JsonProcessor(jObject["results"][GUID]);
+            var json = (JObject)jObject["results"][GUID];
+
             return new General
             {
                 // Casual
@@ -124,7 +125,7 @@ namespace Dragon6.API
         /// <returns></returns>
         public static Season AlignSeason(this JObject jObject, string GUID)
         {
-            var json = new JsonProcessor(jObject["players"][GUID]);
+            var json = (JObject) jObject["players"][GUID];
 
             return new Season
             {
@@ -158,7 +159,7 @@ namespace Dragon6.API
         public static IEnumerable<Operator> AlignOperators(this JObject jObject, string guid,
             Dictionary<string, string> operatorNameIndex, Dictionary<string, string> operatorIconMap = null)
         {
-            var json = new JsonProcessor(jObject["results"][guid]);
+            var json = (JObject)jObject["results"][guid];
 
             foreach (var index in operatorNameIndex.Keys.ToArray())
             {
@@ -202,7 +203,7 @@ namespace Dragon6.API
         /// <returns></returns>
         public static IEnumerable<Weapon> AlignWeapons(this JObject jObject, string guid)
         {
-            var json = new JsonProcessor(jObject["results"][guid]);
+            var json = (JObject)jObject["results"][guid];
 
             foreach (var index in References.WeaponClasses.Keys)
                 yield return new Weapon

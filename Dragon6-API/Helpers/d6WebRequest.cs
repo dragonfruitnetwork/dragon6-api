@@ -44,10 +44,10 @@ namespace Dragon6.API.Helpers
         /// <param name="uri"></param>
         /// <param name="token"></param>
         /// <returns>JObject to be used to extract data</returns>
-        public static JObject GetWebJObject(string uri, string token)
+        public static JObject GetWebObject(string uri, string token)
         {
             using var client = GetUbisoftClient(token);
-            return WebServices.StreamJObject(uri, client);
+            return WebServices.StreamObject(uri, client);
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace Dragon6.API.Helpers
         /// <param name="uri"></param>
         /// <param name="token"></param>
         /// <returns>JObject to be used to extract data</returns>
-        public static JObject GetWebJObject(string uri)
+        public static JObject GetWebObject(string uri)
         {
             using var client = GetDragon6Client();
-            return WebServices.StreamJObject(uri, client);
+            return WebServices.StreamObject(uri, client);
         }
 
 
@@ -84,14 +84,8 @@ namespace Dragon6.API.Helpers
         /// <param name="info"></param>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static string FormStatsUrl(AccountInfo info, string query)
-        {
-            return $"{Endpoints.Stats[info.Platform]}?populations={info.Guid}&statistics={query}";
-        }
-
-        public static string FormAccountInfoUrl(References.Platforms platform, string playerIds)
-        {
-            return $"{Endpoints.ProfileInfo[platform]}?profile_ids={playerIds}";
-        }
+        public static string FormStatsUrl(AccountInfo info, string query) => $"{Endpoints.Stats[info.Platform]}?populations={info.Guid}&statistics={query}";
+        
+        public static string FormAccountInfoUrl(References.Platforms platform, string playerIds) => $"{Endpoints.ProfileInfo[platform]}?profile_ids={playerIds}";
     }
 }

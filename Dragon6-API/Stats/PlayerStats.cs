@@ -18,7 +18,7 @@ namespace Dragon6.API.Stats
         public static async Task<uint> GetLevel(AccountInfo playerInfo, string token)
         {
             var rawData = await Task.Run(() =>
-                d6WebRequest.GetWebJObject(d6WebRequest.FormAccountInfoUrl(playerInfo.Platform, playerInfo.Guid),
+                d6WebRequest.GetWebObject(d6WebRequest.FormAccountInfoUrl(playerInfo.Platform, playerInfo.Guid),
                     token));
 
             return rawData.AlignLevel();
@@ -32,7 +32,7 @@ namespace Dragon6.API.Stats
         /// <returns></returns>
         public static async Task<General> GetStats(AccountInfo playerInfo, string token)
         {
-            var rawData = await Task.Run(() => d6WebRequest.GetWebJObject(
+            var rawData = await Task.Run(() => d6WebRequest.GetWebObject(
                 d6WebRequest.FormStatsUrl(playerInfo,
                     "rankedpvp_death,rankedpvp_kdratio,rankedpvp_kills,rankedpvp_matchlost,rankedpvp_matchplayed,rankedpvp_matchwlratio,rankedpvp_matchwon,rankedpvp_timeplayed,casualpvp_death,casualpvp_kdratio,casualpvp_kills,casualpvp_matchlost,casualpvp_matchplayed,casualpvp_matchwlratio,casualpvp_matchwon,casualpvp_timeplayed,generalpvp_barricadedeployed,generalpvp_dbno,generalpvp_death,generalpvp_headshot,generalpvp_killassists,generalpvp_kills,generalpvp_matchlost,generalpvp_matchwlratio,generalpvp_matchwon,generalpvp_meleekills,generalpvp_reinforcementdeploy,generalpvp_revive,generalpvp_suicide,generalpvp_timeplayed,generalpvp_revive,generalpve_kills,generalpve_death,generalpve_matchwon,generalpve_matchlost,custompvp_timeplayed,plantbombpvp_bestscore,rescuehostagepvp_bestscore,secureareapvp_bestscore,casualpvp_timeplayed,rankedpvp_timeplayed,generalpve_timeplayed,generalpvp_bulletfired,generalpvp_penetrationkills,generalpvp_bullethit"),
                 token));

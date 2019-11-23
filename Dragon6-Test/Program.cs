@@ -15,15 +15,14 @@ namespace Dragon6.API.Test
     {
         private static async Task Main(string[] args)
         {
-            var client = new HttpClient();
+            using var client = new HttpClient();
 
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
-            var setupVerificationTask =
+            using var setupVerificationTask =
                 Task.Run(() => Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
             string token = await client.GetAsync("https://dragon6.dragonfruit.network/api/token").Result.Content
                 .ReadAsStringAsync();
 
-            client.Dispose();
             await setupVerificationTask;
 
             var playerInfo = await AccountInfo.ReverseID_PC("14c01250-ef26-4a32-92ba-e04aa557d619", token);
