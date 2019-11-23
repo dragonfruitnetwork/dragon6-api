@@ -10,7 +10,15 @@ namespace Dragon6.API.Helpers
         /// <summary>
         ///     Convert Platform ID -> API Enum
         /// </summary>
-        public static References.Platforms GetPlatform(string platformid) =>
-            (References.Platforms) Enum.Parse(typeof(References.Platforms), platformid);
+        public static References.Platforms GetPlatform(string platformId) =>
+            (References.Platforms) Enum.Parse(typeof(References.Platforms), platformId);
+
+        public static References.Platforms GetUbiPlatform(string platformName) => platformName switch
+        {
+            "uplay" => References.Platforms.PC,
+            "psn" => References.Platforms.PSN,
+            "xbl" => References.Platforms.XB1,
+            _ => throw new ArgumentException("Cannot find the specified platform")
+        };
     }
 }

@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Threading.Tasks;
 using Dragon6.API.Helpers;
 using Dragon6.API.Verification;
@@ -46,11 +47,12 @@ namespace Dragon6.API
             {
                 References.Platforms.PSN => "psn",
                 References.Platforms.XB1 => "xbl",
-                _ => "uplay"
+                References.Platforms.PC => "uplay",
+                _ => throw new ArgumentException("Platform Not Found")
             };
 
             return await Task.Run(() =>
-                d6WebRequest.GetWebJObject($"{uri}&nameOnPlatform={name}", token).AlignAccount());
+                d6WebRequest.GetWebObject($"{uri}&nameOnPlatform={name}", token).AlignAccount());
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace Dragon6.API
         public static async Task<AccountInfo> ReverseID_PC(string guid, string token)
         {
             var response = await Task.Run(() =>
-                d6WebRequest.GetWebJObject($"{Endpoints.UplayIdServer}?platformType=uplay&idOnPlatform={guid}", token));
+                d6WebRequest.GetWebObject($"{Endpoints.UplayIdServer}?platformType=uplay&idOnPlatform={guid}", token));
 
             return new AccountInfo
             {

@@ -22,7 +22,7 @@ namespace Dragon6.API.Stats
         public static async Task<Season> GetSeason(AccountInfo player, string region, string token)
         {
             var rawData = await Task.Run(() =>
-                d6WebRequest.GetWebJObject(
+                d6WebRequest.GetWebObject(
                     $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.Guid}&region_id={region.ToLowerInvariant()}&season_id=-1",
                     token));
 
@@ -35,7 +35,7 @@ namespace Dragon6.API.Stats
         public static async Task<Season> GetSeason(AccountInfo player, string region, string token, int seasonNumber)
         {
             var rawData = await Task.Run(() =>
-                d6WebRequest.GetWebJObject(
+                d6WebRequest.GetWebObject(
                     $"{Endpoints.RankedStats[player.Platform]}?board_id=pvp_ranked&profile_ids={player.Guid}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}",
                     token));
 

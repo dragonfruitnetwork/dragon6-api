@@ -25,7 +25,7 @@ namespace Dragon6.API.Stats
         public static async Task<IEnumerable<Weapon>> GetWeaponStats(AccountInfo userInfo, string token)
         {
             var rawData = await Task.Run(() =>
-                d6WebRequest.GetWebJObject(
+                d6WebRequest.GetWebObject(
                     d6WebRequest.FormStatsUrl(userInfo,
                         "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"),
                     token));
