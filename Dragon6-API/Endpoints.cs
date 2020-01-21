@@ -7,8 +7,8 @@ namespace Dragon6.API
 {
     public static class Endpoints
     {
-        public static readonly string TokenServer = "https://uplayconnect.ubi.com/ubiservices/v2/profiles/sessions";
-        public static readonly string UplayIdServer = "https://public-ubiservices.ubi.com/v2/profiles";
+        public static readonly string TokenServer = "https://public-ubiservices.ubi.com/v3/profiles/sessions";
+        public static readonly string UplayIdServer = "https://public-ubiservices.ubi.com/v3/profiles";
         internal static readonly string OperatorIndex = "https://dragon6-224813.firebaseapp.com/operatorinfo.json";
 
         public static readonly Dictionary<References.Platforms, string> Stats =
