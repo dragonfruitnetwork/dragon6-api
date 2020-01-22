@@ -1,13 +1,16 @@
-﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using DragonFruit.Common.Storage.Web;
 using Newtonsoft.Json.Linq;
 
-namespace Dragon6.API.Helpers
+namespace DragonFruit.Six.API.Helpers
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class d6WebRequest
     {
         public static string AppName = "Dragon6 API";
@@ -17,9 +20,6 @@ namespace Dragon6.API.Helpers
         /// <summary>
         ///     Memory-Aware method to stream a JSON string to specified Type (T) using the Ubisoft Client
         /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public static T GetWebObject<T>(string uri, string token)
         {
             using var client = GetUbisoftClient(token);
@@ -29,9 +29,6 @@ namespace Dragon6.API.Helpers
         /// <summary>
         ///     Memory-Aware method to stream a JSON string to specified Type (T)
         /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public static T GetWebObject<T>(string uri)
         {
             using var client = GetDragon6Client();
@@ -41,9 +38,6 @@ namespace Dragon6.API.Helpers
         /// <summary>
         ///     Memory-Aware method to stream a JSON string to a JObject using the Ubisoft Client
         /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="token"></param>
-        /// <returns>JObject to be used to extract data</returns>
         public static JObject GetWebObject(string uri, string token)
         {
             using var client = GetUbisoftClient(token);
@@ -53,21 +47,15 @@ namespace Dragon6.API.Helpers
         /// <summary>
         ///     Memory-Aware method to stream a JSON string to a JObject
         /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="token"></param>
-        /// <returns>JObject to be used to extract data</returns>
         public static JObject GetWebObject(string uri)
         {
             using var client = GetDragon6Client();
             return WebServices.StreamObject(uri, client);
         }
 
-
         /// <summary>
         ///     sets up a new HttpClient with the token preset token
         /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
         public static HttpClient GetUbisoftClient(string token)
         {
             var client = GetDragon6Client();
@@ -78,14 +66,9 @@ namespace Dragon6.API.Helpers
             return client;
         }
 
-        /// <summary>
-        ///     generates the endpoint to access stats for the account's platform
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public static string FormStatsUrl(AccountInfo info, string query) => $"{Endpoints.Stats[info.Platform]}?populations={info.Guid}&statistics={query}";
-        
-        public static string FormAccountInfoUrl(References.Platforms platform, string playerIds) => $"{Endpoints.ProfileInfo[platform]}?profile_ids={playerIds}";
+        public static string FormStatsUrl(AccountInfo info, string query) => FormStatsUrl(info.Platform, new[] { info.Guid }, query);
+
+        public static string FormStatsUrl(References.Platforms platform, IEnumerable<string> profiles, string query) =>
+            $"{Endpoints.Stats[platform]}?populations={string.Join(',', profiles)}&statistics={query}";
     }
 }

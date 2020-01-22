@@ -1,12 +1,16 @@
-﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-namespace Dragon6.API.Processing
+namespace DragonFruit.Six.API.Processing
 {
-    /// <summary>
-    ///     General Casual/Quick Match Stats
-    /// </summary>
-    public class Casual
+    public static class Misc
+    {
+        public const string Results = "results";
+        public const string Profile = "profiles";
+        public const string Players = "players";
+    }
+
+    public static class GeneralCasual
     {
         public const string Kills = "casualpvp_kills:infinite";
         public const string Deaths = "casualpvp_death:infinite";
@@ -18,10 +22,7 @@ namespace Dragon6.API.Processing
         public const string Time = "casualpvp_timeplayed:infinite";
     }
 
-    /// <summary>
-    ///     General Ranked Stats
-    /// </summary>
-    public class Ranked
+    public static class GeneralRanked
     {
         public const string Kills = "rankedpvp_kills:infinite";
         public const string Deaths = "rankedpvp_death:infinite";
@@ -33,10 +34,7 @@ namespace Dragon6.API.Processing
         public const string Time = "rankedpvp_timeplayed:infinite";
     }
 
-    /// <summary>
-    ///     Season-Specific Ranked Stats
-    /// </summary>
-    public class RankedSeason
+    public static class SeasonalRanked
     {
         public const string Season = "season";
         public const string Rank = "rank";
@@ -45,12 +43,10 @@ namespace Dragon6.API.Processing
         public const string Losses = "losses";
         public const string Abandons = "abandons";
         public const string MMR = "mmr";
+        public const string MaxMMR = "max_mmr";
     }
 
-    /// <summary>
-    ///     Terrorist Hunt Stats
-    /// </summary>
-    public class PvE
+    public static class GeneralPvE
     {
         public const string Kills = "generalpve_kills:infinite";
         public const string Deaths = "generalpve_death:infinite";
@@ -62,19 +58,19 @@ namespace Dragon6.API.Processing
         public const string Time = "generalpve_timeplayed:infinite";
     }
 
-    public class CustomGame
+    public static class GeneralCustomGame
     {
         public const string Time = "custompvp_timeplayed:infinite";
     }
 
-    public class ModeScores
+    public static class GeneralModeSpecifics
     {
         public const string Bomb = "plantbombpvp_bestscore:infinite";
         public const string Hostage = "rescuehostagepvp_bestscore:infinite";
         public const string Secure = "secureareapvp_bestscore:infinite";
     }
 
-    public class General
+    public static class General
     {
         public const string Barricades = "generalpvp_barricadedeployed:infinite";
         public const string Reinforcements = "generalpvp_reinforcementdeploy:infinite";
@@ -95,7 +91,7 @@ namespace Dragon6.API.Processing
         public const string Level = "level";
     }
 
-    public class Overall
+    public static class OverallPvP
     {
         public const string Kills = "generalpvp_kills:infinite";
         public const string Deaths = "generalpvp_death:infinite";
@@ -107,7 +103,7 @@ namespace Dragon6.API.Processing
         public const string Time = "generalpvp_timeplayed:infinite";
     }
 
-    public class Weapon
+    public static class OverallWeapon
     {
         public const string Kills = "weapontypepvp_kills:{0}:infinite";
         public const string Headshots = "weapontypepvp_headshot:{0}:infinite";
@@ -115,7 +111,7 @@ namespace Dragon6.API.Processing
         public const string ShotsHit = "weapontypepvp_bullethit:{0}:infinite";
     }
 
-    public class Operator
+    public static class OverallOperator
     {
         public const string Kills = "operatorpvp_roundwon:{0}:infinite";
         public const string Deaths = "operatorpvp_roundlost:{0}:infinite";
