@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Dragon6.API</AssemblyName>
-    <RootNamespace>Dragon6.API</RootNamespace>
+    <AssemblyName>DragonFruit.Six.API</AssemblyName>
+    <RootNamespace>DragonFruit.Six.API</RootNamespace>
     <PackageId>Dragon6.API</PackageId>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

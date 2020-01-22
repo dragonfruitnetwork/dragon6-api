@@ -1,61 +1,55 @@
-﻿// Dragon6 API Copyright 2019 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Dragon6.API.Helpers;
+using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Processing;
 
-namespace Dragon6.API.Stats
+namespace DragonFruit.Six.API.Stats
 {
-    public class General
+    public class GeneralStats
     {
-        /// <summary>
-        ///     Get a Users current clearance Level
-        /// </summary>
-        /// <param name="playerInfo"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static async Task<uint> GetLevel(AccountInfo playerInfo, string token)
+        public static async Task<GeneralStats> GetStats(AccountInfo account, string token) => (await GetStats(new[] { account }, token)).First();
+
+        public static async Task<List<GeneralStats>> GetStats(IEnumerable<AccountInfo> accounts, string token)
         {
-            var rawData = await Task.Run(() =>
-                d6WebRequest.GetWebObject(d6WebRequest.FormAccountInfoUrl(playerInfo.Platform, playerInfo.Guid),
-                    token));
+            var filteredGroups = accounts.GroupBy(x => x.Platform);
+            var results = new List<GeneralStats>();
 
-            return rawData.AlignLevel();
-        }
+            foreach (var group in filteredGroups)
+            {
+                var ids = group.Select(x => x.Guid);
+                var rawData = await Task.Run(() =>
+                    d6WebRequest.GetWebObject(
+                        d6WebRequest.FormStatsUrl(group.Key, ids, "rankedpvp_death,rankedpvp_kdratio,rankedpvp_kills,rankedpvp_matchlost,rankedpvp_matchplayed,rankedpvp_matchwlratio,rankedpvp_matchwon,rankedpvp_timeplayed,casualpvp_death,casualpvp_kdratio,casualpvp_kills,casualpvp_matchlost,casualpvp_matchplayed,casualpvp_matchwlratio,casualpvp_matchwon,casualpvp_timeplayed,generalpvp_barricadedeployed,generalpvp_dbno,generalpvp_death,generalpvp_headshot,generalpvp_killassists,generalpvp_kills,generalpvp_matchlost,generalpvp_matchwlratio,generalpvp_matchwon,generalpvp_meleekills,generalpvp_reinforcementdeploy,generalpvp_revive,generalpvp_suicide,generalpvp_timeplayed,generalpvp_revive,generalpve_kills,generalpve_death,generalpve_matchwon,generalpve_matchlost,custompvp_timeplayed,plantbombpvp_bestscore,rescuehostagepvp_bestscore,secureareapvp_bestscore,casualpvp_timeplayed,rankedpvp_timeplayed,generalpve_timeplayed,generalpvp_bulletfired,generalpvp_penetrationkills,generalpvp_bullethit"), token));
 
-        /// <summary>
-        ///     Get Generalized stats for player
-        /// </summary>
-        /// <param name="playerInfo"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public static async Task<General> GetStats(AccountInfo playerInfo, string token)
-        {
-            var rawData = await Task.Run(() => d6WebRequest.GetWebObject(
-                d6WebRequest.FormStatsUrl(playerInfo,
-                    "rankedpvp_death,rankedpvp_kdratio,rankedpvp_kills,rankedpvp_matchlost,rankedpvp_matchplayed,rankedpvp_matchwlratio,rankedpvp_matchwon,rankedpvp_timeplayed,casualpvp_death,casualpvp_kdratio,casualpvp_kills,casualpvp_matchlost,casualpvp_matchplayed,casualpvp_matchwlratio,casualpvp_matchwon,casualpvp_timeplayed,generalpvp_barricadedeployed,generalpvp_dbno,generalpvp_death,generalpvp_headshot,generalpvp_killassists,generalpvp_kills,generalpvp_matchlost,generalpvp_matchwlratio,generalpvp_matchwon,generalpvp_meleekills,generalpvp_reinforcementdeploy,generalpvp_revive,generalpvp_suicide,generalpvp_timeplayed,generalpvp_revive,generalpve_kills,generalpve_death,generalpve_matchwon,generalpve_matchlost,custompvp_timeplayed,plantbombpvp_bestscore,rescuehostagepvp_bestscore,secureareapvp_bestscore,casualpvp_timeplayed,rankedpvp_timeplayed,generalpve_timeplayed,generalpvp_bulletfired,generalpvp_penetrationkills,generalpvp_bullethit"),
-                token));
+                results.AddRange(ids.Select(x => rawData.ToGeneralStats(x)));
+            }
 
-            return rawData.AlignGeneralStats(playerInfo.Guid);
+            return results;
         }
 
         #region Vars
+
+        public string Guid { get; set; }
 
         public uint Wins { get; set; }
         public uint Losses { get; set; }
         public uint Kills { get; set; }
         public uint Deaths { get; set; }
         public float WL { get; set; }
-        public uint MatchesPlayed => Casual_MatchesPlayed + Ranked_MatchesPlayed + THunt_MatchesPlayed;
+        public uint MatchesPlayed => CasualMatchesPlayed + RankedMatchesPlayed + HuntMatchesPlayed;
 
-        public uint Casual_Kills { get; set; }
-        public uint Casual_Deaths { get; set; }
-        public float Casual_KD { get; set; }
-        public uint Casual_Wins { get; set; }
-        public uint Casual_Losses { get; set; }
-        public float Casual_WL { get; set; }
-        public uint Casual_MatchesPlayed { get; set; }
+        public uint CasualKills { get; set; }
+        public uint CasualDeaths { get; set; }
+        public float CasualKd { get; set; }
+        public uint CasualWins { get; set; }
+        public uint CasualLosses { get; set; }
+        public float CasualWl { get; set; }
+        public uint CasualMatchesPlayed { get; set; }
 
         public uint Barricades { get; set; }
         public uint Reinforcements { get; set; }
@@ -69,32 +63,32 @@ namespace Dragon6.API.Stats
         public long ShotsFired { get; set; }
         public long ShotsConnected { get; set; }
 
-        public uint THunt_Kills { get; set; }
-        public uint THunt_Deaths { get; set; }
-        public float THunt_KD { get; set; }
-        public uint THunt_Wins { get; set; }
-        public uint THunt_Losses { get; set; }
-        public float THunt_WL { get; set; }
-        public uint THunt_MatchesPlayed => THunt_Losses + THunt_Wins;
+        public uint HuntKills { get; set; }
+        public uint HuntDeaths { get; set; }
+        public float HuntKd { get; set; }
+        public uint HuntWins { get; set; }
+        public uint HuntLosses { get; set; }
+        public float HuntWl { get; set; }
+        public uint HuntMatchesPlayed => HuntLosses + HuntWins;
 
-        public uint HIScore_Bomb { get; set; }
-        public uint HIScore_Secure { get; set; }
-        public uint HIScore_Hostage { get; set; }
+        public uint HiScoreBomb { get; set; }
+        public uint HiScoreSecure { get; set; }
+        public uint HiScoreHostage { get; set; }
 
-        public TimeSpan TimePlayed_THunt { get; set; }
-        public TimeSpan TimePlayed_Casual { get; set; }
-        public TimeSpan TimePlayed_Ranked { get; set; }
-        public TimeSpan TimePlayed_General { get; set; }
-        public TimeSpan TimePlayed_Custom { get; set; }
+        public TimeSpan TimePlayedTHunt { get; set; }
+        public TimeSpan TimePlayedCasual { get; set; }
+        public TimeSpan TimePlayedRanked { get; set; }
+        public TimeSpan TimePlayedGeneral { get; set; }
+        public TimeSpan TimePlayedCustom { get; set; }
 
-        public uint Ranked_Wins { get; set; }
-        public uint Ranked_Losses { get; set; }
-        public float Ranked_WL { get; set; }
-        public uint Ranked_MatchesPlayed { get; set; }
+        public uint RankedWins { get; set; }
+        public uint RankedLosses { get; set; }
+        public float RankedWl { get; set; }
+        public uint RankedMatchesPlayed { get; set; }
 
-        public uint Ranked_Kills { get; set; }
-        public uint Ranked_Deaths { get; set; }
-        public float Ranked_KD { get; set; }
+        public uint RankedKills { get; set; }
+        public uint RankedDeaths { get; set; }
+        public float RankedKd { get; set; }
 
         #endregion
     }
