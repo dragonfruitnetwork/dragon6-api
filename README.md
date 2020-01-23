@@ -21,13 +21,11 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 
 ## In Production
 
-
 - Dragon6 Web: [https://dragon6.dragonfruit.network](https://dragon6.dragonfruit.network)
 - Dragon6 Mobile: [https://play.google.com/store/apps/details?id=com.dragon.six](https://play.google.com/store/apps/details?id=com.dragon.six)
 - Dragon6 PC: [https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15](https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15)
 
 ## Contributing
-
 
 Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
 
