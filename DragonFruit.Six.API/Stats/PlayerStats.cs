@@ -14,10 +14,19 @@ namespace DragonFruit.Six.API.Stats
     {
         public static async Task<GeneralStats> GetStats(AccountInfo account, string token) => (await GetStats(new[] { account }, token)).First();
 
-        public static async Task<List<GeneralStats>> GetStats(IEnumerable<AccountInfo> accounts, string token)
+        public static async Task<IEnumerable<GeneralStats>> GetStats(IEnumerable<AccountInfo> accounts, string token)
+        {
+            var results = new List<GeneralStats>();
+
+            await foreach (var result in GetStatsAsync(accounts, token))
+                results.Add(result);
+
+            return results;
+        }
+
+        public static async IAsyncEnumerable<GeneralStats> GetStatsAsync(IEnumerable<AccountInfo> accounts, string token)
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
-            var results = new List<GeneralStats>();
 
             foreach (var group in filteredGroups)
             {
@@ -26,10 +35,9 @@ namespace DragonFruit.Six.API.Stats
                     d6WebRequest.GetWebObject(
                         d6WebRequest.FormStatsUrl(group.Key, ids, "rankedpvp_death,rankedpvp_kdratio,rankedpvp_kills,rankedpvp_matchlost,rankedpvp_matchplayed,rankedpvp_matchwlratio,rankedpvp_matchwon,rankedpvp_timeplayed,casualpvp_death,casualpvp_kdratio,casualpvp_kills,casualpvp_matchlost,casualpvp_matchplayed,casualpvp_matchwlratio,casualpvp_matchwon,casualpvp_timeplayed,generalpvp_barricadedeployed,generalpvp_dbno,generalpvp_death,generalpvp_headshot,generalpvp_killassists,generalpvp_kills,generalpvp_matchlost,generalpvp_matchwlratio,generalpvp_matchwon,generalpvp_meleekills,generalpvp_reinforcementdeploy,generalpvp_revive,generalpvp_suicide,generalpvp_timeplayed,generalpvp_revive,generalpve_kills,generalpve_death,generalpve_matchwon,generalpve_matchlost,custompvp_timeplayed,plantbombpvp_bestscore,rescuehostagepvp_bestscore,secureareapvp_bestscore,casualpvp_timeplayed,rankedpvp_timeplayed,generalpve_timeplayed,generalpvp_bulletfired,generalpvp_penetrationkills,generalpvp_bullethit"), token));
 
-                results.AddRange(ids.Select(x => rawData.ToGeneralStats(x)));
+                foreach (var id in ids)
+                    yield return rawData.ToGeneralStats(id);
             }
-
-            return results;
         }
 
         #region Vars

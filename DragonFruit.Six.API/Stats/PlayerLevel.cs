@@ -23,21 +23,29 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("level")]
         public uint Level { get; set; }
 
+        public static async Task<PlayerLevel> GetLevel(AccountInfo account, string token) => (await GetLevel(new[] { account }, token)).First();
+
         public static async Task<IEnumerable<PlayerLevel>> GetLevel(IEnumerable<AccountInfo> accounts, string token)
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
             var results = new List<PlayerLevel>();
+
+            await foreach (var result in GetLevelAsync(accounts, token))
+                results.Add(result);
+
+            return results;
+        }
+
+        public static async IAsyncEnumerable<PlayerLevel> GetLevelAsync(IEnumerable<AccountInfo> accounts, string token)
+        {
+            var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
                 var rawData = await Task.Run(() => d6WebRequest.GetWebObject($"{Endpoints.ProfileInfo[group.Key]}?profile_ids={string.Join(',', group.Select(a => a.Guid))}", token));
 
-                results.AddRange(rawData["player_profiles"].ToObject<IEnumerable<PlayerLevel>>());
+                foreach (var result in rawData["player_profiles"].ToObject<IEnumerable<PlayerLevel>>())
+                    yield return result;
             }
-
-            return results;
         }
-
-        public static async Task<PlayerLevel> GetLevel(AccountInfo account, string token) => (await GetLevel(new[] { account }, token)).First();
     }
 }
