@@ -15,7 +15,9 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 |Weapon Stats|`await WeaponStats.GetWeaponStats(accountInfo, token);`|
 |Token Downloader|`await await GetToken();`|
 |Account Search (by Name)|`await AccountInfo.GetUser(Platforms.PC, LookupMethod.Name, "Curry.", token);`|
-|Account Search (by UserId)|`await AccountInfo.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079", token);`|
+|Account Search (by User Id)|`await AccountInfo.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079", token);`|
+|Account Search (by Platform Id)|`await AccountInfo.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203", token);`|
+
 
 ## In Production
 
