@@ -6,8 +6,4 @@
     <RootNamespace>Dragon6_Test</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Dragon6-API\Dragon6-API.csproj" />
-  </ItemGroup>
-
 </Project>

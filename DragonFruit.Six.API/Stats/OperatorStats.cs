@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,6 +35,16 @@ namespace DragonFruit.Six.API.Stats
 
         public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
         {
+            var results = new List<IEnumerable<Operator>>();
+
+            await foreach(var result in GetOperatorStatsAsync(accounts, token, operatorNameIndex, operatorIconIndex))
+                results.Add(result);
+
+            return results;
+        }
+
+        public static async IAsyncEnumerable<IEnumerable<Operator>> GetOperatorStatsAsync(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
+        {
             #region Resource Setup
 
             var operatorIndex = operatorNameIndex ?? d6WebRequest.GetWebObject<Dictionary<string, string>>(Endpoints.OperatorMapping);
@@ -51,7 +62,6 @@ namespace DragonFruit.Six.API.Stats
             #endregion
 
             var filteredGroups = accounts.GroupBy(x => x.Platform);
-            var results = new List<IEnumerable<Operator>>();
 
             foreach (var group in filteredGroups)
             {
@@ -60,10 +70,9 @@ namespace DragonFruit.Six.API.Stats
                     d6WebRequest.GetWebObject(
                         d6WebRequest.FormStatsUrl(group.Key, ids, "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"), token));
 
-                results.AddRange(ids.Select(x => rawData.ToOperatorStats(x, operatorIndex, operatorIconMap)));
+                foreach (var x in ids)
+                    yield return rawData.ToOperatorStats(x, operatorIndex, operatorIconMap);
             }
-
-            return results;
         }
     }
 }

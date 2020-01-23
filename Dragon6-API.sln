@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dragon6-API", "Dragon6-API\Dragon6-API.csproj", "{DC823BEF-036B-4F04-B414-28655970F416}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{593E4F09-213D-4097-AEED-A0EADD24D198}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
@@ -12,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dragon6-Test", "Dragon6-Test\Dragon6-Test.csproj", "{BC06687F-0D56-4A00-8233-456B84942BAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API", "DragonFruit.Six.API\DragonFruit.Six.API.csproj", "{7A576853-2EBA-48BB-AEDD-2E1819CAC342}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API.Demo", "DragonFruit.Six.API.Demo\DragonFruit.Six.API.Demo.csproj", "{FE976492-7056-4763-9255-FBB1C74F05D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,14 +20,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC823BEF-036B-4F04-B414-28655970F416}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC823BEF-036B-4F04-B414-28655970F416}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC823BEF-036B-4F04-B414-28655970F416}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC823BEF-036B-4F04-B414-28655970F416}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BC06687F-0D56-4A00-8233-456B84942BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BC06687F-0D56-4A00-8233-456B84942BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BC06687F-0D56-4A00-8233-456B84942BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BC06687F-0D56-4A00-8233-456B84942BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE976492-7056-4763-9255-FBB1C74F05D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE976492-7056-4763-9255-FBB1C74F05D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE976492-7056-4763-9255-FBB1C74F05D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE976492-7056-4763-9255-FBB1C74F05D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
