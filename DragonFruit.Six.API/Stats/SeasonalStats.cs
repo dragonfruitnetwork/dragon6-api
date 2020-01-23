@@ -46,18 +46,26 @@ namespace DragonFruit.Six.API.Stats
 
         public static async Task<IEnumerable<Season>> GetSeason(IEnumerable<AccountInfo> accounts, string region, string token, int seasonNumber)
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
             var results = new List<Season>();
+
+            await foreach (var result in GetSeasonAsync(accounts, region, token, seasonNumber))
+                results.Add(result);
+
+            return results;
+        }
+
+        public static async IAsyncEnumerable<Season> GetSeasonAsync(IEnumerable<AccountInfo> accounts, string region, string token, int seasonNumber)
+        {
+            var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
                 var ids = group.Select(a => a.Guid);
                 var rawData = await Task.Run(() => d6WebRequest.GetWebObject($"{Endpoints.RankedStats[group.Key]}?board_id=pvp_ranked&profile_ids={string.Join(',', ids)}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}", token));
 
-                results.AddRange(ids.Select(id => rawData.ToSeason(id)));
+                foreach (var id in ids)
+                    yield return rawData.ToSeason(id);
             }
-
-            return results;
         }
     }
 }

@@ -14,6 +14,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API", "Drag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API.Demo", "DragonFruit.Six.API.Demo\DragonFruit.Six.API.Demo.csproj", "{FE976492-7056-4763-9255-FBB1C74F05D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{AD91704E-7EFF-45BD-AB7C-4AEC4B20C0EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonFruit.Six.API.Tests", "DragonFruit.Six.API.Tests\DragonFruit.Six.API.Tests.csproj", "{28DFDD89-0163-44EA-A77F-33259F044DBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,9 +32,17 @@ Global
 		{FE976492-7056-4763-9255-FBB1C74F05D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE976492-7056-4763-9255-FBB1C74F05D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE976492-7056-4763-9255-FBB1C74F05D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28DFDD89-0163-44EA-A77F-33259F044DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28DFDD89-0163-44EA-A77F-33259F044DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28DFDD89-0163-44EA-A77F-33259F044DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28DFDD89-0163-44EA-A77F-33259F044DBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE976492-7056-4763-9255-FBB1C74F05D3} = {AD91704E-7EFF-45BD-AB7C-4AEC4B20C0EB}
+		{28DFDD89-0163-44EA-A77F-33259F044DBB} = {AD91704E-7EFF-45BD-AB7C-4AEC4B20C0EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C459DE06-A6D2-4E27-A580-C5792A173A2A}

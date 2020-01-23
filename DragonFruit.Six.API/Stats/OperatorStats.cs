@@ -1,13 +1,13 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Common.Storage.File;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
+using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Stats
 {
@@ -15,23 +15,50 @@ namespace DragonFruit.Six.API.Stats
     {
         public string Guid { get; set; }
 
+        [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("index")]
         public string Index { get; set; }
+
+        [JsonProperty("icon")]
         public string ImageURL { get; set; }
 
+        [JsonProperty("kills")]
         public uint Kills { get; set; }
+
+        [JsonProperty("deaths")]
         public uint Deaths { get; set; }
+
+        [JsonProperty("kdr")]
         public float KD { get; set; }
 
+        [JsonProperty("wins")]
         public uint Wins { get; set; }
+
+        [JsonProperty("losses")]
         public uint Losses { get; set; }
+
+        [JsonProperty("wlr")]
         public float WL { get; set; }
 
+        [JsonProperty("headshots")]
         public uint Headshots { get; set; }
+
+        [JsonProperty("downs")]
         public uint Downs { get; set; }
+
+        [JsonProperty("rounds")]
         public uint RoundsPlayed { get; set; }
 
-        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex) => (await GetOperatorStats(new[] { account }, token, operatorNameIndex, operatorIconIndex)).First();
+        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex) =>
+            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, null)).First();
+
+        public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex) =>
+            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, operatorIconIndex)).First();
+
+        public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex) =>
+            await GetOperatorStats(accounts, token, operatorNameIndex, null);
 
         public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
         {

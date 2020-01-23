@@ -36,8 +36,17 @@ namespace DragonFruit.Six.API.Stats
 
         public static async Task<IEnumerable<IEnumerable<WeaponStats>>> GetWeaponStats(IEnumerable<AccountInfo> accounts, string token)
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
             var results = new List<IEnumerable<WeaponStats>>();
+
+            await foreach (var result in GetWeaponStatsAsync(accounts, token))
+                results.Add(result);
+
+            return results;
+        }
+
+        public static async IAsyncEnumerable<IEnumerable<WeaponStats>> GetWeaponStatsAsync(IEnumerable<AccountInfo> accounts, string token)
+        {
+            var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
@@ -45,10 +54,9 @@ namespace DragonFruit.Six.API.Stats
                 var rawData = await Task.Run(() => d6WebRequest.GetWebObject(d6WebRequest.FormStatsUrl(group.Key, ids,
                     "weapontypepvp_kills,weapontypepvp_headshot,weapontypepvp_bulletfired,weapontypepvp_bullethit"), token));
 
-                results.AddRange(ids.Select(x => rawData.ToWeaponStats(x)));
+                foreach (var id in ids)
+                    yield return rawData.ToWeaponStats(id);
             }
-
-            return results;
         }
     }
 }
