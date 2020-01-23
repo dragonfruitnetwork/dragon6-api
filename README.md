@@ -5,7 +5,7 @@
 
 Dragon6 is a free to use family of products specialising in Rainbow Six Siege Stats.
 
-## What's in the canister? (Quickstart guide)
+## What's in the canister? (view the wiki for more info)
 
 |Feature|Example|
 |--|--|
