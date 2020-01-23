@@ -5,38 +5,33 @@ using System.Collections.Generic;
 
 namespace DragonFruit.Six.API
 {
+    public enum Platforms
+    {
+        PC = 1,
+        PSN = 2,
+        XB1 = 3
+    }
+
+    public enum LookupMethod
+    {
+        /// <summary>
+        /// Player's name
+        /// </summary>
+        Name,
+
+        /// <summary>
+        /// The User ID, which is global across different ubi games
+        /// </summary>
+        UserId,
+
+        /// <summary>
+        /// Id on the platform, not always the same as the GUID
+        /// </summary>
+        PlatformId
+    }
+
     public class References
     {
-        public enum Platforms
-        {
-            PC = 1,
-            PSN = 2,
-            XB1 = 3
-        }
-
-        public enum LookupMethod
-        {
-            /// <summary>
-            /// Player's name
-            /// </summary>
-            Name,
-
-            /// <summary>
-            /// The User's Profile id, which is also equal to the user's GUID
-            /// </summary>
-            Profile,
-
-            /// <summary>
-            /// The User ID, which is global across different ubi games
-            /// </summary>
-            User,
-
-            /// <summary>
-            /// Id on the platform, not always the same as the GUID
-            /// </summary>
-            PlatformId
-        }
-
         /// <summary>
         /// Regions for ranked
         /// </summary>
@@ -48,9 +43,9 @@ namespace DragonFruit.Six.API
         };
 
         /// <summary>
-        ///     English Versions of Rank ID -> Names (for operations prior to ember rise)
+        /// English Versions of Rank ID -> Names (for operations prior to ember rise)
         /// </summary>
-        public static readonly Dictionary<uint, string> LegacyRankNames = new Dictionary<uint, string>
+        public static readonly IReadOnlyDictionary<uint, string> LegacyRankNames = new Dictionary<uint, string>
         {
             { 0, "Unranked" },
 
@@ -82,9 +77,9 @@ namespace DragonFruit.Six.API
         };
 
         /// <summary>
-        ///     English Versions of Rank ID -> Names
+        /// English Versions of Rank ID -> Names
         /// </summary>
-        public static readonly Dictionary<uint, string> RankNames = new Dictionary<uint, string>
+        public static readonly IReadOnlyDictionary<uint, string> RankNames = new Dictionary<uint, string>
         {
             { 0, "Unranked" },
 
@@ -120,9 +115,9 @@ namespace DragonFruit.Six.API
         };
 
         /// <summary>
-        ///     English Names of Weapon Types
+        /// English Names of Weapon Types
         /// </summary>
-        public static readonly Dictionary<byte, string> WeaponClasses = new Dictionary<byte, string>
+        public static readonly IReadOnlyDictionary<byte, string> WeaponClasses = new Dictionary<byte, string>
         {
             { 1, "Assault Rifle" },
             { 2, "SMG" },

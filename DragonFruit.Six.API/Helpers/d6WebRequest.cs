@@ -18,7 +18,7 @@ namespace DragonFruit.Six.API.Helpers
         public static HttpClient GetDragon6Client() => WebServices.GetClient(AppName);
 
         /// <summary>
-        ///     Memory-Aware method to stream a JSON string to specified Type (T) using the Ubisoft Client
+        /// Memory-Aware method to stream a JSON string to specified Type (T) using the Ubisoft Client
         /// </summary>
         public static T GetWebObject<T>(string uri, string token)
         {
@@ -27,7 +27,7 @@ namespace DragonFruit.Six.API.Helpers
         }
 
         /// <summary>
-        ///     Memory-Aware method to stream a JSON string to specified Type (T)
+        /// Memory-Aware method to stream a JSON string to specified Type (T)
         /// </summary>
         public static T GetWebObject<T>(string uri)
         {
@@ -36,7 +36,7 @@ namespace DragonFruit.Six.API.Helpers
         }
 
         /// <summary>
-        ///     Memory-Aware method to stream a JSON string to a JObject using the Ubisoft Client
+        /// Memory-Aware method to stream a JSON string to a JObject using the Ubisoft Client
         /// </summary>
         public static JObject GetWebObject(string uri, string token)
         {
@@ -45,7 +45,7 @@ namespace DragonFruit.Six.API.Helpers
         }
 
         /// <summary>
-        ///     Memory-Aware method to stream a JSON string to a JObject
+        /// Memory-Aware method to stream a JSON string to a JObject
         /// </summary>
         public static JObject GetWebObject(string uri)
         {
@@ -54,7 +54,7 @@ namespace DragonFruit.Six.API.Helpers
         }
 
         /// <summary>
-        ///     sets up a new HttpClient with the token preset token
+        /// sets up a new HttpClient with the token preset token
         /// </summary>
         public static HttpClient GetUbisoftClient(string token)
         {
@@ -68,7 +68,7 @@ namespace DragonFruit.Six.API.Helpers
 
         public static string FormStatsUrl(AccountInfo info, string query) => FormStatsUrl(info.Platform, new[] { info.Guid }, query);
 
-        public static string FormStatsUrl(References.Platforms platform, IEnumerable<string> profiles, string query) =>
+        public static string FormStatsUrl(Platforms platform, IEnumerable<string> profiles, string query) =>
             $"{Endpoints.Stats[platform]}?populations={string.Join(',', profiles)}&statistics={query}";
     }
 }

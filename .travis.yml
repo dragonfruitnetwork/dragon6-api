@@ -8,5 +8,7 @@ jobs:
     script:
      - dotnet restore
      - dotnet build
-     - cd "DragonFruit.Six.API.Demo"
+     - cd "DragonFruit.Six.API.Tests"
+     - dotnet test
+     - cd "../DragonFruit.Six.API.Demo"
      - dotnet run

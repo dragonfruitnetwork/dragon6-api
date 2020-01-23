@@ -15,25 +15,25 @@ namespace DragonFruit.Six.API
     public class AccountInfo
     {
         /// <summary>
-        ///     The Player's Username (Formatted)
+        /// The Player's Username (Formatted)
         /// </summary>
         [JsonProperty("name")]
         public string PlayerName { get; set; }
 
         /// <summary>
-        ///     URL to Player's Avatar
+        /// URL to Player's Avatar
         /// </summary>
         [JsonProperty("image")]
         public string Image => $"https://ubisoft-avatars.akamaized.net/{Guid}/default_256_256.png";
 
         /// <summary>
-        ///     User Platform
+        /// User Platform
         /// </summary>
         [JsonProperty("platform")]
-        public References.Platforms Platform { get; set; }
+        public Platforms Platform { get; set; }
 
         /// <summary>
-        ///     User's GUID - used to get stats
+        /// User's Profile Id - the one used to get stats
         /// </summary>
         [JsonProperty("guid")]
         public string Guid { get; set; }
@@ -42,9 +42,15 @@ namespace DragonFruit.Six.API
         public Verification.Verification AccountStatus => Server.GetUser(Guid);
 
         /// <summary>
+        /// Get a user's account info
+        /// </summary>
+        public static async Task<AccountInfo> GetUser(Platforms platform, LookupMethod lookupMethod, string query, string token) =>
+            (await GetUser(platform, lookupMethod, new[] { query }, token)).First();
+
+        /// <summary>
         /// Request user info in mass form by passing an array of queries
         /// </summary>
-        public static async Task<IEnumerable<AccountInfo>> GetUser(References.Platforms platform, References.LookupMethod lookupMethod, IEnumerable<string> queries, string token)
+        public static async Task<IEnumerable<AccountInfo>> GetUser(Platforms platform, LookupMethod lookupMethod, IEnumerable<string> queries, string token)
         {
             //create the request uri
             var uri = $"{Endpoints.IdServer}?platformType={PlatformParser.PlatformIdentifierFor(platform)}&{LookupKeyFor(lookupMethod)}={string.Join(',', queries)}";
@@ -53,20 +59,13 @@ namespace DragonFruit.Six.API
         }
 
         /// <summary>
-        /// Get a user's account info
-        /// </summary>
-        public static async Task<AccountInfo> GetUser(References.Platforms platform, References.LookupMethod lookupMethod, string query, string token) =>
-            (await GetUser(platform, lookupMethod, new[] { query }, token)).First();
-
-        /// <summary>
         /// Methods for looking up a user. Used in by <see cref="AccountInfo"/>
         /// </summary>
-        private static string LookupKeyFor(References.LookupMethod method) => method switch
+        private static string LookupKeyFor(LookupMethod method) => method switch
         {
-            References.LookupMethod.Name => "nameOnPlatform",
-            References.LookupMethod.Profile => "profileId",
-            References.LookupMethod.PlatformId => "idOnPlatform",
-            References.LookupMethod.User => "userId",
+            LookupMethod.Name => Accounts.Name,
+            LookupMethod.PlatformId => Accounts.PlatformIdentifier,
+            LookupMethod.UserId => Accounts.UserIdentifier,
             _ => throw new ArgumentException("Method not found")
         };
     }

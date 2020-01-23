@@ -4,13 +4,12 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DragonFruit.Six.API;
 using DragonFruit.Six.API.Stats;
 using DragonFruit.Six.API.Verification;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Dragon6_Test
+namespace DragonFruit.Six.API.Demo
 {
     internal class Program
     {
@@ -24,7 +23,7 @@ namespace Dragon6_Test
 
             await setupVerificationTask;
 
-            var playerInfo = await AccountInfo.GetUser(References.Platforms.PC, References.LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619", token);
+            var playerInfo = await AccountInfo.GetUser(Platforms.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619", token);
             var generalStats = await GeneralStats.GetStats(playerInfo, token);
             var seasonStats = await Season.GetSeason(playerInfo, "EMEA", token);
             var opStats = await Operator.GetOperatorStats(playerInfo, token, null, null);

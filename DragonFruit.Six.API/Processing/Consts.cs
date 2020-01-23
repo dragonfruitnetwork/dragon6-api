@@ -3,6 +3,16 @@
 
 namespace DragonFruit.Six.API.Processing
 {
+    public static class Accounts
+    {
+        public const string Name = "nameOnPlatform";
+        public const string Platform = "platformType";
+
+        public const string PlatformIdentifier = "idOnPlatform";
+        public const string ProfileIdentifier = "profileId";
+        public const string UserIdentifier = "userId";
+    }
+
     public static class Misc
     {
         public const string Results = "results";

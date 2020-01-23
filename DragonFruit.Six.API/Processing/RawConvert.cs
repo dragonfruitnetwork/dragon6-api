@@ -22,9 +22,9 @@ namespace DragonFruit.Six.API.Processing
                 var item = (JObject)jToken;
                 yield return new AccountInfo
                 {
-                    PlayerName = item.GetString("nameOnPlatform"),
-                    Guid = item.GetString("profileId"),
-                    Platform = PlatformParser.PlatformEnumFor(item.GetString("platformType"))
+                    PlayerName = item.GetString(Accounts.Name),
+                    Guid = item.GetString(Accounts.ProfileIdentifier),
+                    Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform))
                 };
             }
         }
