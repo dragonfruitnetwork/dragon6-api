@@ -12,6 +12,7 @@ namespace DragonFruit.Six.API.Stats
 {
     public class WeaponStats
     {
+        [JsonProperty("profile")]
         public string Guid { get; set; }
 
         [JsonProperty("classname")]

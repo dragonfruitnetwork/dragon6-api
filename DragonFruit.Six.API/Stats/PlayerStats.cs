@@ -43,6 +43,7 @@ namespace DragonFruit.Six.API.Stats
 
         #region Vars
 
+        [JsonProperty("profile")]
         public string Guid { get; set; }
 
         [JsonProperty("wins")]

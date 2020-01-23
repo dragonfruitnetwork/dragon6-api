@@ -13,6 +13,7 @@ namespace DragonFruit.Six.API.Stats
 {
     public class Operator
     {
+        [JsonProperty("profile")]
         public string Guid { get; set; }
 
         [JsonProperty("name")]
