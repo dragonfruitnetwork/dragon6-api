@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Stats
 {
@@ -11,7 +12,7 @@ namespace DragonFruit.Six.API.Stats
         /// <summary>
         /// The GUID of the user
         /// </summary>
-        [JsonProperty("profile_id")]
+        [JsonProperty("profile")]
         public string Guid { get; set; }
 
         [JsonProperty("xp")]
@@ -43,8 +44,12 @@ namespace DragonFruit.Six.API.Stats
             {
                 var rawData = await Task.Run(() => d6WebRequest.GetWebObject($"{Endpoints.ProfileInfo[group.Key]}?profile_ids={string.Join(',', group.Select(a => a.Guid))}", token));
 
-                foreach (var result in rawData["player_profiles"].ToObject<IEnumerable<PlayerLevel>>())
+                foreach (var element in JArray.FromObject(rawData["player_profiles"]))
+                {
+                    var result = element.ToObject<PlayerLevel>();
+                    result.Guid = (string)element["profile_id"];
                     yield return result;
+                }
             }
         }
     }
