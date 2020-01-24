@@ -7,49 +7,35 @@ using System.Threading.Tasks;
 using DragonFruit.Common.Storage.File;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
-using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Stats
 {
     public class Operator
     {
-        [JsonProperty("profile")]
         public string Guid { get; set; }
 
-        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("index")]
         public string Index { get; set; }
 
-        [JsonProperty("icon")]
         public string ImageURL { get; set; }
 
-        [JsonProperty("kills")]
         public uint Kills { get; set; }
 
-        [JsonProperty("deaths")]
         public uint Deaths { get; set; }
 
-        [JsonProperty("kdr")]
         public float KD { get; set; }
 
-        [JsonProperty("wins")]
         public uint Wins { get; set; }
 
-        [JsonProperty("losses")]
         public uint Losses { get; set; }
 
-        [JsonProperty("wlr")]
         public float WL { get; set; }
 
-        [JsonProperty("headshots")]
         public uint Headshots { get; set; }
 
-        [JsonProperty("downs")]
         public uint Downs { get; set; }
 
-        [JsonProperty("rounds")]
         public uint RoundsPlayed { get; set; }
 
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex) =>
