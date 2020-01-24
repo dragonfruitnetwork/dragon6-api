@@ -8,7 +8,7 @@ using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Verification
 {
-    public class Server
+    public static class Server
     {
         internal static IEnumerable<Verification> Users { get; private set; }
 
