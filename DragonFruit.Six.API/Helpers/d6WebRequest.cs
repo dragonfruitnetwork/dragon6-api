@@ -13,13 +13,7 @@ namespace DragonFruit.Six.API.Helpers
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class d6WebRequest
     {
-        private static string _appName = "Dragon6 API";
-
-        public static string AppName
-        {
-            get => _appName;
-            set => _appName = value;
-        }
+        public static string AppName { get; set; } = "Dragon6 API";
 
         public static HttpClient GetDragon6Client() => WebServices.GetClient(AppName);
 
