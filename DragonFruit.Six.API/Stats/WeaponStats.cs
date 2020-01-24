@@ -33,7 +33,7 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("landed")]
         public uint ShotsLanded { get; set; }
 
-        public static async Task<IEnumerable<WeaponStats>> GetWeaponStats(AccountInfo account, string token) => (await GetWeaponStats(new[] { account }, token)).First();
+        public static async Task<IEnumerable<WeaponStats>> GetWeaponStats(AccountInfo account, string token) => (await GetWeaponStats(new[] { account }, token).ConfigureAwait(false)).First();
 
         public static async Task<IEnumerable<IEnumerable<WeaponStats>>> GetWeaponStats(IEnumerable<AccountInfo> accounts, string token)
         {

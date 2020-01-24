@@ -31,7 +31,10 @@ namespace DragonFruit.Six.API.Processing
 
         public static GeneralStats ToGeneralStats(this JObject jObject, string guid)
         {
-            if (jObject == null) return new GeneralStats();
+            if (jObject == null)
+            {
+                return new GeneralStats();
+            }
 
             var json = (JObject)jObject[Misc.Results][guid];
 

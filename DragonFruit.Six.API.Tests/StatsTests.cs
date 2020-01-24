@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Common.Storage.Web;
@@ -53,7 +56,7 @@ namespace DragonFruit.Six.API.Tests
         [TestMethod]
         public async Task GetOperatorStats()
         {
-            var opData = new Dictionary<string, string>();
+            Dictionary<string, string> opData;
 
             try
             {

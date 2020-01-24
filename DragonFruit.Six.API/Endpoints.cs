@@ -7,8 +7,8 @@ namespace DragonFruit.Six.API
 {
     public static class Endpoints
     {
-        public const string BaseEndpoint = "https://public-ubiservices.ubi.com";
-        public const string OperatorMapping = "https://dragon6-224813.firebaseapp.com/operatorinfo.json";
+        public static readonly string BaseEndpoint = "https://public-ubiservices.ubi.com";
+        public static readonly string OperatorMapping = "https://dragon6-224813.firebaseapp.com/operatorinfo.json";
 
         public static readonly string StatsBase = BaseEndpoint + "/v1/spaces/";
         public static readonly string IdServer = BaseEndpoint + "/v3/profiles";

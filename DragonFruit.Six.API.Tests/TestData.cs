@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace DragonFruit.Six.API.Tests
@@ -7,7 +10,7 @@ namespace DragonFruit.Six.API.Tests
     {
         internal const string Region = "EMEA";
 
-        internal static IReadOnlyList<AccountInfo> TestAccounts = new List<AccountInfo>
+        internal static readonly IEnumerable<AccountInfo> TestAccounts = new List<AccountInfo>
         {
             new AccountInfo
             {

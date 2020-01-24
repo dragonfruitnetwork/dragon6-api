@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Demo
 {
-    internal class Program
+    internal static class Program
     {
         private static async Task Main(string[] args)
         {

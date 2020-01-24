@@ -5,7 +5,7 @@ using System;
 
 namespace DragonFruit.Six.API.Helpers
 {
-    public class PlatformParser
+    public static class PlatformParser
     {
         /// <summary>
         /// Convert Platform ID -> API Enum

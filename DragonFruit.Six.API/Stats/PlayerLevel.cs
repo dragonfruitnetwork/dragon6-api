@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+// Licensed under Apache-2. Please refer to the LICENSE file for more info
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Helpers;
@@ -24,7 +27,7 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("level")]
         public uint Level { get; set; }
 
-        public static async Task<PlayerLevel> GetLevel(AccountInfo account, string token) => (await GetLevel(new[] { account }, token)).First();
+        public static async Task<PlayerLevel> GetLevel(AccountInfo account, string token) => (await GetLevel(new[] { account }, token).ConfigureAwait(false)).First();
 
         public static async Task<IEnumerable<PlayerLevel>> GetLevel(IEnumerable<AccountInfo> accounts, string token)
         {
