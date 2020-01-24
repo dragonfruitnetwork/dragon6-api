@@ -45,7 +45,7 @@ namespace DragonFruit.Six.API
         /// Get a user's account info
         /// </summary>
         public static async Task<AccountInfo> GetUser(Platforms platform, LookupMethod lookupMethod, string query, string token) =>
-            (await GetUser(platform, lookupMethod, new[] { query }, token)).First();
+            (await GetUser(platform, lookupMethod, new[] { query }, token).ConfigureAwait(false)).First();
 
         /// <summary>
         /// Request user info in mass form by passing an array of queries

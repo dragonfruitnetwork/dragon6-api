@@ -129,6 +129,8 @@ namespace DragonFruit.Six.API.Processing
             };
         }
 
+        public static IEnumerable<Operator> ToOperatorStats(this JObject jObject, string guid, Dictionary<string, string> operatorNameIndex) => ToOperatorStats(jObject, guid, operatorNameIndex, null);
+
         public static IEnumerable<Operator> ToOperatorStats(this JObject jObject, string guid, Dictionary<string, string> operatorNameIndex, Dictionary<string, string> operatorIconMap = null)
         {
             var json = (JObject)jObject[Misc.Results][guid];
