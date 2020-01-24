@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DragonFruit Network")]
 [assembly: AssemblyProduct("Dragon6 API")]
-[assembly: AssemblyCopyright("Copyright © DragonFruit Network 2019")]
+[assembly: AssemblyCopyright("Copyright © DragonFruit Network 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,4 +34,4 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2019.925")]
+[assembly: AssemblyVersion("2020.0123")]
