@@ -39,11 +39,12 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("max_mmr")]
         public double MaxMMR { get; set; }
 
-        public static async Task<Season> GetSeason(AccountInfo account, string region, string token) => (await GetSeason(new[] { account }, region, token, -1)).First();
+        public static async Task<Season> GetSeason(AccountInfo account, string region, string token) => (await GetSeason(new[] { account }, region, token, -1).ConfigureAwait(false)).First();
 
-        public static async Task<IEnumerable<Season>> GetSeason(IEnumerable<AccountInfo> accounts, string region, string token) => await GetSeason(accounts, region, token, -1);
+        public static async Task<IEnumerable<Season>> GetSeason(IEnumerable<AccountInfo> accounts, string region, string token) => await GetSeason(accounts, region, token, -1).ConfigureAwait(false);
 
-        public static async Task<Season> GetSeason(AccountInfo account, string region, string token, int seasonNumber) => (await GetSeason(new[] { account }, region, token, seasonNumber)).First();
+        public static async Task<Season> GetSeason(AccountInfo account, string region, string token, int seasonNumber) =>
+            (await GetSeason(new[] { account }, region, token, seasonNumber).ConfigureAwait(false)).First();
 
         public static async Task<IEnumerable<Season>> GetSeason(IEnumerable<AccountInfo> accounts, string region, string token, int seasonNumber)
         {
@@ -62,7 +63,9 @@ namespace DragonFruit.Six.API.Stats
             foreach (var group in filteredGroups)
             {
                 var ids = group.Select(a => a.Guid);
-                var rawData = await Task.Run(() => d6WebRequest.GetWebObject($"{Endpoints.RankedStats[group.Key]}?board_id=pvp_ranked&profile_ids={string.Join(',', ids)}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}", token));
+                var rawData = await Task.Run(() =>
+                    d6WebRequest.GetWebObject(
+                        $"{Endpoints.RankedStats[group.Key]}?board_id=pvp_ranked&profile_ids={string.Join(',', ids)}&region_id={region.ToLowerInvariant()}&season_id={seasonNumber}", token));
 
                 foreach (var id in ids)
                     yield return rawData.ToSeason(id);

@@ -30,12 +30,12 @@ namespace DragonFruit.Six.API
         PlatformId
     }
 
-    public class References
+    public static class References
     {
         /// <summary>
         /// Regions for ranked
         /// </summary>
-        public static string[] Regions =
+        public static readonly string[] Regions =
         {
             "EMEA",
             "APAC",

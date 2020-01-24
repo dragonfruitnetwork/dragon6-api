@@ -16,7 +16,7 @@ namespace DragonFruit.Six.API.Verification
         Developer = 100
     }
 
-    public class LevelInfo
+    public static class LevelInfo
     {
         public static readonly IReadOnlyDictionary<Level, string> Name = new Dictionary<Level, string>
         {

@@ -53,30 +53,32 @@ namespace DragonFruit.Six.API.Stats
         public uint RoundsPlayed { get; set; }
 
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex) =>
-            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, null)).First();
+            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, null).ConfigureAwait(false)).First();
 
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex) =>
-            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, operatorIconIndex)).First();
+            (await GetOperatorStats(new[] { account }, token, operatorNameIndex, operatorIconIndex).ConfigureAwait(false)).First();
 
         public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex) =>
-            await GetOperatorStats(accounts, token, operatorNameIndex, null);
+            await GetOperatorStats(accounts, token, operatorNameIndex, null).ConfigureAwait(false);
 
-        public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
+        public static async Task<IEnumerable<IEnumerable<Operator>>> GetOperatorStats(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex,
+                                                                                      string operatorIconIndex)
         {
             var results = new List<IEnumerable<Operator>>();
 
-            await foreach(var result in GetOperatorStatsAsync(accounts, token, operatorNameIndex, operatorIconIndex))
+            await foreach (var result in GetOperatorStatsAsync(accounts, token, operatorNameIndex, operatorIconIndex))
                 results.Add(result);
 
             return results;
         }
 
-        public static async IAsyncEnumerable<IEnumerable<Operator>> GetOperatorStatsAsync(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex, string operatorIconIndex)
+        public static async IAsyncEnumerable<IEnumerable<Operator>> GetOperatorStatsAsync(IEnumerable<AccountInfo> accounts, string token, Dictionary<string, string> operatorNameIndex,
+                                                                                          string operatorIconIndex)
         {
             #region Resource Setup
 
             var operatorIndex = operatorNameIndex ?? d6WebRequest.GetWebObject<Dictionary<string, string>>(Endpoints.OperatorMapping);
-            var operatorIconMap = new Dictionary<string, string>();
+            Dictionary<string, string> operatorIconMap;
 
             try
             {
@@ -96,7 +98,9 @@ namespace DragonFruit.Six.API.Stats
                 var ids = group.Select(x => x.Guid);
                 var rawData = await Task.Run(() =>
                     d6WebRequest.GetWebObject(
-                        d6WebRequest.FormStatsUrl(group.Key, ids, "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"), token));
+                        d6WebRequest.FormStatsUrl(group.Key, ids,
+                            "operatorpvp_kills,operatorpvp_headshot,operatorpvp_dbno,operatorpvp_death,operatorpvp_roundlost,operatorpvp_roundplayed,operatorpvp_roundwlratio,operatorpvp_roundwon"),
+                        token));
 
                 foreach (var x in ids)
                     yield return rawData.ToOperatorStats(x, operatorIndex, operatorIconMap);
