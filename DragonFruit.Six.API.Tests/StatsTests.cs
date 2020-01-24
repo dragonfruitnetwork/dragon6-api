@@ -56,7 +56,7 @@ namespace DragonFruit.Six.API.Tests
         [TestMethod]
         public async Task GetOperatorStats()
         {
-            Dictionary<string, string> opData;
+            Dictionary<string, string> opData = null;
 
             try
             {

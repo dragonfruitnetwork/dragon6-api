@@ -78,7 +78,7 @@ namespace DragonFruit.Six.API.Stats
             #region Resource Setup
 
             var operatorIndex = operatorNameIndex ?? d6WebRequest.GetWebObject<Dictionary<string, string>>(Endpoints.OperatorMapping);
-            Dictionary<string, string> operatorIconMap;
+            Dictionary<string, string> operatorIconMap = null;
 
             try
             {
