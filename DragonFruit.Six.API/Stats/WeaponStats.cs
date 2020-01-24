@@ -6,31 +6,23 @@ using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
-using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Stats
 {
     public class WeaponStats
     {
-        [JsonProperty("profile")]
         public string Guid { get; set; }
 
-        [JsonProperty("classname")]
         public string ClassName { get; set; }
 
-        [JsonProperty("classidentifier")]
         public byte ClassID { get; set; }
 
-        [JsonProperty("kills")]
         public uint Kills { get; set; }
 
-        [JsonProperty("headshots")]
         public uint Headshots { get; set; }
 
-        [JsonProperty("fired")]
         public uint ShotsFired { get; set; }
 
-        [JsonProperty("landed")]
         public uint ShotsLanded { get; set; }
 
         public static async Task<IEnumerable<WeaponStats>> GetWeaponStats(AccountInfo account, string token) => (await GetWeaponStats(new[] { account }, token).ConfigureAwait(false)).First();

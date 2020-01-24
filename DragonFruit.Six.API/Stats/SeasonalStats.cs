@@ -6,37 +6,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
-using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Stats
 {
     public class Season
     {
-        [JsonProperty("profile")]
         public string Guid { get; set; }
 
-        [JsonProperty("season")]
         public byte SeasonId { get; set; }
 
-        [JsonProperty("wins")]
         public uint Wins { get; set; }
 
-        [JsonProperty("losses")]
         public uint Losses { get; set; }
 
-        [JsonProperty("abandons")]
         public uint Abandons { get; set; }
 
-        [JsonProperty("max_rank")]
         public uint MaxRank { get; set; }
 
-        [JsonProperty("rank")]
         public uint Rank { get; set; }
 
-        [JsonProperty("mmr")]
         public double MMR { get; set; }
 
-        [JsonProperty("max_mmr")]
         public double MaxMMR { get; set; }
 
         public static async Task<Season> GetSeason(AccountInfo account, string region, string token) => (await GetSeason(new[] { account }, region, token, -1).ConfigureAwait(false)).First();
