@@ -38,6 +38,18 @@ namespace DragonFruit.Six.API
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
+        /// <summary>
+        /// Original platform identifier
+        /// </summary>
+        [JsonProperty("platformid")]
+        public string PlatformId { get; set; }
+
+        /// <summary>
+        /// Ubisoft identifier
+        /// </summary>
+        [JsonProperty("userid")]
+        public string UbisoftId { get; set; }
+
         [JsonIgnore]
         public Verification.Verification AccountStatus => Server.GetUser(Guid);
 
