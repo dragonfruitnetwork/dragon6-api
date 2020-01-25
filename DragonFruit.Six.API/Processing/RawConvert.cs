@@ -23,8 +23,10 @@ namespace DragonFruit.Six.API.Processing
                 yield return new AccountInfo
                 {
                     PlayerName = item.GetString(Accounts.Name),
+                    Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform)),
                     Guid = item.GetString(Accounts.ProfileIdentifier),
-                    Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform))
+                    PlatformId = item.GetString(Accounts.PlatformIdentifier),
+                    UbisoftId = item.GetString(Accounts.UserIdentifier)
                 };
             }
         }
