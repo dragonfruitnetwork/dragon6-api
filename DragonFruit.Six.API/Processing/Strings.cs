@@ -130,5 +130,15 @@ namespace DragonFruit.Six.API.Processing
         public static readonly string Downs = "operatorpvp_headshot:{0}:infinite";
         public static readonly string Headshots = "operatorpvp_dbno:{0}:infinite";
         public static readonly string Rounds = "operatorpvp_roundplayed:{0}:infinite";
+        public static readonly string Time = "operatorpvp_timeplayed:{0}:infinite";
+    }
+
+    public static class LoginData
+    {
+        public static readonly string Sessions = "sessionsCount";
+        public static readonly string Guid = "profileId";
+        public static readonly string PlatformId = "applicationId";
+        public static readonly string FirstLogin = "firstSessionDate";
+        public static readonly string LastLogin = "lastSessionDate";
     }
 }

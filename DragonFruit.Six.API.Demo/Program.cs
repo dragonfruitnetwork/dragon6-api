@@ -19,6 +19,7 @@ namespace DragonFruit.Six.API.Demo
 
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
             using var setupVerificationTask = Task.Run(() => Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
+            using var operatorInformationTask = Task.Run(() => Operator.GetOperators("https://d6static.dragonfruit.network/data/operators.json"));
             string token = await client.GetStringAsync("https://dragon6.dragonfruit.network/api/token");
 
             await setupVerificationTask;
@@ -26,7 +27,7 @@ namespace DragonFruit.Six.API.Demo
             var playerInfo = await AccountInfo.GetUser(Platforms.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619", token);
             var generalStats = await GeneralStats.GetStats(playerInfo, token);
             var seasonStats = await Season.GetSeason(playerInfo, "EMEA", token);
-            var opStats = await Operator.GetOperatorStats(playerInfo, token, null, null);
+            var opStats = await Operator.GetOperatorStats(playerInfo, await operatorInformationTask, token);
             var weapons = await WeaponStats.GetWeaponStats(playerInfo, token);
             var level = await PlayerLevel.GetLevel(playerInfo, token);
 

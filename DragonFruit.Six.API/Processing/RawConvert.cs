@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DragonFruit.Common.Storage.Shared;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Stats;
@@ -131,47 +130,31 @@ namespace DragonFruit.Six.API.Processing
             };
         }
 
-        public static IEnumerable<Operator> ToOperatorStats(this JObject jObject, string guid, Dictionary<string, string> operatorNameIndex) => ToOperatorStats(jObject, guid, operatorNameIndex, null);
-
-        public static IEnumerable<Operator> ToOperatorStats(this JObject jObject, string guid, Dictionary<string, string> operatorNameIndex, Dictionary<string, string> operatorIconMap)
+        public static IEnumerable<Operator> ToOperatorStats(this JObject jObject, string guid, IEnumerable<Operator> data)
         {
             var json = (JObject)jObject[Misc.Results][guid];
 
-            foreach (var index in operatorNameIndex.Keys.ToArray())
+            foreach (var op in data)
             {
-                var stats = new Operator
-                {
-                    Guid = guid,
+                op.Guid = guid;
 
-                    Name = operatorNameIndex[index],
-                    Index = index,
-                    Kills = json.GetUInt(string.Format(OverallOperator.Kills, index)),
-                    Deaths = json.GetUInt(string.Format(OverallOperator.Deaths, index)),
-                    Wins = json.GetUInt(string.Format(OverallOperator.Wins, index)),
-                    Losses = json.GetUInt(string.Format(OverallOperator.Losses, index)),
-                    Headshots = json.GetUInt(string.Format(OverallOperator.Headshots, index)),
-                    Downs = json.GetUInt(string.Format(OverallOperator.Downs, index)),
-                    RoundsPlayed = json.GetUInt(string.Format(OverallOperator.Rounds, index)),
-                    KD = json.GetFloat(string.Format(OverallOperator.Kills, index), 1) /
-                         json.GetFloat(string.Format(OverallOperator.Deaths, index), 1),
-                    WL = json.GetFloat(string.Format(OverallOperator.Wins, index), 1) /
-                         json.GetFloat(string.Format(OverallOperator.Losses, index), 1)
-                };
+                op.Kills = json.GetUInt(string.Format(OverallOperator.Kills, op.Index));
+                op.Deaths = json.GetUInt(string.Format(OverallOperator.Deaths, op.Index));
+                op.Wins = json.GetUInt(string.Format(OverallOperator.Wins, op.Index));
+                op.Losses = json.GetUInt(string.Format(OverallOperator.Losses, op.Index));
+                op.Headshots = json.GetUInt(string.Format(OverallOperator.Headshots, op.Index));
+                op.Downs = json.GetUInt(string.Format(OverallOperator.Downs, op.Index));
+                op.RoundsPlayed = json.GetUInt(string.Format(OverallOperator.Rounds, op.Index));
+                op.KD = json.GetFloat(string.Format(OverallOperator.Kills, op.Index), 1) /
+                        json.GetFloat(string.Format(OverallOperator.Deaths, op.Index), 1);
+                op.WL = json.GetFloat(string.Format(OverallOperator.Wins, op.Index), 1) /
+                        json.GetFloat(string.Format(OverallOperator.Losses, op.Index), 1);
 
-                //if a dictionary in the form ID -> op icon url is specified, set the link
-                if (operatorIconMap != null)
-                {
-                    try
-                    {
-                        stats.ImageURL = operatorIconMap[index];
-                    }
-                    catch
-                    {
-                        //cannot find the operator icon index - it's not the end of the world, just continue
-                    }
-                }
+                op.Duration = TimeSpan.FromSeconds(json.GetUInt(string.Format(OverallOperator.Time, op.Index)));
 
-                yield return stats;
+                op.ActionCount = json.GetUInt(op.OperatorActionResultId);
+
+                yield return op;
             }
         }
 
