@@ -25,20 +25,27 @@ namespace DragonFruit.Six.API.Demo
             await setupVerificationTask;
 
             var playerInfo = await AccountInfo.GetUser(Platforms.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619", token);
+            var loginInfo = await LoginInfo.GetLoginInfo(playerInfo, token);
             var generalStats = await GeneralStats.GetStats(playerInfo, token);
             var seasonStats = await Season.GetSeason(playerInfo, "EMEA", token);
             var opStats = await Operator.GetOperatorStats(playerInfo, await operatorInformationTask, token);
             var weapons = await WeaponStats.GetWeaponStats(playerInfo, token);
             var level = await PlayerLevel.GetLevel(playerInfo, token);
 
+            var stats = new JObject
+            {
+                { "general", JToken.FromObject(generalStats) },
+                { "ranked", JToken.FromObject(seasonStats) },
+                { "operator", JToken.FromObject(opStats) },
+                { "weapon", JToken.FromObject(weapons) }
+            };
+
             var account = new JObject
             {
-                { "PlayerInfo", JToken.FromObject(playerInfo) },
-                { "Level", JToken.FromObject(level) },
-                { "GeneralStats", JToken.FromObject(generalStats) },
-                { "Ranked", JToken.FromObject(seasonStats) },
-                { "Operator", JToken.FromObject(opStats) },
-                { "Weapon", JToken.FromObject(weapons) }
+                { "account", JToken.FromObject(playerInfo) },
+                { "login", JToken.FromObject(loginInfo) },
+                { "level", JToken.FromObject(level) },
+                { "stats", JToken.FromObject(stats) },
             };
 
             Console.Write(JsonConvert.SerializeObject(account, Formatting.Indented));
