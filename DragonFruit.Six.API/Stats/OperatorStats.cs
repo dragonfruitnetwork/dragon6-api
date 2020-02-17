@@ -54,7 +54,7 @@ namespace DragonFruit.Six.API.Stats
         /// <summary>
         /// The string sent to ubi for their gadget action (from datasheet)
         /// </summary>
-        internal string OperatorActionId { get; set; }
+        public string OperatorActionId { get; set; }
 
         /// <summary>
         /// String used to collect the stats from ubi
@@ -84,6 +84,16 @@ namespace DragonFruit.Six.API.Stats
         public TimeSpan Duration { get; set; }
 
         public uint RoundsPlayed { get; set; }
+
+        /// <summary>
+        /// Nicer way to format a timespan.
+        /// </summary>
+        public string DurationString => $"{Math.Floor(Duration.TotalHours)}H {Duration.Minutes}M";
+
+        /// <summary>
+        /// Number of hours played
+        /// </summary>
+        public double HoursPlayed => Math.Floor(Duration.TotalHours);
 
         public static async Task<IEnumerable<Operator>> GetOperatorStats(AccountInfo account, IEnumerable<Operator> data, string token) =>
             (await GetOperatorStats(new[] { account }, data, token).ConfigureAwait(false)).First();

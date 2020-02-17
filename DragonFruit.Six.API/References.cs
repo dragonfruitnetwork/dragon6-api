@@ -152,10 +152,12 @@ namespace DragonFruit.Six.API
             { 1, "Assault Rifle" },
             { 2, "SMG" },
             { 3, "LMG" },
-            { 4, "Marksman Rifle" },
-            { 5, "Handgun" },
+            { 4, "Sniper Rifle" },
+            { 5, "Pistol" },
             { 6, "Shotgun" },
-            { 7, "Machine Pistol" }
+            { 7, "Machine Pistol" },
+            { 8, "Shield" },
+            { 9, "Launcher" }
         };
     }
 }
