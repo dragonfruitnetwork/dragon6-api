@@ -23,6 +23,15 @@ namespace DragonFruit.Six.API.Verification
         [JsonProperty("ImageHeaderLink")]
         public string Image { get; set; }
 
+        [JsonProperty("CustomText")]
+        public string CustomLevelText { get; set; }
+
+        [JsonProperty("CustomIcon")]
+        public string CustomLevelIcon { get; set; }
+
+        [JsonProperty("CustomColour")]
+        public string CustomLevelColour { get; set; }
+
         //dragon6 server specifics below
         public string UID { get; set; }
 
@@ -33,7 +42,10 @@ namespace DragonFruit.Six.API.Verification
                 { "Twitch", Twitch },
                 { "YouTube", YouTube },
                 { "uid", UID },
-                { "img", Image }
+                { "img", Image },
+                { "role", CustomLevelText },
+                { "icon", CustomLevelIcon },
+                { "colour", CustomLevelColour }
             };
     }
 }
