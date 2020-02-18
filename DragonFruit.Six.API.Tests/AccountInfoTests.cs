@@ -3,6 +3,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Stats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DragonFruit.Six.API.Tests
@@ -21,7 +22,14 @@ namespace DragonFruit.Six.API.Tests
             await AccountInfo.GetUser(Platforms.PC, LookupMethod.Name, "Frost_Bites_", TestData.Token);
 
             //test user id lookup
-            await AccountInfo.GetUser(Platforms.PC, LookupMethod.UserId, "14c01250-ef26-4a32-92ba-e04aa557d619", TestData.Token);
+            var account = await AccountInfo.GetUser(Platforms.PC, LookupMethod.UserId, "14c01250-ef26-4a32-92ba-e04aa557d619", TestData.Token);
+        }
+
+        [TestMethod]
+        public async Task GetLoginInfoTests()
+        {
+            await LoginInfo.GetLoginInfo(TestData.TestAccounts.First(), TestData.Token);
+            await LoginInfo.GetLoginInfo(TestData.TestAccounts, TestData.Token);
         }
 
         [TestMethod]

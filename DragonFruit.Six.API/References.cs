@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Six.API.Stats;
 
 namespace DragonFruit.Six.API
 {
@@ -30,6 +31,24 @@ namespace DragonFruit.Six.API
         PlatformId
     }
 
+    public enum OperatorType
+    {
+        /// <summary>
+        /// Attacker or Defender (i.e. Recruit)
+        /// </summary>
+        Independent = 0,
+
+        /// <summary>
+        /// Attacking Operator
+        /// </summary>
+        Attacker = 1,
+
+        /// <summary>
+        /// Defending Operator
+        /// </summary>
+        Defender = 2
+    }
+
     public static class References
     {
         /// <summary>
@@ -41,6 +60,17 @@ namespace DragonFruit.Six.API
             "APAC",
             "NCSA"
         };
+
+        /// <summary>
+        /// Used for <see cref="LoginInfo"/>
+        /// </summary>
+        public static readonly Dictionary<Platforms, string> GameIds =
+            new Dictionary<Platforms, string>
+            {
+                [Platforms.PSN] = "fb4cc4c9-2063-461d-a1e8-84a7d36525fc",
+                [Platforms.XB1] = "4008612d-3baf-49e4-957a-33066726a7bc",
+                [Platforms.PC] = "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40"
+            };
 
         /// <summary>
         /// English Versions of Rank ID -> Names (for operations prior to ember rise)
@@ -122,10 +152,12 @@ namespace DragonFruit.Six.API
             { 1, "Assault Rifle" },
             { 2, "SMG" },
             { 3, "LMG" },
-            { 4, "Marksman Rifle" },
-            { 5, "Handgun" },
+            { 4, "Sniper Rifle" },
+            { 5, "Pistol" },
             { 6, "Shotgun" },
-            { 7, "Machine Pistol" }
+            { 7, "Machine Pistol" },
+            { 8, "Shield" },
+            { 9, "Launcher" }
         };
     }
 }

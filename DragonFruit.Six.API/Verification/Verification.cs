@@ -1,7 +1,6 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Verification
@@ -23,17 +22,13 @@ namespace DragonFruit.Six.API.Verification
         [JsonProperty("ImageHeaderLink")]
         public string Image { get; set; }
 
-        //dragon6 server specifics below
-        public string UID { get; set; }
+        [JsonProperty("CustomText")]
+        public string CustomLevelText { get; set; }
 
-        public Dictionary<string, object> ToDictionary() =>
-            new Dictionary<string, object>
-            {
-                { "Level", AccountLevel },
-                { "Twitch", Twitch },
-                { "YouTube", YouTube },
-                { "uid", UID },
-                { "img", Image }
-            };
+        [JsonProperty("CustomIcon")]
+        public string CustomLevelIcon { get; set; }
+
+        [JsonProperty("CustomColour")]
+        public string CustomLevelColour { get; set; }
     }
 }

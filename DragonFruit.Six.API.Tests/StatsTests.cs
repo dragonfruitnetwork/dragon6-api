@@ -56,11 +56,11 @@ namespace DragonFruit.Six.API.Tests
         [TestMethod]
         public async Task GetOperatorStats()
         {
-            Dictionary<string, string> opData = null;
+            IEnumerable<Operator> opData = null;
 
             try
             {
-                opData = WebServices.StreamObject<Dictionary<string, string>>(Endpoints.OperatorMapping);
+                opData = WebServices.StreamObject<IEnumerable<Operator>>("https://d6static.dragonfruit.network/data/operators.json");
             }
             catch
             {
@@ -69,10 +69,10 @@ namespace DragonFruit.Six.API.Tests
             }
 
             //single user
-            await Operator.GetOperatorStats(TestData.TestAccounts.First(), TestData.Token, opData);
+            await Operator.GetOperatorStats(TestData.TestAccounts.First(), opData, TestData.Token);
 
             //multi users - different platforms
-            await Operator.GetOperatorStats(TestData.TestAccounts, TestData.Token, opData);
+            await Operator.GetOperatorStats(TestData.TestAccounts, opData, TestData.Token);
         }
     }
 }
