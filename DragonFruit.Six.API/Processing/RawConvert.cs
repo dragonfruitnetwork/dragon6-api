@@ -118,15 +118,27 @@ namespace DragonFruit.Six.API.Processing
             return new Season
             {
                 Guid = guid,
-
+                TimeUpdated = json.GetString(SeasonalRanked.TimeUpdated),
                 SeasonId = json.GetByte(SeasonalRanked.Season),
-                Rank = json.GetUInt(SeasonalRanked.Rank),
-                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
+
+                Kills = json.GetUInt(SeasonalRanked.Kills),
+                Deaths = json.GetUInt(SeasonalRanked.Deaths),
                 Wins = json.GetUInt(SeasonalRanked.Wins),
                 Losses = json.GetUInt(SeasonalRanked.Losses),
                 Abandons = json.GetUInt(SeasonalRanked.Abandons),
+                Rank = json.GetUInt(SeasonalRanked.Rank),
+                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
                 MMR = json.GetDouble(SeasonalRanked.MMR),
-                MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR)
+                MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR),
+                NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
+                PreviousRankMMR = json.GetDouble(SeasonalRanked.PreviousRankMMR),
+                SkillMean = json.GetDouble(SeasonalRanked.SkillMean),
+                SkillStdev = json.GetDouble(SeasonalRanked.SkillStdev),
+
+                LastMatchResult = json.GetUInt(SeasonalRanked.LastMatchResult),
+                LastMatchMMRChange = json.GetDouble(SeasonalRanked.LastMatchMMRChange),
+                LastMatchSkillChange = json.GetDouble(SeasonalRanked.LastMatchSkillChange),
+                LastMatchSkillStdevChange = json.GetDouble(SeasonalRanked.LastMatchSkillStdevChange),
             };
         }
 

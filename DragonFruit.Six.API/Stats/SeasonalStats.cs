@@ -15,8 +15,17 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
+        [JsonProperty("update_time")]
+        public string TimeUpdated { get; set; }
+
         [JsonProperty("id")]
         public byte SeasonId { get; set; }
+
+        [JsonProperty("kills")]
+        public uint Kills { get; set; }
+
+        [JsonProperty("deaths")]
+        public uint Deaths { get; set; }
 
         [JsonProperty("wins")]
         public uint Wins { get; set; }
@@ -38,6 +47,31 @@ namespace DragonFruit.Six.API.Stats
 
         [JsonProperty("maxmmr")]
         public double MaxMMR { get; set; }
+
+        [JsonProperty("next_rank_mmr")]
+        public double NextRankMMR { get; set; }
+
+        [JsonProperty("previous_rank_mmr")]
+        public double PreviousRankMMR { get; set; }
+
+        [JsonProperty("skill_mean")]
+        public double SkillMean { get; set; }
+
+        [JsonProperty("skill_stdev")]
+        public double SkillStdev { get; set; } // TODO: Wasn't sure what to call this... Needs to be named more appropriately
+
+        [JsonProperty("last_match_result")]
+        public uint LastMatchResult { get; set; }
+
+        [JsonProperty("last_match_mmr_change")]
+        public double LastMatchMMRChange { get; set; }
+
+        [JsonProperty("last_match_skill_mean_change")]
+        public double LastMatchSkillChange { get; set; }
+
+        [JsonProperty("last_match_skill_stdev_change")]
+        public double LastMatchSkillStdevChange { get; set; } // TODO: Wasn't sure what to call this... Needs to be named more appropriately
+
 
         public static async Task<Season> GetSeason(AccountInfo account, string region, string token) => (await GetSeason(new[] { account }, region, token, -1).ConfigureAwait(false)).First();
 
