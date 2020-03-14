@@ -1,7 +1,7 @@
 
 # Dragon6 (API)
 
-[![Build Status](https://travis-ci.org/dragonfruitnetwork/Dragon6-API.svg?branch=master)](https://travis-ci.org/dragonfruitnetwork/Dragon6-API) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/44fea8a2da8a400aa25156b9c28423b4)](https://www.codacy.com/app/aspriddell/Dragon6-API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dragonfruitnetwork/Dragon6-API&amp;utm_campaign=Badge_Grade) [![NuGet](https://img.shields.io/nuget/v/Dragon6.API.svg?style=popout)](https://www.nuget.org/packages/Dragon6.API/)
+[![Build Status](https://travis-ci.org/dragonfruitnetwork/Dragon6-API.svg?branch=master)](https://travis-ci.org/dragonfruitnetwork/Dragon6-API) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b9aeacb9dd754f4a8bc50fb3498958ab)](https://www.codacy.com/gh/dragonfruitnetwork/Dragon6-API) [![NuGet](https://img.shields.io/nuget/v/Dragon6.API.svg?style=popout)](https://www.nuget.org/packages/Dragon6.API/) [![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord&style=for-the-badge)](https://discord.gg/VA26u5Z)
 
 Dragon6 is a free to use family of products specialising in Rainbow Six Siege Stats.
 
