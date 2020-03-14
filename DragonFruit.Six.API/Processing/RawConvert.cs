@@ -133,12 +133,12 @@ namespace DragonFruit.Six.API.Processing
                 NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
                 PreviousRankMMR = json.GetDouble(SeasonalRanked.PreviousRankMMR),
                 SkillMean = json.GetDouble(SeasonalRanked.SkillMean),
-                SkillStdev = json.GetDouble(SeasonalRanked.SkillStdev),
+                SkillUncertainty = json.GetDouble(SeasonalRanked.SkillUncertainty),
 
                 LastMatchResult = json.GetUInt(SeasonalRanked.LastMatchResult),
                 LastMatchMMRChange = json.GetDouble(SeasonalRanked.LastMatchMMRChange),
                 LastMatchSkillChange = json.GetDouble(SeasonalRanked.LastMatchSkillChange),
-                LastMatchSkillStdevChange = json.GetDouble(SeasonalRanked.LastMatchSkillStdevChange),
+                LastMatchSkillUncertaintyChange = json.GetDouble(SeasonalRanked.LastMatchSkillUncertaintyChange),
             };
         }
 

@@ -61,12 +61,12 @@ namespace DragonFruit.Six.API.Processing
         public static readonly string NextRankMMR = "next_rank_mmr";
         public static readonly string PreviousRankMMR = "previous_rank_mmr";
         public static readonly string SkillMean = "skill_mean";
-        public static readonly string SkillStdev = "skill_stdev";
+        public static readonly string SkillUncertainty = "skill_stdev";
 
         public static readonly string LastMatchResult = "last_match_result";
         public static readonly string LastMatchMMRChange = "last_match_mmr_change";
         public static readonly string LastMatchSkillChange = "last_match_skill_mean_change";
-        public static readonly string LastMatchSkillStdevChange = "last_match_skill_stdev_change";
+        public static readonly string LastMatchSkillUncertaintyChange = "last_match_skill_stdev_change";
     }
 
     public static class GeneralPvE
