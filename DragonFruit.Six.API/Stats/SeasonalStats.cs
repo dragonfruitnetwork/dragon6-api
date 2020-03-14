@@ -64,6 +64,8 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("skill_stdev")]
         public double SkillUncertainty { get; set; }
 
+
+        // Todo: Use enum for match result. Default: 0, Win: 1?, Loss: 2? - Needs checking first
         [JsonProperty("last_match_result")]
         public uint LastMatchResult { get; set; }
 
