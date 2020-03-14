@@ -118,7 +118,7 @@ namespace DragonFruit.Six.API.Processing
             return new Season
             {
                 Guid = guid,
-                TimeUpdated = json.GetString(SeasonalRanked.TimeUpdated),
+                TimeUpdated = DateTime.Parse(json.GetString(SeasonalRanked.TimeUpdated, DateTime.Now.ToString())),
                 SeasonId = json.GetByte(SeasonalRanked.Season),
 
                 Kills = json.GetUInt(SeasonalRanked.Kills),
