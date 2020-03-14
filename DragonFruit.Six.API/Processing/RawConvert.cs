@@ -128,6 +128,7 @@ namespace DragonFruit.Six.API.Processing
                 Abandons = json.GetUInt(SeasonalRanked.Abandons),
                 Rank = json.GetUInt(SeasonalRanked.Rank),
                 MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
+                TopRankPosition = json.GetUInt(SeasonalRanked.TopRankPosition),
                 MMR = json.GetDouble(SeasonalRanked.MMR),
                 MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR),
                 NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
