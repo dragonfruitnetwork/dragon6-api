@@ -16,7 +16,7 @@ namespace DragonFruit.Six.API.Stats
         public string Guid { get; set; }
 
         [JsonProperty("update_time")]
-        public string TimeUpdated { get; set; }
+        public DateTime TimeUpdated { get; set; }
 
         [JsonProperty("id")]
         public byte SeasonId { get; set; }
