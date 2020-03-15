@@ -10,7 +10,7 @@ before_script:
   - choco install visualstudio2019-workload-netcorebuildtools
   - powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
   - dotnet restore
-  - dotnet build
+  - dotnet build -c Release
 
 jobs:
   include: 
