@@ -21,6 +21,11 @@ jobs:
   - name: "Demo Run"
     script: dotnet run --project ".\DragonFruit.Six.API.Demo"
     
+  - name: "Code Quality"
+    script:
+      - choco install resharper-clt.portable
+      - InspectCode.exe DragonFruit.Six.API.sln
+      
   - stage: deploy
     name: "Beta"
     script: powershell -File Nuget.ps1 -Suffix "-beta"
