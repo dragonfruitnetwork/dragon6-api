@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
-using DragonFruit.Six.API.Verification;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API
