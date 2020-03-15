@@ -4,6 +4,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Stats;
 using DragonFruit.Six.API.Verification;
 using Newtonsoft.Json;

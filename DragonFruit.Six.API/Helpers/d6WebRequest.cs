@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using DragonFruit.Common.Storage.Web;
+using DragonFruit.Six.API.Enums;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Helpers

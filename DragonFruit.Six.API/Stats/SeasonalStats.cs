@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
 using Newtonsoft.Json;
@@ -70,9 +71,8 @@ namespace DragonFruit.Six.API.Stats
         [JsonProperty("skill_stdev")]
         public double SkillUncertainty { get; set; }
 
-        // Todo: Use enum for match result. Default: 0, Win: 1, Loss: 2? - Needs checking first
         [JsonProperty("last_match_result")]
-        public uint LastMatchResult { get; set; }
+        public MatchResult LastMatchResult { get; set; }
 
         [JsonProperty("last_match_mmr_change")]
         public double LastMatchMMRChange { get; set; }
@@ -82,7 +82,6 @@ namespace DragonFruit.Six.API.Stats
 
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
-
 
         public static async Task<Season> GetSeason(AccountInfo account, string region, string token) => (await GetSeason(new[] { account }, region, token, -1).ConfigureAwait(false)).First();
 

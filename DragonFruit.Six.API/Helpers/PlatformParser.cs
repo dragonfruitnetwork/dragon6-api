@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Helpers
 {
