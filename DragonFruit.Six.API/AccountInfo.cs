@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
-using DragonFruit.Six.API.Verification;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API
@@ -49,9 +49,6 @@ namespace DragonFruit.Six.API
         /// </summary>
         [JsonProperty("userid")]
         public string UbisoftId { get; set; }
-
-        [JsonIgnore]
-        public Verification.Verification AccountStatus => Server.GetUser(Guid);
 
         /// <summary>
         /// Get a user's account info

@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Net.Http;
+using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Tests
 {

@@ -3,6 +3,7 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Stats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

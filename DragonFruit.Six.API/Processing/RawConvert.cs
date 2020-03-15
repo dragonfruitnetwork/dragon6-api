@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using DragonFruit.Common.Storage.Shared;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Stats;
 using Newtonsoft.Json.Linq;
@@ -118,15 +119,34 @@ namespace DragonFruit.Six.API.Processing
             return new Season
             {
                 Guid = guid,
-
+                TimeUpdated = DateTime.Parse(json.GetString(SeasonalRanked.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
                 SeasonId = json.GetByte(SeasonalRanked.Season),
-                Rank = json.GetUInt(SeasonalRanked.Rank),
-                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
+
+                Kills = json.GetUInt(SeasonalRanked.Kills),
+                Deaths = json.GetUInt(SeasonalRanked.Deaths),
+                KD = json.GetFloat(SeasonalRanked.Kills, 1) / json.GetFloat(SeasonalRanked.Deaths, 1),
+
                 Wins = json.GetUInt(SeasonalRanked.Wins),
                 Losses = json.GetUInt(SeasonalRanked.Losses),
                 Abandons = json.GetUInt(SeasonalRanked.Abandons),
+                WL = json.GetFloat(SeasonalRanked.Wins, 1) / json.GetFloat(SeasonalRanked.Losses, 1),
+
+                Rank = json.GetUInt(SeasonalRanked.Rank),
+                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
+                TopRankPosition = json.GetUInt(SeasonalRanked.TopRankPosition),
+
                 MMR = json.GetDouble(SeasonalRanked.MMR),
-                MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR)
+                MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR),
+                NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
+                PreviousRankMMR = json.GetDouble(SeasonalRanked.PreviousRankMMR),
+
+                SkillMean = json.GetDouble(SeasonalRanked.SkillMean),
+                SkillUncertainty = json.GetDouble(SeasonalRanked.SkillUncertainty),
+
+                LastMatchResult = (MatchResult)json.GetUInt(SeasonalRanked.LastMatchResult),
+                LastMatchMMRChange = json.GetDouble(SeasonalRanked.LastMatchMMRChange),
+                LastMatchSkillChange = json.GetDouble(SeasonalRanked.LastMatchSkillChange),
+                LastMatchSkillUncertaintyChange = json.GetDouble(SeasonalRanked.LastMatchSkillUncertaintyChange),
             };
         }
 

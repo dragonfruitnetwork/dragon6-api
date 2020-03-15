@@ -2,6 +2,8 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Stats;
 
 namespace DragonFruit.Six.API
 {
@@ -12,6 +14,17 @@ namespace DragonFruit.Six.API
         public static readonly string StatsBase = BaseEndpoint + "/v1/spaces";
         public static readonly string IdServer = BaseEndpoint + "/v3/profiles";
         public static readonly string TokenServer = IdServer + "/sessions";
+
+        /// <summary>
+        /// Used for <see cref="LoginInfo"/>
+        /// </summary>
+        public static readonly Dictionary<Platforms, string> GameIds =
+            new Dictionary<Platforms, string>
+            {
+                [Platforms.PSN] = "fb4cc4c9-2063-461d-a1e8-84a7d36525fc",
+                [Platforms.XB1] = "4008612d-3baf-49e4-957a-33066726a7bc",
+                [Platforms.PC] = "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40"
+            };
 
         /// <summary>
         /// Used for stats

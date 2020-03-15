@@ -2,75 +2,13 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using DragonFruit.Six.API.Stats;
+using System.Globalization;
 
 namespace DragonFruit.Six.API
 {
-    public enum Platforms
-    {
-        PC = 1,
-        PSN = 2,
-        XB1 = 3
-    }
-
-    public enum LookupMethod
-    {
-        /// <summary>
-        /// Player's name
-        /// </summary>
-        Name,
-
-        /// <summary>
-        /// The User ID, which is global across different ubi games
-        /// </summary>
-        UserId,
-
-        /// <summary>
-        /// Id on the platform, not always the same as the GUID
-        /// </summary>
-        PlatformId
-    }
-
-    public enum OperatorType
-    {
-        /// <summary>
-        /// Attacker or Defender (i.e. Recruit)
-        /// </summary>
-        Independent = 0,
-
-        /// <summary>
-        /// Attacking Operator
-        /// </summary>
-        Attacker = 1,
-
-        /// <summary>
-        /// Defending Operator
-        /// </summary>
-        Defender = 2
-    }
-
     public static class References
     {
-        /// <summary>
-        /// Regions for ranked
-        /// </summary>
-        public static readonly string[] Regions =
-        {
-            "EMEA",
-            "APAC",
-            "NCSA"
-        };
-
-        /// <summary>
-        /// Used for <see cref="LoginInfo"/>
-        /// </summary>
-        public static readonly Dictionary<Platforms, string> GameIds =
-            new Dictionary<Platforms, string>
-            {
-                [Platforms.PSN] = "fb4cc4c9-2063-461d-a1e8-84a7d36525fc",
-                [Platforms.XB1] = "4008612d-3baf-49e4-957a-33066726a7bc",
-                [Platforms.PC] = "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40"
-            };
+        public static readonly CultureInfo Culture = new CultureInfo("en-US", false);
 
         /// <summary>
         /// English Versions of Rank ID -> Names (for operations prior to ember rise)
@@ -145,7 +83,7 @@ namespace DragonFruit.Six.API
         };
 
         /// <summary>
-        /// English Names of Weapon Types
+        /// Weapon Types
         /// </summary>
         public static readonly IReadOnlyDictionary<byte, string> WeaponClasses = new Dictionary<byte, string>
         {

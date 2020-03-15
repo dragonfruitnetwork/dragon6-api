@@ -3,10 +3,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Common.Storage.Shared;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
 using Newtonsoft.Json.Linq;
@@ -39,9 +39,8 @@ namespace DragonFruit.Six.API.Stats
 
         public static async IAsyncEnumerable<LoginInfo> GetLoginInfoAsync(IEnumerable<AccountInfo> accounts, string token)
         {
-            var url = $"{Endpoints.IdServer}/applications?applicationIds={string.Join(',', References.GameIds.Select(x => x.Value))}&profileIds={string.Join(',', accounts.Select(x => x.Guid))}";
-            var parseCulture = new CultureInfo("en-us");
-            var platformLookup = References.GameIds.ToDictionary(x => x.Value, x => x.Key);
+            var url = $"{Endpoints.IdServer}/applications?applicationIds={string.Join(',', Endpoints.GameIds.Select(x => x.Value))}&profileIds={string.Join(',', accounts.Select(x => x.Guid))}";
+            var platformLookup = Endpoints.GameIds.ToDictionary(x => x.Value, x => x.Key);
 
             var data = (JArray)(await Task.Run(() => d6WebRequest.GetWebObject(url, token)))["applications"];
 
@@ -51,8 +50,8 @@ namespace DragonFruit.Six.API.Stats
                 yield return new LoginInfo
                 {
                     Guid = entry.GetString(LoginData.Guid),
-                    FirstLogin = DateTime.Parse(entry.GetString(LoginData.FirstLogin), parseCulture),
-                    LastLogin = DateTime.Parse(entry.GetString(LoginData.LastLogin), parseCulture),
+                    FirstLogin = DateTime.Parse(entry.GetString(LoginData.FirstLogin), References.Culture),
+                    LastLogin = DateTime.Parse(entry.GetString(LoginData.LastLogin), References.Culture),
                     SessionCount = entry.GetUInt(LoginData.Sessions),
                     Platform = platformLookup[entry.GetString(LoginData.PlatformId)]
                 };

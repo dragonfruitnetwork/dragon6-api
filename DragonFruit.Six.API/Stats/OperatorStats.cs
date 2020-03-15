@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DragonFruit.Common.Storage.File;
 using DragonFruit.Common.Storage.Shared;
 using DragonFruit.Common.Storage.Web;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Processing;
 using Newtonsoft.Json.Linq;
