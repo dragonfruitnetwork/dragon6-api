@@ -23,9 +23,9 @@ jobs:
     
   - stage: deploy
     name: "Beta"
-    script: powershell -File Nuget.ps1 false
+    script: powershell -File Nuget.ps1 -Suffix "-beta"
     if: branch = master
     
   - name: "Production"
-    script: powershell -File Nuget.ps1 true
+    script: powershell -File Nuget.ps1
     if: branch = production
