@@ -1,14 +1,36 @@
-language: csharp
-mono: none
-dotnet: 3.1.100
-dist: xenial
+os: windows
+language: shell
+
+stages:
+  - test
+  - name: deploy
+    if: type = push AND fork = false AND env(nuget_api) IS present
+
+before_script:
+  - choco install visualstudio2019-workload-netcorebuildtools
+  - powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+  - dotnet restore
+  - dotnet build
+
 jobs:
-  include:
+  include: 
   - stage: test
+    name: "Unit Tests"
+    script: dotnet test
+    
+  - name: "Demo Run"
+    script: dotnet run --project ".\DragonFruit.Six.API.Demo"
+    
+  - name: "Code Quality"
     script:
-     - dotnet restore
-     - dotnet build
-     - cd "DragonFruit.Six.API.Tests"
-     - dotnet test
-     - cd "../DragonFruit.Six.API.Demo"
-     - dotnet run
+      - choco install resharper-clt.portable
+      - InspectCode.exe DragonFruit.Six.API.sln -o=results.xml
+      
+  - stage: deploy
+    name: "Beta"
+    script: powershell -File Nuget.ps1 -Suffix "-beta"
+    if: branch = master
+    
+  - name: "Production"
+    script: powershell -File Nuget.ps1
+    if: branch = production
