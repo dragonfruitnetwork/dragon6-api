@@ -123,8 +123,10 @@ namespace DragonFruit.Six.API.Processing
 
                 Kills = json.GetUInt(SeasonalRanked.Kills),
                 Deaths = json.GetUInt(SeasonalRanked.Deaths),
+                KD = (json.GetFloat(SeasonalRanked.Kills) / json.GetFloat(SeasonalRanked.Deaths)),
                 Wins = json.GetUInt(SeasonalRanked.Wins),
                 Losses = json.GetUInt(SeasonalRanked.Losses),
+                WL = (json.GetFloat(SeasonalRanked.Wins) / json.GetFloat(SeasonalRanked.Losses)),
                 Abandons = json.GetUInt(SeasonalRanked.Abandons),
                 Rank = json.GetUInt(SeasonalRanked.Rank),
                 MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
