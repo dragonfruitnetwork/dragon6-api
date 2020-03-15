@@ -4,7 +4,7 @@ language: shell
 stages:
   - test
   - name: deploy
-    if: type = push AND fork = false AND env(nuget_api) IS present
+    if: type = push AND fork = false AND env(nuget_key) IS present
 
 before_script:
   - choco install visualstudio2019-workload-netcorebuildtools
