@@ -24,7 +24,7 @@ jobs:
   - name: "Code Quality"
     script:
       - choco install resharper-clt.portable
-      - InspectCode.exe DragonFruit.Six.API.sln
+      - InspectCode.exe DragonFruit.Six.API.sln -o=results.xml
       
   - stage: deploy
     name: "Beta"
