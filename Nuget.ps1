@@ -2,7 +2,7 @@ param ([string]$Suffix = "")
 
 #versioning info
 $DATE = Get-Date -UFormat "%Y.%m.%d"
-$VERSION = $DATE.$env:TRAVIS_BUILD_NUMBER$Suffix
+$VERSION = "$($DATE).$($env:TRAVIS_BUILD_NUMBER)$($Suffix)"
 
 #directories
 $WORKINGDIR = Get-Location
