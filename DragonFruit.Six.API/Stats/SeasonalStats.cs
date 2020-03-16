@@ -45,10 +45,10 @@ namespace DragonFruit.Six.API.Stats
         public uint Abandons { get; set; }
 
         [JsonProperty("maxrank")]
-        public uint MaxRank { get; set; }
+        public Rank MaxRank { get; set; }
 
         [JsonProperty("rank")]
-        public uint Rank { get; set; }
+        public Rank Rank { get; set; }
 
         [JsonProperty("top_rank_position")]
         public uint TopRankPosition { get; set; }

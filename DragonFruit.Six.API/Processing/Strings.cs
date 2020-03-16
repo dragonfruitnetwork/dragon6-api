@@ -54,8 +54,8 @@ namespace DragonFruit.Six.API.Processing
         public static readonly string Wins = "wins";
         public static readonly string Losses = "losses";
         public static readonly string Abandons = "abandons";
-        public static readonly string Rank = "rank";
-        public static readonly string MaxRank = "max_rank";
+        public static readonly string RankId = "rank";
+        public static readonly string MaxRankId = "max_rank";
         public static readonly string TopRankPosition = "top_rank_position";
         public static readonly string MMR = "mmr";
         public static readonly string MaxMMR = "max_mmr";
