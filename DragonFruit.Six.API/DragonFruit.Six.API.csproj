@@ -5,8 +5,6 @@
     <AssemblyName>DragonFruit.Six.API</AssemblyName>
     <RootNamespace>DragonFruit.Six.API</RootNamespace>
     <PackageId>Dragon6.API</PackageId>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTitle>Dragon6 API</PackageTitle>
     <PackageDescription>A Rainbow Six Stats API for .NET</PackageDescription>
     <PackageSummary>A Rainbow Six Stats API</PackageSummary>

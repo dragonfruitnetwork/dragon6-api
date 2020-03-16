@@ -115,12 +115,13 @@ namespace DragonFruit.Six.API.Processing
         public static Season ToSeason(this JObject jObject, string guid)
         {
             var json = (JObject)jObject[Misc.Players][guid];
+            var seasonId = json.GetByte(SeasonalRanked.Season);
 
             return new Season
             {
                 Guid = guid,
                 TimeUpdated = DateTime.Parse(json.GetString(SeasonalRanked.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
-                SeasonId = json.GetByte(SeasonalRanked.Season),
+                SeasonId = seasonId,
 
                 Kills = json.GetUInt(SeasonalRanked.Kills),
                 Deaths = json.GetUInt(SeasonalRanked.Deaths),
@@ -131,10 +132,10 @@ namespace DragonFruit.Six.API.Processing
                 Abandons = json.GetUInt(SeasonalRanked.Abandons),
                 WL = json.GetFloat(SeasonalRanked.Wins, 1) / json.GetFloat(SeasonalRanked.Losses, 1),
 
-                Rank = json.GetUInt(SeasonalRanked.Rank),
-                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
-                TopRankPosition = json.GetUInt(SeasonalRanked.TopRankPosition),
+                Rank = seasonId > 14 ? References.Ranks[json.GetUInt(SeasonalRanked.RankId)] : References.LegacyRanks[json.GetUInt(SeasonalRanked.RankId)],
+                MaxRank = seasonId > 14 ? References.Ranks[json.GetUInt(SeasonalRanked.MaxRankId)] : References.LegacyRanks[json.GetUInt(SeasonalRanked.MaxRankId)],
 
+                TopRankPosition = json.GetUInt(SeasonalRanked.TopRankPosition),
                 MMR = json.GetDouble(SeasonalRanked.MMR),
                 MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR),
                 NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
