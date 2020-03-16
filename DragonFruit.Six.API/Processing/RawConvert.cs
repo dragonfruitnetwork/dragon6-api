@@ -72,14 +72,14 @@ namespace DragonFruit.Six.API.Processing
                 ShotsFired = json.GetLong(General.BulletFired),
                 ShotsConnected = json.GetLong(General.BulletHit),
 
-                // Terrorist Hunt
-                HuntKills = json.GetUInt(GeneralPvE.Kills),
-                HuntDeaths = json.GetUInt(GeneralPvE.Deaths),
-                HuntKd = json.GetFloat(GeneralPvE.Kills, 1) / json.GetFloat(GeneralPvE.Deaths, 1),
+                // Training Grounds
+                TrainingKills = json.GetUInt(GeneralPvE.Kills),
+                TrainingDeaths = json.GetUInt(GeneralPvE.Deaths),
+                TrainingKd = json.GetFloat(GeneralPvE.Kills, 1) / json.GetFloat(GeneralPvE.Deaths, 1),
 
-                HuntWins = json.GetUInt(GeneralPvE.Wins),
-                HuntLosses = json.GetUInt(GeneralPvE.Losses),
-                HuntWl = json.GetFloat(GeneralPvE.Wins, 1) / json.GetFloat(GeneralPvE.Losses, 1),
+                TrainingWins = json.GetUInt(GeneralPvE.Wins),
+                TrainingLosses = json.GetUInt(GeneralPvE.Losses),
+                TrainingWl = json.GetFloat(GeneralPvE.Wins, 1) / json.GetFloat(GeneralPvE.Losses, 1),
 
                 // Gamemodes
                 HiScoreSecure = json.GetUInt(GeneralModeSpecifics.Secure),
@@ -88,7 +88,7 @@ namespace DragonFruit.Six.API.Processing
 
                 // Time Played
                 TimePlayedCasual = TimeSpan.FromSeconds(json.GetDouble(GeneralCasual.Time)),
-                TimePlayedTHunt = TimeSpan.FromSeconds(json.GetDouble(GeneralPvE.Time)),
+                TimePlayedTraining = TimeSpan.FromSeconds(json.GetDouble(GeneralPvE.Time)),
                 TimePlayedRanked = TimeSpan.FromSeconds(json.GetDouble(GeneralRanked.Time)),
                 TimePlayedGeneral = TimeSpan.FromSeconds(json.GetDouble(OverallPvP.Time)),
                 TimePlayedCustom = TimeSpan.FromSeconds(json.GetDouble(GeneralCustomGame.Time)),

@@ -56,7 +56,7 @@ namespace DragonFruit.Six.API.Stats
 
         public float WL { get; set; }
 
-        public uint MatchesPlayed => CasualMatchesPlayed + RankedMatchesPlayed + HuntMatchesPlayed;
+        public uint MatchesPlayed => CasualMatchesPlayed + RankedMatchesPlayed + TrainingMatchesPlayed;
 
         public uint CasualKills { get; set; }
 
@@ -94,19 +94,19 @@ namespace DragonFruit.Six.API.Stats
 
         public long ShotsConnected { get; set; }
 
-        public uint HuntKills { get; set; }
+        public uint TrainingKills { get; set; }
 
-        public uint HuntDeaths { get; set; }
+        public uint TrainingDeaths { get; set; }
 
-        public float HuntKd { get; set; }
+        public float TrainingKd { get; set; }
 
-        public uint HuntWins { get; set; }
+        public uint TrainingWins { get; set; }
 
-        public uint HuntLosses { get; set; }
+        public uint TrainingLosses { get; set; }
 
-        public float HuntWl { get; set; }
+        public float TrainingWl { get; set; }
 
-        public uint HuntMatchesPlayed => HuntLosses + HuntWins;
+        public uint TrainingMatchesPlayed => TrainingLosses + TrainingWins;
 
         public uint HiScoreBomb { get; set; }
 
@@ -114,7 +114,7 @@ namespace DragonFruit.Six.API.Stats
 
         public uint HiScoreHostage { get; set; }
 
-        public TimeSpan TimePlayedTHunt { get; set; }
+        public TimeSpan TimePlayedTraining { get; set; }
 
         public TimeSpan TimePlayedCasual { get; set; }
 
