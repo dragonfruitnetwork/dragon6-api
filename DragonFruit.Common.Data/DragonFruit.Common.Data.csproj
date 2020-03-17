@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2020.3.1.4</Version>
+    <Authors>DragonFruit Network</Authors>
+    <Product>DragonFruit Common (Data)</Product>
+    <Description>I/O Framework for Web, API and Files</Description>
+    <Copyright>Copyright 2020 (C) DragonFruit Network</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dragonfruitnetwork/DragonFruit.Common</PackageProjectUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/31821773</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dragonfruitnetwork/DragonFruit.Common</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>file, api, web, io, framework, dragonfruit, common</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>
