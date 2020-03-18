@@ -12,13 +12,14 @@ namespace DragonFruit.Six.API.Helpers
 {
     public static class OperatorData
     {
-        /// <summary>
-        /// Loads operator info from a file
-        /// </summary>
-        public static IEnumerable<OperatorStats> GetOperatorData(string content, bool file = true)
-        {
-            JArray data = file ? FileServices.ReadFile<JArray>(content) : JArray.Parse(content);
+        public static IEnumerable<OperatorStats> GetOperatorDataFromFile(string location) =>
+            GetOperatorData(FileServices.ReadFile<JArray>(location));
 
+        public static IEnumerable<OperatorStats> GetOperatorDataFromUrl(string location) =>
+            GetOperatorData(WebServices.StreamObject<JArray>(location));
+
+        public static IEnumerable<OperatorStats> GetOperatorData(JArray data)
+        {
             foreach (var jToken in data)
             {
                 var element = (JObject)jToken;

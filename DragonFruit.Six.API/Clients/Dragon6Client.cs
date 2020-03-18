@@ -10,26 +10,26 @@ namespace DragonFruit.Six.API.Clients
 {
     public abstract class Dragon6Client : ApiClient
     {
-        public Dragon6Client(TokenBase token)
+        protected Dragon6Client(TokenBase token)
             : this()
         {
             _token = token;
         }
 
-        public Dragon6Client(string userAgent)
+        protected Dragon6Client(string userAgent)
             : this()
         {
             UserAgent = userAgent;
         }
 
-        public Dragon6Client(string userAgent, string appId)
+        protected Dragon6Client(string userAgent, string appId)
             : this()
         {
             UserAgent = userAgent;
             _appId = appId;
         }
 
-        public Dragon6Client()
+        protected Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(References.Culture);
             CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", _appId));

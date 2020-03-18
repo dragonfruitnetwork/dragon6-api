@@ -37,6 +37,6 @@ namespace DragonFruit.Six.API.Tests
             }
         };
 
-        internal static Dragon6Client Client = new Dragon6TestClient();
+        internal static readonly Dragon6Client Client = new Dragon6TestClient();
     }
 }
