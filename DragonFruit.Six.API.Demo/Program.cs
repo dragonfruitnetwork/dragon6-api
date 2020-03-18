@@ -2,11 +2,8 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
-using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Extensions;
-using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 using Newtonsoft.Json;
@@ -18,17 +15,9 @@ namespace DragonFruit.Six.API.Demo
     {
         private static async Task Main(string[] args)
         {
-            var client = new HttpClient();
-            var d6Client = new Dragon6Client();
-
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
-            using var operatorInformationTask = Task.Run(async () => OperatorData.GetOperatorData(await client.GetStringAsync("https://d6static.dragonfruit.network/data/operators.json"), false));
-
-            d6Client.Token = new Dragon6Token
-            {
-                Token = await client.GetStringAsync("https://dragon6.dragonfruit.network/api/token"),
-                Expiry = DateTimeOffset.Now.AddHours(1)
-            };
+            var d6Client = new Dragon6DemoClient("https://dragon6.dragonfruit.network/api/token");
+            using var operatorInformationTask = Task.Run(() => OperatorData.GetOperatorDataFromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 
