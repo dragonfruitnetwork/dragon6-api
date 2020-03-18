@@ -1,12 +1,9 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data;
-using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Tests
