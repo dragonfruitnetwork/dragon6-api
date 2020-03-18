@@ -37,34 +37,6 @@ namespace DragonFruit.Six.API.Tests
             }
         };
 
-        private static Dragon6Client _client;
-
-        internal static Dragon6Client Client
-        {
-            get
-            {
-                if (_client != null)
-                    return _client;
-
-                return _client = new Dragon6Client()
-                {
-                    Token = new Dragon6Token
-                    {
-                        Token = GetToken(),
-                        Expiry = DateTimeOffset.Now.AddHours(1)
-                    }
-                };
-            }
-        }
-
-        private static string GetToken()
-        {
-            using var client = new HttpClient();
-            using var tokenTask = client.GetStringAsync("https://dragon6.dragonfruit.network/api/token");
-
-            tokenTask.Wait();
-
-            return tokenTask.Result;
-        }
+        internal static Dragon6Client Client = new Dragon6TestClient();
     }
 }

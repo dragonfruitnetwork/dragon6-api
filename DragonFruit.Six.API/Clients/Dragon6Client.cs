@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Tokens;
-using DragonFruit.Six.API.Exceptions;
 
 namespace DragonFruit.Six.API.Clients
 {
-    public class Dragon6Client : ApiClient
+    public abstract class Dragon6Client : ApiClient
     {
         public Dragon6Client(TokenBase token)
+            : this()
         {
-            Token = token;
+            _token = token;
         }
 
         public Dragon6Client(string userAgent)
@@ -26,33 +26,45 @@ namespace DragonFruit.Six.API.Clients
             : this()
         {
             UserAgent = userAgent;
-            AppId = appId;
+            _appId = appId;
         }
 
         public Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(References.Culture);
-            UserAgent = "Dragon6";
-            CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", AppId));
+            CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", _appId));
+
+            if (string.IsNullOrEmpty(UserAgent))
+            {
+                UserAgent = "Dragon6";
+            }
         }
 
-        private string AppId { get; } = References.AppId;
-
+        private readonly string _appId = References.AppId;
         private TokenBase _token;
 
-        public TokenBase Token
+        /// <summary>
+        /// Method for getting a new <see cref="TokenBase"/>
+        /// </summary>
+        protected abstract TokenBase GetToken();
+
+        private void UpdateTokenHeader()
         {
-            set
-            {
-                _token = value;
-                Authorization = $"Ubi_v1 t={value.Token}";
-            }
+            _token = GetToken();
+            Authorization = $"Ubi_v1 t={_token.Token}";
         }
 
         public override T Perform<T>(ApiRequest requestData)
         {
+            if (_token == null)
+            {
+                UpdateTokenHeader();
+            }
+
             if (_token.Expired)
-                throw new InvalidTokenException(_token);
+            {
+                UpdateTokenHeader();
+            }
 
             return base.Perform<T>(requestData);
         }
