@@ -1,11 +1,11 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Common.Data;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Exceptions;
 
 namespace DragonFruit.Six.API.Data.Requests.Base
 {
@@ -21,7 +21,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
             Platform = accounts.First().Platform;
 
             if (accounts.Any(x => x.Platform != Platform))
-                throw new Exception("All accounts must be for the same platform");
+                throw new AccountPlatformException(accounts);
 
             Accounts = accounts;
         }
