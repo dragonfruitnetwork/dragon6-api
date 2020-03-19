@@ -2,65 +2,67 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
-using DragonFruit.Common.Storage.Web;
-using DragonFruit.Six.API.Stats;
+using DragonFruit.Common.Data.Services;
+using DragonFruit.Six.API.Data;
+using DragonFruit.Six.API.Data.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DragonFruit.Six.API.Tests
 {
     [TestClass]
+    [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]
     public class PlayerStatsTests
     {
         [TestMethod]
-        public async Task GetGeneralStats()
+        public void GetGeneralStats()
         {
             //single user
-            await GeneralStats.GetStats(TestData.TestAccounts.First(), TestData.Token);
+            TestData.Client.GetStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            await GeneralStats.GetStats(TestData.TestAccounts, TestData.Token);
+            TestData.Client.GetStats(TestData.TestAccounts);
         }
 
         [TestMethod]
-        public async Task GetRankedStats()
+        public void GetRankedStats()
         {
             //single user
-            await Season.GetSeason(TestData.TestAccounts.First(), TestData.Region, TestData.Token);
+            TestData.Client.GetSeasonStats(TestData.TestAccounts.First(), TestData.Region);
 
             //multi users - different platforms
-            await Season.GetSeason(TestData.TestAccounts, TestData.Region, TestData.Token);
+            TestData.Client.GetSeasonStats(TestData.TestAccounts, TestData.Region);
         }
 
         [TestMethod]
-        public async Task GetWeaponStats()
+        public void GetWeaponStats()
         {
             //single user
-            await WeaponStats.GetWeaponStats(TestData.TestAccounts.First(), TestData.Token);
+            TestData.Client.GetWeaponStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            await WeaponStats.GetWeaponStats(TestData.TestAccounts, TestData.Token);
+            TestData.Client.GetWeaponStats(TestData.TestAccounts);
         }
 
         [TestMethod]
-        public async Task GetLevelInfo()
+        public void GetLevelInfo()
         {
             //single user
-            await PlayerLevel.GetLevel(TestData.TestAccounts.First(), TestData.Token);
+            TestData.Client.GetLevel(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            await PlayerLevel.GetLevel(TestData.TestAccounts, TestData.Token);
+            TestData.Client.GetLevel(TestData.TestAccounts);
         }
 
         [TestMethod]
-        public async Task GetOperatorStats()
+        public void GetOperatorStats()
         {
-            IEnumerable<Operator> opData = null;
+            IEnumerable<OperatorStats> opData = null;
 
             try
             {
-                opData = WebServices.StreamObject<IEnumerable<Operator>>("https://d6static.dragonfruit.network/data/operators.json");
+                opData = WebServices.StreamObject<IEnumerable<OperatorStats>>("https://d6static.dragonfruit.network/data/operators.json");
             }
             catch
             {
@@ -69,10 +71,10 @@ namespace DragonFruit.Six.API.Tests
             }
 
             //single user
-            await Operator.GetOperatorStats(TestData.TestAccounts.First(), opData, TestData.Token);
+            TestData.Client.GetOperatorStats(TestData.TestAccounts.First(), opData);
 
             //multi users - different platforms
-            await Operator.GetOperatorStats(TestData.TestAccounts, opData, TestData.Token);
+            TestData.Client.GetOperatorStats(TestData.TestAccounts, opData);
         }
     }
 }
