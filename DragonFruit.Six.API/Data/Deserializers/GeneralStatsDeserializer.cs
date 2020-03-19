@@ -34,22 +34,22 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Losses = json.GetUInt(GeneralCasual.Losses),
                     Wl = json.GetFloat(GeneralCasual.Wins, 1) / json.GetFloat(GeneralCasual.Losses, 1),
 
-                    MatchesPlayed = json.GetUInt(GeneralCasual.Time),
+                    MatchesPlayed = json.GetUInt(GeneralCasual.MatchesPlayed),
                     TimePlayed = TimeSpan.FromSeconds(json.GetDouble(GeneralCasual.Time)),
                 },
 
                 Training = new ModeStatsContainer
                 {
-                    Kills = json.GetUInt(GeneralPvE.Kills),
-                    Deaths = json.GetUInt(GeneralPvE.Deaths),
-                    Kd = json.GetFloat(GeneralPvE.Kills, 1) / json.GetFloat(GeneralPvE.Deaths, 1),
+                    Kills = json.GetUInt(GeneralTraining.Kills),
+                    Deaths = json.GetUInt(GeneralTraining.Deaths),
+                    Kd = json.GetFloat(GeneralTraining.Kills, 1) / json.GetFloat(GeneralTraining.Deaths, 1),
 
-                    Wins = json.GetUInt(GeneralPvE.Wins),
-                    Losses = json.GetUInt(GeneralPvE.Losses),
-                    Wl = json.GetFloat(GeneralPvE.Wins, 1) / json.GetFloat(GeneralPvE.Losses, 1),
+                    Wins = json.GetUInt(GeneralTraining.Wins),
+                    Losses = json.GetUInt(GeneralTraining.Losses),
+                    Wl = json.GetFloat(GeneralTraining.Wins, 1) / json.GetFloat(GeneralTraining.Losses, 1),
 
-                    TimePlayed = TimeSpan.FromSeconds(json.GetDouble(GeneralPvE.Time)),
-                    MatchesPlayed = json.GetUInt(GeneralPvE.Wins) + json.GetUInt(GeneralPvE.Losses)
+                    TimePlayed = TimeSpan.FromSeconds(json.GetDouble(GeneralTraining.Time)),
+                    MatchesPlayed = json.GetUInt(GeneralTraining.Wins) + json.GetUInt(GeneralTraining.Losses)
                 },
 
                 Ranked = new ModeStatsContainer
@@ -68,23 +68,23 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 Overall = new ModeStatsContainer
                 {
-                    Kills = json.GetUInt(OverallPvP.Kills),
-                    Deaths = json.GetUInt(OverallPvP.Deaths),
-                    Kd = json.GetFloat(OverallPvP.Kills, 1) / json.GetFloat(OverallPvP.Deaths, 1),
+                    Kills = json.GetUInt(OverallMultiplayer.Kills),
+                    Deaths = json.GetUInt(OverallMultiplayer.Deaths),
+                    Kd = json.GetFloat(OverallMultiplayer.Kills, 1) / json.GetFloat(OverallMultiplayer.Deaths, 1),
 
-                    Wins = json.GetUInt(OverallPvP.Wins),
-                    Losses = json.GetUInt(OverallPvP.Losses),
-                    Wl = json.GetFloat(OverallPvP.Wins, 1) / json.GetFloat(OverallPvP.Losses, 1),
+                    Wins = json.GetUInt(OverallMultiplayer.Wins),
+                    Losses = json.GetUInt(OverallMultiplayer.Losses),
+                    Wl = json.GetFloat(OverallMultiplayer.Wins, 1) / json.GetFloat(OverallMultiplayer.Losses, 1),
 
-                    TimePlayed = TimeSpan.FromSeconds(json.GetDouble(OverallPvP.Time)),
+                    TimePlayed = TimeSpan.FromSeconds(json.GetDouble(OverallMultiplayer.Time)),
                     //matches played set at the bottom...
                 },
 
                 Highscores = new HighScoreContainer
                 {
-                    Secure = json.GetInt(GeneralModeSpecifics.Secure),
-                    Bomb = json.GetInt(GeneralModeSpecifics.Bomb),
-                    Hostage = json.GetInt(GeneralModeSpecifics.Hostage),
+                    Secure = json.GetInt(Highscores.Secure),
+                    Bomb = json.GetInt(Highscores.Bomb),
+                    Hostage = json.GetInt(Highscores.Hostage),
                 },
 
                 // Non-Containered Stats

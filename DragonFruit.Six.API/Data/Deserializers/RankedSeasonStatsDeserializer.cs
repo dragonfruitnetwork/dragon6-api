@@ -18,34 +18,34 @@ namespace DragonFruit.Six.API.Data.Deserializers
             return new RankedSeasonStats
             {
                 Guid = guid,
-                TimeUpdated = DateTime.Parse(json.GetString(SeasonalRanked.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
-                SeasonId = json.GetByte(SeasonalRanked.Season),
+                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
+                SeasonId = json.GetByte(Seasonal.Season),
 
-                Kills = json.GetUInt(SeasonalRanked.Kills),
-                Deaths = json.GetUInt(SeasonalRanked.Deaths),
-                KD = json.GetFloat(SeasonalRanked.Kills, 1) / json.GetFloat(SeasonalRanked.Deaths, 1),
+                Kills = json.GetUInt(Seasonal.Kills),
+                Deaths = json.GetUInt(Seasonal.Deaths),
+                KD = json.GetFloat(Seasonal.Kills, 1) / json.GetFloat(Seasonal.Deaths, 1),
 
-                Wins = json.GetUInt(SeasonalRanked.Wins),
-                Losses = json.GetUInt(SeasonalRanked.Losses),
-                Abandons = json.GetUInt(SeasonalRanked.Abandons),
-                WL = json.GetFloat(SeasonalRanked.Wins, 1) / json.GetFloat(SeasonalRanked.Losses, 1),
+                Wins = json.GetUInt(Seasonal.Wins),
+                Losses = json.GetUInt(Seasonal.Losses),
+                Abandons = json.GetUInt(Seasonal.Abandons),
+                WL = json.GetFloat(Seasonal.Wins, 1) / json.GetFloat(Seasonal.Losses, 1),
 
-                Rank = json.GetUInt(SeasonalRanked.Rank),
-                MaxRank = json.GetUInt(SeasonalRanked.MaxRank),
-                TopRankPosition = json.GetUInt(SeasonalRanked.TopRankPosition),
+                Rank = json.GetUInt(Seasonal.Rank),
+                MaxRank = json.GetUInt(Seasonal.MaxRank),
+                TopRankPosition = json.GetUInt(Seasonal.TopRankPosition),
 
-                MMR = json.GetDouble(SeasonalRanked.MMR),
-                MaxMMR = json.GetDouble(SeasonalRanked.MaxMMR),
-                NextRankMMR = json.GetDouble(SeasonalRanked.NextRankMMR),
-                PreviousRankMMR = json.GetDouble(SeasonalRanked.PreviousRankMMR),
+                MMR = json.GetDouble(Seasonal.MMR),
+                MaxMMR = json.GetDouble(Seasonal.MaxMMR),
+                NextRankMMR = json.GetDouble(Seasonal.NextRankMMR),
+                PreviousRankMMR = json.GetDouble(Seasonal.PreviousRankMMR),
 
-                SkillMean = json.GetDouble(SeasonalRanked.SkillMean),
-                SkillUncertainty = json.GetDouble(SeasonalRanked.SkillUncertainty),
+                SkillMean = json.GetDouble(Seasonal.SkillMean),
+                SkillUncertainty = json.GetDouble(Seasonal.SkillUncertainty),
 
-                LastMatchResult = (MatchResult)json.GetUInt(SeasonalRanked.LastMatchResult),
-                LastMatchMMRChange = json.GetDouble(SeasonalRanked.LastMatchMMRChange),
-                LastMatchSkillChange = json.GetDouble(SeasonalRanked.LastMatchSkillChange),
-                LastMatchSkillUncertaintyChange = json.GetDouble(SeasonalRanked.LastMatchSkillUncertaintyChange),
+                LastMatchResult = (MatchResult)json.GetUInt(Seasonal.LastMatchResult),
+                LastMatchMMRChange = json.GetDouble(Seasonal.LastMatchMMRChange),
+                LastMatchSkillChange = json.GetDouble(Seasonal.LastMatchSkillChange),
+                LastMatchSkillUncertaintyChange = json.GetDouble(Seasonal.LastMatchSkillUncertaintyChange),
             };
         }
     }

@@ -23,14 +23,14 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 var entry = (JObject)jToken;
                 yield return new AccountLoginInfo
                 {
-                    Guid = entry.GetString(LoginData.Guid),
+                    Guid = entry.GetString(Login.Guid),
                     Activity = new ActivityDateContainer
                     {
-                        First = DateTimeOffset.Parse(entry.GetString(LoginData.FirstLogin), References.Culture),
-                        Last = DateTimeOffset.Parse(entry.GetString(LoginData.LastLogin), References.Culture)
+                        First = DateTimeOffset.Parse(entry.GetString(Login.FirstLogin), References.Culture),
+                        Last = DateTimeOffset.Parse(entry.GetString(Login.LastLogin), References.Culture)
                     },
-                    SessionCount = entry.GetUInt(LoginData.Sessions),
-                    Platform = platformLookup[entry.GetString(LoginData.PlatformId)]
+                    SessionCount = entry.GetUInt(Login.Sessions),
+                    Platform = platformLookup[entry.GetString(Login.PlatformId)]
                 };
             }
         }

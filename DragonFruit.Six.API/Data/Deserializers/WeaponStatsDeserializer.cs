@@ -22,10 +22,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                     ClassName = References.WeaponClasses[index],
                     ClassID = index,
-                    Kills = json.GetUInt(string.Format(OverallWeapon.Kills, index)),
-                    Headshots = json.GetUInt(string.Format(OverallWeapon.Headshots, index)),
-                    ShotsFired = json.GetUInt(string.Format(OverallWeapon.ShotsFired, index)),
-                    ShotsLanded = json.GetUInt(string.Format(OverallWeapon.ShotsHit, index))
+                    Kills = json.GetUInt(string.Format(Weapon.Kills, index)),
+                    Headshots = json.GetUInt(string.Format(Weapon.Headshots, index)),
+                    ShotsFired = json.GetUInt(string.Format(Weapon.ShotsFired, index)),
+                    ShotsLanded = json.GetUInt(string.Format(Weapon.ShotsHit, index))
                 };
             }
         }
