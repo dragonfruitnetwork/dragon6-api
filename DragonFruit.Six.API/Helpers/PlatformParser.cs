@@ -11,27 +11,27 @@ namespace DragonFruit.Six.API.Helpers
         /// <summary>
         /// Convert Platform ID -> API Enum
         /// </summary>
-        public static Platforms GetPlatform(string platformId) => (Platforms)Enum.Parse(typeof(Platforms), platformId);
+        public static Platform GetPlatform(string platformId) => (Platform)Enum.Parse(typeof(Platform), platformId);
 
         /// <summary>
-        /// Ubisoft string to <see cref="Platforms"/> (reverses <see cref="PlatformIdentifierFor"/>)
+        /// Ubisoft string to <see cref="Platform"/> (reverses <see cref="PlatformIdentifierFor"/>)
         /// </summary>
-        public static Platforms PlatformEnumFor(string platformName) => platformName switch
+        public static Platform PlatformEnumFor(string platformName) => platformName switch
         {
-            "uplay" => Platforms.PC,
-            "psn" => Platforms.PSN,
-            "xbl" => Platforms.XB1,
+            "uplay" => Platform.PC,
+            "psn" => Platform.PSN,
+            "xbl" => Platform.XB1,
             _ => throw new ArgumentException("Cannot find the specified platform")
         };
 
         /// <summary>
-        /// <see cref="Platforms"/> Identifier to Ubisoft string (reverses <see cref="PlatformEnumFor"/>)
+        /// <see cref="Platform"/> Identifier to Ubisoft string (reverses <see cref="PlatformEnumFor"/>)
         /// </summary>
-        public static string PlatformIdentifierFor(Platforms platform) => platform switch
+        public static string PlatformIdentifierFor(Platform platform) => platform switch
         {
-            Platforms.PSN => "psn",
-            Platforms.XB1 => "xbl",
-            Platforms.PC => "uplay",
+            Platform.PSN => "psn",
+            Platform.XB1 => "xbl",
+            Platform.PC => "uplay",
             _ => throw new ArgumentException("Platform Not Found")
         };
     }

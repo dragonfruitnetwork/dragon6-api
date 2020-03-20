@@ -2,14 +2,14 @@ param ([string]$Suffix = "")
 
 #versioning info
 $DATE = Get-Date -UFormat "%Y.%m%d"
-$VERSION = "$($DATE).$($env:TRAVIS_BUILD_NUMBER)$($Suffix)"
+$VERSION = $DATE.$env:TRAVIS_BUILD_NUMBER$Suffix
 
 #directories
 $WORKINGDIR = Get-Location
 
 #pack into nuget files with the suffix if we have one
 Write-Output "Publishing Dragon6 API Version $VERSION"
-dotnet pack ".\DragonFruit.Six.API\DragonFruit.Six.API.csproj" -o $WORKINGDIR -c Release -p:PackageVersion=$VERSION
+dotnet pack -o $WORKINGDIR -c Release -p:PackageVersion=$VERSION
 
 #recursively push all nuget files created
 Get-ChildItem -Path $WORKINGDIR -Filter *.nupkg -Recurse -File -Name | ForEach-Object {
