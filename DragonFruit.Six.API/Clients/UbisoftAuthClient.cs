@@ -15,7 +15,7 @@ namespace DragonFruit.Six.API.Clients
     {
         private readonly TokenRequest _tokenRequest = new TokenRequest();
 
-        public UbisoftAuthClient(string b64Login, string appid = null, string ua = "Dragon6")
+        public UbisoftAuthClient(string b64Login, string appid, string ua)
         {
             UserAgent = ua;
             Authorization = $"Basic {b64Login}";
@@ -25,8 +25,13 @@ namespace DragonFruit.Six.API.Clients
             Serializer = new ApiJsonSerializer(References.Culture);
         }
 
-        public UbisoftAuthClient(string username, string password, string appid = null, string ua = "Dragon6")
-            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")), appid, ua)
+        public UbisoftAuthClient(string b64Login)
+            : this(b64Login, References.AppId, "Dragon6")
+        {
+        }
+
+        public UbisoftAuthClient(string username, string password)
+            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")), References.AppId, "Dragon6")
         {
         }
 
