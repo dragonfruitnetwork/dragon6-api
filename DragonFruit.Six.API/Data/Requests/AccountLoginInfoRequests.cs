@@ -3,12 +3,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class AccountLoginInfoRequest : ApiRequest
+    public sealed class AccountLoginInfoRequest : UbiApiRequest
     {
         public AccountLoginInfoRequest()
         {

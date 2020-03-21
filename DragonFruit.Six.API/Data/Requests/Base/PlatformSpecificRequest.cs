@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Common.Data;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 
@@ -12,7 +11,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     /// <summary>
     /// Request type where components are specific to a <see cref="Enums.Platform"/>
     /// </summary>
-    public abstract class PlatformSpecificRequest : ApiRequest
+    public abstract class PlatformSpecificRequest : UbiApiRequest
     {
         public override bool RequireAuth => true;
 

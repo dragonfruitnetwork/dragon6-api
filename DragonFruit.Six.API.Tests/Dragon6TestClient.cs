@@ -10,6 +10,8 @@ namespace DragonFruit.Six.API.Tests
 {
     public class Dragon6TestClient : Dragon6Client
     {
+        public override string AppId { get; set; } = "314d4fef-e568-454a-ae06-43e3bece12a6";
+
         protected override TokenBase GetToken()
         {
             using var client = new HttpClient();

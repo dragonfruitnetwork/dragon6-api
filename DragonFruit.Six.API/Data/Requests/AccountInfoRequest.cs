@@ -2,14 +2,14 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public class AccountInfoRequest : ApiRequest
+    public class AccountInfoRequest : UbiApiRequest
     {
         public override string Path => Endpoints.IdServer;
 

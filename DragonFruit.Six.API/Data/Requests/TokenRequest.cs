@@ -3,10 +3,11 @@
 
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class TokenRequest : ApiRequest
+    public sealed class TokenRequest : UbiApiRequest
     {
         public override string Path => Endpoints.IdServer + "/sessions";
 
