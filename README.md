@@ -9,14 +9,14 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 
 |Feature|Example|
 |--|--|
-|Casual Stats|`await GeneralStats.GetStats(accountInfo, token)`|
-|Ranked Stats|`await Season.GetSeason(accountInfo, "EMEA", token)`|
-|Operator Stats|`await Operator.GetOperatorStats(accountInfo, token, operatorDict);`|
-|Weapon Stats|`await WeaponStats.GetWeaponStats(accountInfo, token);`|
-|Token Downloader|`await await GetToken();`|
-|Account Search (by Name)|`await AccountInfo.GetUser(Platforms.PC, LookupMethod.Name, "Curry.", token);`|
-|Account Search (by User Id)|`await AccountInfo.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079", token);`|
-|Account Search (by Platform Id)|`await AccountInfo.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203", token);`|
+|Casual Stats|`d6Client.GetStats(accountInfo)`|
+|Ranked Stats|`d6Client.GetSeasonStats(accountInfo, "EMEA")`|
+|Operator Stats|`Operator.GetOperatorStats(accountInfo, operatorData);`|
+|Weapon Stats|`WeaponStats.GetWeaponStats(accountInfo);`|
+|Token Downloader|`new UbisoftAuthClient("username", "password").GetToken();`|
+|Account Search (by Name)|`d6Client.GetUser(Platforms.PC, LookupMethod.Name, "Curry.");`|
+|Account Search (by User Id)|`d6Client.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079");`|
+|Account Search (by Platform Id)|`d6Client.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203");`|
 
 
 ## In Production

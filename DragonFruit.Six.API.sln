@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API.Demo", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{AD91704E-7EFF-45BD-AB7C-4AEC4B20C0EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonFruit.Six.API.Tests", "DragonFruit.Six.API.Tests\DragonFruit.Six.API.Tests.csproj", "{28DFDD89-0163-44EA-A77F-33259F044DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.API.Tests", "DragonFruit.Six.API.Tests\DragonFruit.Six.API.Tests.csproj", "{28DFDD89-0163-44EA-A77F-33259F044DBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

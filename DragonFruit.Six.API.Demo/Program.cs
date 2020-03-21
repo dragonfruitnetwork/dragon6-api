@@ -2,11 +2,10 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
+using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Stats;
-using DragonFruit.Six.API.Verification;
+using DragonFruit.Six.API.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -16,22 +15,20 @@ namespace DragonFruit.Six.API.Demo
     {
         private static async Task Main(string[] args)
         {
-            using var client = new HttpClient();
-
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
-            using var setupVerificationTask = Task.Run(() => Server.Init("https://dragon6.dragonfruit.network/api/accountstatus/all"));
-            using var operatorInformationTask = Task.Run(() => Operator.GetOperators("https://d6static.dragonfruit.network/data/operators.json"));
-            string token = await client.GetStringAsync("https://dragon6.dragonfruit.network/api/token");
+            var d6Client = new Dragon6DemoClient("https://dragon6.dragonfruit.network/api/token");
+            using var operatorInformationTask = Task.Run(() => OperatorData.GetOperatorDataFromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
-            await setupVerificationTask;
+            var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 
-            var playerInfo = await AccountInfo.GetUser(Platforms.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619", token);
-            var loginInfo = await LoginInfo.GetLoginInfo(playerInfo, token);
-            var generalStats = await GeneralStats.GetStats(playerInfo, token);
-            var seasonStats = await Season.GetSeason(playerInfo, "EMEA", token);
-            var opStats = await Operator.GetOperatorStats(playerInfo, await operatorInformationTask, token);
-            var weapons = await WeaponStats.GetWeaponStats(playerInfo, token);
-            var level = await PlayerLevel.GetLevel(playerInfo, token);
+            var level = d6Client.GetLevel(playerInfo);
+            var loginInfo = d6Client.GetLoginInfo(playerInfo);
+
+            var seasonStats = d6Client.GetSeasonStats(playerInfo, "EMEA");
+
+            var generalStats = d6Client.GetStats(playerInfo);
+            var opStats = d6Client.GetOperatorStats(playerInfo, await operatorInformationTask);
+            var weapons = d6Client.GetWeaponStats(playerInfo);
 
             var stats = new JObject
             {
