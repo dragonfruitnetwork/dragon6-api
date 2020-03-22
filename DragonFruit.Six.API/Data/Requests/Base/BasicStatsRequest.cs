@@ -14,12 +14,12 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     {
         public override string Path => Endpoints.Stats[Accounts.First().Platform];
 
-        protected BasicStatsRequest(AccountInfo account)
+        public BasicStatsRequest(AccountInfo account)
             : base(new[] { account })
         {
         }
 
-        protected BasicStatsRequest(IEnumerable<AccountInfo> accounts)
+        public BasicStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }
