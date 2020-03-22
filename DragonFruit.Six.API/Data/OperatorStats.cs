@@ -76,5 +76,7 @@ namespace DragonFruit.Six.API.Data
         public uint RoundsPlayed { get; set; }
 
         public TimeSpan TimePlayed { get; set; }
+
+        public int HoursPlayed => (int)TimePlayed.TotalHours;
     }
 }

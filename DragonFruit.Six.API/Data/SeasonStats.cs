@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class RankedSeasonStats
+    public class SeasonStats
     {
         [JsonProperty("guid")]
         public string Guid { get; set; }
