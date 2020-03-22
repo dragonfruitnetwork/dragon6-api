@@ -11,11 +11,11 @@ namespace DragonFruit.Six.API.Data.Deserializers
 {
     public static class RankedSeasonStatsDeserializer
     {
-        public static RankedSeasonStats DeserializeRankedSeasonStatsFor(this JObject jObject, string guid)
+        public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
         {
             var json = (JObject)jObject[Misc.Players][guid];
 
-            return new RankedSeasonStats
+            return new SeasonStats
             {
                 Guid = guid,
                 TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
