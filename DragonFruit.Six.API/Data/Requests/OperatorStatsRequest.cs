@@ -17,7 +17,7 @@ namespace DragonFruit.Six.API.Data.Requests
         public OperatorStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
             : base(accounts)
         {
-            Stats = operators.Select(x => x.Action).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
+            Stats = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
             {
                 "operatorpvp_kills",
                 "operatorpvp_headshot",
