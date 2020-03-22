@@ -20,7 +20,7 @@ namespace DragonFruit.Six.API.Data.Tokens
         [JsonProperty("environment")]
         public string Environment { get; set; }
 
-        [JsonProperty("expriation")]
+        [JsonProperty("expiration")]
         public override DateTimeOffset Expiry { get; set; }
 
         [JsonProperty("ticket")]
