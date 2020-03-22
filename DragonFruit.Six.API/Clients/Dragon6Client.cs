@@ -9,7 +9,9 @@ using DragonFruit.Common.Data.Helpers;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
+using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
+using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Clients
 {
@@ -45,7 +47,7 @@ namespace DragonFruit.Six.API.Clients
 
         private TokenBase Token { get; set; }
 
-        public virtual string AppId { get; set; } = References.AppId;
+        public virtual string AppId { get; set; } = UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix];
 
         /// <summary>
         /// Method for getting a new <see cref="TokenBase"/>
