@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Data.Tokens;
+using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Clients
 {
@@ -32,7 +32,7 @@ namespace DragonFruit.Six.API.Clients
 
             CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", appid ?? References.AppId));
 
-            Serializer = new ApiJsonSerializer(References.Culture);
+            Serializer = new UbisoftAuthClientSerializer(References.Culture);
         }
 
         public UbisoftToken GetToken() => Perform<UbisoftToken>(_tokenRequest);
