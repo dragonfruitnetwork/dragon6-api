@@ -5,9 +5,10 @@ namespace DragonFruit.Six.API.Enums
 {
     public enum UbisoftService
     {
-        RainbowSix,
-        UPlay,
-        UbisoftClub,
-        UbisoftAccount,
+        Custom = -1,
+        RainbowSix = 0,
+        UPlay = 1,
+        UbisoftClub = 2,
+        UbisoftAccount = 3,
     }
 }
