@@ -23,6 +23,6 @@ namespace DragonFruit.Six.API.Helpers
         {
         }
 
-        public new StringContent Serialize<T>(T input) where T : ApiRequest => new StringContent(input.ToString());
+        public new StringContent Serialize<T>(T input) where T : ApiRequest => new StringContent("");
     }
 }
