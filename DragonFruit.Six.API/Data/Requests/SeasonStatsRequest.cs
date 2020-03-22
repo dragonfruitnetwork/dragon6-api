@@ -10,22 +10,22 @@ using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class RankedSeasonRequest : PlatformSpecificRequest
+    public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Endpoints.RankedStats[Platform];
 
-        public RankedSeasonRequest(IEnumerable<AccountInfo> accounts)
+        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }
 
-        public RankedSeasonRequest(IEnumerable<AccountInfo> accounts, int seasonId)
+        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts, int seasonId)
             : base(accounts)
         {
             Season = seasonId;
         }
 
-        public RankedSeasonRequest(IEnumerable<AccountInfo> accounts, int seasonId, string boardId)
+        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts, int seasonId, string boardId)
             : base(accounts)
         {
             Season = seasonId;

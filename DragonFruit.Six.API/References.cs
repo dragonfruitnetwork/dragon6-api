@@ -10,8 +10,6 @@ namespace DragonFruit.Six.API
 {
     public static class References
     {
-        internal const string AppId = "39baebad-39e5-4552-8c25-2c9b919064e2";
-
         public static readonly CultureInfo Culture = new CultureInfo("en-US", false);
 
         #region Dictionaries
