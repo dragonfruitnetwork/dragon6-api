@@ -2,9 +2,9 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Globalization;
-using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
 using System.Net.Http;
+using System.Text;
 
 namespace DragonFruit.Six.API.Helpers
 {
@@ -23,6 +23,6 @@ namespace DragonFruit.Six.API.Helpers
         {
         }
 
-        public new StringContent Serialize<T>(T input) where T : ApiRequest => new StringContent("");
+        public override StringContent Serialize<T>(T input) => new StringContent(string.Empty, Encoding.UTF8, "application/json");
     }
 }

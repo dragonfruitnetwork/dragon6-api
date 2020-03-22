@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
@@ -16,8 +15,5 @@ namespace DragonFruit.Six.API.Data.Requests
         public override string AcceptedContent => "application/json";
 
         public override bool RequireAuth => true;
-
-        [StringParameter]
-        public string Content => string.Empty;
     }
 }
