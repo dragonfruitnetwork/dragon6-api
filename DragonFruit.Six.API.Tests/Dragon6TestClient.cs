@@ -3,14 +3,30 @@
 
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Tokens;
+using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Exceptions;
+using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Tests
 {
     public class Dragon6TestClient : Dragon6Client
     {
-        public override string AppId { get; set; } = "314d4fef-e568-454a-ae06-43e3bece12a6";
+        protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
+        {
+            try
+            {
+                return base.ValidateAndProcess<T>(response);
+            }
+            catch (UbisoftErrorException)
+            {
+                //pretend to be ubisoft club and try again
+                AppId = UbisoftIdentifiers.UbisoftAppIds[UbisoftService.UbisoftClub];
+                return PerformLast<T>();
+            }
+        }
 
         protected override TokenBase GetToken()
         {
