@@ -10,24 +10,24 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Extensions
 {
-    public static class RankedSeasonStatsExtensions
+    public static class SeasonStatsExtensions
     {
-        public static RankedSeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region) =>
+        public static SeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region) =>
             GetSeasonStats(client, new[] { account }, region, -1).First();
 
-        public static IEnumerable<RankedSeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region) =>
+        public static IEnumerable<SeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region) =>
             GetSeasonStats(client, accounts, region, -1);
 
-        public static RankedSeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region, int seasonId) =>
+        public static SeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region, int seasonId) =>
             GetSeasonStats(client, new[] { account }, region, seasonId).First();
 
-        public static IEnumerable<RankedSeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region, int seasonId)
+        public static IEnumerable<SeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region, int seasonId)
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
-                var request = new RankedSeasonRequest(group)
+                var request = new SeasonStatsRequest(group)
                 {
                     Season = seasonId,
                     Region = region
@@ -36,7 +36,7 @@ namespace DragonFruit.Six.API.Data.Extensions
                 var data = client.Perform<JObject>(request);
 
                 foreach (var id in request.AccountIds)
-                    yield return data.DeserializeRankedSeasonStatsFor(id);
+                    yield return data.DeserializeSeasonStatsFor(id);
             }
         }
     }
