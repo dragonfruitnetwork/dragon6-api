@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
 {
-    public static class RankedSeasonStatsDeserializer
+    public static class SeasonStatsDeserializer
     {
         public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
         {
@@ -28,7 +28,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Wins = json.GetUInt(Seasonal.Wins),
                 Losses = json.GetUInt(Seasonal.Losses),
                 Abandons = json.GetUInt(Seasonal.Abandons),
-                WL = json.GetFloat(Seasonal.Wins, 1) / json.GetFloat(Seasonal.Losses, 1),
+                WL = json.GetFloat(Seasonal.Wins, 1) / Math.Clamp(json.GetFloat(Seasonal.Losses) + json.GetFloat(Seasonal.Abandons), 1, float.MaxValue),
 
                 Rank = json.GetUInt(Seasonal.Rank),
                 MaxRank = json.GetUInt(Seasonal.MaxRank),

@@ -9,7 +9,7 @@ namespace DragonFruit.Six.API.Enums
     public enum Regions
     {
         EMEA,
-        NSCA,
+        NCSA,
         APAC
     }
 }

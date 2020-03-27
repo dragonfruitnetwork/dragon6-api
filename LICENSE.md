@@ -175,7 +175,7 @@
 
    END OF TERMS AND CONDITIONS
 
-   Dragon6 API Copyright 2019 DragonFruit Network
+   Dragon6 API Copyright 2020 DragonFruit Network
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
