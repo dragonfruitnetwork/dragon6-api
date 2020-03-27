@@ -29,7 +29,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
 
         public IEnumerable<AccountInfo> Accounts { get; }
 
-        public IEnumerable<string> AccountIds => Accounts.Select(x => x.Guid);
+        public IEnumerable<string> AccountIds => Accounts.Select(x => x.Identifiers.Profile);
 
         public virtual string AccountIdString => string.Join(',', AccountIds);
     }

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data;
+using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Tests
@@ -16,19 +17,19 @@ namespace DragonFruit.Six.API.Tests
         {
             new AccountInfo
             {
-                Guid = "14c01250-ef26-4a32-92ba-e04aa557d619",
+                Identifiers = new UserIdentifierContainer("14c01250-ef26-4a32-92ba-e04aa557d619"),
                 PlayerName = "Curry.",
                 Platform = Platform.PC
             },
             new AccountInfo
             {
-                Guid = "21d95808-d692-4bf3-b825-f5ad3396d079",
+                Identifiers = new UserIdentifierContainer("21d95808-d692-4bf3-b825-f5ad3396d079"),
                 PlayerName = "Frost_Bites_",
                 Platform = Platform.PC
             },
             new AccountInfo
             {
-                Guid = "be982999-2adb-4fbe-b2a5-3cbc4b7a79bf",
+                Identifiers = new UserIdentifierContainer("be982999-2adb-4fbe-b2a5-3cbc4b7a79bf"),
                 PlayerName = "TheKoreanKoala",
                 Platform = Platform.PSN
             }

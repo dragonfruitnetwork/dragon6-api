@@ -17,7 +17,7 @@ namespace DragonFruit.Six.API.Demo
         {
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
             var d6Client = new Dragon6DemoClient("https://dragon6.dragonfruit.network/api/token");
-            using var operatorInformationTask = Task.Run(() => OperatorData.GetOperatorDataFromUrl("https://d6static.dragonfruit.network/data/operators.json"));
+            using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 
