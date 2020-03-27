@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using DragonFruit.Common.Data.Helpers;
+using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Data.Strings;
 using DragonFruit.Six.API.Helpers;
 using Newtonsoft.Json.Linq;
@@ -22,9 +23,12 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 {
                     PlayerName = item.GetString(Accounts.Name),
                     Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform)),
-                    Guid = item.GetString(Accounts.ProfileIdentifier),
-                    PlatformId = item.GetString(Accounts.PlatformIdentifier),
-                    UbisoftId = item.GetString(Accounts.UserIdentifier)
+                    Identifiers = new UserIdentifierContainer
+                    {
+                        Profile = item.GetString(Accounts.ProfileIdentifier),
+                        Platform = item.GetString(Accounts.PlatformIdentifier),
+                        Ubisoft = item.GetString(Accounts.UserIdentifier)
+                    }
                 };
             }
         }

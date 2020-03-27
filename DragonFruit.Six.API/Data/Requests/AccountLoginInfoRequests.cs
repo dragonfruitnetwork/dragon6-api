@@ -45,6 +45,6 @@ namespace DragonFruit.Six.API.Data.Requests
         public string AppIdString => string.Join(',', AppIds);
 
         [QueryParameter("profileIds")]
-        public string ProfileIdString => string.Join(',', Accounts.Select(x => x.Guid));
+        public string ProfileIdString => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
     }
 }
