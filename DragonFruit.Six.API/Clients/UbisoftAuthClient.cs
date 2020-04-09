@@ -32,8 +32,6 @@ namespace DragonFruit.Six.API.Clients
             Authorization = $"Basic {b64Login}";
 
             CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", appid ?? UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix]));
-
-            Serializer = new UbisoftAuthClientSerializer(References.Culture);
         }
 
         public UbisoftToken GetToken() => Perform<UbisoftToken>(_tokenRequest);

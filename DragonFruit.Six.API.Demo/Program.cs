@@ -15,6 +15,11 @@ namespace DragonFruit.Six.API.Demo
     {
         private static async Task Main(string[] args)
         {
+#if TESTING_TOKEN
+            var authclient = new UbisoftAuthClient(Environment.GetEnvironmentVariable("Dragon6-Login", EnvironmentVariableTarget.User));
+            authclient.GetToken();
+#endif
+
             //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
             var d6Client = new Dragon6DemoClient("https://dragon6.dragonfruit.network/api/token");
             using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
