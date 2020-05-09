@@ -30,7 +30,9 @@ namespace DragonFruit.Six.Developer.Clients
 
             if (string.IsNullOrWhiteSpace(_devKey))
             {
+#if DEBUG
                 Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
+#endif
                 Environment.Exit(2);
             }
         }
@@ -51,6 +53,15 @@ namespace DragonFruit.Six.Developer.Clients
             }
         }
 
-        protected override TokenBase GetToken() => DeveloperClient.GetDeveloperToken();
+        protected override TokenBase GetToken()
+        {
+            var token = DeveloperClient.GetDeveloperToken();
+
+            //the developer key we have has a limited scope so the expiry is masked - abusing this system will result in an IP ban.
+            //you MUST NOT use the API developer key for any personal projects. If you want one please open an issue or contact dragonfruit
+            token.Expiry = DateTimeOffset.Now.AddMinutes(5);
+
+            return token;
+        }
     }
 }
