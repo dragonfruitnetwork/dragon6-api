@@ -21,7 +21,11 @@ namespace DragonFruit.Six.API.Tests
         private const string EnvironmentVariableName = "Dragon6-devKey";
 
         private static string DevKey => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+#if !DEBUG
+            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.Machine)
+#else
             ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.User)
+#endif
             : Environment.GetEnvironmentVariable(EnvironmentVariableName);
 
         public Dragon6TestClient()
