@@ -10,21 +10,25 @@ using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 using DragonFruit.Six.API.Helpers;
-using DragonFruit.Six.Developer.Clients;
 using DragonFruit.Six.Developer.Extensions;
 
-namespace DragonFruit.Six.API.Demo
+namespace DragonFruit.Six.Developer.Clients
 {
+    /// <summary>
+    /// Dragon6 Client For API Testing. Should NOT be used outside of this repo.
+    /// </summary>
     public class Dragon6DemoClient : Dragon6Client
     {
         private Dragon6DeveloperClient _developerClient;
         private readonly string _devKey;
 
-        public Dragon6DemoClient(string devKey)
+        public Dragon6DemoClient()
         {
-            _devKey = devKey;
+            _devKey = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? Environment.GetEnvironmentVariable("devKey", EnvironmentVariableTarget.User)
+                : Environment.GetEnvironmentVariable("devKey");
 
-            if (string.IsNullOrWhiteSpace(devKey))
+            if (string.IsNullOrWhiteSpace(_devKey))
             {
                 Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
                 Environment.Exit(2);
