@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data;
@@ -35,6 +36,6 @@ namespace DragonFruit.Six.API.Tests
             }
         };
 
-        internal static readonly Dragon6Client Client = new Dragon6TestClient();
+        internal static readonly Dragon6Client Client = new Dragon6TestClient(Environment.GetEnvironmentVariable("devKey"));
     }
 }

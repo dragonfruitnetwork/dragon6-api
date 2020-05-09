@@ -20,7 +20,7 @@ namespace DragonFruit.Six.API.Demo
             authclient.GetToken();
 #endif
 
-            var d6Client = new Dragon6DemoClient();
+            var d6Client = new Dragon6DemoClient(Environment.GetEnvironmentVariable("devKey"));
             using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");

@@ -17,26 +17,21 @@ namespace DragonFruit.Six.API.Demo
 {
     public class Dragon6DemoClient : Dragon6Client
     {
-        private const string EnvironmentVariableName = "devKey";
+        private Dragon6DeveloperClient _developerClient;
+        private readonly string _devKey;
 
-        private static string DevKey => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-#if !DEBUG
-            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.Process)
-#else
-            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.User)
-#endif
-            : Environment.GetEnvironmentVariable(EnvironmentVariableName);
-
-        public Dragon6DemoClient()
+        public Dragon6DemoClient(string devKey)
         {
-            if (string.IsNullOrWhiteSpace(DevKey))
+            _devKey = devKey;
+
+            if (string.IsNullOrWhiteSpace(devKey))
             {
                 Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
                 Environment.Exit(2);
             }
         }
 
-        private readonly Lazy<Dragon6DeveloperClient> _developerClient = new Lazy<Dragon6DeveloperClient>(() => new Dragon6DeveloperClient(DevKey));
+        private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(_devKey);
 
         protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
         {
@@ -52,6 +47,6 @@ namespace DragonFruit.Six.API.Demo
             }
         }
 
-        protected override TokenBase GetToken() => _developerClient.Value.GetDeveloperToken();
+        protected override TokenBase GetToken() => DeveloperClient.GetDeveloperToken();
     }
 }
