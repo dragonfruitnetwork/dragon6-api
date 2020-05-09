@@ -27,6 +27,6 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 
 ## Contributing
 
-Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel neccesarry. 
+Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel necessary. 
 
-Contributors can claim a verified profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info.
+Contributors can claim a contributor profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile. If you have contributed and wish to claim yours, send an email to inbox@dragonfruit.network with your R6 Player Info.
