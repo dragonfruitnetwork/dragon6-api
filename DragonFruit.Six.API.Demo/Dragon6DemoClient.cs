@@ -17,7 +17,7 @@ namespace DragonFruit.Six.API.Demo
 {
     public class Dragon6DemoClient : Dragon6Client
     {
-        private const string EnvironmentVariableName = "Dragon6-devKey";
+        private const string EnvironmentVariableName = "devKey";
 
         private static string DevKey => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
 #if !DEBUG
