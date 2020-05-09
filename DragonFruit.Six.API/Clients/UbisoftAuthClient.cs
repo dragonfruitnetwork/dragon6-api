@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 using DragonFruit.Common.Data;
 using DragonFruit.Six.API.Data.Requests;
@@ -31,7 +30,7 @@ namespace DragonFruit.Six.API.Clients
             UserAgent = ua;
             Authorization = $"Basic {b64Login}";
 
-            CustomHeaders.Add(new KeyValuePair<string, string>("Ubi-AppId", appid ?? UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix]));
+            CustomHeaders.Add("Ubi-AppId", appid ?? UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix]);
         }
 
         public UbisoftToken GetToken() => Perform<UbisoftToken>(_tokenRequest);

@@ -3,23 +3,36 @@
 
 using System;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.Developer.Clients;
+using DragonFruit.Six.Developer.Extensions;
 
 namespace DragonFruit.Six.API.Demo
 {
     public class Dragon6DemoClient : Dragon6Client
     {
-        public string URL { get; }
+        private const string EnvironmentVariableName = "Dragon6-devKey";
 
-        public Dragon6DemoClient(string url)
+        private static string DevKey => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.User)
+            : Environment.GetEnvironmentVariable(EnvironmentVariableName);
+
+        public Dragon6DemoClient()
         {
-            URL = url;
+            if (string.IsNullOrWhiteSpace(DevKey))
+            {
+                Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
+                Environment.Exit(2);
+            }
         }
+
+        private readonly Lazy<Dragon6DeveloperClient> _developerClient = new Lazy<Dragon6DeveloperClient>(() => new Dragon6DeveloperClient(DevKey));
 
         protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
         {
@@ -35,18 +48,6 @@ namespace DragonFruit.Six.API.Demo
             }
         }
 
-        protected override TokenBase GetToken()
-        {
-            using var client = new HttpClient();
-            using var tokenTask = client.GetStringAsync(URL);
-
-            tokenTask.Wait();
-
-            return new Dragon6Token
-            {
-                Token = tokenTask.Result,
-                Expiry = DateTimeOffset.Now.AddHours(1)
-            };
-        }
+        protected override TokenBase GetToken() => _developerClient.Value.GetDeveloperToken();
     }
 }

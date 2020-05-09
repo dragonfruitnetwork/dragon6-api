@@ -17,7 +17,7 @@ namespace DragonFruit.Six.API.Data.Requests
         public override DataTypes DataType => DataTypes.Custom;
 
         //tokens need an empty request body in UTF8, with app/json type...
-        public override HttpContent GetContent => new StringContent(string.Empty, Encoding.UTF8, "application/json");
+        public override HttpContent BodyContent => new StringContent(string.Empty, Encoding.UTF8, "application/json");
 
         public override string AcceptedContent => "application/json";
 

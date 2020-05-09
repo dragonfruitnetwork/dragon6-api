@@ -32,5 +32,4 @@ namespace DragonFruit.Six.API.Data.Strings
         public static readonly string LastMatchSkillChange = "last_match_skill_mean_change";
         public static readonly string LastMatchSkillUncertaintyChange = "last_match_skill_stdev_change";
     }
-
 }
