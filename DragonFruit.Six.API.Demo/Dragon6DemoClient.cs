@@ -21,7 +21,7 @@ namespace DragonFruit.Six.API.Demo
 
         private static string DevKey => RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
 #if !DEBUG
-            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.Machine)
+            ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.Process)
 #else
             ? Environment.GetEnvironmentVariable(EnvironmentVariableName, EnvironmentVariableTarget.User)
 #endif
