@@ -20,15 +20,14 @@ namespace DragonFruit.Six.Developer.Clients
     public class Dragon6DemoClient : Dragon6Client
     {
         private Dragon6DeveloperClient _developerClient;
-        private readonly string _devKey;
+
+        // This is a limited access key. If you want one for your own app contact DragonFruit. If we detect this key has been abused it will be revoked
+        // If you're going to make an app it's likely you will need a server anyway - it's not hard to add your own token system
+        private const string DevKey = "mZPC3xJT03XUIcSbUQsRnSfsfgt3wdlkenbzJChkMgQ";
 
         public Dragon6DemoClient()
         {
-            _devKey = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                ? Environment.GetEnvironmentVariable("devKey", EnvironmentVariableTarget.User)
-                : Environment.GetEnvironmentVariable("devKey");
-
-            if (string.IsNullOrWhiteSpace(_devKey))
+            if (string.IsNullOrWhiteSpace(DevKey))
             {
 #if DEBUG
                 Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
@@ -37,7 +36,7 @@ namespace DragonFruit.Six.Developer.Clients
             }
         }
 
-        private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(_devKey);
+        private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(DevKey);
 
         protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
         {
