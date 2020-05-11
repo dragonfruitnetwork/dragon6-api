@@ -38,8 +38,8 @@ jobs:
       - dotnet restore
       - dotnet build -c Release
     script:
-      - choco install resharper-clt.portable
-      - InspectCode.exe DragonFruit.Six.API.sln -o=results.xml
+      - powershell Invoke-WebRequest -Uri "https://github.com/dragonfruitnetwork/CodeCutter/releases/latest/download/DragonFruit.CodeCutter.exe" -OutFile ".\DragonFruit.CodeCutter.exe"
+      - .\DragonFruit.CodeCutter.exe
       
   - stage: deploy
     name: "Beta"
