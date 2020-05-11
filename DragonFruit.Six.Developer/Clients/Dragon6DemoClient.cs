@@ -3,7 +3,6 @@
 
 using System;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Tokens;
