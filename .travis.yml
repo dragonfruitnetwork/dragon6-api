@@ -58,4 +58,4 @@ jobs:
       - dotnet restore
       - dotnet build -c Release
     script: powershell -File Nuget.ps1
-    if: branch = production
+    if: branch = master AND tag IS present
