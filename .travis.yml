@@ -39,7 +39,7 @@ jobs:
       - dotnet build -c Release
     script:
       - powershell Invoke-WebRequest -Uri "https://github.com/dragonfruitnetwork/CodeCutter/releases/latest/download/DragonFruit.CodeCutter.exe" -OutFile ".\DragonFruit.CodeCutter.exe"
-      - DragonFruit.CodeCutter.exe
+      - powershell ".\DragonFruit.CodeCutter.exe"
       
   - stage: deploy
     name: "Beta"
