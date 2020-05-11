@@ -6,6 +6,7 @@ using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data;
 using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Developer.Clients;
 
 namespace DragonFruit.Six.API.Tests
 {
@@ -35,6 +36,6 @@ namespace DragonFruit.Six.API.Tests
             }
         };
 
-        internal static readonly Dragon6Client Client = new Dragon6TestClient();
+        internal static readonly Dragon6Client Client = new Dragon6DemoClient();
     }
 }

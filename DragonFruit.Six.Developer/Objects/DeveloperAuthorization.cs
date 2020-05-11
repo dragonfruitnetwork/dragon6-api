@@ -2,23 +2,21 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.API.Data.Tokens;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data.Tokens
+namespace DragonFruit.Six.Developer.Objects
 {
-    /// <summary>
-    /// The most basic of <see cref="TokenBase"/>. Useful for storing the components that are actually needed
-    /// </summary>
-    public class Dragon6Token : TokenBase
+    public sealed class DeveloperAuthorization : TokenBase
     {
-        public Dragon6Token()
+        public DeveloperAuthorization()
         {
         }
 
-        public Dragon6Token(UbisoftToken tokenBase)
+        public DeveloperAuthorization(string token, DateTimeOffset expiry)
         {
-            Token = tokenBase.Token;
-            Expiry = tokenBase.Expiry;
+            Token = token;
+            Expiry = expiry;
         }
 
         [JsonProperty("token")]

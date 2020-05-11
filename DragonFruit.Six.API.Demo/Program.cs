@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.Developer.Clients;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -20,8 +21,7 @@ namespace DragonFruit.Six.API.Demo
             authclient.GetToken();
 #endif
 
-            //YOU MUST GET PERMISSION BEFORE USING OUR SERVERS
-            var d6Client = new Dragon6DemoClient("https://dragon6.dragonfruit.network/api/token");
+            var d6Client = new Dragon6DemoClient();
             using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");
