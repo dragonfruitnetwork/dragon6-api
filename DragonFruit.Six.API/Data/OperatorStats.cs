@@ -24,6 +24,11 @@ namespace DragonFruit.Six.API.Data
         public string Index { get; set; }
 
         /// <summary>
+        /// Logical order (from datasheet/dictionary)
+        /// </summary>
+        public ushort Order { get; set; }
+
+        /// <summary>
         /// Operator Icon (from datasheet)
         /// </summary>
         public string ImageURL { get; set; }
