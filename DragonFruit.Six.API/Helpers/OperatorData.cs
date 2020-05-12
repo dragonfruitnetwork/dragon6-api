@@ -18,7 +18,7 @@ namespace DragonFruit.Six.API.Helpers
         public static IEnumerable<OperatorStats> FromUrl(string location) =>
             FromArray(WebServices.StreamObject<JArray>(location));
 
-        public static IEnumerable<OperatorStats> FromArray(JArray data)
+        private static IEnumerable<OperatorStats> FromArray(JArray data)
         {
             foreach (var jToken in data)
             {
@@ -33,6 +33,7 @@ namespace DragonFruit.Six.API.Helpers
                     Type = (OperatorType)element.GetInt("type"),
                     OperatorActionId = element.GetString("actn"),
                     Action = element.GetString("phrase"),
+                    Order = element.GetUShort("ord")
                 };
             }
         }
