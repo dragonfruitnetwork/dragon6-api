@@ -5,7 +5,7 @@ stages:
   - name: test
   - name: deploy
     if: type = push AND fork = false AND env(nuget_key) IS present
-
+    
 jobs:
   include: 
   - stage: test
@@ -58,4 +58,4 @@ jobs:
       - dotnet restore
       - dotnet build -c Release
     script: powershell -File Nuget.ps1
-    if: branch = master AND tag IS present
+    if: tag IS present

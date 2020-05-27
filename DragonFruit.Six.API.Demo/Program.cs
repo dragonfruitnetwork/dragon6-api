@@ -16,15 +16,10 @@ namespace DragonFruit.Six.API.Demo
     {
         private static async Task Main(string[] args)
         {
-#if TESTING_TOKEN
-            var authclient = new UbisoftAuthClient(Environment.GetEnvironmentVariable("Dragon6-Login", EnvironmentVariableTarget.User));
-            authclient.GetToken();
-#endif
-
             var d6Client = new Dragon6DemoClient();
             using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
 
-            var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.PlatformId, "14c01250-ef26-4a32-92ba-e04aa557d619");
+            var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.UserId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 
             var level = d6Client.GetLevel(playerInfo);
             var loginInfo = d6Client.GetLoginInfo(playerInfo);

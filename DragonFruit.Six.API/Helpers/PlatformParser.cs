@@ -25,7 +25,7 @@ namespace DragonFruit.Six.API.Helpers
         };
 
         /// <summary>
-        /// <see cref="Platform"/> Identifier to Ubisoft string (reverses <see cref="PlatformEnumFor"/>)
+        /// <see cref="Platform"/> Identifier to Ubisoft string (inverse of <see cref="PlatformEnumFor"/>)
         /// </summary>
         public static string PlatformIdentifierFor(Platform platform) => platform switch
         {
