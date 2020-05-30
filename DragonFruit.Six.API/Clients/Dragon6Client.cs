@@ -41,7 +41,7 @@ namespace DragonFruit.Six.API.Clients
 
             if (string.IsNullOrEmpty(UserAgent))
             {
-                UserAgent = "Dragon6";
+                UserAgent = "Dragon6 API";
             }
         }
 
@@ -70,7 +70,7 @@ namespace DragonFruit.Six.API.Clients
 
         public T Perform<T>(UbiApiRequest requestData) where T : class
         {
-            //override appid if they aren't the same
+            //override appid if the request has one
             if (requestData.AppId != null)
                 AppId = requestData.AppId;
 
@@ -79,12 +79,7 @@ namespace DragonFruit.Six.API.Clients
 
         public override T Perform<T>(ApiRequest requestData) where T : class
         {
-            if (Token == null)
-            {
-                UpdateTokenHeader();
-            }
-
-            if (Token.Expired)
+            if (Token?.Expired ?? true)
             {
                 UpdateTokenHeader();
             }

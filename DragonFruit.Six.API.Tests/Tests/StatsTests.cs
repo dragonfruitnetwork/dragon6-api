@@ -13,46 +13,46 @@ namespace DragonFruit.Six.API.Tests
 {
     [TestClass]
     [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]
-    public class PlayerStatsTests
+    public class PlayerStatsTests : TestBase
     {
         [TestMethod]
         public void GetGeneralStats()
         {
             //single user
-            TestData.Client.GetStats(TestData.TestAccounts.First());
+            Client.GetStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            TestData.Client.GetStats(TestData.TestAccounts);
+            Client.GetStats(TestData.TestAccounts);
         }
 
         [TestMethod]
         public void GetRankedStats()
         {
             //single user
-            TestData.Client.GetSeasonStats(TestData.TestAccounts.First(), TestData.Region);
+            Client.GetSeasonStats(TestData.TestAccounts.First(), TestData.Region);
 
             //multi users - different platforms
-            TestData.Client.GetSeasonStats(TestData.TestAccounts, TestData.Region);
+            Client.GetSeasonStats(TestData.TestAccounts, TestData.Region);
         }
 
         [TestMethod]
         public void GetWeaponStats()
         {
             //single user
-            TestData.Client.GetWeaponStats(TestData.TestAccounts.First());
+            Client.GetWeaponStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            TestData.Client.GetWeaponStats(TestData.TestAccounts);
+            Client.GetWeaponStats(TestData.TestAccounts);
         }
 
         [TestMethod]
         public void GetLevelInfo()
         {
             //single user
-            TestData.Client.GetLevel(TestData.TestAccounts.First());
+            Client.GetLevel(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            TestData.Client.GetLevel(TestData.TestAccounts);
+            Client.GetLevel(TestData.TestAccounts);
         }
 
         [TestMethod]
@@ -71,10 +71,10 @@ namespace DragonFruit.Six.API.Tests
             }
 
             //single user
-            TestData.Client.GetOperatorStats(TestData.TestAccounts.First(), opData);
+            Client.GetOperatorStats(TestData.TestAccounts.First(), opData);
 
             //multi users - different platforms
-            TestData.Client.GetOperatorStats(TestData.TestAccounts, opData);
+            Client.GetOperatorStats(TestData.TestAccounts, opData);
         }
     }
 }
