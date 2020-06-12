@@ -37,7 +37,7 @@ namespace DragonFruit.Six.Developer.Clients
             catch (UbisoftErrorException)
             {
                 //pretend to be ubisoft club and try again
-                AppId = UbisoftIdentifiers.UbisoftAppIds[UbisoftService.UbisoftClub];
+                AppId = UbisoftIdentifiers.Websites[UbisoftService.UbisoftClub];
                 return PerformLast<T>();
             }
         }

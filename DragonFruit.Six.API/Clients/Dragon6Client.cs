@@ -47,7 +47,7 @@ namespace DragonFruit.Six.API.Clients
 
         private TokenBase Token { get; set; }
 
-        public virtual string AppId { get; set; } = UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix];
+        public virtual string AppId { get; set; } = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
 
         /// <summary>
         /// Method for getting a new <see cref="TokenBase"/>

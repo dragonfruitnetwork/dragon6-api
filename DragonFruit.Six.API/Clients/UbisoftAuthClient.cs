@@ -16,12 +16,12 @@ namespace DragonFruit.Six.API.Clients
         private readonly TokenRequest _tokenRequest = new TokenRequest();
 
         public UbisoftAuthClient(string b64Login)
-            : this(b64Login, UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix], "Dragon6")
+            : this(b64Login, UbisoftIdentifiers.Websites[UbisoftService.RainbowSix], "Dragon6")
         {
         }
 
         public UbisoftAuthClient(string username, string password)
-            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")), UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix], "Dragon6")
+            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")), UbisoftIdentifiers.Websites[UbisoftService.RainbowSix], "Dragon6")
         {
         }
 
@@ -30,7 +30,7 @@ namespace DragonFruit.Six.API.Clients
             UserAgent = ua;
             Authorization = $"Basic {b64Login}";
 
-            CustomHeaders.Add("Ubi-AppId", appid ?? UbisoftIdentifiers.UbisoftAppIds[UbisoftService.RainbowSix]);
+            CustomHeaders.Add("Ubi-AppId", appid ?? UbisoftIdentifiers.Websites[UbisoftService.RainbowSix]);
         }
 
         public UbisoftToken GetToken() => Perform<UbisoftToken>(_tokenRequest);

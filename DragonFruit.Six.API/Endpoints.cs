@@ -39,40 +39,25 @@ namespace DragonFruit.Six.API
         public static readonly Dictionary<Platform, string> Stats =
             new Dictionary<Platform, string>
             {
-                [Platform.PSN] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/playerstats2/statistics",
-
-                [Platform.XB1] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/playerstats2/statistics",
-
-                [Platform.PC] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/playerstats2/statistics"
+                [Platform.PSN] = $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/playerstats2/statistics",
+                [Platform.XB1] = $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/playerstats2/statistics",
+                [Platform.PC] = $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/playerstats2/statistics"
             };
 
         public static readonly Dictionary<Platform, string> RankedStats =
             new Dictionary<Platform, string>
             {
-                [Platform.PSN] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/r6karma/players",
-
-                [Platform.XB1] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/r6karma/players",
-
-                [Platform.PC] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/r6karma/players"
+                [Platform.PSN] = $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/r6karma/players",
+                [Platform.XB1] = $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/r6karma/players",
+                [Platform.PC] = $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/r6karma/players"
             };
 
         public static readonly Dictionary<Platform, string> ProfileInfo =
             new Dictionary<Platform, string>
             {
-                [Platform.PSN] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/r6playerprofile/playerprofile/progressions",
-
-                [Platform.XB1] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/r6playerprofile/playerprofile/progressions",
-
-                [Platform.PC] =
-                    $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/r6playerprofile/playerprofile/progressions"
+                [Platform.PSN] = $"{StatsBase}/{GameSpaceIds[Platform.PSN]}/sandboxes/OSBOR_PS4_LNCH_A/r6playerprofile/playerprofile/progressions",
+                [Platform.XB1] = $"{StatsBase}/{GameSpaceIds[Platform.XB1]}/sandboxes/OSBOR_XBOXONE_LNCH_A/r6playerprofile/playerprofile/progressions",
+                [Platform.PC] = $"{StatsBase}/{GameSpaceIds[Platform.PC]}/sandboxes/OSBOR_PC_LNCH_A/r6playerprofile/playerprofile/progressions"
             };
     }
 }
