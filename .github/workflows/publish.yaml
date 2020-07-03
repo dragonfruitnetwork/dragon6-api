@@ -1,0 +1,31 @@
+﻿﻿name: Publish
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+      - name: Install Dependencies (Chocolatey)
+        run: |
+          choco install visualstudio2019
+          choco install dotnetcore-sdk
+          choco install visualstudio2019-workload-netcorebuildtools
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PowerShell Policy
+        run: Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+
+      - name: NuGet Build and Publish (Release)
+        run: ./Nuget.ps1 -ApiKey ${{ secrets.NUGET_KEY }}
+        if: "!github.event.release.prerelease"
+
+      - name: Nuget Build and Publish (Beta)
+        run: ./Nuget.ps1 -ApiKey ${{ secrets.NUGET_KEY }} -Suffix "-beta"
+        if: "github.event.release.prerelease"

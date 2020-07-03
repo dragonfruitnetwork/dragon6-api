@@ -1,0 +1,25 @@
+﻿name: Code Quality
+
+on: [ pull_request, push ]
+
+jobs:
+  quality:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          choco install visualstudio2019-netcorebuildtools
+          choco install nuget.commandline
+          powershell Invoke-WebRequest -Uri "https://github.com/dragonfruitnetwork/CodeCutter/releases/latest/download/DragonFruit.CodeCutter.exe" -OutFile ".\DragonFruit.CodeCutter.exe"
+
+      - name: "Setup MSBuild"
+        uses: microsoft/setup-msbuild@v1.0.0
+
+      - name: NuGet Restore
+        run: nuget restore
+
+      - name: Code Quality Check
+        run: ".\\DragonFruit.CodeCutter.exe"
