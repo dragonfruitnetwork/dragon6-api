@@ -6,10 +6,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Tokens;
+using DragonFruit.Six.API.Developer;
+using DragonFruit.Six.API.Developer.Extensions;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 using DragonFruit.Six.API.Helpers;
-using DragonFruit.Six.Developer.Extensions;
 
 namespace DragonFruit.Six.Developer.Clients
 {
@@ -20,22 +21,12 @@ namespace DragonFruit.Six.Developer.Clients
     {
         private Dragon6DeveloperClient _developerClient;
 
-        // This is a limited access key. If you want one for your own app contact DragonFruit. If we detect this key has been abused it will be revoked
+        // This is a limited access key. If you want one for your own app contact DragonFruit. If we detect this key has been abused it will be reset
         // If you're going to make an app it's likely you will need a server anyway - it's not hard to add your own token system
-        private const string DevKey = "mZPC3xJT03XUIcSbUQsRnSfsfgt3wdlkenbzJChkMgQ";
+        private const uint DeveloperAppId = 2;
+        private const string DeveloperAppSecret = "obN8C3Hgi16twnv9S8LJ1Sdkieh7Hyx7qnXmoHkn6Y";
 
-        public Dragon6DemoClient()
-        {
-            if (string.IsNullOrWhiteSpace(DevKey))
-            {
-#if DEBUG
-                Console.WriteLine("No Developer Key Available, if you need one, please request one by creating an issue on the GitHub Repo");
-#endif
-                Environment.Exit(2);
-            }
-        }
-
-        private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(DevKey);
+        private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(DeveloperAppId, DeveloperAppSecret);
 
         protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
         {
@@ -46,7 +37,7 @@ namespace DragonFruit.Six.Developer.Clients
             catch (UbisoftErrorException)
             {
                 //pretend to be ubisoft club and try again
-                AppId = UbisoftIdentifiers.UbisoftAppIds[UbisoftService.UbisoftClub];
+                AppId = UbisoftIdentifiers.Websites[UbisoftService.UbisoftClub];
                 return PerformLast<T>();
             }
         }
