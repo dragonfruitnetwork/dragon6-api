@@ -1,13 +1,13 @@
+# Dragon6 API
 
-# Dragon6 (API)
-
-
-[![Build Status](https://travis-ci.org/dragonfruitnetwork/Dragon6-API.svg?branch=master)](https://travis-ci.org/dragonfruitnetwork/Dragon6-API)
+![NuGet Publishing](https://github.com/dragonfruitnetwork/Dragon6-API/workflows/Publish/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b9aeacb9dd754f4a8bc50fb3498958ab)](https://www.codacy.com/gh/dragonfruitnetwork/Dragon6-API)
 [![NuGet](https://img.shields.io/nuget/v/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 [![Nuget](https://img.shields.io/nuget/dt/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 ![GitHub](https://img.shields.io/github/license/dragonfruitnetwork/Dragon6-API)
 [![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord)](https://discord.gg/VA26u5Z)
+
+### Overview
 
 Dragon6 is a free to use family of products specialising in Rainbow Six Siege Stats.
 
@@ -23,7 +23,6 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 |Account Search (by Name)|`d6Client.GetUser(Platforms.PC, LookupMethod.Name, "Curry.");`|
 |Account Search (by User Id)|`d6Client.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079");`|
 |Account Search (by Platform Id)|`d6Client.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203");`|
-
 
 ## In Production
 
