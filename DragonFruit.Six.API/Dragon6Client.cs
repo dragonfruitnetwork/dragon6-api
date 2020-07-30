@@ -6,6 +6,7 @@ using System.Net.Http;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Common.Data.Serializers;
+using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
@@ -91,6 +92,8 @@ namespace DragonFruit.Six.API
 
             return base.Perform<T>(requestData);
         }
+
+        internal UbisoftToken Perform(TokenRequest request) => base.Perform<UbisoftToken>(request);
 
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
