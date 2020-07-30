@@ -5,7 +5,7 @@ using System.Diagnostics;
 using DragonFruit.Six.API.Data.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.API.Tests.Tests
 {
     [TestClass]
     public class ServerStatusTests : TestBase

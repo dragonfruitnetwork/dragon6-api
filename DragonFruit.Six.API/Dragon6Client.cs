@@ -3,9 +3,8 @@
 
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Helpers;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
@@ -13,10 +12,12 @@ using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 using DragonFruit.Six.API.Helpers;
 
-namespace DragonFruit.Six.API.Clients
+namespace DragonFruit.Six.API
 {
     public abstract class Dragon6Client : ApiClient
     {
+        #region Constructors
+
         protected Dragon6Client(TokenBase token)
             : this()
         {
@@ -30,9 +31,9 @@ namespace DragonFruit.Six.API.Clients
         }
 
         protected Dragon6Client(string userAgent, string appId)
-            : this()
+            : this(userAgent)
         {
-            UserAgent = userAgent;
+            AppId = appId;
         }
 
         protected Dragon6Client()
@@ -44,6 +45,8 @@ namespace DragonFruit.Six.API.Clients
                 UserAgent = "Dragon6 API";
             }
         }
+
+        #endregion
 
         private TokenBase Token { get; set; }
 
@@ -60,7 +63,7 @@ namespace DragonFruit.Six.API.Clients
         protected override string ClientHash => $"{base.ClientHash}.{AppId.ItemHashCode()}";
 
         /// <summary>
-        /// Adds the Ubi-AppId header to the request
+        /// Adds the Ubi-AppId header to the client
         /// </summary>
         protected override void SetupClient(HttpClient client)
         {
@@ -72,7 +75,9 @@ namespace DragonFruit.Six.API.Clients
         {
             //override appid if the request has one
             if (requestData.AppId != null)
-                AppId = requestData.AppId;
+            {
+                requestData.Headers.Value.Add("Ubi-AppId", requestData.AppId);
+            }
 
             return Perform<T>((ApiRequest)requestData);
         }
@@ -90,12 +95,12 @@ namespace DragonFruit.Six.API.Clients
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
-        protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response) =>
-            response.Result.StatusCode switch
+        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request) =>
+            response.StatusCode switch
             {
                 HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
-                _ => base.ValidateAndProcess<T>(response)
+                _ => base.ValidateAndProcess<T>(response, request)
             };
 
         /// <summary>

@@ -8,19 +8,22 @@ using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class TokenRequest : UbiApiRequest
+    internal sealed class TokenRequest : UbiApiRequest
     {
         public override string Path => Endpoints.IdServer + "/sessions";
-
-        public override Methods Method => Methods.Post;
-
-        public override DataTypes DataType => DataTypes.Custom;
+        protected override Methods Method => Methods.Post;
+        protected override DataTypes DataType => DataTypes.Custom;
+        public override bool RequireAuth => true;
 
         //tokens need an empty request body in UTF8, with app/json type...
         public override HttpContent BodyContent => new StringContent(string.Empty, Encoding.UTF8, "application/json");
 
-        public override string AcceptedContent => "application/json";
-
-        public override bool RequireAuth => true;
+        /// <summary>
+        /// Initialises a new <see cref="TokenRequest"/> with a pre-encoded b64 login
+        /// </summary>
+        public TokenRequest(string b64Login)
+        {
+            Headers.Value.Add("Authorization", $"Basic {b64Login}");
+        }
     }
 }

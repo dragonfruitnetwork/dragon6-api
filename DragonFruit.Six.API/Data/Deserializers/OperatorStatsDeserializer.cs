@@ -3,7 +3,8 @@
 
 using System;
 using System.Collections.Generic;
-using DragonFruit.Common.Data.Helpers;
+using System.Linq;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using Newtonsoft.Json.Linq;
 
@@ -13,9 +14,9 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static IEnumerable<OperatorStats> DeserializeOperatorStatsFor(this JObject jObject, string guid, IEnumerable<OperatorStats> data)
         {
-            var json = (JObject)jObject[Misc.Results][guid];
+            var json = (JObject)jObject[Misc.Results]![guid];
 
-            foreach (var op in data)
+            foreach (var op in data.Select(x => x.Clone()))
             {
                 op.Guid = guid;
 

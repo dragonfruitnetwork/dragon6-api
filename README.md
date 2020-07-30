@@ -11,22 +11,25 @@
 
 Dragon6 is a free to use family of products specialising in Rainbow Six Siege Stats.
 
-## What's in the canister? (view the wiki for more info)
+Looking to get started? Check out the Wiki!
+
+## What's in the canister?
 
 |Feature|Example|
 |--|--|
+|Access Token Request|`d6Client.GetToken("username", "password");`|
 |Casual Stats|`d6Client.GetStats(accountInfo)`|
 |Ranked Stats|`d6Client.GetSeasonStats(accountInfo, "EMEA")`|
 |Operator Stats|`d6Client.GetOperatorStats(accountInfo, operatorData);`|
 |Weapon Stats|`d6Client.GetWeaponStats(accountInfo);`|
-|Token Downloader|`new UbisoftAuthClient("username", "password").GetToken();`|
-|Account Search (by Name)|`d6Client.GetUser(Platforms.PC, LookupMethod.Name, "Curry.");`|
+|Account Search (by Name)|`d6Client.GetUser(Platforms.PC, LookupMethod.Name, "PaPa.Curry");`|
 |Account Search (by User Id)|`d6Client.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079");`|
 |Account Search (by Platform Id)|`d6Client.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203");`|
 
 ## In Production
 
 - Dragon6 Web: [https://dragon6.dragonfruit.network](https://dragon6.dragonfruit.network)
+- Dragon6 Discord: [Discord](https://dragon6.dragonfruit.network/discord)
 - Dragon6 Mobile: [https://play.google.com/store/apps/details?id=com.dragon.six](https://play.google.com/store/apps/details?id=com.dragon.six)
 - Dragon6 PC: [https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15](https://www.microsoft.com/en-us/p/dragon6/9n88cqpkgs15)
 
@@ -34,4 +37,5 @@ Dragon6 is a free to use family of products specialising in Rainbow Six Siege St
 
 Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel necessary. 
 
-Contributors can claim a contributor profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile. If you have contributed join the Dragon6 Discord and DM a member of Team DragonFruit.
+Contributors can claim a contributor profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile.
+If you have contributed join the Dragon6 Discord and DM a member of Team DragonFruit.

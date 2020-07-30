@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Helpers;
-using DragonFruit.Six.Developer.Clients;
+using DragonFruit.Six.API.Tests.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +17,7 @@ namespace DragonFruit.Six.API.Demo
         private static async Task Main(string[] args)
         {
             var d6Client = new Dragon6DemoClient();
-            using var operatorInformationTask = Task.Run(() => OperatorData.FromUrl("https://d6static.dragonfruit.network/data/operators.json"));
+            using var operatorInformationTask = Task.Run(() => d6Client.GetOperatorInfo());
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.UserId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 

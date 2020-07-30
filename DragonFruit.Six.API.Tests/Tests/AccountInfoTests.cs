@@ -6,9 +6,10 @@ using System.Linq;
 using DragonFruit.Six.API.Data;
 using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Tests.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.API.Tests.Tests
 {
     [TestClass]
     public class AccountInfoTests : TestBase

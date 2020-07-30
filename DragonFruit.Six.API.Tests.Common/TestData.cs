@@ -7,7 +7,7 @@ using DragonFruit.Six.API.Data;
 using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Enums;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.API.Tests.Common
 {
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public static class TestData

@@ -83,5 +83,7 @@ namespace DragonFruit.Six.API.Data
         public TimeSpan TimePlayed { get; set; }
 
         public int HoursPlayed => (int)TimePlayed.TotalHours;
+
+        internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
     }
 }

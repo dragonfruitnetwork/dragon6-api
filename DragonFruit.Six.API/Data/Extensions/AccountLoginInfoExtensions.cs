@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Deserializers;
 using DragonFruit.Six.API.Data.Requests;
 using Newtonsoft.Json.Linq;
