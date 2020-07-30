@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Deserializers;
 using DragonFruit.Six.API.Data.Requests;
 using Newtonsoft.Json.Linq;
@@ -12,8 +11,7 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class OperatorStatsExtensions
     {
-        public static IEnumerable<OperatorStats> GetOperatorStats(this Dragon6Client client, AccountInfo account, IEnumerable<OperatorStats> operators) =>
-            GetOperatorStats(client, new[] { account }, operators).First();
+        public static IEnumerable<OperatorStats> GetOperatorStats(this Dragon6Client client, AccountInfo account, IEnumerable<OperatorStats> operators) => GetOperatorStats(client, new[] { account }, operators).First();
 
         public static IEnumerable<IEnumerable<OperatorStats>> GetOperatorStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
         {
@@ -25,7 +23,9 @@ namespace DragonFruit.Six.API.Data.Extensions
                 var data = client.Perform<JObject>(request);
 
                 foreach (var id in request.AccountIds)
+                {
                     yield return data.DeserializeOperatorStatsFor(id, operators);
+                }
             }
         }
     }

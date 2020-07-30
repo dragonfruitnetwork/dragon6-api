@@ -1,12 +1,14 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Six.API.Data.Requests;
 
 namespace DragonFruit.Six.API.Data.Extensions
 {
+    [Obsolete("Ubisoft have changed how they serve status info and as a result, this may not work")]
     public static class ServerStatusExtensions
     {
         /// <summary>

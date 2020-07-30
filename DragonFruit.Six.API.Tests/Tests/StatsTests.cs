@@ -7,9 +7,10 @@ using System.Linq;
 using DragonFruit.Common.Data.Services;
 using DragonFruit.Six.API.Data;
 using DragonFruit.Six.API.Data.Extensions;
+using DragonFruit.Six.API.Tests.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.API.Tests.Tests
 {
     [TestClass]
     [SuppressMessage("ReSharper", "IteratorMethodResultIsIgnored")]

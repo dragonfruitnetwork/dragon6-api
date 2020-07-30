@@ -2,7 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using DragonFruit.Common.Data.Helpers;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using Newtonsoft.Json.Linq;
 

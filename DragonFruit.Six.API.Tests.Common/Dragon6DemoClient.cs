@@ -3,8 +3,6 @@
 
 using System;
 using System.Net.Http;
-using System.Threading.Tasks;
-using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Developer;
 using DragonFruit.Six.API.Developer.Extensions;
@@ -12,7 +10,7 @@ using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
 using DragonFruit.Six.API.Helpers;
 
-namespace DragonFruit.Six.Developer.Clients
+namespace DragonFruit.Six.API.Tests.Common
 {
     /// <summary>
     /// Dragon6 Client For API Testing. Should NOT be used outside of this repo.
@@ -28,17 +26,17 @@ namespace DragonFruit.Six.Developer.Clients
 
         private Dragon6DeveloperClient DeveloperClient => _developerClient ??= new Dragon6DeveloperClient(DeveloperAppId, DeveloperAppSecret);
 
-        protected override T ValidateAndProcess<T>(Task<HttpResponseMessage> response)
+        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request) where T : class
         {
             try
             {
-                return base.ValidateAndProcess<T>(response);
+                return base.ValidateAndProcess<T>(response, request);
             }
             catch (UbisoftErrorException)
             {
                 //pretend to be ubisoft club and try again
                 AppId = UbisoftIdentifiers.Websites[UbisoftService.UbisoftClub];
-                return PerformLast<T>();
+                return Perform<T>(request);
             }
         }
 

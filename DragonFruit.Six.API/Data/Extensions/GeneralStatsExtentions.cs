@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Clients;
 using DragonFruit.Six.API.Data.Deserializers;
 using DragonFruit.Six.API.Data.Requests;
 using Newtonsoft.Json.Linq;
@@ -25,7 +24,9 @@ namespace DragonFruit.Six.API.Data.Extensions
                 var data = client.Perform<JObject>(request);
 
                 foreach (var id in request.AccountIds)
+                {
                     yield return data.DeserializeGeneralStatsFor(id);
+                }
             }
         }
     }

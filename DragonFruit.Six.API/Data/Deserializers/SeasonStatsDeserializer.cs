@@ -2,7 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Common.Data.Helpers;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using DragonFruit.Six.API.Enums;
 using Newtonsoft.Json.Linq;
