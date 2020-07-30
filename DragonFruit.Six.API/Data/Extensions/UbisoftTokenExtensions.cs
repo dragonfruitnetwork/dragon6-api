@@ -20,7 +20,7 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// </remarks>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="loginString">The base64 encoded string in the format username:password</param>
-        public static UbisoftToken GetToken(this Dragon6Client client, string loginString)
+        public static UbisoftToken GetUbiToken(this Dragon6Client client, string loginString)
         {
             var request = new TokenRequest(loginString);
             return client.Perform<UbisoftToken>(request);
@@ -37,7 +37,7 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="username">The username to use</param>
         /// <param name="password">The password to use</param>
-        public static UbisoftToken GetToken(this Dragon6Client client, string username, string password)
+        public static UbisoftToken GetUbiToken(this Dragon6Client client, string username, string password)
         {
             var loginString = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
             var request = new TokenRequest(loginString);
