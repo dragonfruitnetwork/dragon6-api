@@ -75,7 +75,7 @@ namespace DragonFruit.Six.API
         public T Perform<T>(UbiApiRequest requestData) where T : class
         {
             //override appid if the request has one
-            if (requestData.AppId != null)
+            if (!string.IsNullOrEmpty(requestData.AppId))
             {
                 requestData.Headers.Value.Add("Ubi-AppId", requestData.AppId);
             }
