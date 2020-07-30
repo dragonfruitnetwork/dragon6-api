@@ -51,7 +51,7 @@ namespace DragonFruit.Six.API
 
         private TokenBase Token { get; set; }
 
-        public virtual string AppId { get; set; } = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
+        public string AppId { get; set; } = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
 
         /// <summary>
         /// Method for getting a new <see cref="TokenBase"/>
@@ -87,13 +87,14 @@ namespace DragonFruit.Six.API
         {
             if (Token?.Expired ?? true)
             {
-                UpdateTokenHeader();
+                Token = GetToken();
+                Authorization = $"Ubi_v1 t={Token.Token}";
             }
 
             return base.Perform<T>(requestData);
         }
 
-        internal UbisoftToken Perform(TokenRequest request) => base.Perform<UbisoftToken>(request);
+        internal T BypassingPerform<T>(TokenRequest request) where T : class => base.Perform<T>(request);
 
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
@@ -105,14 +106,5 @@ namespace DragonFruit.Six.API
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
                 _ => base.ValidateAndProcess<T>(response, request)
             };
-
-        /// <summary>
-        /// Procedure for updating a token header
-        /// </summary>
-        private void UpdateTokenHeader()
-        {
-            Token = GetToken();
-            Authorization = $"Ubi_v1 t={Token.Token}";
-        }
     }
 }
