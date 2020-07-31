@@ -4,7 +4,6 @@
 using System.Net;
 using System.Net.Http;
 using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Data.Requests.Base;
@@ -40,6 +39,7 @@ namespace DragonFruit.Six.API
         protected Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(References.Culture);
+            AppId = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
 
             if (string.IsNullOrEmpty(UserAgent))
             {
@@ -51,49 +51,29 @@ namespace DragonFruit.Six.API
 
         private TokenBase Token { get; set; }
 
-        public virtual string AppId { get; set; } = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
+        public string AppId
+        {
+            get => CustomHeaders["Ubi-AppId"];
+            set => CustomHeaders["Ubi-AppId"] = value;
+        }
 
         /// <summary>
         /// Method for getting a new <see cref="TokenBase"/>
         /// </summary>
         protected abstract TokenBase GetToken();
 
-        /// <summary>
-        /// Modified <see cref="ClientHash"/> hash with the <see cref="AppId"/> added
-        /// </summary>
-        protected override string ClientHash => $"{base.ClientHash}.{AppId.ItemHashCode()}";
-
-        /// <summary>
-        /// Adds the Ubi-AppId header to the client
-        /// </summary>
-        protected override void SetupClient(HttpClient client)
-        {
-            //add ubi appid
-            client.DefaultRequestHeaders.Add("Ubi-AppId", AppId);
-        }
-
         public T Perform<T>(UbiApiRequest requestData) where T : class
-        {
-            //override appid if the request has one
-            if (!string.IsNullOrEmpty(requestData.AppId))
-            {
-                requestData.Headers.Value.Add("Ubi-AppId", requestData.AppId);
-            }
-
-            return Perform<T>((ApiRequest)requestData);
-        }
-
-        public override T Perform<T>(ApiRequest requestData) where T : class
         {
             if (Token?.Expired ?? true)
             {
-                UpdateTokenHeader();
+                Token = GetToken();
+                Authorization = $"Ubi_v1 t={Token.Token}";
             }
 
             return base.Perform<T>(requestData);
         }
 
-        internal UbisoftToken Perform(TokenRequest request) => base.Perform<UbisoftToken>(request);
+        internal T BypassingPerform<T>(TokenRequest request) where T : class => base.Perform<T>(request);
 
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
@@ -105,14 +85,5 @@ namespace DragonFruit.Six.API
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
                 _ => base.ValidateAndProcess<T>(response, request)
             };
-
-        /// <summary>
-        /// Procedure for updating a token header
-        /// </summary>
-        private void UpdateTokenHeader()
-        {
-            Token = GetToken();
-            Authorization = $"Ubi_v1 t={Token.Token}";
-        }
     }
 }

@@ -9,6 +9,5 @@ namespace DragonFruit.Six.API.Data.Requests.Base
 {
     public abstract class UbiApiRequest : ApiRequest
     {
-        public string? AppId { get; set; }
     }
 }
