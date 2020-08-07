@@ -13,7 +13,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     /// </summary>
     public abstract class PlatformSpecificRequest : UbiApiRequest
     {
-        public override bool RequireAuth => true;
+        protected override bool RequireAuth => true;
 
         protected PlatformSpecificRequest(IEnumerable<AccountInfo> accounts)
         {

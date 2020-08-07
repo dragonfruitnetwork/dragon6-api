@@ -51,10 +51,13 @@ namespace DragonFruit.Six.API
 
         private TokenBase Token { get; set; }
 
+        /// <summary>
+        /// The Ubi-AppId header to be supplied to each request. Defaults to <see cref="UbisoftService.RainbowSix"/> in <see cref="UbisoftIdentifiers.Websites"/>
+        /// </summary>
         public string AppId
         {
-            get => CustomHeaders["Ubi-AppId"];
-            set => CustomHeaders["Ubi-AppId"] = value;
+            get => Headers["Ubi-AppId"];
+            set => Headers["Ubi-AppId"] = value;
         }
 
         /// <summary>
@@ -73,8 +76,6 @@ namespace DragonFruit.Six.API
             return base.Perform<T>(requestData);
         }
 
-        internal T BypassingPerform<T>(TokenRequest request) where T : class => base.Perform<T>(request);
-
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
@@ -85,5 +86,7 @@ namespace DragonFruit.Six.API
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
                 _ => base.ValidateAndProcess<T>(response, request)
             };
+
+        internal T BypassingPerform<T>(TokenRequest request) where T : class => base.Perform<T>(request);
     }
 }

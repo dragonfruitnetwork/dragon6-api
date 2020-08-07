@@ -12,7 +12,7 @@ namespace DragonFruit.Six.API.Data.Requests
     {
         public override string Path => Endpoints.ProfileInfo[Platform];
 
-        public override bool RequireAuth => true;
+        protected override bool RequireAuth => true;
 
         public PlayerLevelStatsRequest(AccountInfo account)
             : this(new[] { account })

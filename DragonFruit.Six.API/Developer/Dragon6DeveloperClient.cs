@@ -9,10 +9,11 @@ namespace DragonFruit.Six.API.Developer
 {
     public class Dragon6DeveloperClient : ApiClient
     {
-        private TokenBase _sessionAuthorization;
         private readonly uint _appId;
         private readonly string _appSecret;
         private readonly ApiClient _serviceClient;
+
+        private TokenBase _sessionAuthorization;
 
         public Dragon6DeveloperClient(uint appId, string appSecret)
             : this(appId, appSecret, new ApiClient())
@@ -26,28 +27,18 @@ namespace DragonFruit.Six.API.Developer
             _serviceClient = serviceClient;
         }
 
-        private TokenBase SessionAuthorization
+        private void CheckAuthHeader()
         {
-            get
-            {
-                if ((_sessionAuthorization?.Expired).GetValueOrDefault(true))
-                {
-                    //dragon6Token is the same for ubisoft logins and dragon6 logins - they both share TokenBase
-                    return _sessionAuthorization = _serviceClient.Perform<Dragon6Token>(new DeveloperSessionRequest(_appId, _appSecret));
-                }
+            if ((!_sessionAuthorization?.Expired).GetValueOrDefault(false))
+                return;
 
-                return _sessionAuthorization;
-            }
+            _sessionAuthorization = _serviceClient.Perform<Dragon6Token>(new DeveloperSessionRequest(_appId, _appSecret));
+            Authorization = $"Bearer {_sessionAuthorization.Token}";
         }
 
         public T Perform<T>(DeveloperApiRequest requestData) where T : class
         {
-            if (requestData.RequireAuth)
-            {
-                //set (or update) the auth header
-                Authorization = $"Bearer {SessionAuthorization.Token}";
-            }
-
+            CheckAuthHeader();
             return base.Perform<T>(requestData);
         }
     }
