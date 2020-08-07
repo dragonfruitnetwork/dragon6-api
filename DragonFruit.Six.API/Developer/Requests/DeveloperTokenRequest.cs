@@ -7,6 +7,6 @@ namespace DragonFruit.Six.API.Developer.Requests
     {
         public override string Path => "https://dragon6.dragonfruit.network/api/token/dev";
 
-        public override bool RequireAuth => true;
+        protected override bool RequireAuth => true;
     }
 }
