@@ -16,6 +16,8 @@ namespace DragonFruit.Six.API
 {
     public abstract class Dragon6Client : ApiClient
     {
+        private readonly object _lock = new object();
+
         #region Constructors
 
         protected Dragon6Client(TokenBase token)
@@ -67,10 +69,13 @@ namespace DragonFruit.Six.API
 
         public T Perform<T>(UbiApiRequest requestData) where T : class
         {
-            if (Token?.Expired ?? true)
+            lock (_lock)
             {
-                Token = GetToken();
-                Authorization = $"Ubi_v1 t={Token.Token}";
+                if (Token?.Expired ?? true)
+                {
+                    Token = GetToken();
+                    Authorization = $"Ubi_v1 t={Token.Token}";
+                }
             }
 
             return base.Perform<T>(requestData);
