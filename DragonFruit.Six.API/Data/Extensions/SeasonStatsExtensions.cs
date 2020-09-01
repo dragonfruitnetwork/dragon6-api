@@ -11,16 +11,16 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class SeasonStatsExtensions
     {
-        public static SeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region) =>
-            GetSeasonStats(client, new[] { account }, region, -1).First();
+        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region) where T : Dragon6Client
+            => GetSeasonStats(client, new[] { account }, region, -1).First();
 
-        public static IEnumerable<SeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region) =>
-            GetSeasonStats(client, accounts, region, -1);
+        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region) where T : Dragon6Client
+            => GetSeasonStats(client, accounts, region, -1);
 
-        public static SeasonStats GetSeasonStats(this Dragon6Client client, AccountInfo account, string region, int seasonId) =>
-            GetSeasonStats(client, new[] { account }, region, seasonId).First();
+        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId) where T : Dragon6Client
+            => GetSeasonStats(client, new[] { account }, region, seasonId).First();
 
-        public static IEnumerable<SeasonStats> GetSeasonStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts, string region, int seasonId)
+        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 

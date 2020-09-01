@@ -11,10 +11,10 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class PlayerLevelStatsExtensions
     {
-        public static PlayerLevelStats GetLevel(this Dragon6Client client, AccountInfo account) =>
-            GetLevel(client, new[] { account }).First();
+        public static PlayerLevelStats GetLevel<T>(this T client, AccountInfo account) where T : Dragon6Client
+            => GetLevel(client, new[] { account }).First();
 
-        public static IEnumerable<PlayerLevelStats> GetLevel(this Dragon6Client client, IEnumerable<AccountInfo> accounts)
+        public static IEnumerable<PlayerLevelStats> GetLevel<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 

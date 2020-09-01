@@ -11,10 +11,10 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class AccountLoginInfoExtensions
     {
-        public static AccountLoginInfo GetLoginInfo(this Dragon6Client client, AccountInfo account) =>
-            GetLoginInfo(client, new[] { account }).First();
+        public static AccountLoginInfo GetLoginInfo<T>(this T client, AccountInfo account) where T : Dragon6Client
+            => GetLoginInfo(client, new[] { account }).First();
 
-        public static IEnumerable<AccountLoginInfo> GetLoginInfo(this Dragon6Client client, IEnumerable<AccountInfo> accounts)
+        public static IEnumerable<AccountLoginInfo> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var data = client.Perform<JObject>(new AccountLoginInfoRequest(Endpoints.GameIds.Select(x => x.Value), accounts));
             return data.DeserializeAccountLoginInfo();

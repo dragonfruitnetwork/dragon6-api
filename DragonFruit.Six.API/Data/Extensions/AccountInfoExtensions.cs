@@ -15,13 +15,13 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <summary>
         /// Get a user's account info (in order to get stats)
         /// </summary>
-        public static AccountInfo GetUser(this Dragon6Client client, Platform platform, LookupMethod lookupMethod, string query) =>
-            GetUsers(client, platform, lookupMethod, new[] { query }).First();
+        public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, string query) where T : Dragon6Client
+            => GetUsers(client, platform, lookupMethod, new[] { query }).First();
 
         /// <summary>
         /// Get multiple users' account info through a mass query search
         /// </summary>
-        public static IEnumerable<AccountInfo> GetUsers(this Dragon6Client client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries)
+        public static IEnumerable<AccountInfo> GetUsers<T>(this T client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries) where T : Dragon6Client
         {
             var request = new AccountInfoRequest(platform, lookupMethod, queries);
             return client.Perform<JObject>(request).DeserializeAccountInfo();
