@@ -11,10 +11,10 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class WeaponStatsExtensions
     {
-        public static IEnumerable<WeaponStats> GetWeaponStats(this Dragon6Client client, AccountInfo account) =>
-            GetWeaponStats(client, new[] { account }).First();
+        public static IEnumerable<WeaponStats> GetWeaponStats<T>(this T client, AccountInfo account) where T : Dragon6Client
+            => GetWeaponStats(client, new[] { account }).First();
 
-        public static IEnumerable<IEnumerable<WeaponStats>> GetWeaponStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts)
+        public static IEnumerable<IEnumerable<WeaponStats>> GetWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 

@@ -11,10 +11,10 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class GeneralStatsExtentions
     {
-        public static GeneralStats GetStats(this Dragon6Client client, AccountInfo account) =>
-            GetStats(client, new[] { account }).First();
+        public static GeneralStats GetStats<T>(this T client, AccountInfo account) where T : Dragon6Client
+            => GetStats(client, new[] { account }).First();
 
-        public static IEnumerable<GeneralStats> GetStats(this Dragon6Client client, IEnumerable<AccountInfo> accounts)
+        public static IEnumerable<GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
