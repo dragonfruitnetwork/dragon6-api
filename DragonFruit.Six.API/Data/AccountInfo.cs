@@ -35,5 +35,7 @@ namespace DragonFruit.Six.API.Data
         public UserIdentifierContainer Identifiers { get; set; }
 
         public bool Equals(AccountInfo other) => Identifiers.Profile.Equals(other?.Identifiers.Profile);
+
+        public override string ToString() => $"{Identifiers.Ubisoft}|{Platform}";
     }
 }
