@@ -12,7 +12,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static IEnumerable<WeaponStats> DeserializeWeaponStatsFor(this JObject jObject, string guid)
         {
-            var json = (JObject)jObject[Misc.Results][guid];
+            var json = jObject[Misc.Results]?[guid] as JObject;
+
+            if (json == null)
+                yield break;
 
             foreach (var index in References.WeaponClasses.Keys)
             {

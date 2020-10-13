@@ -10,7 +10,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class PlayerLevelStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.ProfileInfo[Platform];
+        public override string Path => Platform.ProfileStatsEndpoint();
 
         protected override bool RequireAuth => true;
 
