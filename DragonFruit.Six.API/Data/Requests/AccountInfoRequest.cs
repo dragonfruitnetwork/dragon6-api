@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API.Data.Requests
 {

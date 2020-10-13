@@ -5,7 +5,7 @@ using System;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers

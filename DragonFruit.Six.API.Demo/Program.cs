@@ -5,8 +5,8 @@ using System;
 using System.Threading.Tasks;
 using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Helpers;
 using DragonFruit.Six.API.Tests.Common;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace DragonFruit.Six.API.Helpers
+namespace DragonFruit.Six.API.Utils
 {
     /// <summary>
     /// Functions from the <see cref="Math"/> class from .NET Standard 2

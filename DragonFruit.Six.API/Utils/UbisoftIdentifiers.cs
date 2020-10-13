@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using DragonFruit.Six.API.Enums;
 
-namespace DragonFruit.Six.API.Helpers
+namespace DragonFruit.Six.API.Utils
 {
     public static class UbisoftIdentifiers
     {
