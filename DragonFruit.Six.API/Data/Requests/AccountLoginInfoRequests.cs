@@ -5,34 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.API.Helpers;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class AccountLoginInfoRequest : UbiApiRequest
+    public class AccountLoginInfoRequest : UbiApiRequest
     {
-        public AccountLoginInfoRequest()
+        public AccountLoginInfoRequest(AccountInfo profile)
+            : this(new[] { profile })
         {
         }
 
-        public AccountLoginInfoRequest(string appId, AccountInfo profileId)
-            : this(new[] { appId }, new[] { profileId })
+        public AccountLoginInfoRequest(IEnumerable<AccountInfo> profiles)
         {
-        }
-
-        public AccountLoginInfoRequest(string appId, IEnumerable<AccountInfo> profileIds)
-            : this(new[] { appId }, profileIds)
-        {
-        }
-
-        public AccountLoginInfoRequest(IEnumerable<string> appIds, AccountInfo profileId)
-            : this(appIds, new[] { profileId })
-        {
-        }
-
-        public AccountLoginInfoRequest(IEnumerable<string> appIds, IEnumerable<AccountInfo> profileIds)
-        {
-            AppIds = appIds;
-            Accounts = profileIds;
+            Accounts = profiles;
+            AppIds = UbisoftIdentifiers.GameIds.Values;
         }
 
         public override string Path => $"{Endpoints.IdServer}/applications";

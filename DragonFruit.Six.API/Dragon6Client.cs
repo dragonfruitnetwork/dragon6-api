@@ -41,7 +41,7 @@ namespace DragonFruit.Six.API
         protected Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(References.Culture);
-            AppId = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
+            AppId = UbisoftService.RainbowSix.AppId();
 
             if (string.IsNullOrEmpty(UserAgent))
             {

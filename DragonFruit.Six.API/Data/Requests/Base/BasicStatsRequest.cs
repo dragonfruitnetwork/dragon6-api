@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using System.Linq;
 using DragonFruit.Common.Data.Parameters;
 
 namespace DragonFruit.Six.API.Data.Requests.Base
@@ -12,7 +11,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     /// </summary>
     public class BasicStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.Stats[Accounts.First().Platform];
+        public override string Path => Platform.StatsEndpoint();
 
         public BasicStatsRequest(AccountInfo account)
             : base(new[] { account })

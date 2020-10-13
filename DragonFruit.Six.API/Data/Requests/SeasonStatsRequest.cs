@@ -12,7 +12,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.RankedStats[Platform];
+        public override string Path => Platform.SeasonalStatsEndpoint();
 
         public SeasonStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)

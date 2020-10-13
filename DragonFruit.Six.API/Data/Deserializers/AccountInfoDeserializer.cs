@@ -14,9 +14,12 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject jObject)
         {
-            var json = JArray.FromObject(jObject[Misc.Profile]);
+            var accountsJson = jObject[Misc.Profile];
 
-            foreach (var jToken in json)
+            if (accountsJson == null)
+                yield break;
+
+            foreach (var jToken in JArray.FromObject(accountsJson))
             {
                 var item = (JObject)jToken;
                 yield return new AccountInfo
