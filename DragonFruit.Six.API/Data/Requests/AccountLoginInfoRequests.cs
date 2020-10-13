@@ -29,9 +29,9 @@ namespace DragonFruit.Six.API.Data.Requests
         public IEnumerable<AccountInfo> Accounts { get; set; }
 
         [QueryParameter("applicationIds")]
-        public string AppIdString => string.Join(',', AppIds);
+        public string AppIdString => string.Join(",", AppIds);
 
         [QueryParameter("profileIds")]
-        public string ProfileIdString => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
+        public string ProfileIdString => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
     }
 }

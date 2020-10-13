@@ -14,7 +14,7 @@ namespace DragonFruit.Six.API.Helpers
         /// </summary>
         public static Platform GetPlatform(string platformId)
         {
-            return Enum.Parse<Platform>(platformId, true);
+            return (Platform)Enum.Parse(typeof(Platform), platformId, true);
         }
 
         /// <summary>

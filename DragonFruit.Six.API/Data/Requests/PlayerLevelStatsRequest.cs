@@ -25,6 +25,6 @@ namespace DragonFruit.Six.API.Data.Requests
         }
 
         [QueryParameter("profile_ids")]
-        public string CompiledAccounts => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
+        public string CompiledAccounts => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
     }
 }

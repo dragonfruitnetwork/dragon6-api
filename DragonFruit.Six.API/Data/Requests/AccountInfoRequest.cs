@@ -43,12 +43,12 @@ namespace DragonFruit.Six.API.Data.Requests
         public string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
 
         [QueryParameter("nameOnPlatform")]
-        public string PlayerNames => LookupMethod == LookupMethod.Name ? string.Join(',', LookupQuery) : null;
+        public string PlayerNames => LookupMethod == LookupMethod.Name ? string.Join(",", LookupQuery) : null;
 
         [QueryParameter("idOnPlatform")]
-        public string PlatformIds => LookupMethod == LookupMethod.PlatformId ? string.Join(',', LookupQuery) : null;
+        public string PlatformIds => LookupMethod == LookupMethod.PlatformId ? string.Join(",", LookupQuery) : null;
 
         [QueryParameter("userId")]
-        public string UbisoftIds => LookupMethod == LookupMethod.UserId ? string.Join(',', LookupQuery) : null;
+        public string UbisoftIds => LookupMethod == LookupMethod.UserId ? string.Join(",", LookupQuery) : null;
     }
 }
