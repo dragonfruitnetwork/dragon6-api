@@ -13,12 +13,11 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static GeneralStats DeserializeGeneralStatsFor(this JObject jObject, string guid)
         {
-            if (jObject == null)
-            {
-                return new GeneralStats();
-            }
+            // try to get the user but if there is nothing return null
+            var json = jObject[Misc.Results]?[guid] as JObject;
 
-            var json = (JObject)jObject[Misc.Results][guid];
+            if (json == null)
+                return null;
 
             var result = new GeneralStats
             {

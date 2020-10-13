@@ -16,7 +16,7 @@ namespace DragonFruit.Six.API.Data.Extensions
 
         public static IEnumerable<AccountLoginInfo> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
-            var data = client.Perform<JObject>(new AccountLoginInfoRequest(Endpoints.GameIds.Select(x => x.Value), accounts));
+            var data = client.Perform<JObject>(new AccountLoginInfoRequest(accounts));
             return data.DeserializeAccountLoginInfo();
         }
     }

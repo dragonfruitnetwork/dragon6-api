@@ -13,7 +13,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
         {
-            var json = (JObject)jObject[Misc.Players][guid];
+            var json = jObject[Misc.Players]?[guid] as JObject;
+
+            if (json == null)
+                return null;
 
             return new SeasonStats
             {

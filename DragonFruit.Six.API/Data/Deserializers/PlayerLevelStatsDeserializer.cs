@@ -10,10 +10,17 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static IEnumerable<PlayerLevelStats> DeserializePlayerLevelStats(this JObject jObject)
         {
-            foreach (var element in JArray.FromObject(jObject["player_profiles"]))
+            var profiles = jObject["player_profiles"];
+
+            if (profiles == null)
+                yield break;
+
+            foreach (var profile in JArray.FromObject(profiles))
             {
-                var result = element.ToObject<PlayerLevelStats>();
-                result.Guid = (string)element["profile_id"];
+                var result = profile.ToObject<PlayerLevelStats>();
+
+                // todo do we need a null check?
+                result!.Guid = (string)profile["profile_id"];
                 yield return result;
             }
         }

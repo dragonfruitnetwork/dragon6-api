@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using System.Collections.Generic;
 using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Helpers
@@ -11,17 +12,21 @@ namespace DragonFruit.Six.API.Helpers
         /// <summary>
         /// Convert Platform ID -> API Enum
         /// </summary>
-        public static Platform GetPlatform(string platformId) => (Platform)Enum.Parse(typeof(Platform), platformId);
+        public static Platform GetPlatform(string platformId)
+        {
+            return Enum.Parse<Platform>(platformId, true);
+        }
 
         /// <summary>
         /// Ubisoft string to <see cref="Platform"/> (reverses <see cref="PlatformIdentifierFor"/>)
         /// </summary>
-        public static Platform PlatformEnumFor(string platformName) => platformName switch
+        public static Platform PlatformEnumFor(string platformName) => platformName.ToUpperInvariant() switch
         {
-            "uplay" => Platform.PC,
-            "psn" => Platform.PSN,
-            "xbl" => Platform.XB1,
-            _ => throw new ArgumentException("Cannot find the specified platform")
+            "UPLAY" => Platform.PC,
+            "PSN" => Platform.PSN,
+            "XBL" => Platform.XB1,
+
+            _ => throw new ArgumentOutOfRangeException()
         };
 
         /// <summary>
@@ -32,7 +37,26 @@ namespace DragonFruit.Six.API.Helpers
             Platform.PSN => "psn",
             Platform.XB1 => "xbl",
             Platform.PC => "uplay",
-            _ => throw new ArgumentException("Platform Not Found")
+
+            _ => throw new ArgumentOutOfRangeException()
         };
+
+        /// <summary>
+        /// Enumerates over all <see cref="Platform"/>s, producing a <see cref="Dictionary{TKey,TValue}"/>
+        /// of platforms to a user-defined value
+        /// </summary>
+        internal static Dictionary<Platform, T> PlatformsTo<T>(Func<Platform, T> selector)
+        {
+            var platforms = (Platform[])Enum.GetValues(typeof(Platform));
+            var gameIds = new Dictionary<Platform, T>(platforms.Length);
+
+            foreach (var platform in platforms)
+            {
+                // for now none of them should throw an exception
+                gameIds.Add(platform, selector.Invoke(platform));
+            }
+
+            return gameIds;
+        }
     }
 }
