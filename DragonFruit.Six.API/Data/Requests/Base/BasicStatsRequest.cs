@@ -29,6 +29,6 @@ namespace DragonFruit.Six.API.Data.Requests.Base
         public override string AccountIdString => base.AccountIdString;
 
         [QueryParameter("statistics")]
-        public string CompiledStats => string.Join(',', Stats);
+        public string CompiledStats => string.Join(",", Stats);
     }
 }

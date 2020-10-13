@@ -12,7 +12,7 @@ using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Enums;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.API.Helpers
+namespace DragonFruit.Six.API.Utils
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class OperatorData

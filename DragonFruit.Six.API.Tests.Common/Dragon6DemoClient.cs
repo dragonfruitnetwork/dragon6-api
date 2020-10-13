@@ -8,7 +8,7 @@ using DragonFruit.Six.API.Developer;
 using DragonFruit.Six.API.Developer.Extensions;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API.Tests.Common
 {

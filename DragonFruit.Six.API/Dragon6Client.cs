@@ -10,7 +10,7 @@ using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API
 {
