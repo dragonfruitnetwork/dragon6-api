@@ -7,7 +7,7 @@ using DragonFruit.Six.API.Enums;
 
 namespace DragonFruit.Six.API.Helpers
 {
-    public static partial class UbisoftIdentifiers
+    public static class UbisoftIdentifiers
     {
         private static IReadOnlyDictionary<Platform, string> _gameIds;
 
