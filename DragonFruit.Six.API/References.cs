@@ -31,7 +31,7 @@ namespace DragonFruit.Six.API
         public static RankContainer Ranks(int rank) => rank switch
         {
             1 => new RankContainer(1, "Copper 5", "/rank/v2/1.svg"),
-            2 => new RankContainer(1, "Copper 4", "/rank/v2/1.svg"),
+            2 => new RankContainer(2, "Copper 4", "/rank/v2/2.svg"),
             3 => new RankContainer(3, "Copper 3", "/rank/v2/3.svg"),
             4 => new RankContainer(4, "Copper 2", "/rank/v2/4.svg"),
             5 => new RankContainer(5, "Copper 1", "/rank/v2/5.svg"),
