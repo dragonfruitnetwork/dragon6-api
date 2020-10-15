@@ -14,7 +14,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static IEnumerable<OperatorStats> DeserializeOperatorStatsFor(this JObject jObject, string guid, IEnumerable<OperatorStats> data)
         {
-            var json = (JObject)jObject[Misc.Results]![guid];
+            var json = jObject[Misc.Results]?[guid] as JObject;
+
+            if (json == null)
+                yield break;
 
             foreach (var op in data.Select(x => x.Clone()))
             {

@@ -12,7 +12,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.RankedStats[Platform];
+        public override string Path => Platform.SeasonalStatsEndpoint();
 
         public SeasonStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
@@ -42,6 +42,6 @@ namespace DragonFruit.Six.API.Data.Requests
         public string Region { get; set; } = "EMEA";
 
         [QueryParameter("profile_ids")]
-        public string CompiledAccounts => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
+        public string CompiledAccounts => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
     }
 }

@@ -11,7 +11,7 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class GeneralStatsExtentions
     {
-        public static GeneralStats GetStats<T>(this T client, AccountInfo account) where T : Dragon6Client
+        public static GeneralStats GetStats<T>(this T client, AccountInfo account) where T : Dragon6Client 
             => GetStats(client, new[] { account }).First();
 
         public static IEnumerable<GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client

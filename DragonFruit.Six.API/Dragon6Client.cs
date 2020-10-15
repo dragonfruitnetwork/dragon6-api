@@ -10,7 +10,7 @@ using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API
 {
@@ -41,7 +41,7 @@ namespace DragonFruit.Six.API
         protected Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(References.Culture);
-            AppId = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
+            AppId = UbisoftService.RainbowSix.AppId();
 
             if (string.IsNullOrEmpty(UserAgent))
             {

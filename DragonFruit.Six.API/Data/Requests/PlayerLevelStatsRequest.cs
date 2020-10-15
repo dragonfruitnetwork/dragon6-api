@@ -10,7 +10,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class PlayerLevelStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.ProfileInfo[Platform];
+        public override string Path => Platform.ProfileStatsEndpoint();
 
         protected override bool RequireAuth => true;
 
@@ -25,6 +25,6 @@ namespace DragonFruit.Six.API.Data.Requests
         }
 
         [QueryParameter("profile_ids")]
-        public string CompiledAccounts => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
+        public string CompiledAccounts => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
     }
 }

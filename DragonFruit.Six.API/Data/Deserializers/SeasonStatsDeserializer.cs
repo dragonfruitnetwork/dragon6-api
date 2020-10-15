@@ -5,6 +5,7 @@ using System;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
@@ -13,7 +14,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
         {
-            var json = (JObject)jObject[Misc.Players][guid];
+            var json = jObject[Misc.Players]?[guid] as JObject;
+
+            if (json == null)
+                return null;
 
             return new SeasonStats
             {
@@ -28,7 +32,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Wins = json.GetUInt(Seasonal.Wins),
                 Losses = json.GetUInt(Seasonal.Losses),
                 Abandons = json.GetUInt(Seasonal.Abandons),
-                WL = json.GetFloat(Seasonal.Wins, 1) / Math.Clamp(json.GetFloat(Seasonal.Losses) + json.GetFloat(Seasonal.Abandons), 1, float.MaxValue),
+                WL = json.GetFloat(Seasonal.Wins, 1) / MathUtils.Clamp(json.GetFloat(Seasonal.Losses) + json.GetFloat(Seasonal.Abandons), 1, float.MaxValue),
 
                 Rank = json.GetInt(Seasonal.Rank),
                 MaxRank = json.GetUInt(Seasonal.MaxRank),

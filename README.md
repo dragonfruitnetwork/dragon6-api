@@ -5,7 +5,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 [![Nuget](https://img.shields.io/nuget/dt/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 ![GitHub](https://img.shields.io/github/license/dragonfruitnetwork/Dragon6-API)
-[![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord)](https://discord.gg/VA26u5Z)
+[![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord)](https://dragonfruit.network/discord)
 
 ### Overview
 
@@ -26,7 +26,7 @@ Looking to get started? Check out the Wiki!
 |Account Search (by User Id)|`d6Client.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079");`|
 |Account Search (by Platform Id)|`d6Client.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203");`|
 
-## In Production
+## Usages of Dragon6.API
 
 - Dragon6 Web: [https://dragon6.dragonfruit.network](https://dragon6.dragonfruit.network)
 - Dragon6 Discord: [Discord](https://dragon6.dragonfruit.network/discord)
@@ -35,7 +35,4 @@ Looking to get started? Check out the Wiki!
 
 ## Contributing
 
-Feel free to add an issue if you discover one or if you're up to it, clone and make edits as you feel necessary. 
-
-Contributors can claim a contributor profile on the Dragon6 Apps. This gives you access to beta features, including custom backgrounds on your profile.
-If you have contributed join the Dragon6 Discord and DM a member of Team DragonFruit.
+Refer to [CONTRIBUTING.md](https://github.com/dragonfruitnetwork/Dragon6-API/blob/master/CONTRIBUTING.md) for more information
