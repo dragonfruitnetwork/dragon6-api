@@ -46,7 +46,7 @@ namespace DragonFruit.Six.API.Data
         public uint MaxRank { get; set; }
 
         [JsonProperty("rank")]
-        public uint Rank { get; set; }
+        public int Rank { get; set; }
 
         [JsonProperty("top_rank_position")]
         public uint TopRankPosition { get; set; }
@@ -81,6 +81,6 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
 
-        public RankContainer RankInfo => _rankInfo ??= Rank > 16 ? References.Ranks((int)Rank) : References.LegacyRanks((int)Rank);
+        public RankContainer RankInfo => _rankInfo ??= Rank > 16 ? References.Ranks(Rank) : References.LegacyRanks(Rank);
     }
 }
