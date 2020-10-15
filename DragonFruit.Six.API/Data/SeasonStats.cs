@@ -10,6 +10,8 @@ namespace DragonFruit.Six.API.Data
 {
     public class SeasonStats
     {
+        private RankContainer _rankInfo;
+
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
@@ -79,15 +81,6 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
 
-        [JsonProperty("rank_info")]
-        public RankContainer RankInfo
-        {
-            get
-            {
-                return Rank > 16 ? References.Ranks((int)Rank) : References.LegacyRanks((int)Rank);
-            }
-
-            set => value ??= Rank > 16 ? References.Ranks((int)Rank) : References.LegacyRanks((int)Rank);
-        }
+        public RankContainer RankInfo => _rankInfo ??= Rank > 16 ? References.Ranks((int)Rank) : References.LegacyRanks((int)Rank);
     }
 }
