@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Enums;
 using Newtonsoft.Json;
 
@@ -9,6 +10,8 @@ namespace DragonFruit.Six.API.Data
 {
     public class SeasonStats
     {
+        private RankContainer _rankInfo;
+
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
@@ -77,5 +80,7 @@ namespace DragonFruit.Six.API.Data
 
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
+
+        public RankContainer RankInfo => _rankInfo ??= Rank > 14 ? References.Ranks((int)Rank) : References.LegacyRanks((int)Rank);
     }
 }
