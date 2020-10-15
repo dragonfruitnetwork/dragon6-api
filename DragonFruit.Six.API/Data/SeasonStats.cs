@@ -81,6 +81,6 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
 
-        public RankContainer RankInfo => _rankInfo ??= Rank > 16 ? References.Ranks(Rank) : References.LegacyRanks(Rank);
+        public RankContainer RankInfo => _rankInfo ??= Rank > 14 ? References.Ranks(Rank) : References.LegacyRanks(Rank);
     }
 }
