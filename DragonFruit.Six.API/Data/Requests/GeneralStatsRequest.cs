@@ -20,19 +20,29 @@ namespace DragonFruit.Six.API.Data.Requests
 
         public override IEnumerable<string> Stats { get; set; } = new[]
         {
-            "rankedpvp_death",
-            "rankedpvp_kills",
-            "rankedpvp_matchlost",
-            "rankedpvp_matchplayed",
-            "rankedpvp_matchwon",
-            "rankedpvp_timeplayed",
             "casualpvp_death",
             "casualpvp_kills",
             "casualpvp_matchlost",
             "casualpvp_matchplayed",
             "casualpvp_matchwon",
             "casualpvp_timeplayed",
+
+            "rankedpvp_kills",
+            "rankedpvp_death",
+            "rankedpvp_matchlost",
+            "rankedpvp_matchplayed",
+            "rankedpvp_matchwon",
+            "rankedpvp_timeplayed",
+
+            "generalpve_death",
+            "generalpve_kills",
+            "generalpve_matchlost",
+            "generalpve_matchplayed",
+            "generalpve_matchwon",
+            "generalpve_timeplayed",
             "generalpvp_barricadedeployed",
+            "generalpvp_bulletfired",
+            "generalpvp_bullethit",
             "generalpvp_dbno",
             "generalpvp_death",
             "generalpvp_gadgetdestroy",
@@ -43,22 +53,30 @@ namespace DragonFruit.Six.API.Data.Requests
             "generalpvp_matchplayed",
             "generalpvp_matchwon",
             "generalpvp_meleekills",
+            "generalpvp_penetrationkills",
             "generalpvp_reinforcementdeploy",
+            "generalpvp_revive",
             "generalpvp_revive",
             "generalpvp_suicide",
             "generalpvp_timeplayed",
-            "generalpvp_revive",
-            "generalpve_kills",
-            "generalpve_death",
-            "generalpve_matchwon",
-            "generalpve_matchlost",
+
             "plantbombpvp_bestscore",
+            "plantbombpvp_matchlost",
+            "plantbombpvp_matchplayed",
+            "plantbombpvp_matchwon",
+            "plantbombpvp_timeplayed",
+
             "rescuehostagepvp_bestscore",
+            "rescuehostagepvp_matchlost",
+            "rescuehostagepvp_matchplayed",
+            "rescuehostagepvp_matchwon",
+            "rescuehostagepvp_timeplayed",
+
             "secureareapvp_bestscore",
-            "generalpve_timeplayed",
-            "generalpvp_bulletfired",
-            "generalpvp_penetrationkills",
-            "generalpvp_bullethit"
+            "secureareapvp_matchlost",
+            "secureareapvp_matchplayed",
+            "secureareapvp_matchwon",
+            "secureareapvp_timeplayed"
         };
     }
 }

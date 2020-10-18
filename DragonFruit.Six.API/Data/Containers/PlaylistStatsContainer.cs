@@ -7,10 +7,17 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data.Containers
 {
-    public class ModeStatsContainer
+    public class PlaylistStatsContainer
     {
+        private float? _kd;
         private float? _wl;
         private TimeSpan? _timePlayed;
+
+        [JsonProperty("kills")]
+        public uint Kills { get; set; }
+
+        [JsonProperty("deaths")]
+        public uint Deaths { get; set; }
 
         [JsonProperty("wins")]
         public uint Wins { get; set; }
@@ -18,19 +25,19 @@ namespace DragonFruit.Six.API.Data.Containers
         [JsonProperty("losses")]
         public uint Losses { get; set; }
 
-        [JsonProperty("total_matches")]
+        [JsonProperty("matches")]
         public uint MatchesPlayed { get; set; }
-
-        [JsonProperty("highscore")]
-        public uint Highscore { get; set; }
-
-        [JsonProperty("wl")]
-        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
 
         [JsonIgnore]
         internal uint Duration { get; set; }
 
-        [JsonProperty("time_played")]
+        [JsonProperty("kd")]
+        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
+
+        [JsonProperty("wl")]
+        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
+
+        [JsonProperty("time")]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
     }
 }

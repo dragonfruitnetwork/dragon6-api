@@ -11,20 +11,34 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
+        #region Playlists
+
         [JsonProperty("overall")]
-        public ModeStatsContainer Overall { get; set; }
+        public PlaylistStatsContainer Overall { get; set; }
 
         [JsonProperty("casual")]
-        public ModeStatsContainer Casual { get; set; }
+        public PlaylistStatsContainer Casual { get; set; }
 
         [JsonProperty("ranked")]
-        public ModeStatsContainer Ranked { get; set; }
+        public PlaylistStatsContainer Ranked { get; set; }
 
         [JsonProperty("training")]
-        public ModeStatsContainer Training { get; set; }
+        public PlaylistStatsContainer Training { get; set; }
 
-        [JsonProperty("highscores")]
-        public HighScoreContainer Highscores { get; set; }
+        #endregion
+
+        #region Modes
+
+        [JsonProperty("bomb")]
+        public ModeStatsContainer Bomb { get; set; }
+
+        [JsonProperty("hostage")]
+        public ModeStatsContainer Hostage { get; set; }
+
+        [JsonProperty("secure")]
+        public ModeStatsContainer Secure { get; set; }
+
+        #endregion
 
         [JsonProperty("barricades")]
         public uint Barricades { get; set; }

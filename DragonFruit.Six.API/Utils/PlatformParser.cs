@@ -48,15 +48,15 @@ namespace DragonFruit.Six.API.Utils
         internal static Dictionary<Platform, T> PlatformsTo<T>(Func<Platform, T> selector)
         {
             var platforms = (Platform[])Enum.GetValues(typeof(Platform));
-            var gameIds = new Dictionary<Platform, T>(platforms.Length);
+            var result = new Dictionary<Platform, T>(platforms.Length);
 
             foreach (var platform in platforms)
             {
                 // for now none of them should throw an exception
-                gameIds.Add(platform, selector.Invoke(platform));
+                result.Add(platform, selector.Invoke(platform));
             }
 
-            return gameIds;
+            return result;
         }
     }
 }
