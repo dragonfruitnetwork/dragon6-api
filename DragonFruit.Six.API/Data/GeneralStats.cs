@@ -47,6 +47,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("penetrations")]
         public uint Penetrations { get; set; }
 
+        [JsonProperty("blind_kills")]
+        public uint BlindKills { get; set; }
+
         [JsonProperty("melee")]
         public uint Knifes { get; set; }
 
