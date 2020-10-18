@@ -101,6 +101,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 BlindKills = json.GetUInt(General.BlindKills),
 
                 Assists = json.GetUInt(General.Assists),
+                DownAssists = json.GetUInt(General.DownAssists),
                 Suicides = json.GetUInt(General.Suicides),
 
                 ShotsFired = json.GetLong(General.BulletFired),

@@ -59,6 +59,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("assists")]
         public uint Assists { get; set; }
 
+        [JsonProperty("down_assists")]
+        public uint DownAssists { get; set; }
+
         [JsonProperty("shots_fired")]
         public long ShotsFired { get; set; }
 
