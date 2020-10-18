@@ -98,6 +98,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Penetrations = json.GetUInt(General.Penetrations),
                 Headshots = json.GetUInt(General.Headshots),
                 Knifes = json.GetUInt(General.Knives),
+                BlindKills = json.GetUInt(General.BlindKills),
 
                 Assists = json.GetUInt(General.Assists),
                 Suicides = json.GetUInt(General.Suicides),

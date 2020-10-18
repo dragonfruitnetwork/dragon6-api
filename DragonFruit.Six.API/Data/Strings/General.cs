@@ -15,6 +15,7 @@ namespace DragonFruit.Six.API.Data.Strings
         public static readonly string Headshots = "generalpvp_headshot:infinite";
         public static readonly string Knives = "generalpvp_meleekills:infinite";
         public static readonly string Penetrations = "generalpvp_penetrationkills:infinite";
+        public static readonly string BlindKills = "generalpvp_blindkills:infinite";
 
         public static readonly string Assists = "generalpvp_killassists:infinite";
         public static readonly string Suicides = "generalpvp_suicide:infinite";
