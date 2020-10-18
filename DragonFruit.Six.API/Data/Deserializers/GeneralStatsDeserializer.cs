@@ -99,6 +99,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Knifes = json.GetUInt(General.Knives),
 
                 Assists = json.GetUInt(General.Assists),
+                DownAssists = json.GetUInt(General.DownAssists),
                 Suicides = json.GetUInt(General.Suicides),
 
                 ShotsFired = json.GetLong(General.BulletFired),
