@@ -106,6 +106,8 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 ShotsFired = json.GetLong(General.BulletFired),
                 ShotsConnected = json.GetLong(General.BulletHit),
+
+                Experience = json.GetLong(General.Experience),
                 DistanceTravelled = json.GetLong(General.DistanceTravelled)
             };
 

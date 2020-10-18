@@ -69,6 +69,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("shots_connected")]
         public long ShotsConnected { get; set; }
 
+        [JsonProperty("experience")]
+        public long Experience { get; set; }
+
         [JsonProperty("distance_travelled")]
         public long DistanceTravelled { get; set; }
     }

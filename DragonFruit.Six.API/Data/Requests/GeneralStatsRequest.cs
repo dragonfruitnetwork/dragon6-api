@@ -50,6 +50,7 @@ namespace DragonFruit.Six.API.Data.Requests
             "generalpvp_revive",
             "generalpvp_suicide",
             "generalpvp_timeplayed",
+            "generalpvp_totalxp",
             "generalpvp_revive",
             "generalpve_kills",
             "generalpve_death",
