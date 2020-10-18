@@ -7,6 +7,7 @@ namespace DragonFruit.Six.API.Data.Strings
     {
         public static readonly string Barricades = "generalpvp_barricadedeployed:infinite";
         public static readonly string Reinforcements = "generalpvp_reinforcementdeploy:infinite";
+        public static readonly string GadgetsDestroyed = "generalpvp_gadgetdestroy:infinite";
 
         public static readonly string Downs = "generalpvp_dbno:infinite";
         public static readonly string Revives = "generalpvp_revive:infinite";
