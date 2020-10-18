@@ -5,7 +5,6 @@ using System;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
@@ -27,12 +26,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 Kills = json.GetUInt(Seasonal.Kills),
                 Deaths = json.GetUInt(Seasonal.Deaths),
-                KD = json.GetFloat(Seasonal.Kills, 1) / json.GetFloat(Seasonal.Deaths, 1),
 
                 Wins = json.GetUInt(Seasonal.Wins),
                 Losses = json.GetUInt(Seasonal.Losses),
                 Abandons = json.GetUInt(Seasonal.Abandons),
-                WL = json.GetFloat(Seasonal.Wins, 1) / MathUtils.Clamp(json.GetFloat(Seasonal.Losses) + json.GetFloat(Seasonal.Abandons), 1, float.MaxValue),
 
                 Rank = json.GetInt(Seasonal.Rank),
                 MaxRank = json.GetUInt(Seasonal.MaxRank),

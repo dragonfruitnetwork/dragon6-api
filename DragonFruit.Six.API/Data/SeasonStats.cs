@@ -4,22 +4,28 @@
 using System;
 using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
     public class SeasonStats
     {
+        private float? _kd;
+        private float? _wl;
         private RankContainer _rankInfo;
 
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
-        [JsonProperty("update_time")]
-        public DateTime TimeUpdated { get; set; }
-
         [JsonProperty("id")]
         public byte SeasonId { get; set; }
+
+        [JsonProperty("update_time")]
+        public DateTime? TimeUpdated { get; set; }
+
+        [JsonProperty("last_match_result")]
+        public MatchResult LastMatchResult { get; set; }
 
         [JsonProperty("kills")]
         public uint Kills { get; set; }
@@ -27,29 +33,35 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("deaths")]
         public uint Deaths { get; set; }
 
-        [JsonProperty("kd")]
-        public float KD { get; set; }
-
         [JsonProperty("wins")]
         public uint Wins { get; set; }
 
         [JsonProperty("losses")]
         public uint Losses { get; set; }
 
-        [JsonProperty("wl")]
-        public float WL { get; set; }
-
         [JsonProperty("abandons")]
         public uint Abandons { get; set; }
 
-        [JsonProperty("maxrank")]
-        public uint MaxRank { get; set; }
+        [JsonProperty("wl")]
+        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses + Abandons);
+
+        [JsonProperty("kd")]
+        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
+
+        #region Rank
 
         [JsonProperty("rank")]
         public int Rank { get; set; }
 
+        [JsonProperty("maxrank")]
+        public uint MaxRank { get; set; }
+
         [JsonProperty("top_rank_position")]
-        public uint TopRankPosition { get; set; }
+        public uint? TopRankPosition { get; set; }
+
+        #endregion
+
+        #region MMR & Skill
 
         [JsonProperty("mmr")]
         public double MMR { get; set; }
@@ -69,9 +81,6 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("skill_stdev")]
         public double SkillUncertainty { get; set; }
 
-        [JsonProperty("last_match_result")]
-        public MatchResult LastMatchResult { get; set; }
-
         [JsonProperty("last_match_mmr_change")]
         public double LastMatchMMRChange { get; set; }
 
@@ -81,6 +90,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("last_match_skill_stdev_change")]
         public double LastMatchSkillUncertaintyChange { get; set; }
 
+        #endregion
+
+        [JsonIgnore]
         public RankContainer RankInfo => _rankInfo ??= Rank > 14 ? References.Ranks(Rank) : References.LegacyRanks(Rank);
     }
 }
