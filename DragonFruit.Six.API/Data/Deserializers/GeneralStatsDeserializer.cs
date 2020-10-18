@@ -4,6 +4,7 @@
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Data.Strings;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
@@ -26,50 +27,50 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 Casual = new PlaylistStatsContainer
                 {
-                    Kills = json.GetUInt(GeneralCasual.Kills),
-                    Deaths = json.GetUInt(GeneralCasual.Deaths),
+                    Kills = json.GetUInt(GeneralCasual.Kills.ToStatsKey()),
+                    Deaths = json.GetUInt(GeneralCasual.Deaths.ToStatsKey()),
 
-                    Wins = json.GetUInt(GeneralCasual.Wins),
-                    Losses = json.GetUInt(GeneralCasual.Losses),
+                    Wins = json.GetUInt(GeneralCasual.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(GeneralCasual.Losses.ToStatsKey()),
 
-                    MatchesPlayed = json.GetUInt(GeneralCasual.MatchesPlayed),
-                    Duration = json.GetUInt(GeneralCasual.Time),
+                    MatchesPlayed = json.GetUInt(GeneralCasual.MatchesPlayed.ToStatsKey()),
+                    Duration = json.GetUInt(GeneralCasual.Time.ToStatsKey())
                 },
 
                 Training = new PlaylistStatsContainer
                 {
-                    Kills = json.GetUInt(GeneralTraining.Kills),
-                    Deaths = json.GetUInt(GeneralTraining.Deaths),
+                    Kills = json.GetUInt(GeneralTraining.Kills.ToStatsKey()),
+                    Deaths = json.GetUInt(GeneralTraining.Deaths.ToStatsKey()),
 
-                    Wins = json.GetUInt(GeneralTraining.Wins),
-                    Losses = json.GetUInt(GeneralTraining.Losses),
+                    Wins = json.GetUInt(GeneralTraining.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(GeneralTraining.Losses.ToStatsKey()),
 
-                    Duration = json.GetUInt(GeneralTraining.Time),
-                    MatchesPlayed = json.GetUInt(GeneralTraining.MatchesPlayed)
+                    Duration = json.GetUInt(GeneralTraining.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(GeneralTraining.MatchesPlayed.ToStatsKey())
                 },
 
                 Ranked = new PlaylistStatsContainer
                 {
-                    Kills = json.GetUInt(GeneralRanked.Kills),
-                    Deaths = json.GetUInt(GeneralRanked.Deaths),
+                    Kills = json.GetUInt(GeneralRanked.Kills.ToStatsKey()),
+                    Deaths = json.GetUInt(GeneralRanked.Deaths.ToStatsKey()),
 
-                    Wins = json.GetUInt(GeneralRanked.Wins),
-                    Losses = json.GetUInt(GeneralRanked.Losses),
+                    Wins = json.GetUInt(GeneralRanked.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(GeneralRanked.Losses.ToStatsKey()),
 
-                    Duration = json.GetUInt(GeneralRanked.Time),
-                    MatchesPlayed = json.GetUInt(GeneralRanked.MatchesPlayed),
+                    Duration = json.GetUInt(GeneralRanked.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(GeneralRanked.MatchesPlayed.ToStatsKey()),
                 },
 
                 Overall = new PlaylistStatsContainer
                 {
-                    Kills = json.GetUInt(OverallMultiplayer.Kills),
-                    Deaths = json.GetUInt(OverallMultiplayer.Deaths),
+                    Kills = json.GetUInt(General.Kills.ToStatsKey()),
+                    Deaths = json.GetUInt(General.Deaths.ToStatsKey()),
 
-                    Wins = json.GetUInt(OverallMultiplayer.Wins),
-                    Losses = json.GetUInt(OverallMultiplayer.Losses),
+                    Wins = json.GetUInt(General.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(General.Losses.ToStatsKey()),
 
-                    Duration = json.GetUInt(OverallMultiplayer.Time),
-                    MatchesPlayed = json.GetUInt(OverallMultiplayer.MatchesPlayed)
+                    Duration = json.GetUInt(General.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(General.MatchesPlayed.ToStatsKey())
                 },
 
                 #endregion
@@ -78,61 +79,62 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 Bomb = new ModeStatsContainer
                 {
-                    Wins = json.GetUInt(ModeBomb.Wins),
-                    Losses = json.GetUInt(ModeBomb.Losses),
+                    Wins = json.GetUInt(Modes.Bomb.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(Modes.Bomb.Losses.ToStatsKey()),
 
-                    Highscore = json.GetUInt(ModeBomb.Highscore),
+                    Highscore = json.GetUInt(Modes.Bomb.Highscore.ToStatsKey()),
 
-                    Duration = json.GetUInt(ModeBomb.Time),
-                    MatchesPlayed = json.GetUInt(ModeBomb.MatchesPlayed)
+                    Duration = json.GetUInt(Modes.Bomb.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(Modes.Bomb.MatchesPlayed.ToStatsKey())
                 },
 
                 Hostage = new ModeStatsContainer
                 {
-                    Wins = json.GetUInt(ModeHostage.Wins),
-                    Losses = json.GetUInt(ModeHostage.Losses),
+                    Wins = json.GetUInt(Modes.Hostage.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(Modes.Hostage.Losses.ToStatsKey()),
 
-                    Highscore = json.GetUInt(ModeHostage.Highscore),
+                    Highscore = json.GetUInt(Modes.Hostage.Highscore.ToStatsKey()),
 
-                    Duration = json.GetUInt(ModeHostage.Time),
-                    MatchesPlayed = json.GetUInt(ModeHostage.MatchesPlayed)
+                    Duration = json.GetUInt(Modes.Hostage.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey())
                 },
 
                 Secure = new ModeStatsContainer
                 {
-                    Wins = json.GetUInt(ModeSecure.Wins),
-                    Losses = json.GetUInt(ModeSecure.Losses),
+                    Wins = json.GetUInt(Modes.Secure.Wins.ToStatsKey()),
+                    Losses = json.GetUInt(Modes.Secure.Losses.ToStatsKey()),
 
-                    Highscore = json.GetUInt(ModeSecure.Highscore),
+                    Highscore = json.GetUInt(Modes.Secure.Highscore.ToStatsKey()),
 
-                    Duration = json.GetUInt(ModeSecure.Time),
-                    MatchesPlayed = json.GetUInt(ModeSecure.MatchesPlayed)
+                    Duration = json.GetUInt(Modes.Secure.Time.ToStatsKey()),
+                    MatchesPlayed = json.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey())
                 },
 
                 #endregion
 
                 // non-containerised stats
-                Barricades = json.GetUInt(General.Barricades),
-                Reinforcements = json.GetUInt(General.Reinforcements),
-                GadgetsDestroyed = json.GetUInt(General.GadgetsDestroyed),
+                Barricades = json.GetUInt(General.Barricades.ToStatsKey()),
+                Reinforcements = json.GetUInt(General.Reinforcements.ToStatsKey()),
+                GadgetsDestroyed = json.GetUInt(General.GadgetsDestroyed.ToStatsKey()),
 
-                Downs = json.GetUInt(General.Downs),
-                Revives = json.GetUInt(General.Revives),
+                Downs = json.GetUInt(General.Downs.ToStatsKey()),
+                Revives = json.GetUInt(General.Revives.ToStatsKey()),
 
                 // todo move to killtypes class?
-                Penetrations = json.GetUInt(General.Penetrations),
-                Headshots = json.GetUInt(General.Headshots),
-                Knifes = json.GetUInt(General.Knives),
-                BlindKills = json.GetUInt(General.BlindKills),
+                Penetrations = json.GetUInt(General.Penetrations.ToStatsKey()),
+                Headshots = json.GetUInt(General.Headshots.ToStatsKey()),
+                Knifes = json.GetUInt(General.Knives.ToStatsKey()),
+                BlindKills = json.GetUInt(General.BlindKills.ToStatsKey()),
 
-                Assists = json.GetUInt(General.Assists),
-                DownAssists = json.GetUInt(General.DownAssists),
-                Suicides = json.GetUInt(General.Suicides),
-                ShotsFired = json.GetLong(General.BulletFired),
-                ShotsConnected = json.GetLong(General.BulletHit),
+                Assists = json.GetUInt(General.Assists.ToStatsKey()),
+                DownAssists = json.GetUInt(General.DownAssists.ToStatsKey()),
+                Suicides = json.GetUInt(General.Suicides.ToStatsKey()),
 
-                Experience = json.GetLong(General.Experience),
-                DistanceTravelled = json.GetLong(General.DistanceTravelled)
+                ShotsFired = json.GetLong(General.BulletFired.ToStatsKey()),
+                ShotsConnected = json.GetLong(General.BulletHit.ToStatsKey()),
+
+                Experience = json.GetLong(General.Experience.ToStatsKey()),
+                DistanceTravelled = json.GetLong(General.DistanceTravelled.ToStatsKey())
             };
 
             return result;

@@ -52,5 +52,15 @@ namespace DragonFruit.Six.API.Utils
 
             _ => throw new ArgumentOutOfRangeException()
         };
+
+        /// <summary>
+        /// Convert a stats request key to a response key
+        /// </summary>
+        internal static string ToStatsKey(this string key) => $"{key}:infinite";
+
+        /// <summary>
+        /// Convert an indexed stats request key to a response key
+        /// </summary>
+        internal static string ToIndexedStatsKey(this string key, object index) => $"{key}:{index}:infinite";
     }
 }

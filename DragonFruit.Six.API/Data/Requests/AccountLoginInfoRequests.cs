@@ -11,6 +11,8 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public class AccountLoginInfoRequest : UbiApiRequest
     {
+        public override string Path => $"{Endpoints.IdServer}/applications";
+
         public AccountLoginInfoRequest(AccountInfo profile)
             : this(new[] { profile })
         {
@@ -21,8 +23,6 @@ namespace DragonFruit.Six.API.Data.Requests
             Accounts = profiles;
             AppIds = UbisoftIdentifiers.GameIds.Values;
         }
-
-        public override string Path => $"{Endpoints.IdServer}/applications";
 
         public IEnumerable<string> AppIds { get; set; }
 
