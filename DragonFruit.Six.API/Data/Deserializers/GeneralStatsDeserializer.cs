@@ -89,6 +89,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 // non-containerised stats
                 Barricades = json.GetUInt(General.Barricades),
                 Reinforcements = json.GetUInt(General.Reinforcements),
+                GadgetsDestroyed = json.GetUInt(General.GadgetsDestroyed),
 
                 Downs = json.GetUInt(General.Downs),
                 Revives = json.GetUInt(General.Revives),
@@ -97,13 +98,17 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Penetrations = json.GetUInt(General.Penetrations),
                 Headshots = json.GetUInt(General.Headshots),
                 Knifes = json.GetUInt(General.Knives),
+                BlindKills = json.GetUInt(General.BlindKills),
 
                 Assists = json.GetUInt(General.Assists),
+                DownAssists = json.GetUInt(General.DownAssists),
                 Suicides = json.GetUInt(General.Suicides),
 
                 ShotsFired = json.GetLong(General.BulletFired),
                 ShotsConnected = json.GetLong(General.BulletHit),
-                Experience = json.GetLong(General.Experience)
+
+                Experience = json.GetLong(General.Experience),
+                DistanceTravelled = json.GetLong(General.DistanceTravelled)
             };
 
             return result;
