@@ -50,6 +50,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("penetrations")]
         public uint Penetrations { get; set; }
 
+        [JsonProperty("blind_kills")]
+        public uint BlindKills { get; set; }
+
         [JsonProperty("melee")]
         public uint Knifes { get; set; }
 
@@ -57,6 +60,9 @@ namespace DragonFruit.Six.API.Data
         public uint Assists { get; set; }
 
         // todo convert to ulong
+        [JsonProperty("down_assists")]
+        public uint DownAssists { get; set; }
+      
         [JsonProperty("shots_fired")]
         public long ShotsFired { get; set; }
 
