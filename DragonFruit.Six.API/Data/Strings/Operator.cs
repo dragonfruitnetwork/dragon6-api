@@ -13,5 +13,6 @@ namespace DragonFruit.Six.API.Data.Strings
         public static readonly string Headshots = "operatorpvp_dbno:{0}:infinite";
         public static readonly string Rounds = "operatorpvp_roundplayed:{0}:infinite";
         public static readonly string Time = "operatorpvp_timeplayed:{0}:infinite";
+        public static readonly string Experience = "operatorpvp_totalxp:{0}:infinite";
     }
 }

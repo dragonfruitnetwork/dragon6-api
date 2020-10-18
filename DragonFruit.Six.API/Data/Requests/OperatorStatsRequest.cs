@@ -25,9 +25,9 @@ namespace DragonFruit.Six.API.Data.Requests
                 "operatorpvp_death",
                 "operatorpvp_roundlost",
                 "operatorpvp_roundplayed",
-                "operatorpvp_roundwlratio",
                 "operatorpvp_roundwon",
-                "operatorpvp_timeplayed"
+                "operatorpvp_timeplayed",
+                "operatorpvp_totalxp"
             });
         }
     }
