@@ -53,10 +53,14 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("assists")]
         public uint Assists { get; set; }
 
+        // todo convert to ulong
         [JsonProperty("shots_fired")]
         public long ShotsFired { get; set; }
 
         [JsonProperty("shots_connected")]
         public long ShotsConnected { get; set; }
+
+        [JsonProperty("distance_travelled")]
+        public long DistanceTravelled { get; set; }
     }
 }

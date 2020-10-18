@@ -102,7 +102,8 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Suicides = json.GetUInt(General.Suicides),
 
                 ShotsFired = json.GetLong(General.BulletFired),
-                ShotsConnected = json.GetLong(General.BulletHit)
+                ShotsConnected = json.GetLong(General.BulletHit),
+                DistanceTravelled = json.GetLong(General.DistanceTravelled)
             };
 
             return result;
