@@ -89,6 +89,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 // non-containerised stats
                 Barricades = json.GetUInt(General.Barricades),
                 Reinforcements = json.GetUInt(General.Reinforcements),
+                GadgetsDestroyed = json.GetUInt(General.GadgetsDestroyed),
 
                 Downs = json.GetUInt(General.Downs),
                 Revives = json.GetUInt(General.Revives),

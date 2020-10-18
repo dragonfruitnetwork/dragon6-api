@@ -32,6 +32,9 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("reinforcements")]
         public uint Reinforcements { get; set; }
 
+        [JsonProperty("gadgets_destroyed")]
+        public uint GadgetsDestroyed { get; set; }
+
         [JsonProperty("downs")]
         public uint Downs { get; set; }
 

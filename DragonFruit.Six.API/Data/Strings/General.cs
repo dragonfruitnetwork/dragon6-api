@@ -7,6 +7,7 @@ namespace DragonFruit.Six.API.Data.Strings
     {
         public static readonly string Barricades = "generalpvp_barricadedeployed:infinite";
         public static readonly string Reinforcements = "generalpvp_reinforcementdeploy:infinite";
+        public static readonly string GadgetsDestroyed = "generalpvp_gadgetdestroy:infinite";
 
         public static readonly string Downs = "generalpvp_dbno:infinite";
         public static readonly string Revives = "generalpvp_revive:infinite";
@@ -20,8 +21,7 @@ namespace DragonFruit.Six.API.Data.Strings
 
         public static readonly string BulletFired = "generalpvp_bulletfired:infinite";
         public static readonly string BulletHit = "generalpvp_bullethit:infinite";
-        public static readonly string DistanceTravelled = "generalpvp_distancetravelled:infinite";
 
-        public static readonly string Level = "level";
+        public static readonly string DistanceTravelled = "generalpvp_distancetravelled:infinite";
     }
 }
