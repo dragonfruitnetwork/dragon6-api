@@ -12,5 +12,6 @@ namespace DragonFruit.Six.API.Data.Strings
         public static readonly string Losses = "generalpvp_matchlost:infinite";
 
         public static readonly string Time = "generalpvp_timeplayed:infinite";
+        public static readonly string MatchesPlayed = "generalpvp_matchplayed:infinite";
     }
 }

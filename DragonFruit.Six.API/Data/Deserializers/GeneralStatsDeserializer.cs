@@ -76,7 +76,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Wl = json.GetFloat(OverallMultiplayer.Wins, 1) / json.GetFloat(OverallMultiplayer.Losses, 1),
 
                     TimePlayed = TimeSpan.FromSeconds(json.GetDouble(OverallMultiplayer.Time)),
-                    //matches played set at the bottom...
+                    MatchesPlayed = json.GetUInt(OverallMultiplayer.MatchesPlayed)
                 },
 
                 Highscores = new HighScoreContainer
@@ -86,13 +86,14 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Hostage = json.GetInt(Highscores.Hostage),
                 },
 
-                // Non-Containered Stats
+                // non-containerised stats
                 Barricades = json.GetUInt(General.Barricades),
                 Reinforcements = json.GetUInt(General.Reinforcements),
 
                 Downs = json.GetUInt(General.Downs),
                 Revives = json.GetUInt(General.Revives),
 
+                // todo move to killtypes class?
                 Penetrations = json.GetUInt(General.Penetrations),
                 Headshots = json.GetUInt(General.Headshots),
                 Knifes = json.GetUInt(General.Knives),
@@ -103,8 +104,6 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 ShotsFired = json.GetLong(General.BulletFired),
                 ShotsConnected = json.GetLong(General.BulletHit)
             };
-
-            result.Overall.MatchesPlayed = result.Casual.MatchesPlayed + result.Ranked.MatchesPlayed + result.Training.MatchesPlayed;
 
             return result;
         }
