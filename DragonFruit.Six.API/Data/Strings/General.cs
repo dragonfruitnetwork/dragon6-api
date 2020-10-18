@@ -23,5 +23,7 @@ namespace DragonFruit.Six.API.Data.Strings
 
         public static readonly string BulletFired = "generalpvp_bulletfired:infinite";
         public static readonly string BulletHit = "generalpvp_bullethit:infinite";
+
+        public static readonly string DistanceTravelled = "generalpvp_distancetravelled:infinite";
     }
 }

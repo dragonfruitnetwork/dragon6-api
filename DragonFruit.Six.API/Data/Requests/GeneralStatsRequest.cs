@@ -37,6 +37,7 @@ namespace DragonFruit.Six.API.Data.Requests
             "generalpvp_dbno",
             "generalpvp_dbnoassists",
             "generalpvp_death",
+            "generalpvp_distancetravelled",
             "generalpvp_gadgetdestroy",
             "generalpvp_headshot",
             "generalpvp_killassists",
