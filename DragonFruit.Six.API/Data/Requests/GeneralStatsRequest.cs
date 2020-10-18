@@ -52,7 +52,6 @@ namespace DragonFruit.Six.API.Data.Requests
             "generalpve_death",
             "generalpve_matchwon",
             "generalpve_matchlost",
-            "custompvp_timeplayed", // todo remove
             "plantbombpvp_bestscore",
             "rescuehostagepvp_bestscore",
             "secureareapvp_bestscore",
