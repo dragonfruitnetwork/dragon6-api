@@ -5,17 +5,17 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class Operator
     {
-        public static readonly string Wins = "operatorpvp_roundwon";
-        public static readonly string Losses = "operatorpvp_roundlost";
+        public static string Wins => "operatorpvp_roundwon";
+        public static string Losses => "operatorpvp_roundlost";
 
-        public static readonly string Kills = "operatorpvp_kills";
-        public static readonly string Deaths = "operatorpvp_death";
+        public static string Kills => "operatorpvp_kills";
+        public static string Deaths => "operatorpvp_death";
 
-        public static readonly string Downs = "operatorpvp_headshot";
-        public static readonly string Headshots = "operatorpvp_dbno";
+        public static string Downs => "operatorpvp_headshot";
+        public static string Headshots => "operatorpvp_dbno";
 
-        public static readonly string Rounds = "operatorpvp_roundplayed";
-        public static readonly string Time = "operatorpvp_timeplayed";
-        public static readonly string Experience = "operatorpvp_totalxp";
+        public static string Rounds => "operatorpvp_roundplayed";
+        public static string Time => "operatorpvp_timeplayed";
+        public static string Experience => "operatorpvp_totalxp";
     }
 }
