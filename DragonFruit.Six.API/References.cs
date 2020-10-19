@@ -1,7 +1,6 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using System.Collections.Generic;
 using System.Globalization;
 using DragonFruit.Six.API.Data.Containers;
 
@@ -10,22 +9,6 @@ namespace DragonFruit.Six.API
     public static class References
     {
         public static readonly CultureInfo Culture = new CultureInfo("en-US", false);
-
-        #region Dictionaries
-
-        public static readonly IReadOnlyDictionary<byte, string> WeaponClasses
-            = new Dictionary<byte, string>
-            {
-                [1] = "Assault Rifle",
-                [2] = "SMG",
-                [3] = "LMG",
-                [4] = "Sniper Rifle",
-                [5] = "Pistol",
-                [6] = "Shotgun",
-                [7] = "Machine Pistol",
-                [8] = "Shield",
-                [9] = "Launcher"
-            };
 
         public static RankContainer Ranks(int rank) => rank switch
         {
@@ -91,7 +74,5 @@ namespace DragonFruit.Six.API
 
             _ => new RankContainer(0, "Unranked", "/rank/v1/0.svg")
         };
-
-        #endregion
     }
 }
