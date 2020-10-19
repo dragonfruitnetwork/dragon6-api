@@ -9,14 +9,14 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Extensions
 {
-    public static class AccountLoginInfoExtensions
+    public static class AccountActivityExtensions
     {
-        public static AccountLoginInfo GetLoginInfo<T>(this T client, AccountInfo account) where T : Dragon6Client
+        public static AccountActivity GetLoginInfo<T>(this T client, AccountInfo account) where T : Dragon6Client
             => GetLoginInfo(client, new[] { account }).First();
 
-        public static IEnumerable<AccountLoginInfo> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
+        public static IEnumerable<AccountActivity> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
-            var data = client.Perform<JObject>(new AccountLoginInfoRequest(accounts));
+            var data = client.Perform<JObject>(new AccountActivityRequest(accounts));
             return data.DeserializeAccountLoginInfo();
         }
     }
