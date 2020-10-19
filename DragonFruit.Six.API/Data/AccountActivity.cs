@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class AccountLoginInfo
+    public class AccountActivity
     {
         [JsonProperty("guid")]
         public string Guid { get; set; }

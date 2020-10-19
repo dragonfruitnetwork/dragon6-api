@@ -12,9 +12,9 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
 {
-    public static class AccountLoginInfoDeserializer
+    public static class AccountActivityDeserializer
     {
-        public static IEnumerable<AccountLoginInfo> DeserializeAccountLoginInfo(this JObject jObject)
+        public static IEnumerable<AccountActivity> DeserializeAccountLoginInfo(this JObject jObject)
         {
             var data = jObject["applications"] as JArray;
 
@@ -24,15 +24,15 @@ namespace DragonFruit.Six.API.Data.Deserializers
             foreach (var jToken in data)
             {
                 var entry = (JObject)jToken;
-                yield return new AccountLoginInfo
+                yield return new AccountActivity
                 {
-                    Guid = entry.GetString(Login.Guid),
-                    SessionCount = entry.GetUInt(Login.Sessions),
-                    Platform = UbisoftIdentifiers.GameIds.SingleOrDefault(x => x.Value.Equals(entry.GetString(Login.PlatformId), StringComparison.OrdinalIgnoreCase)).Key,
+                    Guid = entry.GetString(Activity.Guid),
+                    SessionCount = entry.GetUInt(Activity.Sessions),
+                    Platform = UbisoftIdentifiers.GameIds.SingleOrDefault(x => x.Value.Equals(entry.GetString(Activity.PlatformId), StringComparison.OrdinalIgnoreCase)).Key,
                     Activity = new ActivityDateContainer
                     {
-                        First = DateTimeOffset.Parse(entry.GetString(Login.FirstLogin), References.Culture),
-                        Last = DateTimeOffset.Parse(entry.GetString(Login.LastLogin), References.Culture)
+                        First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), References.Culture),
+                        Last = DateTimeOffset.Parse(entry.GetString(Activity.LastLogin), References.Culture)
                     }
                 };
             }
