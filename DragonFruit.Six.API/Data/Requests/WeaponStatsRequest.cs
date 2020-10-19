@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
@@ -20,10 +21,17 @@ namespace DragonFruit.Six.API.Data.Requests
 
         public override IEnumerable<string> Stats { get; set; } = new[]
         {
-            "weapontypepvp_kills",
-            "weapontypepvp_headshot",
-            "weapontypepvp_bulletfired",
-            "weapontypepvp_bullethit"
+            Weapon.Picked,
+
+            Weapon.Kills,
+            Weapon.Deaths,
+
+            Weapon.Headshots,
+            Weapon.Downs,
+            Weapon.DownAssists,
+
+            Weapon.ShotsFired,
+            Weapon.ShotsHit
         };
     }
 }
