@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.API.Data.Strings
 {
-    public static class Login
+    public static class Activity
     {
         public static string Sessions => "sessionsCount";
         public static string Guid => "profileId";
