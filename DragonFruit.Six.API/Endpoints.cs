@@ -12,12 +12,12 @@ namespace DragonFruit.Six.API
         /// <summary>
         /// Public API endpoint
         /// </summary>
-        public static readonly string BaseEndpoint = "https://public-ubiservices.ubi.com";
+        public static string BaseEndpoint => "https://public-ubiservices.ubi.com";
 
         /// <summary>
         /// Public-facing endpoint for generating access tokens
         /// </summary>
-        public static readonly string IdServer = BaseEndpoint + "/v3/profiles";
+        public static string IdServer => BaseEndpoint + "/v3/profiles";
 
         /// <summary>
         /// Url of the platform-specific "sandbox", the place where all the stats are acquired from

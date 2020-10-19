@@ -5,11 +5,11 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class Accounts
     {
-        public static readonly string Name = "nameOnPlatform";
-        public static readonly string Platform = "platformType";
+        public static string Name => "nameOnPlatform";
+        public static string Platform => "platformType";
 
-        public static readonly string PlatformIdentifier = "idOnPlatform";
-        public static readonly string ProfileIdentifier = "profileId";
-        public static readonly string UserIdentifier = "userId";
+        public static string PlatformIdentifier => "idOnPlatform";
+        public static string ProfileIdentifier => "profileId";
+        public static string UserIdentifier => "userId";
     }
 }

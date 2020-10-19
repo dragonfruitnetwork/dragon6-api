@@ -5,10 +5,10 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class Login
     {
-        public static readonly string Sessions = "sessionsCount";
-        public static readonly string Guid = "profileId";
-        public static readonly string PlatformId = "applicationId";
-        public static readonly string FirstLogin = "firstSessionDate";
-        public static readonly string LastLogin = "lastSessionDate";
+        public static string Sessions => "sessionsCount";
+        public static string Guid => "profileId";
+        public static string PlatformId => "applicationId";
+        public static string FirstLogin => "firstSessionDate";
+        public static string LastLogin => "lastSessionDate";
     }
 }

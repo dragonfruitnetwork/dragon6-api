@@ -5,8 +5,8 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class Misc
     {
-        public static readonly string Results = "results";
-        public static readonly string Profile = "profiles";
-        public static readonly string Players = "players";
+        public static string Results => "results";
+        public static string Profile => "profiles";
+        public static string Players => "players";
     }
 }
