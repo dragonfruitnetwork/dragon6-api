@@ -30,7 +30,7 @@ namespace DragonFruit.Six.API.Utils
         /// <param name="client">The <see cref="ApiClient"/> to use</param>
         public static IEnumerable<OperatorStats> GetOperatorInfo(this ApiClient client)
         {
-            var request = new OperatorInfoRequest();
+            var request = new OperatorDataRequest(null);
             var response = client.Perform<JArray>(request);
             return FromArray(response);
         }

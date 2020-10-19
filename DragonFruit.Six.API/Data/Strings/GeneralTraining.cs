@@ -5,13 +5,13 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class GeneralTraining
     {
-        public static readonly string Kills = "generalpve_kills:infinite";
-        public static readonly string Deaths = "generalpve_death:infinite";
+        public static readonly string Kills = "generalpve_kills";
+        public static readonly string Deaths = "generalpve_death";
 
-        public static readonly string Wins = "generalpve_matchwon:infinite";
-        public static readonly string Losses = "generalpve_matchlost:infinite";
+        public static readonly string Wins = "generalpve_matchwon";
+        public static readonly string Losses = "generalpve_matchlost";
 
-        public static readonly string Time = "generalpve_timeplayed:infinite";
-        public static readonly string MatchesPlayed = "generalpve_matchplayed:infinite";
+        public static readonly string Time = "generalpve_timeplayed";
+        public static readonly string MatchesPlayed = "generalpve_matchplayed";
     }
 }

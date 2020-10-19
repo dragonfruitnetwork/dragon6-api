@@ -5,9 +5,9 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class Weapon
     {
-        public static readonly string Kills = "weapontypepvp_kills:{0}:infinite";
-        public static readonly string Headshots = "weapontypepvp_headshot:{0}:infinite";
-        public static readonly string ShotsFired = "weapontypepvp_bulletfired:{0}:infinite";
-        public static readonly string ShotsHit = "weapontypepvp_bullethit:{0}:infinite";
+        public static readonly string Kills = "weapontypepvp_kills:{0}";
+        public static readonly string Headshots = "weapontypepvp_headshot:{0}";
+        public static readonly string ShotsFired = "weapontypepvp_bulletfired:{0}";
+        public static readonly string ShotsHit = "weapontypepvp_bullethit:{0}";
     }
 }

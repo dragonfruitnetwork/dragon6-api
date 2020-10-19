@@ -3,11 +3,16 @@
 
 using System;
 using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API.Data
 {
     public class OperatorStats
     {
+        private float? _kd;
+        private float? _wl;
+        private TimeSpan? _timePlayed;
+
         /// <summary>
         /// User Profile ID
         /// </summary>
@@ -58,8 +63,14 @@ namespace DragonFruit.Six.API.Data
         /// </summary>
         internal string OperatorActionResultId => $"{OperatorActionId}:infinite";
 
+        /// <summary>
+        /// Description of the operator's ability
+        /// </summary>
         public string Action { get; set; }
 
+        /// <summary>
+        /// Number of times the operator has performed their ability
+        /// </summary>
         public uint ActionCount { get; set; }
 
         public uint Headshots { get; set; }
@@ -74,15 +85,17 @@ namespace DragonFruit.Six.API.Data
 
         public uint Losses { get; set; }
 
-        public float Kd { get; set; }
-
-        public float Wl { get; set; }
-
         public uint RoundsPlayed { get; set; }
 
         public uint Experience { get; set; }
 
-        public TimeSpan TimePlayed { get; set; }
+        internal uint Duration { get; set; }
+
+        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
+
+        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
+
+        public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 
         public int HoursPlayed => (int)TimePlayed.TotalHours;
 

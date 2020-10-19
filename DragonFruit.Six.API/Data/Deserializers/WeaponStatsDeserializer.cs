@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Strings;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
@@ -25,10 +26,10 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                     ClassName = References.WeaponClasses[index],
                     ClassID = index,
-                    Kills = json.GetUInt(string.Format(Weapon.Kills, index)),
-                    Headshots = json.GetUInt(string.Format(Weapon.Headshots, index)),
-                    ShotsFired = json.GetUInt(string.Format(Weapon.ShotsFired, index)),
-                    ShotsLanded = json.GetUInt(string.Format(Weapon.ShotsHit, index))
+                    Kills = json.GetUInt(Weapon.Kills.ToIndexedStatsKey(index)),
+                    Headshots = json.GetUInt(Weapon.Headshots.ToIndexedStatsKey(index)),
+                    ShotsFired = json.GetUInt(Weapon.ShotsFired.ToIndexedStatsKey(index)),
+                    ShotsLanded = json.GetUInt(Weapon.ShotsHit.ToIndexedStatsKey(index))
                 };
             }
         }
