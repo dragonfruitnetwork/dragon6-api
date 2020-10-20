@@ -3,15 +3,18 @@
 
 namespace DragonFruit.Six.API.Verification
 {
-    public enum Level
+    public enum AccountType
     {
         Blocked = -1,
+
         Normal = 0,
+
         Beta = 1,
         Translator = 2,
         Verified = 3,
         Supporter = 4,
         Contributor = 5,
+
         Developer = 100
     }
 }

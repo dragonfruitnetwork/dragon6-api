@@ -5,30 +5,33 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Verification
 {
-    public class VerifiedUserInfo
+    /// <summary>
+    /// Publicly-exposed data about a user's verified account (on the dragon6 site)
+    /// </summary>
+    public class Dragon6AccountInfo
     {
         [JsonProperty("Level")]
-        public Level AccountLevel { get; set; }
+        public AccountType AccountType { get; set; }
 
         [JsonProperty("Guid")]
-        public string GUID { get; set; }
+        public string ProfileId { get; set; }
 
-        [JsonProperty("YTLink")]
+        [JsonProperty("youtube")]
         public string YouTube { get; set; }
 
-        [JsonProperty("TwitchLink")]
+        [JsonProperty("twitch")]
         public string Twitch { get; set; }
 
         [JsonProperty("ImageHeaderLink")]
         public string Image { get; set; }
 
         [JsonProperty("CustomText")]
-        public string CustomLevelText { get; set; }
+        public string CustomTitle { get; set; }
 
         [JsonProperty("CustomIcon")]
-        public string CustomLevelIcon { get; set; }
+        public string CustomIcon { get; set; }
 
         [JsonProperty("CustomColour")]
-        public string CustomLevelColour { get; set; }
+        public string CustomColour { get; set; }
     }
 }
