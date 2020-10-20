@@ -21,7 +21,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
             return new SeasonStats
             {
                 Guid = guid,
-                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
+                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(Dragon6Client.Culture)), Dragon6Client.Culture),
                 SeasonId = json.GetByte(Seasonal.Season),
 
                 Kills = json.GetUInt(Seasonal.Kills),

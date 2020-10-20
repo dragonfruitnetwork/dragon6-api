@@ -13,7 +13,7 @@ namespace DragonFruit.Six.API.Data
     {
         private float? _kd;
         private float? _wl;
-        private RankContainer _rankInfo;
+        private RankInfo _rankInfo;
 
         [JsonProperty("guid")]
         public string Guid { get; set; }
@@ -93,6 +93,6 @@ namespace DragonFruit.Six.API.Data
         #endregion
 
         [JsonIgnore]
-        public RankContainer RankInfo => _rankInfo ??= Rank > 14 ? References.Ranks(Rank) : References.LegacyRanks(Rank);
+        public RankInfo RankInfo => _rankInfo ??= Rank > 14 ? SeasonalRanks.Rank(Rank) : SeasonalRanks.Legacy(Rank);
     }
 }
