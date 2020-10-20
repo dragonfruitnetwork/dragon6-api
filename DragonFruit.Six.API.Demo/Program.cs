@@ -24,7 +24,7 @@ namespace DragonFruit.Six.API.Demo
             var level = d6Client.GetLevel(playerInfo);
             var loginInfo = d6Client.GetLoginInfo(playerInfo);
 
-            var seasonStats = d6Client.GetSeasonStats(playerInfo, "EMEA");
+            var seasonStats = d6Client.GetSeasonStats(playerInfo);
 
             var generalStats = d6Client.GetStats(playerInfo);
             var opStats = d6Client.GetOperatorStats(playerInfo, await operatorInformationTask);

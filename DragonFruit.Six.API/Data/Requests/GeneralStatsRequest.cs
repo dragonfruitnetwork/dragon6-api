@@ -9,11 +9,17 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class GeneralStatsRequest : BasicStatsRequest
     {
+        /// <summary>
+        /// Initialises a request for all the stats in <see cref="GeneralStats"/> for the provided <see cref="AccountInfo"/>
+        /// </summary>
         public GeneralStatsRequest(AccountInfo account)
             : base(account)
         {
         }
 
+        /// <summary>
+        /// Requests all the stats in <see cref="GeneralStats"/> for the provided array of <see cref="AccountInfo"/>s
+        /// </summary>
         public GeneralStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {

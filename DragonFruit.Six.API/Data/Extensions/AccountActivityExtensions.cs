@@ -11,9 +11,15 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class AccountActivityExtensions
     {
+        /// <summary>
+        /// Get the <see cref="AccountActivity"/> for a specific <see cref="AccountInfo"/>
+        /// </summary>
         public static AccountActivity GetLoginInfo<T>(this T client, AccountInfo account) where T : Dragon6Client
             => GetLoginInfo(client, new[] { account }).First();
 
+        /// <summary>
+        /// Get the <see cref="AccountActivity"/> for an array of <see cref="AccountInfo"/>s
+        /// </summary>
         public static IEnumerable<AccountActivity> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var data = client.Perform<JObject>(new AccountActivityRequest(accounts));

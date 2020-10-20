@@ -11,13 +11,13 @@ namespace DragonFruit.Six.API.Data
     public class AccountInfo : IEquatable<AccountInfo>
     {
         /// <summary>
-        /// The Player's Username (Formatted)
+        /// The Player's Username (case-correct)
         /// </summary>
         [JsonProperty("name")]
         public string PlayerName { get; set; }
 
         /// <summary>
-        /// URL to Player's Avatar
+        /// URL to avatar photo (256*256)
         /// </summary>
         [JsonProperty("image")]
         public string Image => $"https://ubisoft-avatars.akamaized.net/{Identifiers.Ubisoft}/default_256_256.png";
@@ -29,7 +29,7 @@ namespace DragonFruit.Six.API.Data
         public Platform Platform { get; set; }
 
         /// <summary>
-        /// User identifiers
+        /// User identifiers (Platform, Profile and Ubisoft)
         /// </summary>
         [JsonProperty("identifiers")]
         public UserIdentifierContainer Identifiers { get; set; }

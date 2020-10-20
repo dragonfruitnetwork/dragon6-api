@@ -29,8 +29,8 @@ namespace DragonFruit.Six.API.Data.Requests.Base
 
         public IEnumerable<AccountInfo> Accounts { get; }
 
-        public IEnumerable<string> AccountIds => Accounts.Select(x => x.Identifiers.Profile);
+        internal IEnumerable<string> AccountIds => Accounts.Select(x => x.Identifiers.Profile);
 
-        public virtual string AccountIdString => string.Join(",", AccountIds);
+        protected virtual string AccountIdString => string.Join(",", AccountIds);
     }
 }

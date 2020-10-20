@@ -12,7 +12,7 @@ namespace DragonFruit.Six.API.Exceptions
     public class AccountPlatformException : Exception
     {
         public AccountPlatformException(IEnumerable<AccountInfo> accounts)
-            : base("A platform-specific Request was formed with accounts from multiple platforms.")
+            : base("A platform-specific request was formed with accounts from multiple platforms.")
         {
             FoundPlatforms = accounts.Select(x => x.Platform).Distinct();
         }
