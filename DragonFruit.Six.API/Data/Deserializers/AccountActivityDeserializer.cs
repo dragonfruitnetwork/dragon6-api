@@ -31,8 +31,8 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Platform = UbisoftIdentifiers.GameIds.SingleOrDefault(x => x.Value.Equals(entry.GetString(Activity.PlatformId), StringComparison.OrdinalIgnoreCase)).Key,
                     Activity = new ActivityDateContainer
                     {
-                        First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), References.Culture),
-                        Last = DateTimeOffset.Parse(entry.GetString(Activity.LastLogin), References.Culture)
+                        First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), Dragon6Client.Culture),
+                        Last = DateTimeOffset.Parse(entry.GetString(Activity.LastLogin), Dragon6Client.Culture)
                     }
                 };
             }
