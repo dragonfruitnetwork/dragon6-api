@@ -56,6 +56,7 @@ namespace DragonFruit.Six.API.Data.Requests
             General.Headshots,
 
             General.Suicides,
+            General.Revives,
             General.Downs,
             General.DownAssists,
 
@@ -79,12 +80,17 @@ namespace DragonFruit.Six.API.Data.Requests
             Modes.Hostage.MatchesPlayed,
             Modes.Hostage.Time,
             Modes.Hostage.Wins,
+            Modes.Hostage.Rescues,
+            Modes.Hostage.Defenses,
 
             Modes.Secure.Highscore,
             Modes.Secure.Losses,
             Modes.Secure.MatchesPlayed,
             Modes.Secure.Time,
-            Modes.Secure.Wins
+            Modes.Secure.Wins,
+            Modes.Secure.Aggressions,
+            Modes.Secure.Defenses,
+            Modes.Secure.Captures
         };
     }
 }

@@ -76,17 +76,17 @@ namespace DragonFruit.Six.API.Data
         // todo convert to ulong
         [JsonProperty("down_assists")]
         public uint DownAssists { get; set; }
-      
+
         [JsonProperty("shots_fired")]
-        public long ShotsFired { get; set; }
+        public ulong ShotsFired { get; set; }
 
         [JsonProperty("shots_connected")]
-        public long ShotsConnected { get; set; }
+        public ulong ShotsConnected { get; set; }
 
         [JsonProperty("experience")]
-        public long Experience { get; set; }
+        public ulong Experience { get; set; }
 
         [JsonProperty("distance_travelled")]
-        public long DistanceTravelled { get; set; }
+        public ulong DistanceTravelled { get; set; }
     }
 }
