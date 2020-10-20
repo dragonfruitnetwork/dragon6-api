@@ -10,7 +10,7 @@ namespace DragonFruit.Six.API.Utils
         /// <summary>
         /// Gets the <see cref="RankInfo"/> for the user rank
         /// </summary>
-        public static RankInfo Rank(int rank) => rank switch
+        public static RankInfo Rank(int rankId) => rankId switch
         {
             1 => new RankInfo(1, "Copper 5", "/rank/v2/1.svg"),
             2 => new RankInfo(2, "Copper 4", "/rank/v2/2.svg"),
@@ -47,7 +47,7 @@ namespace DragonFruit.Six.API.Utils
         /// <summary>
         /// Gets the <see cref="RankInfo"/> for the user rank (pre-season 15)
         /// </summary>
-        public static RankInfo Legacy(int legacyRank) => legacyRank switch
+        public static RankInfo Legacy(int legacyRankId) => legacyRankId switch
         {
             1 => new RankInfo(1, "Copper 4", "/rank/v1/1.svg"),
             2 => new RankInfo(2, "Copper 3", "/rank/v1/2.svg"),
