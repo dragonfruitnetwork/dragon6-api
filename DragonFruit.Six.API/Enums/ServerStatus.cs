@@ -3,28 +3,26 @@
 
 namespace DragonFruit.Six.API.Enums
 {
-    public enum UbisoftService
+    public enum ServerStatus
     {
-        Custom = -1,
+        /// <summary>
+        /// Server is online
+        /// </summary>
+        Online,
 
         /// <summary>
-        /// The Rainbow Six Stats Site (https://game-rainbow6.ubisoft.com)
+        /// Server may experience some unexpected issues
         /// </summary>
-        RainbowSix = 0,
+        Interrupted,
 
         /// <summary>
-        /// The UPlay download page
+        /// Server is offline or may have severe difficulty connecting
         /// </summary>
-        UPlay = 1,
+        Degraded,
 
         /// <summary>
-        /// Ubisoft Club website
+        /// Scheduled to be deactivated for maintenance reasons
         /// </summary>
-        UbisoftClub = 2,
-
-        /// <summary>
-        /// Ubisoft Account Management site
-        /// </summary>
-        UbisoftAccount = 3,
+        Maintenance
     }
 }

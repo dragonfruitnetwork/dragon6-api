@@ -21,7 +21,7 @@ namespace DragonFruit.Six.API.Data.Requests
         public AccountActivityRequest(IEnumerable<AccountInfo> profiles)
         {
             Accounts = profiles;
-            AppIds = UbisoftIdentifiers.GameIds.Values;
+            AppIds = UbisoftIdentifiers.GameIds.Keys;
         }
 
         /// <summary>

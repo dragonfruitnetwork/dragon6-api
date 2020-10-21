@@ -45,15 +45,15 @@ namespace DragonFruit.Six.API.Utils
         /// Enumerates over all <see cref="Platform"/>s, producing a <see cref="Dictionary{TKey,TValue}"/>
         /// of platforms to a user-defined value
         /// </summary>
-        internal static Dictionary<Platform, T> PlatformsTo<T>(Func<Platform, T> selector)
+        internal static Dictionary<T, Platform> PlatformsTo<T>(Func<Platform, T> selector)
         {
             var platforms = (Platform[])Enum.GetValues(typeof(Platform));
-            var result = new Dictionary<Platform, T>(platforms.Length);
+            var result = new Dictionary<T, Platform>(platforms.Length);
 
             foreach (var platform in platforms)
             {
                 // for now none of them should throw an exception
-                result.Add(platform, selector.Invoke(platform));
+                result.Add(selector.Invoke(platform), platform);
             }
 
             return result;

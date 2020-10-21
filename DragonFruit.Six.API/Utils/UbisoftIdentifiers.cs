@@ -9,12 +9,12 @@ namespace DragonFruit.Six.API.Utils
 {
     public static class UbisoftIdentifiers
     {
-        private static IReadOnlyDictionary<Platform, string> _gameIds;
+        private static IReadOnlyDictionary<string, Platform> _gameIds;
 
         /// <summary>
         /// <see cref="IReadOnlyDictionary{TKey,TValue}"/> of platforms to game ids used for checking playtime stats
         /// </summary>
-        internal static IReadOnlyDictionary<Platform, string> GameIds => _gameIds ??= PlatformParser.PlatformsTo(p => p.GameId());
+        internal static IReadOnlyDictionary<string, Platform> GameIds => _gameIds ??= PlatformParser.PlatformsTo(p => p.GameId());
 
         /// <summary>
         /// Gets the Ubi-AppId for the specified service
