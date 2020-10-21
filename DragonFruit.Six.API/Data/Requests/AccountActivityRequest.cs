@@ -24,14 +24,20 @@ namespace DragonFruit.Six.API.Data.Requests
             AppIds = UbisoftIdentifiers.GameIds.Values;
         }
 
+        /// <summary>
+        /// The ids of the apps to check activity for
+        /// </summary>
         public IEnumerable<string> AppIds { get; set; }
 
+        /// <summary>
+        /// The accounts to check against the activity logs for <see cref="AppIds"/>
+        /// </summary>
         public IEnumerable<AccountInfo> Accounts { get; set; }
 
         [QueryParameter("applicationIds")]
-        public string AppIdString => string.Join(",", AppIds);
+        protected string AppIdString => string.Join(",", AppIds);
 
         [QueryParameter("profileIds")]
-        public string ProfileIdString => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
+        protected string ProfileIdString => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
     }
 }

@@ -18,12 +18,24 @@ namespace DragonFruit.Six.API.Data.Containers
             Platform = id;
         }
 
+        /// <summary>
+        /// Game-specific user identifier
+        /// </summary>
+        /// <remarks>
+        /// This id can differ to <see cref="Ubisoft"/> because an account can have a copy of siege on both PC and PSN
+        /// </remarks>
         [JsonProperty("profile")]
         public string Profile { get; set; }
 
+        /// <summary>
+        /// Ubisoft account identifier
+        /// </summary>
         [JsonProperty("ubisoft")]
         public string Ubisoft { get; set; }
 
+        /// <summary>
+        /// Platform-specific identifier (i.e. PSN id)
+        /// </summary>
         [JsonProperty("platform")]
         public string Platform { get; set; }
     }

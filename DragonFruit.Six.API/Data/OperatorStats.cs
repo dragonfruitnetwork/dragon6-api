@@ -73,28 +73,28 @@ namespace DragonFruit.Six.API.Data
         /// </summary>
         public uint ActionCount { get; set; }
 
+        /// <summary>
+        /// Total operator headshots
+        /// </summary>
         public uint Headshots { get; set; }
 
+        /// <summary>
+        /// Total operator downs (the player has downed)
+        /// </summary>
         public uint Downs { get; set; }
 
         public uint Kills { get; set; }
-
         public uint Deaths { get; set; }
 
         public uint Wins { get; set; }
-
         public uint Losses { get; set; }
 
         public uint RoundsPlayed { get; set; }
-
         public uint Experience { get; set; }
-
         internal uint Duration { get; set; }
 
         public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
-
         public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
-
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 
         public int HoursPlayed => (int)TimePlayed.TotalHours;

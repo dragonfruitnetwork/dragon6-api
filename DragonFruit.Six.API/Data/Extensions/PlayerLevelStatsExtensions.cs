@@ -11,9 +11,15 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class PlayerLevelStatsExtensions
     {
+        /// <summary>
+        /// Get the level, level progression and alpha pack chances for an <see cref="AccountInfo"/>
+        /// </summary>
         public static PlayerLevelStats GetLevel<T>(this T client, AccountInfo account) where T : Dragon6Client
             => GetLevel(client, new[] { account }).First();
 
+        /// <summary>
+        /// Get the level, level progression and alpha pack chances for an array of <see cref="AccountInfo"/>s
+        /// </summary>
         public static IEnumerable<PlayerLevelStats> GetLevel<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);

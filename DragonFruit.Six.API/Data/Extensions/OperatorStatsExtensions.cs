@@ -11,9 +11,15 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class OperatorStatsExtensions
     {
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an <see cref="AccountInfo"/>
+        /// </summary>
         public static IEnumerable<OperatorStats> GetOperatorStats<T>(this T client, AccountInfo account, IEnumerable<OperatorStats> operators) where T : Dragon6Client
             => GetOperatorStats(client, new[] { account }, operators).First();
 
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an array of <see cref="AccountInfo"/>s
+        /// </summary>
         public static IEnumerable<IEnumerable<OperatorStats>> GetOperatorStats<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);

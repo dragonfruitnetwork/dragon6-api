@@ -30,10 +30,10 @@ namespace DragonFruit.Six.API.Tests.Tests
         public void GetRankedStats()
         {
             //single user
-            Client.GetSeasonStats(TestData.TestAccounts.First(), TestData.Region);
+            Client.GetSeasonStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            Client.GetSeasonStats(TestData.TestAccounts, TestData.Region);
+            Client.GetSeasonStats(TestData.TestAccounts);
         }
 
         [TestMethod]
