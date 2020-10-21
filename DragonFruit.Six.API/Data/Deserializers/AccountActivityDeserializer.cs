@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Containers;
 using DragonFruit.Six.API.Data.Strings;
@@ -28,7 +27,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 {
                     Guid = entry.GetString(Activity.Guid),
                     SessionCount = entry.GetUInt(Activity.Sessions),
-                    Platform = UbisoftIdentifiers.GameIds.SingleOrDefault(x => x.Value.Equals(entry.GetString(Activity.PlatformId), StringComparison.OrdinalIgnoreCase)).Key,
+                    Platform = UbisoftIdentifiers.GameIds[entry.GetString(Activity.PlatformId)],
                     Activity = new ActivityDateContainer
                     {
                         First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), Dragon6Client.Culture),
