@@ -31,7 +31,7 @@ namespace DragonFruit.Six.API.Data
         public Platform Platform { get; set; }
 
         [OnDeserialized]
-        internal void OnDeserializedMethod(StreamingContext context)
+        internal void ProcessData(StreamingContext context)
         {
             Platform = UbisoftIdentifiers.GameIds[AppId];
             Status = Maintenance == true
