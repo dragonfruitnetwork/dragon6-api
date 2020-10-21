@@ -77,7 +77,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
 
                 #region Modes
 
-                Bomb = new ModeStatsContainer
+                Bomb = new BombModeStats
                 {
                     Wins = json.GetUInt(Modes.Bomb.Wins.ToStatsKey()),
                     Losses = json.GetUInt(Modes.Bomb.Losses.ToStatsKey()),
@@ -88,7 +88,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     MatchesPlayed = json.GetUInt(Modes.Bomb.MatchesPlayed.ToStatsKey())
                 },
 
-                Hostage = new ModeStatsContainer
+                Hostage = new HostageModeStats
                 {
                     Wins = json.GetUInt(Modes.Hostage.Wins.ToStatsKey()),
                     Losses = json.GetUInt(Modes.Hostage.Losses.ToStatsKey()),
@@ -96,10 +96,13 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Highscore = json.GetUInt(Modes.Hostage.Highscore.ToStatsKey()),
 
                     Duration = json.GetUInt(Modes.Hostage.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey())
+                    MatchesPlayed = json.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey()),
+
+                    Rescues = json.GetUInt(Modes.Hostage.Rescues.ToStatsKey()),
+                    Defenses = json.GetUInt(Modes.Hostage.Defenses.ToStatsKey())
                 },
 
-                Secure = new ModeStatsContainer
+                Secure = new SecureModeStats
                 {
                     Wins = json.GetUInt(Modes.Secure.Wins.ToStatsKey()),
                     Losses = json.GetUInt(Modes.Secure.Losses.ToStatsKey()),
@@ -107,7 +110,11 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Highscore = json.GetUInt(Modes.Secure.Highscore.ToStatsKey()),
 
                     Duration = json.GetUInt(Modes.Secure.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey())
+                    MatchesPlayed = json.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey()),
+
+                    Aggressions = json.GetUInt(Modes.Secure.Aggressions.ToStatsKey()),
+                    Defenses = json.GetUInt(Modes.Secure.Defenses.ToStatsKey()),
+                    Captures = json.GetUInt(Modes.Secure.Captures.ToStatsKey())
                 },
 
                 #endregion
@@ -130,11 +137,11 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 DownAssists = json.GetUInt(General.DownAssists.ToStatsKey()),
                 Suicides = json.GetUInt(General.Suicides.ToStatsKey()),
 
-                ShotsFired = json.GetLong(General.BulletFired.ToStatsKey()),
-                ShotsConnected = json.GetLong(General.BulletHit.ToStatsKey()),
+                ShotsFired = json.GetULong(General.BulletFired.ToStatsKey()),
+                ShotsConnected = json.GetULong(General.BulletHit.ToStatsKey()),
 
-                Experience = json.GetLong(General.Experience.ToStatsKey()),
-                DistanceTravelled = json.GetLong(General.DistanceTravelled.ToStatsKey())
+                Experience = json.GetULong(General.Experience.ToStatsKey()),
+                DistanceTravelled = json.GetULong(General.DistanceTravelled.ToStatsKey())
             };
 
             return result;

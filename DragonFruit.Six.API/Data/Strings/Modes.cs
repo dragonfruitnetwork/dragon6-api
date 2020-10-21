@@ -23,6 +23,9 @@ namespace DragonFruit.Six.API.Data.Strings
 
             public static string Time => "rescuehostagepvp_timeplayed";
             public static string Highscore => "rescuehostagepvp_bestscore";
+
+            public static string Rescues => "generalpvp_hostagerescue";
+            public static string Defenses => "generalpvp_hostagedefense";
         }
 
         public static class Secure
@@ -33,6 +36,10 @@ namespace DragonFruit.Six.API.Data.Strings
 
             public static string Time => "secureareapvp_timeplayed";
             public static string Highscore => "secureareapvp_bestscore";
+
+            public static string Aggressions => "secureareapvp_serveraggression";
+            public static string Defenses => "secureareapvp_serverdefender";
+            public static string Captures => "secureareapvp_servershacked";
         }
     }
 }
