@@ -13,7 +13,9 @@ namespace DragonFruit.Six.API.Data
     {
         private float? _kd;
         private float? _wl;
+
         private RankInfo _rankInfo;
+        private RankInfo _maxRankInfo;
 
         [JsonProperty("guid")]
         public string Guid { get; set; }
@@ -54,7 +56,7 @@ namespace DragonFruit.Six.API.Data
         public int Rank { get; set; }
 
         [JsonProperty("maxrank")]
-        public uint MaxRank { get; set; }
+        public int MaxRank { get; set; }
 
         [JsonProperty("top_rank_position")]
         public uint? TopRankPosition { get; set; }
@@ -94,5 +96,8 @@ namespace DragonFruit.Six.API.Data
 
         [JsonIgnore]
         public RankInfo RankInfo => _rankInfo ??= Rank > 14 ? SeasonalRanks.Rank(Rank) : SeasonalRanks.Legacy(Rank);
+
+        [JsonIgnore]
+        public RankInfo MaxRankInfo => _maxRankInfo ??= Rank > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
     }
 }
