@@ -32,7 +32,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 Abandons = json.GetUInt(Seasonal.Abandons),
 
                 Rank = json.GetInt(Seasonal.Rank),
-                MaxRank = json.GetUInt(Seasonal.MaxRank),
+                MaxRank = json.GetInt(Seasonal.MaxRank),
                 TopRankPosition = json.GetUInt(Seasonal.TopRankPosition),
 
                 MMR = json.GetDouble(Seasonal.MMR),
