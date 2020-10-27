@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DragonFruit.Six.API.Tests.Tests
 {
     [TestClass]
-    public class ServerStatusTests : TestBase
+    public class UbisoftToolsTests : TestBase
     {
         [TestMethod]
         public void TestServerStatus()
@@ -19,6 +19,12 @@ namespace DragonFruit.Six.API.Tests.Tests
             {
                 Trace.WriteLine($"{platform.Platform} | {platform.Status}");
             }
+        }
+
+        [TestMethod]
+        public void TestLocationInfo()
+        {
+            Client.GetUserLocationInfo();
         }
     }
 }
