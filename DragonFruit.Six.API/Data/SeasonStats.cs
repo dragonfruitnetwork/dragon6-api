@@ -9,11 +9,8 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class SeasonStats
+    public class SeasonStats : StatsBase
     {
-        private float? _kd;
-        private float? _wl;
-
         private RankInfo _rankInfo;
         private RankInfo _maxRankInfo;
 
@@ -29,26 +26,8 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("last_match_result")]
         public MatchResult LastMatchResult { get; set; }
 
-        [JsonProperty("kills")]
-        public uint Kills { get; set; }
-
-        [JsonProperty("deaths")]
-        public uint Deaths { get; set; }
-
-        [JsonProperty("wins")]
-        public uint Wins { get; set; }
-
-        [JsonProperty("losses")]
-        public uint Losses { get; set; }
-
         [JsonProperty("abandons")]
         public uint Abandons { get; set; }
-
-        [JsonProperty("wl")]
-        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses + Abandons);
-
-        [JsonProperty("kd")]
-        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
 
         #region Rank
 

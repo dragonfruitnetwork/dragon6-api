@@ -1,14 +1,16 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using DragonFruit.Six.API.Data.Interfaces;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class WeaponStats
+    public class WeaponStats : IHasKd
     {
+        private float? _kd;
         private float? _power;
         private float? _headshotRatio;
         private float? _efficiency;
@@ -52,6 +54,9 @@ namespace DragonFruit.Six.API.Data
 
         [JsonProperty("shots_landed")]
         public uint ShotsLanded { get; set; }
+
+        [JsonProperty("kd")]
+        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
 
         /// <summary>
         /// Accuracy ratio consisting of <see cref="ShotsLanded"/> to <see cref="ShotsFired"/>

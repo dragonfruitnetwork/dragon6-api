@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.API.Data.Interfaces;
 using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json;
 
@@ -45,7 +46,7 @@ namespace DragonFruit.Six.API.Data.Containers
         public uint Captures { get; set; }
     }
 
-    public abstract class ModeStatsContainer
+    public abstract class ModeStatsContainer : IHasWl
     {
         private float? _wl;
         private TimeSpan? _timePlayed;

@@ -8,10 +8,8 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class OperatorStats
+    public class OperatorStats : StatsBase
     {
-        private float? _kd;
-        private float? _wl;
         private TimeSpan? _timePlayed;
 
         /// <summary>
@@ -98,18 +96,6 @@ namespace DragonFruit.Six.API.Data
         [JsonProperty("downs")]
         public uint Downs { get; set; }
 
-        [JsonProperty("kills")]
-        public uint Kills { get; set; }
-
-        [JsonProperty("deaths")]
-        public uint Deaths { get; set; }
-
-        [JsonProperty("wins")]
-        public uint Wins { get; set; }
-
-        [JsonProperty("losses")]
-        public uint Losses { get; set; }
-
         [JsonProperty("rounds")]
         public uint RoundsPlayed { get; set; }
 
@@ -118,12 +104,6 @@ namespace DragonFruit.Six.API.Data
 
         [JsonProperty("time")]
         internal uint Duration { get; set; }
-
-        [JsonProperty("kd")]
-        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
-
-        [JsonProperty("wl")]
-        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
 
         [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
