@@ -17,7 +17,9 @@ namespace DragonFruit.Six.API.Demo
         private static async Task Main(string[] args)
         {
             var d6Client = new Dragon6DemoClient();
-            using var operatorInformationTask = Task.Run(() => d6Client.GetOperatorInfo());
+
+            var operatorInformationTask = Task.Run(() => d6Client.GetOperatorInfo());
+            var locationInfoTask = Task.Run(() => d6Client.GetUserLocationInfo());
 
             var playerInfo = d6Client.GetUser(Platform.PC, LookupMethod.UserId, "14c01250-ef26-4a32-92ba-e04aa557d619");
 
@@ -40,6 +42,7 @@ namespace DragonFruit.Six.API.Demo
 
             var account = new JObject
             {
+                { "ip_organisation", (await locationInfoTask).Organization },
                 { "account", JToken.FromObject(playerInfo) },
                 { "login", JToken.FromObject(loginInfo) },
                 { "level", JToken.FromObject(level) },
