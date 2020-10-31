@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DragonFruit.Six.API\DragonFruit.Six.API.csproj" />
     <ProjectReference Include="..\DragonFruit.Six.API.Tests.Common\DragonFruit.Six.API.Tests.Common.csproj" />
-    <ProjectReference Include="..\DragonFruit.Six.API\DragonFruit.Six.API.csproj" />
   </ItemGroup>
-
 </Project>
