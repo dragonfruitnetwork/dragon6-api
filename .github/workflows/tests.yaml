@@ -25,5 +25,5 @@ jobs:
         
       - name: Demo App
         run: |
-          cd DragonFruit.Six.API.Demo
+          cd Tests/DragonFruit.Six.API.Demo
           dotnet run
