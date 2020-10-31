@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.Globalization;
 using System.Net;
 using System.Net.Http;
 using DragonFruit.Common.Data;
@@ -10,12 +11,14 @@ using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
 using DragonFruit.Six.API.Exceptions;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API
 {
     public abstract class Dragon6Client : ApiClient
     {
+        public static readonly CultureInfo Culture = new CultureInfo("en-US", false);
+
         private readonly object _lock = new object();
 
         #region Constructors
@@ -40,8 +43,8 @@ namespace DragonFruit.Six.API
 
         protected Dragon6Client()
         {
-            Serializer = new ApiJsonSerializer(References.Culture);
-            AppId = UbisoftIdentifiers.Websites[UbisoftService.RainbowSix];
+            Serializer = new ApiJsonSerializer(Culture);
+            AppId = UbisoftService.RainbowSix.AppId();
 
             if (string.IsNullOrEmpty(UserAgent))
             {

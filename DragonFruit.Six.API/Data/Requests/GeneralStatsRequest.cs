@@ -3,16 +3,23 @@
 
 using System.Collections.Generic;
 using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class GeneralStatsRequest : BasicStatsRequest
     {
+        /// <summary>
+        /// Initialises a request for all the stats in <see cref="GeneralStats"/> for the provided <see cref="AccountInfo"/>
+        /// </summary>
         public GeneralStatsRequest(AccountInfo account)
             : base(account)
         {
         }
 
+        /// <summary>
+        /// Requests all the stats in <see cref="GeneralStats"/> for the provided array of <see cref="AccountInfo"/>s
+        /// </summary>
         public GeneralStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
@@ -20,51 +27,76 @@ namespace DragonFruit.Six.API.Data.Requests
 
         public override IEnumerable<string> Stats { get; set; } = new[]
         {
-            "rankedpvp_death",
-            "rankedpvp_kdratio",
-            "rankedpvp_kills",
-            "rankedpvp_matchlost",
-            "rankedpvp_matchplayed",
-            "rankedpvp_matchwlratio",
-            "rankedpvp_matchwon",
-            "rankedpvp_timeplayed",
-            "casualpvp_death",
-            "casualpvp_kdratio",
-            "casualpvp_kills",
-            "casualpvp_matchlost",
-            "casualpvp_matchplayed",
-            "casualpvp_matchwlratio",
-            "casualpvp_matchwon",
-            "casualpvp_timeplayed",
-            "generalpvp_barricadedeployed",
-            "generalpvp_dbno",
-            "generalpvp_death",
-            "generalpvp_headshot",
-            "generalpvp_killassists",
-            "generalpvp_kills",
-            "generalpvp_matchlost",
-            "generalpvp_matchwlratio",
-            "generalpvp_matchwon",
-            "generalpvp_meleekills",
-            "generalpvp_reinforcementdeploy",
-            "generalpvp_revive",
-            "generalpvp_suicide",
-            "generalpvp_timeplayed",
-            "generalpvp_revive",
-            "generalpve_kills",
-            "generalpve_death",
-            "generalpve_matchwon",
-            "generalpve_matchlost",
-            "custompvp_timeplayed",
-            "plantbombpvp_bestscore",
-            "rescuehostagepvp_bestscore",
-            "secureareapvp_bestscore",
-            "casualpvp_timeplayed",
-            "rankedpvp_timeplayed",
-            "generalpve_timeplayed",
-            "generalpvp_bulletfired",
-            "generalpvp_penetrationkills",
-            "generalpvp_bullethit"
+            GeneralCasual.Deaths,
+            GeneralCasual.Kills,
+            GeneralCasual.Losses,
+            GeneralCasual.MatchesPlayed,
+            GeneralCasual.Wins,
+            GeneralCasual.Time,
+
+            GeneralRanked.Deaths,
+            GeneralRanked.Kills,
+            GeneralRanked.Losses,
+            GeneralRanked.MatchesPlayed,
+            GeneralRanked.Wins,
+            GeneralRanked.Time,
+
+            GeneralTraining.Deaths,
+            GeneralTraining.Kills,
+            GeneralTraining.Losses,
+            GeneralTraining.MatchesPlayed,
+            GeneralTraining.Wins,
+            GeneralTraining.Time,
+
+            General.Deaths,
+            General.Kills,
+            General.Losses,
+            General.MatchesPlayed,
+            General.Wins,
+            General.Time,
+
+            General.BlindKills,
+            General.Knives,
+            General.Penetrations,
+            General.Assists,
+            General.Headshots,
+
+            General.Suicides,
+            General.Revives,
+            General.Downs,
+            General.DownAssists,
+
+            General.Barricades,
+            General.Reinforcements,
+            General.GadgetsDestroyed,
+            General.Experience,
+
+            General.DistanceTravelled,
+            General.BulletFired,
+            General.BulletHit,
+
+            Modes.Bomb.Highscore,
+            Modes.Bomb.Losses,
+            Modes.Bomb.MatchesPlayed,
+            Modes.Bomb.Time,
+            Modes.Bomb.Wins,
+
+            Modes.Hostage.Highscore,
+            Modes.Hostage.Losses,
+            Modes.Hostage.MatchesPlayed,
+            Modes.Hostage.Time,
+            Modes.Hostage.Wins,
+            Modes.Hostage.Rescues,
+            Modes.Hostage.Defenses,
+
+            Modes.Secure.Highscore,
+            Modes.Secure.Losses,
+            Modes.Secure.MatchesPlayed,
+            Modes.Secure.Time,
+            Modes.Secure.Wins,
+            Modes.Secure.Aggressions,
+            Modes.Secure.Defenses,
+            Modes.Secure.Captures
         };
     }
 }

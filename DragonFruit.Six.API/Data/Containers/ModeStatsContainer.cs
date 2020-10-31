@@ -2,34 +2,86 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.API.Data.Interfaces;
+using DragonFruit.Six.API.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data.Containers
 {
-    public class ModeStatsContainer
+    public class BombModeStats : ModeStatsContainer
     {
-        [JsonProperty("kills")]
-        public uint Kills { get; set; }
+        // no stats right now...
+    }
 
-        [JsonProperty("deaths")]
-        public uint Deaths { get; set; }
+    public class HostageModeStats : ModeStatsContainer
+    {
+        /// <summary>
+        /// The number of hostages the player has rescued
+        /// </summary>
+        [JsonProperty("rescues")]
+        public uint Rescues { get; set; }
 
+        /// <summary>
+        /// Number of people killed while inside the room with the hostage
+        /// </summary>
+        [JsonProperty("defenses")]
+        public uint Defenses { get; set; }
+    }
+
+    public class SecureModeStats : ModeStatsContainer
+    {
+        [JsonProperty("aggressions")]
+        public uint Aggressions { get; set; }
+
+        /// <summary>
+        /// People killed securing the room
+        /// </summary>
+        [JsonProperty("defenses")]
+        public uint Defenses { get; set; }
+
+        /// <summary>
+        /// Rooms successfully secured
+        /// </summary>
+        [JsonProperty("hacks")]
+        public uint Captures { get; set; }
+    }
+
+    public abstract class ModeStatsContainer : IHasWl
+    {
+        private float? _wl;
+        private TimeSpan? _timePlayed;
+
+        /// <summary>
+        /// Total wins in mode
+        /// </summary>
         [JsonProperty("wins")]
         public uint Wins { get; set; }
 
+        /// <summary>
+        /// Total losses in mode
+        /// </summary>
         [JsonProperty("losses")]
         public uint Losses { get; set; }
 
-        [JsonProperty("kd")]
-        public float Kd { get; set; }
-
-        [JsonProperty("wl")]
-        public float Wl { get; set; }
-
-        [JsonProperty("matches")]
+        /// <summary>
+        /// Sum of all matches played
+        /// </summary>
+        [JsonProperty("total_matches")]
         public uint MatchesPlayed { get; set; }
 
-        [JsonProperty("time")]
-        public TimeSpan TimePlayed { get; set; }
+        /// <summary>
+        /// Highest score achieved
+        /// </summary>
+        [JsonProperty("highscore")]
+        public uint Highscore { get; set; }
+
+        [JsonIgnore]
+        internal uint Duration { get; set; }
+
+        [JsonProperty("wl")]
+        public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
+
+        [JsonProperty("time_played")]
+        public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
     }
 }

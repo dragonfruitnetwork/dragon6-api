@@ -7,7 +7,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public class OperatorDataRequest : ApiFileRequest
     {
-        public override string Path => "https://github.com/dragonfruitnetwork/Dragon6-Assets/raw/master/public/data/operators.json";
+        public override string Path => "https://raw.githubusercontent.com/dragonfruitnetwork/Dragon6-Assets/master/public/data/operators.json";
         public override string Destination { get; }
 
         public OperatorDataRequest(string destination)

@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using System.Linq;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 
@@ -12,7 +11,7 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.RankedStats[Platform];
+        public override string Path => Platform.SeasonalStatsEndpoint();
 
         public SeasonStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
@@ -42,6 +41,6 @@ namespace DragonFruit.Six.API.Data.Requests
         public string Region { get; set; } = "EMEA";
 
         [QueryParameter("profile_ids")]
-        public string CompiledAccounts => string.Join(',', Accounts.Select(x => x.Identifiers.Profile));
+        protected override string AccountIdString => base.AccountIdString;
     }
 }

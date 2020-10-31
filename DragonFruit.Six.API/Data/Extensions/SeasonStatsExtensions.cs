@@ -11,15 +11,39 @@ namespace DragonFruit.Six.API.Data.Extensions
 {
     public static class SeasonStatsExtensions
     {
-        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, region, -1).First();
+        /// <summary>
+        /// Get ranked (seasonal) stats for the <see cref="AccountInfo"/> (latest season)
+        /// </summary>
+        /// <remarks>
+        /// Seasonal stats are now region-independent
+        /// </remarks>
+        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account) where T : Dragon6Client
+            => GetSeasonStats(client, new[] { account }, "EMEA", -1).First();
 
-        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region) where T : Dragon6Client
-            => GetSeasonStats(client, accounts, region, -1);
+        /// <summary>
+        /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
+        /// </summary>
+        /// <remarks>
+        /// Seasonal stats are now region-independent
+        /// </remarks>
+        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
+            => GetSeasonStats(client, accounts, "EMEA", -1);
 
+        /// <summary>
+        /// Get ranked (seasonal) stats for an <see cref="AccountInfo"/>
+        /// </summary>
+        /// <remarks>
+        /// Seasonal stats pre-season 18 are region-independent (pass any region)
+        /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId) where T : Dragon6Client
             => GetSeasonStats(client, new[] { account }, region, seasonId).First();
 
+        /// <summary>
+        /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
+        /// </summary>
+        /// <remarks>
+        /// Seasonal stats pre-season 18 are region-independent (pass any region)
+        /// </remarks>
         public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);

@@ -12,8 +12,6 @@ namespace DragonFruit.Six.API.Tests.Common
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public static class TestData
     {
-        public const string Region = "EMEA";
-
         public static readonly IEnumerable<AccountInfo> TestAccounts = new[]
         {
             new AccountInfo

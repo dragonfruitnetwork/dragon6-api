@@ -13,25 +13,26 @@ namespace DragonFruit.Six.API.Data.Deserializers
     {
         public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
         {
-            var json = (JObject)jObject[Misc.Players][guid];
+            var json = jObject[Misc.Players]?[guid] as JObject;
+
+            if (json == null)
+                return null;
 
             return new SeasonStats
             {
                 Guid = guid,
-                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(References.Culture)), References.Culture),
+                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(Dragon6Client.Culture)), Dragon6Client.Culture),
                 SeasonId = json.GetByte(Seasonal.Season),
 
                 Kills = json.GetUInt(Seasonal.Kills),
                 Deaths = json.GetUInt(Seasonal.Deaths),
-                KD = json.GetFloat(Seasonal.Kills, 1) / json.GetFloat(Seasonal.Deaths, 1),
 
                 Wins = json.GetUInt(Seasonal.Wins),
                 Losses = json.GetUInt(Seasonal.Losses),
                 Abandons = json.GetUInt(Seasonal.Abandons),
-                WL = json.GetFloat(Seasonal.Wins, 1) / Math.Clamp(json.GetFloat(Seasonal.Losses) + json.GetFloat(Seasonal.Abandons), 1, float.MaxValue),
 
-                Rank = json.GetUInt(Seasonal.Rank),
-                MaxRank = json.GetUInt(Seasonal.MaxRank),
+                Rank = json.GetInt(Seasonal.Rank),
+                MaxRank = json.GetInt(Seasonal.MaxRank),
                 TopRankPosition = json.GetUInt(Seasonal.TopRankPosition),
 
                 MMR = json.GetDouble(Seasonal.MMR),

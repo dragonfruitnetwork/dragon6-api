@@ -5,22 +5,35 @@ namespace DragonFruit.Six.API.Data.Strings
 {
     public static class General
     {
-        public static readonly string Barricades = "generalpvp_barricadedeployed:infinite";
-        public static readonly string Reinforcements = "generalpvp_reinforcementdeploy:infinite";
+        public static string Kills => "generalpvp_kills";
+        public static string Deaths => "generalpvp_death";
 
-        public static readonly string Downs = "generalpvp_dbno:infinite";
-        public static readonly string Revives = "generalpvp_revive:infinite";
+        public static string Wins => "generalpvp_matchwon";
+        public static string Losses => "generalpvp_matchlost";
 
-        public static readonly string Headshots = "generalpvp_headshot:infinite";
-        public static readonly string Knives = "generalpvp_meleekills:infinite";
-        public static readonly string Penetrations = "generalpvp_penetrationkills:infinite";
+        public static string Time => "generalpvp_timeplayed";
+        public static string MatchesPlayed => "generalpvp_matchplayed";
 
-        public static readonly string Assists = "generalpvp_killassists:infinite";
-        public static readonly string Suicides = "generalpvp_suicide:infinite";
+        public static string Barricades => "generalpvp_barricadedeployed";
+        public static string Reinforcements => "generalpvp_reinforcementdeploy";
+        public static string GadgetsDestroyed => "generalpvp_gadgetdestroy";
 
-        public static readonly string BulletFired = "generalpvp_bulletfired:infinite";
-        public static readonly string BulletHit = "generalpvp_bullethit:infinite";
+        public static string Downs => "generalpvp_dbno";
+        public static string Revives => "generalpvp_revive";
 
-        public static readonly string Level = "level";
+        public static string Headshots => "generalpvp_headshot";
+        public static string Knives => "generalpvp_meleekills";
+        public static string Penetrations => "generalpvp_penetrationkills";
+        public static string BlindKills => "generalpvp_blindkills";
+
+        public static string Assists => "generalpvp_killassists";
+        public static string DownAssists => "generalpvp_dbnoassists";
+        public static string Suicides => "generalpvp_suicide";
+
+        public static string BulletFired => "generalpvp_bulletfired";
+        public static string BulletHit => "generalpvp_bullethit";
+
+        public static string Experience => "generalpvp_totalxp";
+        public static string DistanceTravelled => "generalpvp_distancetravelled";
     }
 }

@@ -2,34 +2,42 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using System.Linq;
 using DragonFruit.Common.Data.Parameters;
 
 namespace DragonFruit.Six.API.Data.Requests.Base
 {
     /// <summary>
-    /// Base for requesting stats from the main endpoint
+    /// Base for requesting general stats from the main endpoint
     /// </summary>
     public class BasicStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Endpoints.Stats[Accounts.First().Platform];
+        public override string Path => Platform.StatsEndpoint();
 
+        /// <summary>
+        /// Initialises a <see cref="BasicStatsRequest"/> for a single <see cref="AccountInfo"/>
+        /// </summary>
         public BasicStatsRequest(AccountInfo account)
             : base(new[] { account })
         {
         }
 
+        /// <summary>
+        /// Initialises a <see cref="BasicStatsRequest"/> for an array of <see cref="AccountInfo"/>s
+        /// </summary>
         public BasicStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }
 
+        /// <summary>
+        /// An <see cref="IEnumerable{T}"/> of stats to fetch (can be found in <see cref="Strings"/> namespace
+        /// </summary>
         public virtual IEnumerable<string> Stats { get; set; }
 
         [QueryParameter("populations")]
-        public override string AccountIdString => base.AccountIdString;
+        protected override string AccountIdString => base.AccountIdString;
 
         [QueryParameter("statistics")]
-        public string CompiledStats => string.Join(',', Stats);
+        public string CompiledStats => string.Join(",", Stats);
     }
 }

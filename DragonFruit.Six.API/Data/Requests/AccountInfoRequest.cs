@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Helpers;
+using DragonFruit.Six.API.Utils;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
@@ -33,22 +33,31 @@ namespace DragonFruit.Six.API.Data.Requests
             LookupQuery = queries;
         }
 
+        /// <summary>
+        /// The platform the query is to be checked against
+        /// </summary>
         public Platform Platform { get; set; }
 
+        /// <summary>
+        /// The type of query provided
+        /// </summary>
         public LookupMethod LookupMethod { get; set; }
 
+        /// <summary>
+        /// The queries
+        /// </summary>
         public IEnumerable<string> LookupQuery { get; set; }
 
         [QueryParameter("platformType")]
-        public string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
+        protected string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
 
         [QueryParameter("nameOnPlatform")]
-        public string PlayerNames => LookupMethod == LookupMethod.Name ? string.Join(',', LookupQuery) : null;
+        protected string PlayerNames => LookupMethod == LookupMethod.Name ? string.Join(",", LookupQuery) : null;
 
         [QueryParameter("idOnPlatform")]
-        public string PlatformIds => LookupMethod == LookupMethod.PlatformId ? string.Join(',', LookupQuery) : null;
+        protected string PlatformIds => LookupMethod == LookupMethod.PlatformId ? string.Join(",", LookupQuery) : null;
 
         [QueryParameter("userId")]
-        public string UbisoftIds => LookupMethod == LookupMethod.UserId ? string.Join(',', LookupQuery) : null;
+        protected string UbisoftIds => LookupMethod == LookupMethod.UserId ? string.Join(",", LookupQuery) : null;
     }
 }

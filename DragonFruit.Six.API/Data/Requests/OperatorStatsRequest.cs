@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
@@ -19,15 +20,19 @@ namespace DragonFruit.Six.API.Data.Requests
         {
             Stats = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
             {
-                "operatorpvp_kills",
-                "operatorpvp_headshot",
-                "operatorpvp_dbno",
-                "operatorpvp_death",
-                "operatorpvp_roundlost",
-                "operatorpvp_roundplayed",
-                "operatorpvp_roundwlratio",
-                "operatorpvp_roundwon",
-                "operatorpvp_timeplayed"
+                Operator.Kills,
+                Operator.Deaths,
+
+                Operator.Headshots,
+                Operator.Downs,
+
+                Operator.Wins,
+                Operator.Losses,
+
+                Operator.Rounds,
+                Operator.Time,
+
+                Operator.Experience
             });
         }
     }

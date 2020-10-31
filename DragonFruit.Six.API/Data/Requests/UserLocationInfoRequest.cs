@@ -5,8 +5,8 @@ using DragonFruit.Common.Data;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public class OperatorInfoRequest : ApiRequest
+    public class UserLocationInfoRequest : ApiRequest
     {
-        public override string Path => "https://raw.githubusercontent.com/dragonfruitnetwork/Dragon6-Assets/master/public/data/operators.json";
+        public override string Path => "https://public-ubiservices.ubi.com/v2/profiles/me/iplocation";
     }
 }

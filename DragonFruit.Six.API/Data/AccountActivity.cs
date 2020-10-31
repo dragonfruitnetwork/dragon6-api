@@ -7,17 +7,26 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class AccountLoginInfo
+    public class AccountActivity
     {
+        /// <summary>
+        /// User profile id
+        /// </summary>
         [JsonProperty("guid")]
         public string Guid { get; set; }
 
         [JsonProperty("platform")]
         public Platform Platform { get; set; }
 
+        /// <summary>
+        /// Number of times the game has been opened
+        /// </summary>
         [JsonProperty("sessions")]
         public uint SessionCount { get; set; }
 
+        /// <summary>
+        /// Dates of the first and last time logged in
+        /// </summary>
         [JsonProperty("activity")]
         public ActivityDateContainer Activity { get; set; }
     }
