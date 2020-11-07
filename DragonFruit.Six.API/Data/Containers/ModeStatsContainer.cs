@@ -75,13 +75,13 @@ namespace DragonFruit.Six.API.Data.Containers
         [JsonProperty("highscore")]
         public uint Highscore { get; set; }
 
-        [JsonIgnore]
-        internal uint Duration { get; set; }
+        [JsonProperty("time")]
+        protected internal uint Duration { get; set; }
 
         [JsonProperty("wl")]
         public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
 
-        [JsonProperty("time_played")]
+        [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
     }
 }

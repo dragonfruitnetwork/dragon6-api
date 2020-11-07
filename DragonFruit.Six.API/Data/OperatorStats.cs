@@ -103,7 +103,7 @@ namespace DragonFruit.Six.API.Data
         public uint Experience { get; set; }
 
         [JsonProperty("time")]
-        internal uint Duration { get; set; }
+        protected internal uint Duration { get; set; }
 
         [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
