@@ -36,7 +36,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 op.Downs = json.GetUInt(Operator.Downs.ToIndexedStatsKey(op.Index));
 
                 op.Experience = json.GetUInt(Operator.Experience.ToIndexedStatsKey(op.Index));
-                op.ActionCount = json.GetUInt(op.OperatorActionResultId);
+                op.ActionCount = (uint?)json[op.OperatorActionResultId];
 
                 yield return op;
             }

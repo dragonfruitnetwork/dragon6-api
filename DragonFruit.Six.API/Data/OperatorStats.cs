@@ -82,7 +82,7 @@ namespace DragonFruit.Six.API.Data
         /// Number of times the operator has performed their ability
         /// </summary>
         [JsonProperty("action_completed")]
-        public uint ActionCount { get; set; }
+        public uint? ActionCount { get; set; }
 
         /// <summary>
         /// Total operator headshots
