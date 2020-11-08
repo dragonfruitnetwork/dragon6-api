@@ -13,7 +13,7 @@ dotnet build -c Release /p:PackageVersion=$VERSION
 #pack into nuget files with the suffix if we have one
 
 Write-Output "Publishing DragonFruit.Six.API Version $VERSION"
-dotnet pack ".\DragonFruit.Six.API\DragonFruit.Six.API.csproj" -o $WORKINGDIR -c Release -p:PackageVersion=$VERSION
+dotnet pack ".\DragonFruit.Six.API\DragonFruit.Six.API.csproj" -o $WORKINGDIR -c Release -p:PackageVersion=$VERSION -p:Version=$VERSION
 
 #recursively push all nuget files created
 
