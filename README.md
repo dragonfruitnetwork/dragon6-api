@@ -5,7 +5,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 [![Nuget](https://img.shields.io/nuget/dt/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 ![GitHub](https://img.shields.io/github/license/dragonfruitnetwork/Dragon6-API)
-[![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord)](https://dragonfruit.network/discord)
+[![DragonFruit Discord](https://img.shields.io/discord/482528405292843018?label=Discord)](https://dragon6.dragonfruit.network/discord)
 
 ### Overview
 
