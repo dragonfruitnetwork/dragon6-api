@@ -25,6 +25,7 @@ namespace DragonFruit.Six.API.Utils
             UbisoftService.UPlay => "e06033f4-28a4-43fb-8313-6c2d882bc4a6",
             UbisoftService.UbisoftClub => "314d4fef-e568-454a-ae06-43e3bece12a6",
             UbisoftService.UbisoftAccount => "c5393f10-7ac7-4b4f-90fa-21f8f3451a04",
+            UbisoftService.NewStatsSite => "3587dcbb-7f81-457c-9781-0e3f29f6f56a",
 
             _ => throw new ArgumentOutOfRangeException()
         };
