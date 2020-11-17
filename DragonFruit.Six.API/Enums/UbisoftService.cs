@@ -26,5 +26,10 @@ namespace DragonFruit.Six.API.Enums
         /// Ubisoft Account Management site
         /// </summary>
         UbisoftAccount = 3,
+
+        /// <summary>
+        /// The new (2020) Rainbow Six Stats Site
+        /// </summary>
+        NewStatsSite = 4,
     }
 }
