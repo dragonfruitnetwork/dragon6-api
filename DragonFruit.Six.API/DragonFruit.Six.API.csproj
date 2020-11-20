@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DragonFruit.Common.Data" Version="2020.1114.19" />
+    <PackageReference Include="DragonFruit.Common.Data" Version="2020.1119.20" />
   </ItemGroup>
 
 </Project>
