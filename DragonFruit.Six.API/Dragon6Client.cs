@@ -70,7 +70,7 @@ namespace DragonFruit.Six.API
         /// </summary>
         protected abstract TokenBase GetToken();
 
-        public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
+        public T Perform<T>(UbiApiRequest requestData, CancellationToken cancellationToken, CancellationToken token = default) where T : class
         {
             lock (_lock)
             {
@@ -95,6 +95,6 @@ namespace DragonFruit.Six.API
                 _ => base.ValidateAndProcess<T>(response, request)
             };
 
-        internal T BypassingPerform<T>(TokenRequest request) where T : class => base.Perform<T>(request);
+        internal T BypassingPerform<T>(TokenRequest request, CancellationToken token = default) where T : class => base.Perform<T>(request, token);
     }
 }
