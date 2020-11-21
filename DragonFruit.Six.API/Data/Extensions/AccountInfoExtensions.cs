@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using DragonFruit.Six.API.Data.Deserializers;
 using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Enums;
@@ -15,16 +16,16 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <summary>
         /// Get a user's account info (in order to get stats)
         /// </summary>
-        public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, string query) where T : Dragon6Client
-            => GetUsers(client, platform, lookupMethod, new[] { query }).First();
+        public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, string query, CancellationToken token = default) where T : Dragon6Client
+            => GetUsers(client, platform, lookupMethod, new[] { query }, token).First();
 
         /// <summary>
         /// Get multiple users' account info through a mass query search
         /// </summary>
-        public static IEnumerable<AccountInfo> GetUsers<T>(this T client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries) where T : Dragon6Client
+        public static IEnumerable<AccountInfo> GetUsers<T>(this T client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries, CancellationToken token = default) where T : Dragon6Client
         {
             var request = new AccountInfoRequest(platform, lookupMethod, queries);
-            return client.Perform<JObject>(request).DeserializeAccountInfo();
+            return client.Perform<JObject>(request, token).DeserializeAccountInfo();
         }
     }
 }

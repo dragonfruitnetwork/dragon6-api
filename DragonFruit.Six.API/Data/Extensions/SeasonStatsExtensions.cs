@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using DragonFruit.Six.API.Data.Deserializers;
 using DragonFruit.Six.API.Data.Requests;
 using Newtonsoft.Json.Linq;
@@ -17,8 +18,8 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <remarks>
         /// Seasonal stats are now region-independent
         /// </remarks>
-        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, "EMEA", -1).First();
+        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
+            => GetSeasonStats(client, new[] { account }, "EMEA", -1, token).First();
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -26,8 +27,8 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <remarks>
         /// Seasonal stats are now region-independent
         /// </remarks>
-        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts) where T : Dragon6Client
-            => GetSeasonStats(client, accounts, "EMEA", -1);
+        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+            => GetSeasonStats(client, accounts, "EMEA", -1, token);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an <see cref="AccountInfo"/>
@@ -35,8 +36,8 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
-        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, region, seasonId).First();
+        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
+            => GetSeasonStats(client, new[] { account }, region, seasonId, token).First();
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -44,7 +45,7 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
-        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId) where T : Dragon6Client
+        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
@@ -56,7 +57,7 @@ namespace DragonFruit.Six.API.Data.Extensions
                     Region = region
                 };
 
-                var data = client.Perform<JObject>(request);
+                var data = client.Perform<JObject>(request, token);
 
                 foreach (var id in request.AccountIds)
                 {

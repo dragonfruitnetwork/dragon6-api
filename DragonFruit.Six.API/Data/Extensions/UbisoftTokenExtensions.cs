@@ -3,6 +3,7 @@
 
 using System;
 using System.Text;
+using System.Threading;
 using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Data.Tokens;
 
@@ -20,10 +21,10 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// </remarks>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="loginString">The base64 encoded string in the format username:password</param>
-        public static UbisoftToken GetUbiToken<T>(this T client, string loginString) where T : Dragon6Client
+        public static UbisoftToken GetUbiToken<T>(this T client, string loginString, CancellationToken token = default) where T : Dragon6Client
         {
             var request = new TokenRequest(loginString);
-            return client.BypassingPerform<UbisoftToken>(request);
+            return client.BypassingPerform<UbisoftToken>(request, token);
         }
 
         /// <summary>
@@ -37,12 +38,12 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="username">The username to use</param>
         /// <param name="password">The password to use</param>
-        public static UbisoftToken GetUbiToken<T>(this T client, string username, string password) where T : Dragon6Client
+        public static UbisoftToken GetUbiToken<T>(this T client, string username, string password, CancellationToken token = default) where T : Dragon6Client
         {
             var loginString = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
             var request = new TokenRequest(loginString);
 
-            return client.BypassingPerform<UbisoftToken>(request);
+            return client.BypassingPerform<UbisoftToken>(request, token);
         }
     }
 }
