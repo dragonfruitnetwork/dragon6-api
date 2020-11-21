@@ -4,6 +4,7 @@
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.API.Data.Requests;
@@ -18,7 +19,6 @@ namespace DragonFruit.Six.API
     public abstract class Dragon6Client : ApiClient
     {
         public static readonly CultureInfo Culture = new CultureInfo("en-US", false);
-
         private readonly object _lock = new object();
 
         #region Constructors
@@ -70,7 +70,7 @@ namespace DragonFruit.Six.API
         /// </summary>
         protected abstract TokenBase GetToken();
 
-        public T Perform<T>(UbiApiRequest requestData) where T : class
+        public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
         {
             lock (_lock)
             {
@@ -81,7 +81,7 @@ namespace DragonFruit.Six.API
                 }
             }
 
-            return base.Perform<T>(requestData);
+            return base.Perform<T>(requestData, token);
         }
 
         /// <summary>
