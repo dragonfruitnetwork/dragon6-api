@@ -23,7 +23,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
             {
                 Platform = PlatformParser.PlatformEnumFor(jObject.GetString(Accounts.PlatformIdentifier, "uplay")),
                 PlayerName = jObject.GetString(Accounts.Name),
-                Identifiers = new UserIdentifierContainer
+                Identifiers = new UserIdentifiers
                 {
                     Platform = jObject.GetString(Accounts.ProfileIdentifier)
                 }

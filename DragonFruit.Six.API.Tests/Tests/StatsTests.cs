@@ -20,10 +20,10 @@ namespace DragonFruit.Six.API.Tests.Tests
         public void GetGeneralStats()
         {
             //single user
-            Client.GetStats(TestData.TestAccounts.First());
+            Client.GetClassicStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            Client.GetStats(TestData.TestAccounts);
+            Client.GetClassicStats(TestData.TestAccounts);
         }
 
         [TestMethod]
@@ -40,10 +40,10 @@ namespace DragonFruit.Six.API.Tests.Tests
         public void GetWeaponStats()
         {
             //single user
-            Client.GetWeaponStats(TestData.TestAccounts.First());
+            Client.GetClassicWeaponStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            Client.GetWeaponStats(TestData.TestAccounts);
+            Client.GetClassicWeaponStats(TestData.TestAccounts);
         }
 
         [TestMethod]
@@ -59,11 +59,11 @@ namespace DragonFruit.Six.API.Tests.Tests
         [TestMethod]
         public void GetOperatorStats()
         {
-            IEnumerable<OperatorStats> opData = null;
+            IEnumerable<ClassicOperatorStats> opData = null;
 
             try
             {
-                opData = WebServices.StreamObject<IEnumerable<OperatorStats>>("https://d6static.dragonfruit.network/data/operators.json");
+                opData = WebServices.StreamObject<IEnumerable<ClassicOperatorStats>>("https://d6static.dragonfruit.network/data/operators.json");
             }
             catch
             {
@@ -72,10 +72,10 @@ namespace DragonFruit.Six.API.Tests.Tests
             }
 
             //single user
-            Client.GetOperatorStats(TestData.TestAccounts.First(), opData);
+            Client.GetClassicOperatorStats(TestData.TestAccounts.First(), opData);
 
             //multi users - different platforms
-            Client.GetOperatorStats(TestData.TestAccounts, opData);
+            Client.GetClassicOperatorStats(TestData.TestAccounts, opData);
         }
     }
 }

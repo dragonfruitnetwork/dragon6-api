@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class GeneralStats
+    public class ClassicStats
     {
         /// <summary>
         /// Profile Id
@@ -17,16 +17,16 @@ namespace DragonFruit.Six.API.Data
         #region Playlists
 
         [JsonProperty("overall")]
-        public PlaylistStatsContainer Overall { get; set; }
+        public PlaylistStats Overall { get; set; }
 
         [JsonProperty("casual")]
-        public PlaylistStatsContainer Casual { get; set; }
+        public PlaylistStats Casual { get; set; }
 
         [JsonProperty("ranked")]
-        public PlaylistStatsContainer Ranked { get; set; }
+        public PlaylistStats Ranked { get; set; }
 
         [JsonProperty("training")]
-        public PlaylistStatsContainer Training { get; set; }
+        public PlaylistStats Training { get; set; }
 
         #endregion
 

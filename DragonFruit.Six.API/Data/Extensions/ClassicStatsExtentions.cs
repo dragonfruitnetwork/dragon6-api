@@ -10,29 +10,29 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Extensions
 {
-    public static class GeneralStatsExtentions
+    public static class ClassicStatsExtentions
     {
         /// <summary>
-        /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
+        /// Get the <see cref="ClassicStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
         /// </summary>
-        public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client 
-            => GetStats(client, new[] { account }, token).First();
+        public static ClassicStats GetClassicStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client 
+            => GetClassicStats(client, new[] { account }, token).First();
 
         /// <summary>
-        /// Get the <see cref="GeneralStats"/> (non-seasonal) for an array of <see cref="AccountInfo"/>s
+        /// Get the <see cref="ClassicStats"/> (non-seasonal) for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static IEnumerable<GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<ClassicStats> GetClassicStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
-                var request = new GeneralStatsRequest(group);
+                var request = new ClassicStatsRequest(group);
                 var data = client.Perform<JObject>(request, token);
 
                 foreach (var id in request.AccountIds)
                 {
-                    yield return data.DeserializeGeneralStatsFor(id);
+                    yield return data.DeserializeClassicStatsFor(id);
                 }
             }
         }

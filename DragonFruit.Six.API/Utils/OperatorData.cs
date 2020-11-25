@@ -18,19 +18,19 @@ namespace DragonFruit.Six.API.Utils
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        public static IEnumerable<OperatorStats> FromFile(string location)
+        public static IEnumerable<ClassicOperatorStats> FromFile(string location)
         {
-            return FileServices.ReadFile<IEnumerable<OperatorStats>>(location);
+            return FileServices.ReadFile<IEnumerable<ClassicOperatorStats>>(location);
         }
 
         /// <summary>
         /// Gets the <see cref="IEnumerable{T}"/> needed to use the <see cref="GetOperatorStats"/> extensions
         /// </summary>
         /// <param name="client">The <see cref="ApiClient"/> to use</param>
-        public static IEnumerable<OperatorStats> GetOperatorInfo(this ApiClient client)
+        public static IEnumerable<ClassicOperatorStats> GetOperatorInfo(this ApiClient client)
         {
-            var request = new OperatorDataRequest(null);
-            return client.Perform<IEnumerable<OperatorStats>>(request);
+            var request = new ClassicOperatorDataRequest(null);
+            return client.Perform<IEnumerable<ClassicOperatorStats>>(request);
         }
     }
 }

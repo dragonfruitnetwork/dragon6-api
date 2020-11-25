@@ -7,31 +7,31 @@ using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class WeaponStatsRequest : BasicStatsRequest
+    public sealed class ClassicWeaponStatsRequest : ClassicStatsRequestBase
     {
-        public WeaponStatsRequest(AccountInfo account)
+        public ClassicWeaponStatsRequest(AccountInfo account)
             : base(account)
         {
         }
 
-        public WeaponStatsRequest(IEnumerable<AccountInfo> accounts)
+        public ClassicWeaponStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }
 
         public override IEnumerable<string> Stats { get; set; } = new[]
         {
-            Weapon.Picked,
+            ClassicWeapon.Picked,
 
-            Weapon.Kills,
-            Weapon.Deaths,
+            ClassicWeapon.Kills,
+            ClassicWeapon.Deaths,
 
-            Weapon.Headshots,
-            Weapon.Downs,
-            Weapon.DownAssists,
+            ClassicWeapon.Headshots,
+            ClassicWeapon.Downs,
+            ClassicWeapon.DownAssists,
 
-            Weapon.ShotsFired,
-            Weapon.ShotsHit
+            ClassicWeapon.ShotsFired,
+            ClassicWeapon.ShotsHit
         };
     }
 }

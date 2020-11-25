@@ -7,6 +7,6 @@ namespace DragonFruit.Six.API.Data.Requests
 {
     public class UserLocationInfoRequest : ApiRequest
     {
-        public override string Path => "https://public-ubiservices.ubi.com/v2/profiles/me/iplocation";
+        public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
     }
 }

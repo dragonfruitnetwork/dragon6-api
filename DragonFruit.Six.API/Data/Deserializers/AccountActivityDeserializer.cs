@@ -28,7 +28,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                     Guid = entry.GetString(Activity.Guid),
                     SessionCount = entry.GetUInt(Activity.Sessions),
                     Platform = UbisoftIdentifiers.GameIds[entry.GetString(Activity.PlatformId)],
-                    Activity = new ActivityDateContainer
+                    Activity = new ActivityDates
                     {
                         First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), Dragon6Client.Culture),
                         Last = DateTimeOffset.Parse(entry.GetString(Activity.LastLogin), Dragon6Client.Culture)

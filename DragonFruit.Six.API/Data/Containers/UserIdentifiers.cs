@@ -5,13 +5,13 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data.Containers
 {
-    public class UserIdentifierContainer
+    public class UserIdentifiers
     {
-        public UserIdentifierContainer()
+        public UserIdentifiers()
         {
         }
 
-        public UserIdentifierContainer(string id)
+        public UserIdentifiers(string id)
         {
             Profile = id;
             Ubisoft = id;

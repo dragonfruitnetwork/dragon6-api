@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class OperatorStats : StatsBase
+    public class ClassicOperatorStats : StatsBase
     {
         private TimeSpan? _timePlayed;
 
@@ -108,6 +108,6 @@ namespace DragonFruit.Six.API.Data
         [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 
-        internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
+        internal ClassicOperatorStats Clone() => (ClassicOperatorStats)MemberwiseClone();
     }
 }
