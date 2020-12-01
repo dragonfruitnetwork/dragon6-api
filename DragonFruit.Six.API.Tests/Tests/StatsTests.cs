@@ -4,10 +4,10 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using DragonFruit.Common.Data.Services;
 using DragonFruit.Six.API.Data;
 using DragonFruit.Six.API.Data.Extensions;
 using DragonFruit.Six.API.Tests.Common;
+using DragonFruit.Six.API.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DragonFruit.Six.API.Tests.Tests
@@ -63,7 +63,7 @@ namespace DragonFruit.Six.API.Tests.Tests
 
             try
             {
-                opData = WebServices.StreamObject<IEnumerable<ClassicOperatorStats>>("https://d6static.dragonfruit.network/data/operators.json");
+                opData = Client.GetOperatorInfo();
             }
             catch
             {
