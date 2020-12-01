@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Enums;
@@ -49,15 +50,15 @@ namespace DragonFruit.Six.API.Data.Requests
         public IEnumerable<string> LookupQuery { get; set; }
 
         [QueryParameter("platformType")]
-        protected string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
+        private string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
 
-        [QueryParameter("nameOnPlatform")]
-        protected string PlayerNames => LookupMethod == LookupMethod.Name ? string.Join(",", LookupQuery) : null;
+        [QueryParameter("nameOnPlatform", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> PlayerNames => LookupMethod == LookupMethod.Name ? LookupQuery : null;
 
-        [QueryParameter("idOnPlatform")]
-        protected string PlatformIds => LookupMethod == LookupMethod.PlatformId ? string.Join(",", LookupQuery) : null;
+        [QueryParameter("idOnPlatform", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> PlatformIds => LookupMethod == LookupMethod.PlatformId ? LookupQuery : null;
 
-        [QueryParameter("userId")]
-        protected string UbisoftIds => LookupMethod == LookupMethod.UserId ? string.Join(",", LookupQuery) : null;
+        [QueryParameter("userId", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> UbisoftIds => LookupMethod == LookupMethod.UserId ? LookupQuery : null;
     }
 }

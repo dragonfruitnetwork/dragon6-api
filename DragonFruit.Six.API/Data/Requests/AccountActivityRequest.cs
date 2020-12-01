@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Utils;
@@ -27,6 +28,7 @@ namespace DragonFruit.Six.API.Data.Requests
         /// <summary>
         /// The ids of the apps to check activity for
         /// </summary>
+        [QueryParameter("applicationIds", CollectionConversionMode.Concatenated)]
         public IEnumerable<string> AppIds { get; set; }
 
         /// <summary>
@@ -34,10 +36,7 @@ namespace DragonFruit.Six.API.Data.Requests
         /// </summary>
         public IEnumerable<AccountInfo> Accounts { get; set; }
 
-        [QueryParameter("applicationIds")]
-        protected string AppIdString => string.Join(",", AppIds);
-
-        [QueryParameter("profileIds")]
-        protected string ProfileIdString => string.Join(",", Accounts.Select(x => x.Identifiers.Profile));
+        [QueryParameter("profileIds", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> ProfileIdString => Accounts.Select(x => x.Identifiers.Profile);
     }
 }

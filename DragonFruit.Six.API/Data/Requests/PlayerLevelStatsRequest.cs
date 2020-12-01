@@ -2,12 +2,13 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public class PlayerLevelStatsRequest : PlatformSpecificRequest
+    public class PlayerLevelStatsRequest : ClassicPlatformSpecificRequest
     {
         public override string Path => Platform.ProfileStatsEndpoint();
 
@@ -23,7 +24,7 @@ namespace DragonFruit.Six.API.Data.Requests
         {
         }
 
-        [QueryParameter("profile_ids")]
-        protected override string AccountIdString => base.AccountIdString;
+        [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
+        internal override IEnumerable<string> AccountIds => base.AccountIds;
     }
 }
