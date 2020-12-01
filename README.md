@@ -1,7 +1,7 @@
 # Dragon6 API
 
 ![NuGet Publishing](https://github.com/dragonfruitnetwork/Dragon6-API/workflows/Publish/badge.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b9aeacb9dd754f4a8bc50fb3498958ab)](https://www.codacy.com/gh/dragonfruitnetwork/Dragon6-API)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b9aeacb9dd754f4a8bc50fb3498958ab)](https://www.codacy.com/gh/dragonfruitnetwork/dragon6-api)
 [![NuGet](https://img.shields.io/nuget/v/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 [![Nuget](https://img.shields.io/nuget/dt/Dragon6.API)](https://www.nuget.org/packages/Dragon6.API/)
 ![GitHub](https://img.shields.io/github/license/dragonfruitnetwork/Dragon6-API)
