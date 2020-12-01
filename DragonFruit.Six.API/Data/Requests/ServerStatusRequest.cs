@@ -34,9 +34,7 @@ namespace DragonFruit.Six.API.Data.Requests
             AppIds = appIds;
         }
 
+        [QueryParameter("appIds", CollectionConversionMode.Concatenated)]
         public IEnumerable<string> AppIds { get; set; }
-
-        [QueryParameter("appIds")]
-        protected string CompiledAppIds => string.Join(",", AppIds);
     }
 }

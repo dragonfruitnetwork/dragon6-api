@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class WeaponStats : IHasKd
+    public class ClassicWeaponStats : IHasKd
     {
         private float? _kd;
         private float? _power;

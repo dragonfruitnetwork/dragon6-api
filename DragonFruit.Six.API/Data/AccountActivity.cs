@@ -28,6 +28,6 @@ namespace DragonFruit.Six.API.Data
         /// Dates of the first and last time logged in
         /// </summary>
         [JsonProperty("activity")]
-        public ActivityDateContainer Activity { get; set; }
+        public ActivityDates Activity { get; set; }
     }
 }

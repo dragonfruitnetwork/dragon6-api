@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data.Containers
 {
-    public class ActivityDateContainer
+    public class ActivityDates
     {
         [JsonProperty("first")]
         public DateTimeOffset First { get; set; }

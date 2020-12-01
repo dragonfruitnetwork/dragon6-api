@@ -10,7 +10,7 @@ namespace DragonFruit.Six.API.Data.Containers
 {
     public class BombModeStats : ModeStatsContainer
     {
-        // no stats right now...
+        // no bonus stats right now...
     }
 
     public class HostageModeStats : ModeStatsContainer

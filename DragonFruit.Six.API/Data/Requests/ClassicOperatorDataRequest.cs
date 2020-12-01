@@ -5,12 +5,12 @@ using DragonFruit.Common.Data;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public class OperatorDataRequest : ApiFileRequest
+    public class ClassicOperatorDataRequest : ApiFileRequest
     {
         public override string Path => "https://raw.githubusercontent.com/dragonfruitnetwork/Dragon6-Assets/master/public/data/operators.json";
         public override string Destination { get; }
 
-        public OperatorDataRequest(string destination)
+        public ClassicOperatorDataRequest(string destination)
         {
             Destination = destination;
         }

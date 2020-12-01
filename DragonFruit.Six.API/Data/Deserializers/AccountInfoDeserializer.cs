@@ -26,7 +26,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
                 {
                     PlayerName = item.GetString(Accounts.Name),
                     Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform)),
-                    Identifiers = new UserIdentifierContainer
+                    Identifiers = new UserIdentifiers
                     {
                         Profile = item.GetString(Accounts.ProfileIdentifier),
                         Platform = item.GetString(Accounts.PlatformIdentifier),

@@ -32,7 +32,7 @@ namespace DragonFruit.Six.API.Data
         /// User identifiers (Platform, Profile and Ubisoft)
         /// </summary>
         [JsonProperty("identifiers")]
-        public UserIdentifierContainer Identifiers { get; set; }
+        public UserIdentifiers Identifiers { get; set; }
 
         public bool Equals(AccountInfo other) => Identifiers.Profile.Equals(other?.Identifiers.Profile);
 
