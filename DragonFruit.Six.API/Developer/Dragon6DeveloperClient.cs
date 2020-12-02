@@ -1,45 +1,49 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using DragonFruit.Common.Data;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Tokens;
-using DragonFruit.Six.API.Developer.Requests;
+using DragonFruit.Six.API.Developer.Auth;
 
 namespace DragonFruit.Six.API.Developer
 {
-    public class Dragon6DeveloperClient : ApiClient
+    public class Dragon6DeveloperClient : Dragon6Client
     {
         private readonly uint _appId;
         private readonly string _appSecret;
-        private readonly ApiClient _serviceClient;
+        private readonly object _lock;
 
         private TokenBase _sessionAuthorization;
 
         public Dragon6DeveloperClient(uint appId, string appSecret)
-            : this(appId, appSecret, new ApiClient())
-        {
-        }
-
-        public Dragon6DeveloperClient(uint appId, string appSecret, ApiClient serviceClient)
         {
             _appId = appId;
             _appSecret = appSecret;
-            _serviceClient = serviceClient;
-        }
 
-        private void CheckAuthHeader()
-        {
-            if ((!_sessionAuthorization?.Expired).GetValueOrDefault(false))
-                return;
-
-            _sessionAuthorization = _serviceClient.Perform<Dragon6Token>(new DeveloperSessionRequest(_appId, _appSecret));
-            Authorization = $"Bearer {_sessionAuthorization.Token}";
+            _lock = new object();
         }
 
         public T Perform<T>(DeveloperApiRequest requestData) where T : class
         {
-            CheckAuthHeader();
-            return base.Perform<T>(requestData);
+            lock (_lock)
+            {
+                CheckAuthHeader(requestData);
+            }
+
+            return DirectPerform<T>(requestData);
+        }
+
+        protected override TokenBase GetToken() => Perform<Dragon6Token>(new DeveloperTokenRequest());
+
+        private void CheckAuthHeader(DeveloperApiRequest request)
+        {
+            if ((_sessionAuthorization?.Expired).GetValueOrDefault(true))
+            {
+                // we don't want this method running if we're getting the token so use the directperform method
+                _sessionAuthorization = DirectPerform<DeveloperTokenResponse>(new DeveloperSessionRequest(_appId, _appSecret));
+            }
+
+            request.WithAuthHeader($"Bearer {_sessionAuthorization!.Token}");
         }
     }
 }

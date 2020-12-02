@@ -7,7 +7,6 @@ using System.Net.Http;
 using System.Threading;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
-using DragonFruit.Six.API.Data.Requests;
 using DragonFruit.Six.API.Data.Requests.Base;
 using DragonFruit.Six.API.Data.Tokens;
 using DragonFruit.Six.API.Enums;
@@ -74,7 +73,7 @@ namespace DragonFruit.Six.API
         {
             lock (_lock)
             {
-                if (Token?.Expired ?? true)
+                if (Token?.Expired != false)
                 {
                     Token = GetToken();
                     Authorization = $"Ubi_v1 t={Token.Token}";
@@ -87,14 +86,19 @@ namespace DragonFruit.Six.API
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
-        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request) =>
-            response.StatusCode switch
+        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request)
+        {
+            return response.StatusCode switch
             {
                 HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
                 _ => base.ValidateAndProcess<T>(response, request)
             };
+        }
 
-        internal T BypassingPerform<T>(TokenRequest request, CancellationToken token = default) where T : class => base.Perform<T>(request, token);
+        /// <summary>
+        /// <see cref="Perform{T}"/> method that bypasses all auth checks
+        /// </summary>
+        protected internal T DirectPerform<T>(ApiRequest request, CancellationToken token = default) where T : class => base.Perform<T>(request, token);
     }
 }
