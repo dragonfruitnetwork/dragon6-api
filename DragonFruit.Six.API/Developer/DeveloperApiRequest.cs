@@ -7,7 +7,7 @@ namespace DragonFruit.Six.API.Developer
 {
     public abstract class DeveloperApiRequest : ApiRequest
     {
-        protected const string BaseEndpoint = "https://localhost:5001";
+        protected const string BaseEndpoint = "https://dragon6.dragonfruit.network";
 
         protected override bool RequireAuth => true;
     }
