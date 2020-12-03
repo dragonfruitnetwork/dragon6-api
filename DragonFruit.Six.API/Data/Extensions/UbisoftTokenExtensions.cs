@@ -24,7 +24,7 @@ namespace DragonFruit.Six.API.Data.Extensions
         public static UbisoftToken GetUbiToken<T>(this T client, string loginString, CancellationToken token = default) where T : Dragon6Client
         {
             var request = new TokenRequest(loginString);
-            return client.BypassingPerform<UbisoftToken>(request, token);
+            return client.DirectPerform<UbisoftToken>(request, token);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace DragonFruit.Six.API.Data.Extensions
             var loginString = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}"));
             var request = new TokenRequest(loginString);
 
-            return client.BypassingPerform<UbisoftToken>(request, token);
+            return client.DirectPerform<UbisoftToken>(request, token);
         }
     }
 }
