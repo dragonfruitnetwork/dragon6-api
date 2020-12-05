@@ -133,11 +133,5 @@ namespace DragonFruit.Six.API.Data
         /// </summary>
         [JsonProperty("experience")]
         public ulong Experience { get; set; }
-
-        /// <summary>
-        /// Total distance travelled
-        /// </summary>
-        [JsonProperty("distance_travelled")]
-        public ulong DistanceTravelled { get; set; }
     }
 }

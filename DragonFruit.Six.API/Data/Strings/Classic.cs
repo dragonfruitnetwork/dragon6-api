@@ -34,6 +34,8 @@ namespace DragonFruit.Six.API.Data.Strings
         public static string BulletHit => "generalpvp_bullethit";
 
         public static string Experience => "generalpvp_totalxp";
-        public static string DistanceTravelled => "generalpvp_distancetravelled";
+
+        // todo this sometimes sends back a negative number (overflow wrap)
+        //public static string DistanceTravelled => "generalpvp_distancetravelled";
     }
 }
