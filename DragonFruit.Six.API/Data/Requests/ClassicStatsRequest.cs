@@ -71,7 +71,8 @@ namespace DragonFruit.Six.API.Data.Requests
             Classic.GadgetsDestroyed,
             Classic.Experience,
 
-            Classic.DistanceTravelled,
+            // see comment with the string as to why this is disabled
+            // Classic.DistanceTravelled,
             Classic.BulletFired,
             Classic.BulletHit,
 
