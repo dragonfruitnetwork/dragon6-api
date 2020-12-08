@@ -4,6 +4,7 @@
 using System.Net.Http;
 using System.Text;
 using DragonFruit.Common.Data;
+using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
@@ -24,7 +25,7 @@ namespace DragonFruit.Six.API.Data.Requests
         /// </summary>
         public TokenRequest(string b64Login)
         {
-            Headers.Value.Add("Authorization", $"Basic {b64Login}");
+            this.WithAuthHeader($"Basic {b64Login}");
         }
     }
 }
