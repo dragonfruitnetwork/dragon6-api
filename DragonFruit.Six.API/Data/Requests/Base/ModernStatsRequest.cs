@@ -38,7 +38,7 @@ namespace DragonFruit.Six.API.Data.Requests.Base
         /// <summary>
         /// The <see cref="PlaylistType"/> to get stats for (as a bitwise flag)
         /// </summary>
-        public PlaylistType Playlist { get; set; } = PlaylistType.Ranked | PlaylistType.Casual | PlaylistType.Unranked;
+        public PlaylistType Playlist { get; set; } = PlaylistType.All;
 
         /// <summary>
         /// Option to filter stats based on whether they were accumulated during an attack or defense round.
