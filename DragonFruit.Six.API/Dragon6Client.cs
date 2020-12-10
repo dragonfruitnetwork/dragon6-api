@@ -92,7 +92,7 @@ namespace DragonFruit.Six.API
                     Authorization = $"Ubi_v1 t={Token.Token}";
 
                     // modern stats require this header?
-                    Headers["Expiration"] = Token.Expiry.UtcDateTime.ToString("u");
+                    Headers["Expiration"] = Token.Expiry.UtcDateTime.ToString("O");
                 }
             }
 
