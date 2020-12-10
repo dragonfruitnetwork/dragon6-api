@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data.Containers
 {
-    public class PlaylistStats : StatsBase
+    public class PlaylistStats : ClassicStatsBase
     {
         private TimeSpan? _timePlayed;
 

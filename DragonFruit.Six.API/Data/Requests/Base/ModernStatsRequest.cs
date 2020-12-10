@@ -17,6 +17,11 @@ namespace DragonFruit.Six.API.Data.Requests.Base
 
         public override string Path => $"https://r6s-stats.ubisoft.com/v1/current/{RequestType}/{Account.Identifiers.Profile}";
 
+        protected ModernStatsRequest(AccountInfo account)
+        {
+            Account = account;
+        }
+
         /// <summary>
         /// The type of request (general, operators, weapons, etc.)
         /// </summary>
@@ -69,21 +74,21 @@ namespace DragonFruit.Six.API.Data.Requests.Base
         }
 
         [QueryParameter("platform")]
-        private Platform Platform => Account.Platform;
+        protected Platform Platform => Account.Platform;
 
         [QueryParameter("gameMode")]
-        private string PlaylistNames => Playlist.Expand();
+        protected string PlaylistNames => Playlist.Expand();
 
         [QueryParameter("startDate")]
-        private string FormattedStartDate => StartDate.UtcDateTime.ToString(DateTimeFormat);
+        protected string FormattedStartDate => StartDate.UtcDateTime.ToString(DateTimeFormat);
 
         [QueryParameter("endDate")]
-        private string FormattedEndDate => EndDate.UtcDateTime.ToString(DateTimeFormat);
+        protected string FormattedEndDate => EndDate.UtcDateTime.ToString(DateTimeFormat);
 
         [QueryParameter("teamRole")]
-        private string OperatorTypeNames => OperatorType.HasFlag(OperatorType.Independent)
+        protected string OperatorTypeNames => OperatorType.HasFlag(OperatorType.Independent)
             // independent = all
-            ? "all"
+            ? (OperatorType.Attacker | OperatorType.Defender).Expand()
             // here we remove the independent flag then expand
             : (OperatorType & ~OperatorType.Independent).Expand();
     }

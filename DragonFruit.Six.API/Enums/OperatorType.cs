@@ -9,11 +9,6 @@ namespace DragonFruit.Six.API.Enums
     public enum OperatorType
     {
         /// <summary>
-        /// Attacker or Defender (i.e. Recruit)
-        /// </summary>
-        Independent = 0,
-
-        /// <summary>
         /// Attacking Operator
         /// </summary>
         Attacker = 1,
@@ -21,6 +16,11 @@ namespace DragonFruit.Six.API.Enums
         /// <summary>
         /// Defending Operator
         /// </summary>
-        Defender = 2
+        Defender = 2,
+
+        /// <summary>
+        /// Attacker or Defender (i.e. Recruit)
+        /// </summary>
+        Independent = 4
     }
 }

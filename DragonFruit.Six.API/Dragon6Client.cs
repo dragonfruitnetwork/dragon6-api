@@ -69,7 +69,7 @@ namespace DragonFruit.Six.API
         /// </summary>
         protected abstract TokenBase GetToken();
 
-        public T Perform<T>(UbiApiRequest requestData, CancellationToken cancellationToken, CancellationToken token = default) where T : class
+        public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
         {
             lock (_lock)
             {

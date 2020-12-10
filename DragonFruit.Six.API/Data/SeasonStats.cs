@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class SeasonStats : StatsBase
+    public class SeasonStats : ClassicStatsBase
     {
         private RankInfo _rankInfo;
         private RankInfo _maxRankInfo;
