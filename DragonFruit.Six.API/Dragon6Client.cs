@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
@@ -43,7 +44,9 @@ namespace DragonFruit.Six.API
         protected Dragon6Client()
         {
             Serializer = new ApiJsonSerializer(Culture);
+
             AppId = UbisoftService.RainbowSix.AppId();
+            SessionId = Guid.NewGuid().ToString();
 
             if (string.IsNullOrEmpty(UserAgent))
             {
@@ -65,6 +68,15 @@ namespace DragonFruit.Six.API
         }
 
         /// <summary>
+        /// Guid generated per-session for using Ubisoft's modern stats
+        /// </summary>
+        public string SessionId
+        {
+            get => Headers["Ubi-SessionId"];
+            private set => Headers["Ubi-SessionId"] = value;
+        }
+
+        /// <summary>
         /// Method for getting a new <see cref="TokenBase"/>
         /// </summary>
         protected abstract TokenBase GetToken();
@@ -76,7 +88,11 @@ namespace DragonFruit.Six.API
                 if (Token?.Expired != false)
                 {
                     Token = GetToken();
+
                     Authorization = $"Ubi_v1 t={Token.Token}";
+
+                    // modern stats require this header?
+                    Headers["Expiration"] = Token.Expiry.UtcDateTime.ToString("u");
                 }
             }
 

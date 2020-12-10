@@ -10,8 +10,6 @@ namespace DragonFruit.Six.API.Enums
     {
         Ranked,
         Casual,
-        Unranked,
-
-        All = Ranked | Casual | Unranked
+        Unranked
     }
 }
