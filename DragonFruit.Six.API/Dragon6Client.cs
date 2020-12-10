@@ -89,7 +89,7 @@ namespace DragonFruit.Six.API
                 {
                     Token = GetToken();
 
-                    Authorization = $"Ubi_v1 t={Token.Token}";
+                    Authorization = $"ubi_v1 t={Token.Token}";
 
                     // modern stats require this header?
                     Headers["Expiration"] = Token.Expiry.UtcDateTime.ToString("O");
