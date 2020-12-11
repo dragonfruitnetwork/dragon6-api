@@ -51,7 +51,7 @@ namespace DragonFruit.Six.API
             }
         }
 
-        #endregion
+        #endregion Constructors
 
         private TokenBase Token { get; set; }
 
@@ -76,7 +76,7 @@ namespace DragonFruit.Six.API
                 if (Token?.Expired != false)
                 {
                     Token = GetToken();
-                    Authorization = $"Ubi_v1 t={Token.Token}";
+                    Authorization = $"ubi_v1 t={Token.Token}";
                 }
             }
 
