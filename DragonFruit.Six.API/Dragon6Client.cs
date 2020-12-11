@@ -76,11 +76,19 @@ namespace DragonFruit.Six.API
                 if (Token?.Expired != false)
                 {
                     Token = GetToken();
-                    Authorization = $"Ubi_v1 t={Token.Token}";
+                    ApplyToken(Token);
                 }
             }
 
             return base.Perform<T>(requestData, token);
+        }
+
+        /// <summary>
+        /// Method for setting a new token
+        /// </summary>
+        protected virtual void ApplyToken(TokenBase currentToken)
+        {
+            Authorization = $"ubi_v1 t={Token.Token}";
         }
 
         /// <summary>
