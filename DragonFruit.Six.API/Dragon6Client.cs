@@ -92,6 +92,7 @@ namespace DragonFruit.Six.API
             {
                 HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
+
                 _ => base.ValidateAndProcess<T>(response, request)
             };
         }
