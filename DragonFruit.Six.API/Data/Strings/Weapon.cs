@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.API.Data.Strings
 {
-    public static class ClassicWeapon
+    public static class Weapon
     {
         public static string Picked => "weapontypepvp_chosen";
 

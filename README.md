@@ -18,10 +18,10 @@ Looking to get started? Check out the Wiki!
 |Feature|Example|
 |--|--|
 |Access Token Request|`d6Client.GetUbiToken("username", "password");`|
-|Casual Stats|`d6Client.GetClassicStats(accountInfo)`|
+|Casual Stats|`d6Client.GetStats(accountInfo)`|
 |Ranked Stats|`d6Client.GetSeasonStats(accountInfo)`|
-|Operator Stats|`d6Client.GetClassicOperatorStats(accountInfo, operatorData);`|
-|Weapon Stats|`d6Client.GetClassicWeaponStats(accountInfo);`|
+|Operator Stats|`d6Client.GetOperatorStats(accountInfo, operatorData);`|
+|Weapon Stats|`d6Client.GetWeaponStats(accountInfo);`|
 |Account Search (by Name)|`d6Client.GetUser(Platforms.PC, LookupMethod.Name, "PaPa.Curry");`|
 |Account Search (by User Id)|`d6Client.GetUser(Platforms.PC, LookupMethod.UserId, "21d95808-d692-4bf3-b825-f5ad3396d079");`|
 |Account Search (by Platform Id)|`d6Client.GetUser(Platforms.PSN, LookupMethod.PlatformId, "7729747787525340203");`|

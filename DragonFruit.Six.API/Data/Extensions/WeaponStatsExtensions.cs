@@ -10,29 +10,29 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Extensions
 {
-    public static class ClassicWeaponStatsExtensions
+    public static class WeaponStatsExtensions
     {
         /// <summary>
-        /// Get <see cref="ClassicWeaponStats"/> for an <see cref="AccountInfo"/>
+        /// Get <see cref="WeaponStats"/> for an <see cref="AccountInfo"/>
         /// </summary>
-        public static IEnumerable<ClassicWeaponStats> GetClassicWeaponStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetClassicWeaponStats(client, new[] { account }, token).First();
+        public static IEnumerable<WeaponStats> GetWeaponStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
+            => GetWeaponStats(client, new[] { account }, token).First();
 
         /// <summary>
-        /// Get <see cref="ClassicWeaponStats"/> for an array of <see cref="AccountInfo"/>s
+        /// Get <see cref="WeaponStats"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static IEnumerable<IEnumerable<ClassicWeaponStats>> GetClassicWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<IEnumerable<WeaponStats>> GetWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
             foreach (var group in filteredGroups)
             {
-                var request = new ClassicWeaponStatsRequest(group);
+                var request = new WeaponStatsRequest(group);
                 var data = client.Perform<JObject>(request, token);
 
                 foreach (var id in request.AccountIds)
                 {
-                    yield return data.DeserializeClassicWeaponStatsFor(id);
+                    yield return data.DeserializeWeaponStatsFor(id);
                 }
             }
         }

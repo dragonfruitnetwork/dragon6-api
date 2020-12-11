@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.API.Data
 {
-    public class ClassicStats
+    public class Stats
     {
         /// <summary>
         /// Profile Id
