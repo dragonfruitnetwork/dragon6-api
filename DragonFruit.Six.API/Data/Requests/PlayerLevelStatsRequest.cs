@@ -8,7 +8,7 @@ using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public class PlayerLevelStatsRequest : ClassicPlatformSpecificRequest
+    public class PlayerLevelStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Platform.ProfileStatsEndpoint();
 

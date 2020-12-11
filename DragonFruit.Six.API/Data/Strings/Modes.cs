@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.API.Data.Strings
 {
-    public static class ClassicModes
+    public static class Modes
     {
         public static class Bomb
         {

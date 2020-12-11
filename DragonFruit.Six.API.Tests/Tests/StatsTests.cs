@@ -20,10 +20,10 @@ namespace DragonFruit.Six.API.Tests.Tests
         public void GetGeneralStats()
         {
             //single user
-            Client.GetClassicStats(TestData.TestAccounts.First());
+            Client.GetStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            Client.GetClassicStats(TestData.TestAccounts);
+            Client.GetStats(TestData.TestAccounts);
         }
 
         [TestMethod]
@@ -40,10 +40,10 @@ namespace DragonFruit.Six.API.Tests.Tests
         public void GetWeaponStats()
         {
             //single user
-            Client.GetClassicWeaponStats(TestData.TestAccounts.First());
+            Client.GetWeaponStats(TestData.TestAccounts.First());
 
             //multi users - different platforms
-            Client.GetClassicWeaponStats(TestData.TestAccounts);
+            Client.GetWeaponStats(TestData.TestAccounts);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace DragonFruit.Six.API.Tests.Tests
         [TestMethod]
         public void GetOperatorStats()
         {
-            IEnumerable<ClassicOperatorStats> opData = null;
+            IEnumerable<OperatorStats> opData = null;
 
             try
             {
@@ -72,10 +72,10 @@ namespace DragonFruit.Six.API.Tests.Tests
             }
 
             //single user
-            Client.GetClassicOperatorStats(TestData.TestAccounts.First(), opData);
+            Client.GetOperatorStats(TestData.TestAccounts.First(), opData);
 
             //multi users - different platforms
-            Client.GetClassicOperatorStats(TestData.TestAccounts, opData);
+            Client.GetOperatorStats(TestData.TestAccounts, opData);
         }
     }
 }

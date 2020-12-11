@@ -11,13 +11,13 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     /// <summary>
     /// Request type where components are specific to a <see cref="Enums.Platform"/>
     /// </summary>
-    public abstract class ClassicPlatformSpecificRequest : UbiApiRequest
+    public abstract class PlatformSpecificRequest : UbiApiRequest
     {
         private IEnumerable<string> _accountIds;
 
         protected override bool RequireAuth => true;
 
-        protected ClassicPlatformSpecificRequest(IEnumerable<AccountInfo> accounts)
+        protected PlatformSpecificRequest(IEnumerable<AccountInfo> accounts)
         {
             Accounts = accounts.ToArray();
             Platform = Accounts.First().Platform;

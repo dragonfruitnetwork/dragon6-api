@@ -10,7 +10,7 @@ using DragonFruit.Six.API.Data.Requests.Base;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class SeasonStatsRequest : ClassicPlatformSpecificRequest
+    public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Platform.SeasonalStatsEndpoint();
 

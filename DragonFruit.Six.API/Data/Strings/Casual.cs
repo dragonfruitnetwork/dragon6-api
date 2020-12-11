@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.API.Data.Strings
 {
-    public static class ClassicCasual
+    public static class Casual
     {
         public static string Kills => "casualpvp_kills";
         public static string Deaths => "casualpvp_death";

@@ -28,9 +28,9 @@ namespace DragonFruit.Six.API.Demo
 
             var seasonStats = d6Client.GetSeasonStats(playerInfo);
 
-            var generalStats = d6Client.GetClassicStats(playerInfo);
-            var opStats = d6Client.GetClassicOperatorStats(playerInfo, await operatorInformationTask);
-            var weapons = d6Client.GetClassicWeaponStats(playerInfo);
+            var generalStats = d6Client.GetStats(playerInfo);
+            var opStats = d6Client.GetOperatorStats(playerInfo, await operatorInformationTask);
+            var weapons = d6Client.GetWeaponStats(playerInfo);
 
             var stats = new JObject
             {

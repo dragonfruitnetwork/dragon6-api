@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.API.Data.Strings
 {
-    public static class ClassicOperator
+    public static class Operator
     {
         public static string Wins => "operatorpvp_roundwon";
         public static string Losses => "operatorpvp_roundlost";
