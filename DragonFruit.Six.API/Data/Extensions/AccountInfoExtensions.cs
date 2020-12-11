@@ -27,5 +27,11 @@ namespace DragonFruit.Six.API.Data.Extensions
             var request = new AccountInfoRequest(platform, lookupMethod, queries);
             return client.Perform<JObject>(request, token).DeserializeAccountInfo();
         }
+
+        /// <summary>
+        /// Get a user's account info by name
+        /// </summary>
+        public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, CancellationToken token = default) where T : Dragon6Client
+            => GetUsers(client, platform, lookupMethod, null, token).First();
     }
 }
