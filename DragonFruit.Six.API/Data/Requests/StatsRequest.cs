@@ -7,7 +7,7 @@ using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class StatsRequest : StatsRequestBase
+    public sealed class StatsRequest : BasicStatsRequest
     {
         /// <summary>
         /// Initialises a request for all the stats in <see cref="Stats"/> for the provided <see cref="AccountInfo"/>

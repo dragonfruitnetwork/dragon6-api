@@ -10,22 +10,22 @@ namespace DragonFruit.Six.API.Data.Requests.Base
     /// <summary>
     /// Base for requesting general stats from the main endpoint
     /// </summary>
-    public class StatsRequestBase : PlatformSpecificRequest
+    public class BasicStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Platform.StatsEndpoint();
 
         /// <summary>
-        /// Initialises a <see cref="StatsRequestBase"/> for a single <see cref="AccountInfo"/>
+        /// Initialises a <see cref="BasicStatsRequest"/> for a single <see cref="AccountInfo"/>
         /// </summary>
-        public StatsRequestBase(AccountInfo account)
+        public BasicStatsRequest(AccountInfo account)
             : base(new[] { account })
         {
         }
 
         /// <summary>
-        /// Initialises a <see cref="StatsRequestBase"/> for an array of <see cref="AccountInfo"/>s
+        /// Initialises a <see cref="BasicStatsRequest"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public StatsRequestBase(IEnumerable<AccountInfo> accounts)
+        public BasicStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }

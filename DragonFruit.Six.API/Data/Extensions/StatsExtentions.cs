@@ -32,7 +32,7 @@ namespace DragonFruit.Six.API.Data.Extensions
 
                 foreach (var id in request.AccountIds)
                 {
-                    yield return data.DeserializeStatsFor(id);
+                    yield return data.DeserializeGeneralStatsFor(id);
                 }
             }
         }

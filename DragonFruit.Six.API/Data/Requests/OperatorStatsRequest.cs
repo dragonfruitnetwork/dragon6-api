@@ -8,7 +8,7 @@ using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class OperatorStatsRequest : StatsRequestBase
+    public sealed class OperatorStatsRequest : BasicStatsRequest
     {
         public OperatorStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
             : this(new[] { account }, operators)
