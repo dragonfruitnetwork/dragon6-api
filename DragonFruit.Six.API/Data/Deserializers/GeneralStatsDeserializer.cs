@@ -9,9 +9,9 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.API.Data.Deserializers
 {
-    public static class StatsDeserializer
+    public static class GeneralStatsDeserializer
     {
-        public static Stats DeserializeStatsFor(this JObject jObject, string guid)
+        public static GeneralStats DeserializeGeneralStatsFor(this JObject jObject, string guid)
         {
             // try to get the user but if there is nothing return null
             var json = jObject[Misc.Results]?[guid] as JObject;
@@ -19,7 +19,7 @@ namespace DragonFruit.Six.API.Data.Deserializers
             if (json == null)
                 return null;
 
-            var result = new Stats
+            var result = new GeneralStats
             {
                 Guid = guid,
 

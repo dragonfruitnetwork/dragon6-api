@@ -7,7 +7,7 @@ using DragonFruit.Six.API.Data.Strings;
 
 namespace DragonFruit.Six.API.Data.Requests
 {
-    public sealed class WeaponStatsRequest : StatsRequestBase
+    public sealed class WeaponStatsRequest : BasicStatsRequest
     {
         public WeaponStatsRequest(AccountInfo account)
             : base(account)

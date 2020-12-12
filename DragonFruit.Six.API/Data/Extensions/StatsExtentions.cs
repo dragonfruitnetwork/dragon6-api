@@ -13,15 +13,15 @@ namespace DragonFruit.Six.API.Data.Extensions
     public static class StatsExtentions
     {
         /// <summary>
-        /// Get the <see cref="Stats"/> (non-seasonal) for an <see cref="AccountInfo"/>
+        /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
         /// </summary>
-        public static Stats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client 
+        public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client 
             => GetStats(client, new[] { account }, token).First();
 
         /// <summary>
-        /// Get the <see cref="Stats"/> (non-seasonal) for an array of <see cref="AccountInfo"/>s
+        /// Get the <see cref="GeneralStats"/> (non-seasonal) for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static IEnumerable<Stats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
 
@@ -32,7 +32,7 @@ namespace DragonFruit.Six.API.Data.Extensions
 
                 foreach (var id in request.AccountIds)
                 {
-                    yield return data.DeserializeStatsFor(id);
+                    yield return data.DeserializeGeneralStatsFor(id);
                 }
             }
         }
