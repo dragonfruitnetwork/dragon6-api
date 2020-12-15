@@ -5,7 +5,7 @@ using System;
 
 namespace DragonFruit.Six.API.Utils
 {
-    internal static class RatioUtils
+    public static class RatioUtils
     {
         /// <summary>
         /// Convert two <see cref="object"/>s to a ratio
