@@ -29,6 +29,9 @@ namespace DragonFruit.Six.API.Data.Tokens
         [JsonProperty("spaceId")]
         public string SpaceId { get; set; }
 
+        [JsonProperty("sessionId")]
+        public override string SessionId { get; set; }
+
         [JsonProperty("sessionKey")]
         public string SessionKey { get; set; }
 

@@ -14,5 +14,8 @@ namespace DragonFruit.Six.API.Developer.Auth
 
         [JsonProperty("expiry")]
         public override DateTimeOffset Expiry { get; set; }
+
+        [JsonIgnore]
+        public override string SessionId { get; set; } = null;
     }
 }
