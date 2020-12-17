@@ -12,7 +12,7 @@ namespace DragonFruit.Six.API.Data.Tokens
 
         public abstract DateTimeOffset Expiry { get; set; }
 
-        public abstract string SessionId { get; set; }
+        public virtual string SessionId { get; set; }
 
         [JsonIgnore]
         public bool Expired => DateTimeOffset.Compare(DateTimeOffset.Now, Expiry) >= 0;
