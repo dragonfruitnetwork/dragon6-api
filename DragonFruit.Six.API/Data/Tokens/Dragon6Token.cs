@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.API.Data.Tokens
 {
     /// <summary>
-    /// The most basic of <see cref="TokenBase"/>. Useful for storing the components that are actually needed
+    /// The most basic implimentation of <see cref="TokenBase"/>. Useful for storing the components that are actually needed
     /// </summary>
     public class Dragon6Token : TokenBase
     {
@@ -19,6 +19,7 @@ namespace DragonFruit.Six.API.Data.Tokens
         {
             Token = tokenBase.Token;
             Expiry = tokenBase.Expiry;
+            SessionId = tokenBase.SessionId;
         }
 
         [JsonProperty("token")]
@@ -26,5 +27,8 @@ namespace DragonFruit.Six.API.Data.Tokens
 
         [JsonProperty("expiry")]
         public override DateTimeOffset Expiry { get; set; }
+
+        [JsonProperty("session_id")]
+        public override string SessionId { get; set; }
     }
 }
