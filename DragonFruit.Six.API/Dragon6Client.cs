@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
@@ -99,7 +100,11 @@ namespace DragonFruit.Six.API
             return response.StatusCode switch
             {
                 HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
+
+                HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
+
                 HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
+                HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
 
                 _ => base.ValidateAndProcess<T>(response, request)
             };
