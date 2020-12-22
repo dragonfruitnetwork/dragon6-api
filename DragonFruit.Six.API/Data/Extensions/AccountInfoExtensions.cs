@@ -22,7 +22,8 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <summary>
         /// Get multiple users' account info through a mass query search
         /// </summary>
-        public static IEnumerable<AccountInfo> GetUsers<T>(this T client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<AccountInfo> GetUsers<T>(this T client, Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries, CancellationToken token = default)
+            where T : Dragon6Client
         {
             var request = new AccountInfoRequest(platform, lookupMethod, queries);
             return client.Perform<JObject>(request, token).DeserializeAccountInfo();

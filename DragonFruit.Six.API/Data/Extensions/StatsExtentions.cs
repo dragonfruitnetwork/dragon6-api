@@ -15,7 +15,7 @@ namespace DragonFruit.Six.API.Data.Extensions
         /// <summary>
         /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
         /// </summary>
-        public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client 
+        public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
             => GetStats(client, new[] { account }, token).First();
 
         /// <summary>
