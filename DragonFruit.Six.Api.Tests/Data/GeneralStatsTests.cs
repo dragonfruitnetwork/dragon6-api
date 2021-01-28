@@ -59,5 +59,15 @@ namespace DragonFruit.Six.Api.Tests.Data
             var account = GetAccountInfoFor(identifier, platform);
             Client.GetOperatorStats(account, OperatorInfo);
         }
+
+        [Test]
+        [TestCaseSource(nameof(_accounts))]
+        public void PlayerOperatorTrainingStatsTest(string identifier, Platform platform)
+        {
+            OperatorInfo ??= Client.GetOperatorInfo();
+
+            var account = GetAccountInfoFor(identifier, platform);
+            Client.GetOperatorTrainingStats(account, OperatorInfo);
+        }
     }
 }
