@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
@@ -13,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DragonFruit.Six.API\DragonFruit.Six.API.csproj" />
+      <ProjectReference Include="..\DragonFruit.Six.Api\DragonFruit.Six.Api.csproj" />
     </ItemGroup>
 
 </Project>
