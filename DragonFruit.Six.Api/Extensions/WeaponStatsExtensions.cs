@@ -39,13 +39,13 @@ namespace DragonFruit.Six.Api.Extensions
         }
 
         /// <summary>
-        /// Get <see cref="WeaponTrainingStats"/> for an <see cref="AccountInfo"/>
+        /// Get <see cref="WeaponStats"/> for an <see cref="AccountInfo"/>
         /// </summary>
         public static IEnumerable<WeaponStats> GetWeaponTrainingStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
             => GetWeaponTrainingStats(client, new[] { account }, token).First();
 
         /// <summary>
-        /// Get <see cref="WeaponTrainingStats"/> for an array of <see cref="AccountInfo"/>s
+        /// Get <see cref="WeaponStats"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
         public static IEnumerable<IEnumerable<WeaponStats>> GetWeaponTrainingStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
