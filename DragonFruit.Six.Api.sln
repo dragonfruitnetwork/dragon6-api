@@ -1,0 +1,38 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28606.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{593E4F09-213D-4097-AEED-A0EADD24D198}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragonFruit.Six.Api", "DragonFruit.Six.Api\DragonFruit.Six.Api.csproj", "{7A576853-2EBA-48BB-AEDD-2E1819CAC342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonFruit.Six.Api.Tests", "DragonFruit.Six.Api.Tests\DragonFruit.Six.Api.Tests.csproj", "{012E3B34-8063-4BF1-AF3D-BC1033C3FD93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A576853-2EBA-48BB-AEDD-2E1819CAC342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012E3B34-8063-4BF1-AF3D-BC1033C3FD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012E3B34-8063-4BF1-AF3D-BC1033C3FD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012E3B34-8063-4BF1-AF3D-BC1033C3FD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012E3B34-8063-4BF1-AF3D-BC1033C3FD93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C459DE06-A6D2-4E27-A580-C5792A173A2A}
+	EndGlobalSection
+EndGlobal
