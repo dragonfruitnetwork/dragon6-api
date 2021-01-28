@@ -37,4 +37,33 @@ namespace DragonFruit.Six.Api.Requests
             });
         }
     }
+
+    public sealed class OperatorTrainingStatsRequest : BasicStatsRequest
+    {
+        public OperatorTrainingStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
+            : this(new[] { account }, operators)
+        {
+        }
+
+        public OperatorTrainingStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
+            : base(accounts)
+        {
+            Stats = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
+            {
+                Operator.KillsTraining,
+                Operator.DeathsTraining,
+
+                Operator.HeadshotsTraining,
+                Operator.DownsTraining,
+
+                Operator.WinsTraining,
+                Operator.LossesTraining,
+
+                Operator.RoundsTraining,
+                Operator.TimeTraining,
+
+                Operator.ExperienceTraining
+            });
+        }
+    }
 }
