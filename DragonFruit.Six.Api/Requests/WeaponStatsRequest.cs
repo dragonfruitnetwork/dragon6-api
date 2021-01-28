@@ -35,4 +35,32 @@ namespace DragonFruit.Six.Api.Requests
             Weapon.ShotsHit
         };
     }
+
+    public sealed class WeaponTrainingStatsRequest : BasicStatsRequest
+    {
+        public WeaponTrainingStatsRequest(AccountInfo account)
+            : base(account)
+        {
+        }
+
+        public WeaponTrainingStatsRequest(IEnumerable<AccountInfo> accounts)
+            : base(accounts)
+        {
+        }
+
+        public override IEnumerable<string> Stats { get; set; } = new[]
+        {
+            Weapon.PickedTraining,
+
+            Weapon.KillsTraining,
+            Weapon.DeathsTraining,
+
+            Weapon.HeadshotsTraining,
+            Weapon.DownsTraining,
+            Weapon.DownAssistsTraining,
+
+            Weapon.ShotsFiredTraining,
+            Weapon.ShotsHitTraining
+        };
+    }
 }
