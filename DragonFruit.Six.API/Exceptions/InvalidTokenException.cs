@@ -2,9 +2,9 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.API.Data.Tokens;
+using DragonFruit.Six.Api.Data.Tokens;
 
-namespace DragonFruit.Six.API.Exceptions
+namespace DragonFruit.Six.Api.Exceptions
 {
     public class InvalidTokenException : Exception
     {

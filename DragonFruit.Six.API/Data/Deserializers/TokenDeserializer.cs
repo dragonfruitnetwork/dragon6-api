@@ -2,13 +2,13 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Common.Data.Extensions;
-using DragonFruit.Six.API.Data.Containers;
-using DragonFruit.Six.API.Data.Strings;
-using DragonFruit.Six.API.Data.Tokens;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Data.Containers;
+using DragonFruit.Six.Api.Data.Strings;
+using DragonFruit.Six.Api.Data.Tokens;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.API.Data.Deserializers
+namespace DragonFruit.Six.Api.Data.Deserializers
 {
     public static class TokenDeserializer
     {

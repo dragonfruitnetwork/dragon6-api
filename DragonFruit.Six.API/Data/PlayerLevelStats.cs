@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data
+namespace DragonFruit.Six.Api.Data
 {
     public class PlayerLevelStats
     {

@@ -4,7 +4,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data.Containers
+namespace DragonFruit.Six.Api.Data.Containers
 {
     public class ActivityDates
     {

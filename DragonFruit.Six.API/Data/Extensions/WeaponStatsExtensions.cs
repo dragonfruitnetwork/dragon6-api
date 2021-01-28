@@ -4,11 +4,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DragonFruit.Six.API.Data.Deserializers;
-using DragonFruit.Six.API.Data.Requests;
+using DragonFruit.Six.Api.Data.Deserializers;
+using DragonFruit.Six.Api.Data.Requests;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.API.Data.Extensions
+namespace DragonFruit.Six.Api.Data.Extensions
 {
     public static class WeaponStatsExtensions
     {

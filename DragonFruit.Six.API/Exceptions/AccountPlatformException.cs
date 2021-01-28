@@ -4,10 +4,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Data;
-using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Api.Data;
+using DragonFruit.Six.Api.Enums;
 
-namespace DragonFruit.Six.API.Exceptions
+namespace DragonFruit.Six.Api.Exceptions
 {
     public class AccountPlatformException : Exception
     {

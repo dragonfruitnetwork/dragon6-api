@@ -3,9 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Api.Enums;
 
-namespace DragonFruit.Six.API.Utils
+namespace DragonFruit.Six.Api.Utils
 {
     public static class PlatformParser
     {

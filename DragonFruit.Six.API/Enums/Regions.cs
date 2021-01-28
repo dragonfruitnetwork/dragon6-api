@@ -3,7 +3,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace DragonFruit.Six.API.Enums
+namespace DragonFruit.Six.Api.Enums
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum Regions

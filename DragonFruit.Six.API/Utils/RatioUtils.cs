@@ -3,7 +3,7 @@
 
 using System;
 
-namespace DragonFruit.Six.API.Utils
+namespace DragonFruit.Six.Api.Utils
 {
     public static class RatioUtils
     {

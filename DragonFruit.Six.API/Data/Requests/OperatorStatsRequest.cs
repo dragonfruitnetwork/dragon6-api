@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Data.Requests.Base;
-using DragonFruit.Six.API.Data.Strings;
+using DragonFruit.Six.Api.Data.Requests.Base;
+using DragonFruit.Six.Api.Data.Strings;
 
-namespace DragonFruit.Six.API.Data.Requests
+namespace DragonFruit.Six.Api.Data.Requests
 {
     public sealed class OperatorStatsRequest : BasicStatsRequest
     {

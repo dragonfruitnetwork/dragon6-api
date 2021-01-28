@@ -4,11 +4,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data
+namespace DragonFruit.Six.Api.Data
 {
     public class ServerStatusReport
     {

@@ -4,9 +4,9 @@
 using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.API.Data.Requests
+namespace DragonFruit.Six.Api.Data.Requests
 {
     public class ServerStatusRequest : ApiRequest
     {

@@ -2,11 +2,11 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.API.Data.Containers;
-using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Api.Data.Containers;
+using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data
+namespace DragonFruit.Six.Api.Data
 {
     public class AccountInfo : IEquatable<AccountInfo>
     {

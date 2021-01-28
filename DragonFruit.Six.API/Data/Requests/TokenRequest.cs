@@ -5,9 +5,9 @@ using System.Net.Http;
 using System.Text;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Extensions;
-using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.Api.Data.Requests.Base;
 
-namespace DragonFruit.Six.API.Data.Requests
+namespace DragonFruit.Six.Api.Data.Requests
 {
     internal sealed class TokenRequest : UbiApiRequest
     {

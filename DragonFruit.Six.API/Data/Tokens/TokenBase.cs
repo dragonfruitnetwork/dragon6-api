@@ -4,7 +4,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data.Tokens
+namespace DragonFruit.Six.Api.Data.Tokens
 {
     public abstract class TokenBase
     {

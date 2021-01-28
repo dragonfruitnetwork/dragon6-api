@@ -4,11 +4,11 @@
 using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
-using DragonFruit.Six.API.Data.Requests.Base;
+using DragonFruit.Six.Api.Data.Requests.Base;
 
 #pragma warning disable 628
 
-namespace DragonFruit.Six.API.Data.Requests
+namespace DragonFruit.Six.Api.Data.Requests
 {
     public sealed class SeasonStatsRequest : PlatformSpecificRequest
     {

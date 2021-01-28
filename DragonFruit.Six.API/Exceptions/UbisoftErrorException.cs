@@ -3,7 +3,7 @@
 
 using System;
 
-namespace DragonFruit.Six.API.Exceptions
+namespace DragonFruit.Six.Api.Exceptions
 {
     public class UbisoftErrorException : Exception
     {

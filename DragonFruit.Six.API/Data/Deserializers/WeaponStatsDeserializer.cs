@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Common.Data.Extensions;
-using DragonFruit.Six.API.Data.Strings;
-using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Data.Strings;
+using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.API.Data.Deserializers
+namespace DragonFruit.Six.Api.Data.Deserializers
 {
     public static class WeaponStatsDeserializer
     {

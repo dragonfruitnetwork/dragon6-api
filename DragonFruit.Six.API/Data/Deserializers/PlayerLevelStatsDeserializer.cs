@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.API.Data.Deserializers
+namespace DragonFruit.Six.Api.Data.Deserializers
 {
     public static class PlayerLevelStatsDeserializer
     {

@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Verification
+namespace DragonFruit.Six.Api.Verification
 {
     /// <summary>
     /// Publicly-exposed data about a user's verified account (on the dragon6 site)

@@ -8,13 +8,13 @@ using System.Net.Http;
 using System.Threading;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
-using DragonFruit.Six.API.Data.Requests.Base;
-using DragonFruit.Six.API.Data.Tokens;
-using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Exceptions;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Data.Requests.Base;
+using DragonFruit.Six.Api.Data.Tokens;
+using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Exceptions;
+using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.API
+namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient
     {

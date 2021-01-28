@@ -1,10 +1,10 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using DragonFruit.Six.API.Data.Containers;
+using DragonFruit.Six.Api.Data.Containers;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.API.Data
+namespace DragonFruit.Six.Api.Data
 {
     public class GeneralStats
     {

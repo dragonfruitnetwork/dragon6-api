@@ -1,9 +1,9 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using DragonFruit.Six.API.Data.Containers;
+using DragonFruit.Six.Api.Data.Containers;
 
-namespace DragonFruit.Six.API.Utils
+namespace DragonFruit.Six.Api.Utils
 {
     public static class SeasonalRanks
     {

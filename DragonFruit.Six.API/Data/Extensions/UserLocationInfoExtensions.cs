@@ -2,9 +2,9 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Threading;
-using DragonFruit.Six.API.Data.Requests;
+using DragonFruit.Six.Api.Data.Requests;
 
-namespace DragonFruit.Six.API.Data.Extensions
+namespace DragonFruit.Six.Api.Data.Extensions
 {
     public static class UserLocationInfoExtensions
     {

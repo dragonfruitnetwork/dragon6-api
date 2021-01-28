@@ -3,7 +3,7 @@
 
 using System.ComponentModel;
 
-namespace DragonFruit.Six.API.Enums
+namespace DragonFruit.Six.Api.Enums
 {
     public enum WeaponType
     {

@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Services;
-using DragonFruit.Six.API.Data;
-using DragonFruit.Six.API.Data.Requests;
+using DragonFruit.Six.Api.Data;
+using DragonFruit.Six.Api.Data.Requests;
 
-namespace DragonFruit.Six.API.Utils
+namespace DragonFruit.Six.Api.Utils
 {
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class OperatorData

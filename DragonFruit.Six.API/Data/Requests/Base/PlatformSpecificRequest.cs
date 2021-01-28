@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Exceptions;
+using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Exceptions;
 
-namespace DragonFruit.Six.API.Data.Requests.Base
+namespace DragonFruit.Six.Api.Data.Requests.Base
 {
     /// <summary>
     /// Request type where components are specific to a <see cref="Enums.Platform"/>

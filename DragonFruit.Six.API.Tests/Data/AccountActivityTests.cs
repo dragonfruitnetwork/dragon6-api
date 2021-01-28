@@ -3,11 +3,11 @@
 
 using System;
 using System.Globalization;
-using DragonFruit.Six.API.Data.Extensions;
-using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Api.Data.Extensions;
+using DragonFruit.Six.Api.Enums;
 using NUnit.Framework;
 
-namespace DragonFruit.Six.API.Tests.Data
+namespace DragonFruit.Six.Api.Tests.Data
 {
     [TestFixture]
     public class AccountActivityTests : Dragon6ApiTest

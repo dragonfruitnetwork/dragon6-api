@@ -3,7 +3,7 @@
 
 using System;
 
-namespace DragonFruit.Six.API.Enums
+namespace DragonFruit.Six.Api.Enums
 {
     [Flags]
     public enum OperatorType

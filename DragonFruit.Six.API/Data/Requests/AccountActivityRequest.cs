@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
-using DragonFruit.Six.API.Data.Requests.Base;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Data.Requests.Base;
+using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.API.Data.Requests
+namespace DragonFruit.Six.Api.Data.Requests
 {
     public class AccountActivityRequest : UbiApiRequest
     {

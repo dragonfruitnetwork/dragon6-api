@@ -2,10 +2,10 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.API.Data.Tokens;
-using DragonFruit.Six.API.Developer;
+using DragonFruit.Six.Api.Data.Tokens;
+using DragonFruit.Six.Api.Developer;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.Api.Tests
 {
     /// <summary>
     /// Dragon6 Client For API Testing. Should NOT be used outside of this repo.

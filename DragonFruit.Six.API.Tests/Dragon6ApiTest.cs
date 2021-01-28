@@ -3,11 +3,11 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.API.Data;
-using DragonFruit.Six.API.Data.Extensions;
-using DragonFruit.Six.API.Enums;
+using DragonFruit.Six.Api.Data;
+using DragonFruit.Six.Api.Data.Extensions;
+using DragonFruit.Six.Api.Enums;
 
-namespace DragonFruit.Six.API.Tests
+namespace DragonFruit.Six.Api.Tests
 {
     public abstract class Dragon6ApiTest
     {

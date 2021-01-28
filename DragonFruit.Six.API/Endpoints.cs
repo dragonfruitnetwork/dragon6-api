@@ -2,10 +2,10 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.API.Enums;
-using DragonFruit.Six.API.Utils;
+using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.API
+namespace DragonFruit.Six.Api
 {
     public static class Endpoints
     {
