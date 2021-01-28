@@ -3,9 +3,9 @@
 
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Data.Tokens;
-using DragonFruit.Six.Api.Developer.Auth;
+using DragonFruit.Six.Api.Services.Developer.Auth;
 
-namespace DragonFruit.Six.Api.Developer
+namespace DragonFruit.Six.Api.Services.Developer
 {
     public class Dragon6DeveloperClient : Dragon6Client
     {

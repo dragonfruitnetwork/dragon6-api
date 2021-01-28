@@ -3,7 +3,7 @@
 
 using DragonFruit.Common.Data;
 
-namespace DragonFruit.Six.Api.Developer
+namespace DragonFruit.Six.Api.Services.Developer
 {
     public abstract class DeveloperApiRequest : ApiRequest
     {

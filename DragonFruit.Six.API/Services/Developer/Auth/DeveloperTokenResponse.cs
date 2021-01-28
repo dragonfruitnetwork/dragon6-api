@@ -5,7 +5,7 @@ using System;
 using DragonFruit.Six.Api.Data.Tokens;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Developer.Auth
+namespace DragonFruit.Six.Api.Services.Developer.Auth
 {
     public class DeveloperTokenResponse : TokenBase
     {

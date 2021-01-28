@@ -4,7 +4,7 @@
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 
-namespace DragonFruit.Six.Api.Developer.Auth
+namespace DragonFruit.Six.Api.Services.Developer.Auth
 {
     public class DeveloperSessionRequest : DeveloperApiRequest
     {

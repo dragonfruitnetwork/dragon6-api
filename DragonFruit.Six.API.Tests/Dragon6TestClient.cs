@@ -3,7 +3,7 @@
 
 using System;
 using DragonFruit.Six.Api.Data.Tokens;
-using DragonFruit.Six.Api.Developer;
+using DragonFruit.Six.Api.Services.Developer;
 
 namespace DragonFruit.Six.Api.Tests
 {
