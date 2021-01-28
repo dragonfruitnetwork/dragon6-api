@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data.Containers;
 using DragonFruit.Six.Api.Data.Strings;
 using DragonFruit.Six.Api.Utils;

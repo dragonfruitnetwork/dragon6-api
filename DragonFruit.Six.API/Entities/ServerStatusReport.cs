@@ -8,7 +8,7 @@ using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data
+namespace DragonFruit.Six.Api.Entities
 {
     public class ServerStatusReport
     {

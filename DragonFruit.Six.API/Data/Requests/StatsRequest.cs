@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data.Requests.Base;
 using DragonFruit.Six.Api.Data.Strings;
 

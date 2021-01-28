@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data
+namespace DragonFruit.Six.Api.Entities
 {
     public class UserLocationInfo
     {

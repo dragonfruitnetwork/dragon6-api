@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data.Requests.Base;
 using DragonFruit.Six.Api.Data.Strings;
 

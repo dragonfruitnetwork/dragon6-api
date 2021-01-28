@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Services;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data;
 using DragonFruit.Six.Api.Data.Requests;
 

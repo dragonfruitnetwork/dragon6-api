@@ -3,6 +3,7 @@
 
 using System;
 using Newtonsoft.Json;
+using DragonFruit.Six.Api.Entities;
 
 namespace DragonFruit.Six.Api.Data.Tokens
 {

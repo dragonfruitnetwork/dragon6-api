@@ -4,7 +4,7 @@
 using DragonFruit.Six.Api.Data.Containers;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data
+namespace DragonFruit.Six.Api.Entities
 {
     public class GeneralStats
     {

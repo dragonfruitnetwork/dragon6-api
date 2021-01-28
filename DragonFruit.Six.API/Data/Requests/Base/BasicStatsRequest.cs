@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Six.Api.Entities;
 
 namespace DragonFruit.Six.Api.Data.Requests.Base
 {

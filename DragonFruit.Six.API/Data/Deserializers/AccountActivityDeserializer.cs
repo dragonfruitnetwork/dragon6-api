@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data.Containers;
 using DragonFruit.Six.Api.Data.Strings;
 using DragonFruit.Six.Api.Utils;

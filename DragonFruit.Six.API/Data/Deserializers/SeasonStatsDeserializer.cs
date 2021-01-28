@@ -3,6 +3,7 @@
 
 using System;
 using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Data.Strings;
 using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json.Linq;
