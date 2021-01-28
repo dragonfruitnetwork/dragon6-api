@@ -36,6 +36,14 @@ namespace DragonFruit.Six.Api.Tests.Data
 
         [Test]
         [TestCaseSource(nameof(_accounts))]
+        public void WeaponTrainingStatsTest(string identifier, Platform platform)
+        {
+            var account = GetAccountInfoFor(identifier, platform);
+            Client.GetWeaponTrainingStats(account);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(_accounts))]
         public void PlayerLevelStatsTest(string identifier, Platform platform)
         {
             var account = GetAccountInfoFor(identifier, platform);
