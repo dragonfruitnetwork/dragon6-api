@@ -44,5 +44,35 @@ namespace DragonFruit.Six.Api.Deserializers
                 };
             }
         }
+
+        public static IEnumerable<WeaponStats> DeserializeWeaponTrainingStatsFor(this JObject jObject, string guid)
+        {
+            var json = jObject[Misc.Results]?[guid] as JObject;
+
+            if (json == null)
+                yield break;
+
+            foreach (var index in Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>())
+            {
+                var numericIndex = (int)index;
+
+                yield return new WeaponStats
+                {
+                    Guid = guid,
+                    Class = index,
+                    TimesChosen = json.GetUInt(Weapon.PickedTraining.ToIndexedStatsKey(numericIndex)),
+
+                    Kills = json.GetUInt(Weapon.KillsTraining.ToIndexedStatsKey(numericIndex)),
+                    Deaths = json.GetUInt(Weapon.DeathsTraining.ToIndexedStatsKey(numericIndex)),
+
+                    Headshots = json.GetUInt(Weapon.HeadshotsTraining.ToIndexedStatsKey(numericIndex)),
+                    Downs = json.GetUInt(Weapon.DownsTraining.ToIndexedStatsKey(numericIndex)),
+                    DownAssists = json.GetUInt(Weapon.DownAssistsTraining.ToIndexedStatsKey(numericIndex)),
+
+                    ShotsFired = json.GetUInt(Weapon.ShotsFiredTraining.ToIndexedStatsKey(numericIndex)),
+                    ShotsLanded = json.GetUInt(Weapon.ShotsHitTraining.ToIndexedStatsKey(numericIndex))
+                };
+            }
+        }
     }
 }
