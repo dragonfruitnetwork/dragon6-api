@@ -3,7 +3,7 @@
 
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data.Containers
+namespace DragonFruit.Six.Api.Containers
 {
     public class RankInfo
     {

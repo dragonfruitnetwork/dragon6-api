@@ -3,7 +3,7 @@
 
 using DragonFruit.Common.Data;
 
-namespace DragonFruit.Six.Api.Data.Requests
+namespace DragonFruit.Six.Api.Requests
 {
     public class UserLocationInfoRequest : ApiRequest
     {

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Data.Requests.Base;
+using DragonFruit.Six.Api.Requests.Base;
 
-namespace DragonFruit.Six.Api.Data.Requests
+namespace DragonFruit.Six.Api.Requests
 {
     public class PlayerLevelStatsRequest : PlatformSpecificRequest
     {

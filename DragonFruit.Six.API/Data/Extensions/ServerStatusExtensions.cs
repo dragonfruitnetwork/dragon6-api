@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Threading;
 using DragonFruit.Common.Data;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Data.Requests;
+using DragonFruit.Six.Api.Requests;
 
-namespace DragonFruit.Six.Api.Data.Extensions
+namespace DragonFruit.Six.Api.Extensions
 {
     public static class ServerStatusExtensions
     {

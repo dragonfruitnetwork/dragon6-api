@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Data.Deserializers;
-using DragonFruit.Six.Api.Data.Requests;
+using DragonFruit.Six.Api.Deserializers;
+using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.Api.Data.Extensions
+namespace DragonFruit.Six.Api.Extensions
 {
     public static class AccountInfoExtensions
     {

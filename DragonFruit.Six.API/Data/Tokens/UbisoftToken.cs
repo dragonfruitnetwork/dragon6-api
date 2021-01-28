@@ -5,7 +5,7 @@ using System;
 using Newtonsoft.Json;
 using DragonFruit.Six.Api.Entities;
 
-namespace DragonFruit.Six.Api.Data.Tokens
+namespace DragonFruit.Six.Api.Tokens
 {
     /// <summary>
     /// A Token directly from the Ubisoft servers

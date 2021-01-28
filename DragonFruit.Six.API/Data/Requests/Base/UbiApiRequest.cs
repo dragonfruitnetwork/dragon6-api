@@ -5,7 +5,7 @@ using DragonFruit.Common.Data;
 
 #nullable enable
 
-namespace DragonFruit.Six.Api.Data.Requests.Base
+namespace DragonFruit.Six.Api.Requests.Base
 {
     public abstract class UbiApiRequest : ApiRequest
     {

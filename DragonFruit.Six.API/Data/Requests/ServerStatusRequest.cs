@@ -6,7 +6,7 @@ using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.Api.Data.Requests
+namespace DragonFruit.Six.Api.Requests
 {
     public class ServerStatusRequest : ApiRequest
     {

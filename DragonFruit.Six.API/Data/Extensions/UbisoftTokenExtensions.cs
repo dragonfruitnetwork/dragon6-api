@@ -4,10 +4,10 @@
 using System;
 using System.Text;
 using System.Threading;
-using DragonFruit.Six.Api.Data.Requests;
-using DragonFruit.Six.Api.Data.Tokens;
+using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Tokens;
 
-namespace DragonFruit.Six.Api.Data.Extensions
+namespace DragonFruit.Six.Api.Extensions
 {
     public static class UbisoftTokenExtensions
     {

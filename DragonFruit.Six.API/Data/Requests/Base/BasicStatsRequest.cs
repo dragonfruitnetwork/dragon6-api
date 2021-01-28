@@ -6,7 +6,7 @@ using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
 
-namespace DragonFruit.Six.Api.Data.Requests.Base
+namespace DragonFruit.Six.Api.Requests.Base
 {
     /// <summary>
     /// Base for requesting general stats from the main endpoint

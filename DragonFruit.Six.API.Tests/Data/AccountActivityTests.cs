@@ -3,7 +3,7 @@
 
 using System;
 using System.Globalization;
-using DragonFruit.Six.Api.Data.Extensions;
+using DragonFruit.Six.Api.Extensions;
 using DragonFruit.Six.Api.Enums;
 using NUnit.Framework;
 

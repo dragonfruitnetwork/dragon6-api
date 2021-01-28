@@ -3,12 +3,12 @@
 
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Data.Containers;
-using DragonFruit.Six.Api.Data.Strings;
+using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.Api.Data.Deserializers
+namespace DragonFruit.Six.Api.Deserializers
 {
     public static class GeneralStatsDeserializer
     {

@@ -2,7 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Data.Extensions;
+using DragonFruit.Six.Api.Extensions;
 using DragonFruit.Six.Api.Enums;
 using NUnit.Framework;
 

@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Data.Requests.Base;
-using DragonFruit.Six.Api.Data.Strings;
+using DragonFruit.Six.Api.Requests.Base;
+using DragonFruit.Six.Api.Strings;
 
-namespace DragonFruit.Six.Api.Data.Requests
+namespace DragonFruit.Six.Api.Requests
 {
     public sealed class StatsRequest : BasicStatsRequest
     {

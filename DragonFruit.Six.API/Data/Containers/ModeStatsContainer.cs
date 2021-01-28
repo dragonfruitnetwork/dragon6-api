@@ -2,11 +2,11 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Data.Interfaces;
+using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data.Containers
+namespace DragonFruit.Six.Api.Containers
 {
     public class BombModeStats : ModeStatsContainer
     {

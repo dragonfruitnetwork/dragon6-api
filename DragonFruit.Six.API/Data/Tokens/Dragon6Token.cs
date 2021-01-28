@@ -4,7 +4,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Data.Tokens
+namespace DragonFruit.Six.Api.Tokens
 {
     /// <summary>
     /// The most basic implimentation of <see cref="TokenBase"/>. Useful for storing the components that are actually needed
