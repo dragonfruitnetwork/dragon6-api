@@ -7,18 +7,19 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
-    public static class StatsExtentions
+    public static class GeneralStatsExtentions
     {
         /// <summary>
         /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
         /// </summary>
         public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetStats(client, new[] { account }, token)[account.Identifiers.Platform].FirstOrDefault();
+            return GetStats(client, new[] { account }, token).For(account.Identifiers.Platform);
         }
 
         /// <summary>

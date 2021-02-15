@@ -17,12 +17,12 @@ namespace DragonFruit.Six.Api.Deserializers
         public static ILookup<string, GeneralStats> DeserializeGeneralStats(this JObject jObject)
         {
             var results = jObject[Misc.Results]?.ToObject<Dictionary<string, JObject>>();
-            var enumeratedResults = results?.Select(DeserializeGeneralStats) ?? Enumerable.Empty<GeneralStats>();
+            var enumeratedResults = results?.Select(DeserializeInternal) ?? Enumerable.Empty<GeneralStats>();
 
             return enumeratedResults.ToLookup(x => x.ProfileId);
         }
 
-        private static GeneralStats DeserializeGeneralStats(KeyValuePair<string, JObject> data) => new()
+        private static GeneralStats DeserializeInternal(KeyValuePair<string, JObject> data) => new()
         {
             ProfileId = data.Key,
 

@@ -7,6 +7,7 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -21,7 +22,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetSeasonStats(client, new[] { account }, "EMEA", -1, token)[account.Identifiers.Platform].FirstOrDefault();
+            return GetSeasonStats(client, new[] { account }, "EMEA", -1, token).For(account.Identifiers.Platform);
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, int season, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetSeasonStats(client, new[] { account }, "EMEA", season, token)[account.Identifiers.Platform].FirstOrDefault();
+            return GetSeasonStats(client, new[] { account }, "EMEA", season, token).For(account.Identifiers.Platform);
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetSeasonStats(client, new[] { account }, region, seasonId, token)[account.Identifiers.Platform].FirstOrDefault();
+            return GetSeasonStats(client, new[] { account }, region, seasonId, token).For(account.Identifiers.Platform);
         }
 
         /// <summary>
