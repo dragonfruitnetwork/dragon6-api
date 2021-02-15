@@ -9,8 +9,7 @@ namespace DragonFruit.Six.Api.Entities
 {
     public abstract class StatsBase : IHasKd, IHasWl
     {
-        private float? _kd;
-        private float? _wl;
+        private float? _kd, _wl;
 
         [JsonProperty("kills")]
         public uint Kills { get; set; }

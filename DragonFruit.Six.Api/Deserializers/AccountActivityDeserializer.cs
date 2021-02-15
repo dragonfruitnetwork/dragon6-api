@@ -2,7 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
@@ -14,28 +14,25 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountActivityDeserializer
     {
-        public static IEnumerable<AccountActivity> DeserializeAccountLoginInfo(this JObject jObject)
+        public static ILookup<string, AccountActivity> DeserializeAccountLoginInfo(this JObject jObject)
         {
-            var data = jObject["applications"] as JArray;
+            var deserializedItems = jObject["applications"] is JArray data
+                ? data.Cast<JObject>().Select(DeserializeInternal)
+                : Enumerable.Empty<AccountActivity>();
 
-            if (data == null)
-                yield break;
-
-            foreach (var jToken in data)
-            {
-                var entry = (JObject)jToken;
-                yield return new AccountActivity
-                {
-                    Guid = entry.GetString(Activity.Guid),
-                    SessionCount = entry.GetUInt(Activity.Sessions),
-                    Platform = UbisoftIdentifiers.GameIds[entry.GetString(Activity.PlatformId)],
-                    Activity = new ActivityDates
-                    {
-                        First = DateTimeOffset.Parse(entry.GetString(Activity.FirstLogin), Dragon6Client.Culture),
-                        Last = DateTimeOffset.Parse(entry.GetString(Activity.LastLogin), Dragon6Client.Culture)
-                    }
-                };
-            }
+            return deserializedItems.ToLookup(x => x.ProfileId);
         }
+
+        private static AccountActivity DeserializeInternal(JObject data) => new()
+        {
+            ProfileId = data.GetString(Activity.Guid),
+            SessionCount = data.GetUInt(Activity.Sessions),
+            Platform = UbisoftIdentifiers.GameIds[data.GetString(Activity.PlatformId)],
+            Activity = new ActivityDates
+            {
+                First = DateTimeOffset.Parse(data.GetString(Activity.FirstLogin), Dragon6Client.Culture),
+                Last = DateTimeOffset.Parse(data.GetString(Activity.LastLogin), Dragon6Client.Culture)
+            }
+        };
     }
 }

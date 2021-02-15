@@ -1,9 +1,11 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Common.Data.Extensions;
-using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
@@ -12,139 +14,136 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class GeneralStatsDeserializer
     {
-        public static GeneralStats DeserializeGeneralStatsFor(this JObject jObject, string guid)
+        public static ILookup<string, GeneralStats> DeserializeGeneralStats(this JObject jObject)
         {
-            // try to get the user but if there is nothing return null
-            var json = jObject[Misc.Results]?[guid] as JObject;
+            var results = jObject[Misc.Results]?.ToObject<Dictionary<string, JObject>>();
+            var enumeratedResults = results?.Select(DeserializeGeneralStats) ?? Enumerable.Empty<GeneralStats>();
 
-            if (json == null)
-                return null;
-
-            var result = new GeneralStats
-            {
-                Guid = guid,
-
-                #region Playlists
-
-                Casual = new PlaylistStats
-                {
-                    Kills = json.GetUInt(Casual.Kills.ToStatsKey()),
-                    Deaths = json.GetUInt(Casual.Deaths.ToStatsKey()),
-
-                    Wins = json.GetUInt(Casual.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Casual.Losses.ToStatsKey()),
-
-                    MatchesPlayed = json.GetUInt(Casual.MatchesPlayed.ToStatsKey()),
-                    Duration = json.GetUInt(Casual.Time.ToStatsKey())
-                },
-
-                Training = new PlaylistStats
-                {
-                    Kills = json.GetUInt(Training.Kills.ToStatsKey()),
-                    Deaths = json.GetUInt(Training.Deaths.ToStatsKey()),
-
-                    Wins = json.GetUInt(Training.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Training.Losses.ToStatsKey()),
-
-                    Duration = json.GetUInt(Training.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Training.MatchesPlayed.ToStatsKey())
-                },
-
-                Ranked = new PlaylistStats
-                {
-                    Kills = json.GetUInt(Ranked.Kills.ToStatsKey()),
-                    Deaths = json.GetUInt(Ranked.Deaths.ToStatsKey()),
-
-                    Wins = json.GetUInt(Ranked.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Ranked.Losses.ToStatsKey()),
-
-                    Duration = json.GetUInt(Ranked.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Ranked.MatchesPlayed.ToStatsKey()),
-                },
-
-                Overall = new PlaylistStats
-                {
-                    Kills = json.GetUInt(General.Kills.ToStatsKey()),
-                    Deaths = json.GetUInt(General.Deaths.ToStatsKey()),
-
-                    Wins = json.GetUInt(General.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(General.Losses.ToStatsKey()),
-
-                    Duration = json.GetUInt(General.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(General.MatchesPlayed.ToStatsKey())
-                },
-
-                #endregion
-
-                #region Modes
-
-                Bomb = new BombModeStats
-                {
-                    Wins = json.GetUInt(Modes.Bomb.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Modes.Bomb.Losses.ToStatsKey()),
-
-                    Highscore = json.GetUInt(Modes.Bomb.Highscore.ToStatsKey()),
-
-                    Duration = json.GetUInt(Modes.Bomb.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Modes.Bomb.MatchesPlayed.ToStatsKey())
-                },
-
-                Hostage = new HostageModeStats
-                {
-                    Wins = json.GetUInt(Modes.Hostage.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Modes.Hostage.Losses.ToStatsKey()),
-
-                    Highscore = json.GetUInt(Modes.Hostage.Highscore.ToStatsKey()),
-
-                    Duration = json.GetUInt(Modes.Hostage.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey()),
-
-                    Rescues = json.GetUInt(Modes.Hostage.Rescues.ToStatsKey()),
-                    Defenses = json.GetUInt(Modes.Hostage.Defenses.ToStatsKey())
-                },
-
-                Secure = new SecureModeStats
-                {
-                    Wins = json.GetUInt(Modes.Secure.Wins.ToStatsKey()),
-                    Losses = json.GetUInt(Modes.Secure.Losses.ToStatsKey()),
-
-                    Highscore = json.GetUInt(Modes.Secure.Highscore.ToStatsKey()),
-
-                    Duration = json.GetUInt(Modes.Secure.Time.ToStatsKey()),
-                    MatchesPlayed = json.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey()),
-
-                    Aggressions = json.GetUInt(Modes.Secure.Aggressions.ToStatsKey()),
-                    Defenses = json.GetUInt(Modes.Secure.Defenses.ToStatsKey()),
-                    Captures = json.GetUInt(Modes.Secure.Captures.ToStatsKey())
-                },
-
-                #endregion
-
-                // non-containerised stats
-                Barricades = json.GetUInt(General.Barricades.ToStatsKey()),
-                Reinforcements = json.GetUInt(General.Reinforcements.ToStatsKey()),
-                GadgetsDestroyed = json.GetUInt(General.GadgetsDestroyed.ToStatsKey()),
-
-                Downs = json.GetUInt(General.Downs.ToStatsKey()),
-                Revives = json.GetUInt(General.Revives.ToStatsKey()),
-
-                // todo move to killtypes class?
-                Penetrations = json.GetUInt(General.Penetrations.ToStatsKey()),
-                Headshots = json.GetUInt(General.Headshots.ToStatsKey()),
-                Knifes = json.GetUInt(General.Knives.ToStatsKey()),
-                BlindKills = json.GetUInt(General.BlindKills.ToStatsKey()),
-
-                Assists = json.GetUInt(General.Assists.ToStatsKey()),
-                DownAssists = json.GetUInt(General.DownAssists.ToStatsKey()),
-                Suicides = json.GetUInt(General.Suicides.ToStatsKey()),
-
-                ShotsFired = json.GetULong(General.BulletFired.ToStatsKey()),
-                ShotsConnected = json.GetULong(General.BulletHit.ToStatsKey()),
-
-                Experience = json.GetULong(General.Experience.ToStatsKey()),
-            };
-
-            return result;
+            return enumeratedResults.ToLookup(x => x.ProfileId);
         }
+
+        private static GeneralStats DeserializeGeneralStats(KeyValuePair<string, JObject> data) => new()
+        {
+            ProfileId = data.Key,
+
+            #region Playlists
+
+            Casual = new PlaylistStats
+            {
+                Kills = data.Value.GetUInt(Casual.Kills.ToStatsKey()),
+                Deaths = data.Value.GetUInt(Casual.Deaths.ToStatsKey()),
+
+                Wins = data.Value.GetUInt(Casual.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Casual.Losses.ToStatsKey()),
+
+                MatchesPlayed = data.Value.GetUInt(Casual.MatchesPlayed.ToStatsKey()),
+                Duration = data.Value.GetUInt(Casual.Time.ToStatsKey())
+            },
+
+            Training = new PlaylistStats
+            {
+                Kills = data.Value.GetUInt(Training.Kills.ToStatsKey()),
+                Deaths = data.Value.GetUInt(Training.Deaths.ToStatsKey()),
+
+                Wins = data.Value.GetUInt(Training.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Training.Losses.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(Training.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(Training.MatchesPlayed.ToStatsKey())
+            },
+
+            Ranked = new PlaylistStats
+            {
+                Kills = data.Value.GetUInt(Ranked.Kills.ToStatsKey()),
+                Deaths = data.Value.GetUInt(Ranked.Deaths.ToStatsKey()),
+
+                Wins = data.Value.GetUInt(Ranked.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Ranked.Losses.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(Ranked.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(Ranked.MatchesPlayed.ToStatsKey()),
+            },
+
+            Overall = new PlaylistStats
+            {
+                Kills = data.Value.GetUInt(General.Kills.ToStatsKey()),
+                Deaths = data.Value.GetUInt(General.Deaths.ToStatsKey()),
+
+                Wins = data.Value.GetUInt(General.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(General.Losses.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(General.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(General.MatchesPlayed.ToStatsKey())
+            },
+
+            #endregion
+
+            #region Modes
+
+            Bomb = new BombModeStats
+            {
+                Wins = data.Value.GetUInt(Modes.Bomb.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Modes.Bomb.Losses.ToStatsKey()),
+
+                Highscore = data.Value.GetUInt(Modes.Bomb.Highscore.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(Modes.Bomb.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(Modes.Bomb.MatchesPlayed.ToStatsKey())
+            },
+
+            Hostage = new HostageModeStats
+            {
+                Wins = data.Value.GetUInt(Modes.Hostage.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Modes.Hostage.Losses.ToStatsKey()),
+
+                Highscore = data.Value.GetUInt(Modes.Hostage.Highscore.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(Modes.Hostage.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey()),
+
+                Rescues = data.Value.GetUInt(Modes.Hostage.Rescues.ToStatsKey()),
+                Defenses = data.Value.GetUInt(Modes.Hostage.Defenses.ToStatsKey())
+            },
+
+            Secure = new SecureModeStats
+            {
+                Wins = data.Value.GetUInt(Modes.Secure.Wins.ToStatsKey()),
+                Losses = data.Value.GetUInt(Modes.Secure.Losses.ToStatsKey()),
+
+                Highscore = data.Value.GetUInt(Modes.Secure.Highscore.ToStatsKey()),
+
+                Duration = data.Value.GetUInt(Modes.Secure.Time.ToStatsKey()),
+                MatchesPlayed = data.Value.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey()),
+
+                Aggressions = data.Value.GetUInt(Modes.Secure.Aggressions.ToStatsKey()),
+                Defenses = data.Value.GetUInt(Modes.Secure.Defenses.ToStatsKey()),
+                Captures = data.Value.GetUInt(Modes.Secure.Captures.ToStatsKey())
+            },
+
+            #endregion
+
+            // non-containerised stats
+            Barricades = data.Value.GetUInt(General.Barricades.ToStatsKey()),
+            Reinforcements = data.Value.GetUInt(General.Reinforcements.ToStatsKey()),
+            GadgetsDestroyed = data.Value.GetUInt(General.GadgetsDestroyed.ToStatsKey()),
+
+            Downs = data.Value.GetUInt(General.Downs.ToStatsKey()),
+            Revives = data.Value.GetUInt(General.Revives.ToStatsKey()),
+
+            // todo move to killtypes class?
+            Penetrations = data.Value.GetUInt(General.Penetrations.ToStatsKey()),
+            Headshots = data.Value.GetUInt(General.Headshots.ToStatsKey()),
+            Knifes = data.Value.GetUInt(General.Knives.ToStatsKey()),
+            BlindKills = data.Value.GetUInt(General.BlindKills.ToStatsKey()),
+
+            Assists = data.Value.GetUInt(General.Assists.ToStatsKey()),
+            DownAssists = data.Value.GetUInt(General.DownAssists.ToStatsKey()),
+            Suicides = data.Value.GetUInt(General.Suicides.ToStatsKey()),
+
+            ShotsFired = data.Value.GetULong(General.BulletFired.ToStatsKey()),
+            ShotsConnected = data.Value.GetULong(General.BulletHit.ToStatsKey()),
+
+            Experience = data.Value.GetULong(General.Experience.ToStatsKey()),
+        };
     }
 }

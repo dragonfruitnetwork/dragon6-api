@@ -17,12 +17,15 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the <see cref="AccountActivity"/> for a specific <see cref="AccountInfo"/>
         /// </summary>
         public static AccountActivity GetLoginInfo<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetLoginInfo(client, new[] { account }, token).First();
+        {
+            var info = GetLoginInfo(client, new[] { account }, token);
+            return info[account.Identifiers.Profile].FirstOrDefault();
+        }
 
         /// <summary>
         /// Get the <see cref="AccountActivity"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static IEnumerable<AccountActivity> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, AccountActivity> GetLoginInfo<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             var data = client.Perform<JObject>(new AccountActivityRequest(accounts), token);
             return data.DeserializeAccountLoginInfo();

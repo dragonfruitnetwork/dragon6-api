@@ -2,17 +2,15 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class GeneralStats
+    public class GeneralStats : IAssociatedWithAccount
     {
-        /// <summary>
-        /// Profile Id
-        /// </summary>
-        [JsonProperty("guid")]
-        public string Guid { get; set; }
+        [JsonProperty("profile")]
+        internal string ProfileId { get; set; }
 
         #region Playlists
 
@@ -133,5 +131,7 @@ namespace DragonFruit.Six.Api.Entities
         /// </summary>
         [JsonProperty("experience")]
         public ulong Experience { get; set; }
+
+        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }
