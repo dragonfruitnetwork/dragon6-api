@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class AccountActivity : IAssociatedWithAccount
+    public class AccountActivity : IAssociatedWithAccount, IStatsResponse
     {
         [JsonProperty("profile")]
         internal string ProfileId { get; set; }

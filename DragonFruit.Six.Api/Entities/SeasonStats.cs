@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class SeasonStats : StatsBase, IAssociatedWithAccount
+    public class SeasonStats : StatsBase, IAssociatedWithAccount, IStatsResponse
     {
         private RankInfo _rankInfo;
         private RankInfo _maxRankInfo;

@@ -18,10 +18,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the <see cref="AccountActivity"/> for a specific <see cref="AccountInfo"/>
         /// </summary>
         public static AccountActivity GetLoginInfo<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-        {
-            var info = GetLoginInfo(client, account.Yield(), token);
-            return info[account.Identifiers.Profile].FirstOrDefault();
-        }
+            => GetLoginInfo(client, account.Yield(), token).For(account);
 
         /// <summary>
         /// Get the <see cref="AccountActivity"/> for an array of <see cref="AccountInfo"/>s

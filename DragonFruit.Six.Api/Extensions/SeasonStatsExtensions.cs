@@ -21,9 +21,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats are now region-independent
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-        {
-            return GetSeasonStats(client, account.Yield(), "EMEA", -1, token).For(account.Identifiers.Platform);
-        }
+            => GetSeasonStats(client, account.Yield(), "EMEA", -1, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for the <see cref="AccountInfo"/> (latest season)
@@ -32,9 +30,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats are now region-independent
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, int season, CancellationToken token = default) where T : Dragon6Client
-        {
-            return GetSeasonStats(client, account.Yield(), "EMEA", season, token).For(account.Identifiers.Platform);
-        }
+            => GetSeasonStats(client, account.Yield(), "EMEA", season, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -43,9 +39,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats are now region-independent
         /// </remarks>
         public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
-        {
-            return GetSeasonStats(client, accounts, "EMEA", -1, token);
-        }
+            => GetSeasonStats(client, accounts, "EMEA", -1, token);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an <see cref="AccountInfo"/>
@@ -54,9 +48,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
-        {
-            return GetSeasonStats(client, account.Yield(), region, seasonId, token).For(account.Identifiers.Platform);
-        }
+            => GetSeasonStats(client, account.Yield(), region, seasonId, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -64,8 +56,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
-        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId, CancellationToken token = default)
-            where T : Dragon6Client
+        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
             JObject data = null;

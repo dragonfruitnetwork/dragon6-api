@@ -11,6 +11,7 @@ namespace DragonFruit.Six.Api.Utils
         /// <summary>
         /// Yield returns a single item
         /// </summary>
+        /// <exception cref="NullReferenceException"><see cref="item"/> was null</exception>
         public static IEnumerable<T> Yield<T>(this T item)
         {
             yield return item ?? throw new NullReferenceException();

@@ -18,9 +18,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the level, level progression and alpha pack chances for an <see cref="AccountInfo"/>
         /// </summary>
         public static PlayerLevelStats GetLevel<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-        {
-            return GetLevel(client, account.Yield(), token)[account.Identifiers.Profile].FirstOrDefault();
-        }
+            => GetLevel(client, account.Yield(), token).For(account);
 
         /// <summary>
         /// Get the level, level progression and alpha pack chances for an array of <see cref="AccountInfo"/>s

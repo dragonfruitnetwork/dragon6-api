@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class OperatorStats : StatsBase, IAssociatedWithAccount
+    public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiElementStatsResponse
     {
         private TimeSpan? _timePlayed;
 

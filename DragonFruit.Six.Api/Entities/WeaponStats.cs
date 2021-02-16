@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class WeaponStats : IHasKd, IAssociatedWithAccount
+    public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiElementStatsResponse
     {
         private float? _kd, _power, _headshotRatio, _efficiency, _accuracy;
 
