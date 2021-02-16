@@ -17,6 +17,6 @@ namespace DragonFruit.Six.Api.Exceptions
             FoundPlatforms = accounts.Select(x => x.Platform).Distinct();
         }
 
-        public IEnumerable<Platform> FoundPlatforms { get; set; }
+        public IEnumerable<Platform> FoundPlatforms { get; }
     }
 }
