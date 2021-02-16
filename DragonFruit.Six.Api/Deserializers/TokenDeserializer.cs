@@ -4,6 +4,7 @@
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Tokens;
 using DragonFruit.Six.Api.Utils;
@@ -15,11 +16,7 @@ namespace DragonFruit.Six.Api.Deserializers
     {
         public static UbisoftToken DeserializeToken(this JObject json)
         {
-            var token = json.ToObject<UbisoftToken>();
-
-            if (token == null)
-                // todo would an exception here be better?
-                return null;
+            var token = json.ToObject<UbisoftToken>() ?? throw new TokenDeserializationException();
 
             token.Account = new AccountInfo
             {
