@@ -18,6 +18,7 @@ namespace DragonFruit.Six.Api.Deserializers
             var token = json.ToObject<UbisoftToken>();
 
             if (token == null)
+                // todo would an exception here be better?
                 return null;
 
             token.Account = new AccountInfo
