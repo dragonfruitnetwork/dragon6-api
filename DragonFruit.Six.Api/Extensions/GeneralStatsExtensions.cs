@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
-    public static class GeneralStatsExtentions
+    public static class GeneralStatsExtensions
     {
         /// <summary>
         /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
