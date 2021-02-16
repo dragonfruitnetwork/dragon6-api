@@ -45,5 +45,35 @@ namespace DragonFruit.Six.Api.Deserializers
                 yield return op;
             }
         }
+
+        public static IEnumerable<OperatorStats> DeserializeOperatorTrainingStatsFor(this JObject jObject, string guid, IEnumerable<OperatorStats> data)
+        {
+            var json = jObject[Misc.Results]?[guid] as JObject;
+
+            if (json == null)
+                yield break;
+
+            foreach (var op in data.Select(x => x.Clone()))
+            {
+                op.Guid = guid;
+
+                op.Kills = json.GetUInt(Operator.KillsTraining.ToIndexedStatsKey(op.Index));
+                op.Deaths = json.GetUInt(Operator.DeathsTraining.ToIndexedStatsKey(op.Index));
+
+                op.Wins = json.GetUInt(Operator.WinsTraining.ToIndexedStatsKey(op.Index));
+                op.Losses = json.GetUInt(Operator.LossesTraining.ToIndexedStatsKey(op.Index));
+
+                op.RoundsPlayed = json.GetUInt(Operator.RoundsTraining.ToIndexedStatsKey(op.Index));
+                op.Duration = json.GetUInt(Operator.TimeTraining.ToIndexedStatsKey(op.Index));
+
+                op.Headshots = json.GetUInt(Operator.HeadshotsTraining.ToIndexedStatsKey(op.Index));
+                op.Downs = json.GetUInt(Operator.DownsTraining.ToIndexedStatsKey(op.Index));
+
+                op.Experience = json.GetUInt(Operator.ExperienceTraining.ToIndexedStatsKey(op.Index));
+                op.ActionCount = (uint?)json[op.OperatorActionResultId];
+
+                yield return op;
+            }
+        }
     }
 }
