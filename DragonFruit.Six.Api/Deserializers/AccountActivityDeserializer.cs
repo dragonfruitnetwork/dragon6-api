@@ -14,9 +14,9 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountActivityDeserializer
     {
-        public static ILookup<string, AccountActivity> DeserializeAccountLoginInfo(this JObject jObject)
+        public static ILookup<string, AccountActivity> DeserializeAccountLoginInfo(this JObject json)
         {
-            var deserializedItems = jObject["applications"] is JArray data
+            var deserializedItems = json["applications"] is JArray data
                 ? data.Cast<JObject>().Select(DeserializeInternal)
                 : Enumerable.Empty<AccountActivity>();
 

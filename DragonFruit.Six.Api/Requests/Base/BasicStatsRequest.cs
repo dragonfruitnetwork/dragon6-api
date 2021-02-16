@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
+using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Requests.Base
 {
@@ -19,7 +20,7 @@ namespace DragonFruit.Six.Api.Requests.Base
         /// Initialises a <see cref="BasicStatsRequest"/> for a single <see cref="AccountInfo"/>
         /// </summary>
         public BasicStatsRequest(AccountInfo account)
-            : base(new[] { account })
+            : base(account.Yield())
         {
         }
 

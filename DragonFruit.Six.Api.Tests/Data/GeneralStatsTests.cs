@@ -39,7 +39,7 @@ namespace DragonFruit.Six.Api.Tests.Data
         public void WeaponTrainingStatsTest(string identifier, Platform platform)
         {
             var account = GetAccountInfoFor(identifier, platform);
-            Client.GetWeaponTrainingStats(account);
+            Client.GetWeaponStats(account, true);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace DragonFruit.Six.Api.Tests.Data
             OperatorInfo ??= Client.GetOperatorInfo();
 
             var account = GetAccountInfoFor(identifier, platform);
-            Client.GetOperatorTrainingStats(account, OperatorInfo);
+            Client.GetOperatorStats(account, OperatorInfo, true);
         }
     }
 }

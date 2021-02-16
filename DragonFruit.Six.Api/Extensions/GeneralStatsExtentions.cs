@@ -19,7 +19,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetStats(client, new[] { account }, token).For(account.Identifiers.Platform);
+            return GetStats(client, account.Yield(), token).For(account);
         }
 
         /// <summary>

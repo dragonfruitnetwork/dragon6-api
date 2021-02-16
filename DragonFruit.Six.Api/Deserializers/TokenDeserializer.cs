@@ -13,20 +13,20 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class TokenDeserializer
     {
-        public static UbisoftToken DeserializeToken(this JObject jObject)
+        public static UbisoftToken DeserializeToken(this JObject json)
         {
-            var token = jObject.ToObject<UbisoftToken>();
+            var token = json.ToObject<UbisoftToken>();
 
             if (token == null)
                 return null;
 
             token.Account = new AccountInfo
             {
-                Platform = PlatformParser.PlatformEnumFor(jObject.GetString(Accounts.PlatformIdentifier, "uplay")),
-                PlayerName = jObject.GetString(Accounts.Name),
+                Platform = PlatformParser.PlatformEnumFor(json.GetString(Accounts.PlatformIdentifier, "uplay")),
+                PlayerName = json.GetString(Accounts.Name),
                 Identifiers = new UserIdentifiers
                 {
-                    Platform = jObject.GetString(Accounts.ProfileIdentifier)
+                    Platform = json.GetString(Accounts.ProfileIdentifier)
                 }
             };
 

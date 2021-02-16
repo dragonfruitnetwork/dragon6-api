@@ -7,6 +7,7 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -18,7 +19,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static AccountActivity GetLoginInfo<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
         {
-            var info = GetLoginInfo(client, new[] { account }, token);
+            var info = GetLoginInfo(client, account.Yield(), token);
             return info[account.Identifiers.Profile].FirstOrDefault();
         }
 

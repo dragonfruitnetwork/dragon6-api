@@ -7,6 +7,8 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Requests.Base;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -16,22 +18,22 @@ namespace DragonFruit.Six.Api.Extensions
         /// <summary>
         /// Get <see cref="WeaponStats"/> for an <see cref="AccountInfo"/>
         /// </summary>
-        public static IEnumerable<WeaponStats> GetWeaponStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<WeaponStats> GetWeaponStats<T>(this T client, AccountInfo account, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetWeaponStats(client, new[] { account }, token)[account.Identifiers.Profile];
+            return GetWeaponStats(client, account.Yield(), training, token)[account.Identifiers.Profile];
         }
 
         /// <summary>
         /// Get <see cref="WeaponStats"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static ILookup<string, WeaponStats> GetWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, WeaponStats> GetWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
             JObject data = null;
 
             foreach (var group in filteredGroups)
             {
-                var request = new WeaponStatsRequest(group);
+                var request = training ? new WeaponTrainingStatsRequest(group) : new WeaponStatsRequest(group) as BasicStatsRequest;
                 var platformResponse = client.Perform<JObject>(request, token);
 
                 if (data == null)
@@ -44,32 +46,7 @@ namespace DragonFruit.Six.Api.Extensions
                 }
             }
 
-            return data.DeserializeWeaponStats();
-        }
-
-        /// <summary>
-        /// Get <see cref="WeaponStats"/> for an <see cref="AccountInfo"/>
-        /// </summary>
-        public static IEnumerable<WeaponStats> GetWeaponTrainingStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetWeaponTrainingStats(client, new[] { account }, token).First();
-
-        /// <summary>
-        /// Get <see cref="WeaponStats"/> for an array of <see cref="AccountInfo"/>s
-        /// </summary>
-        public static IEnumerable<IEnumerable<WeaponStats>> GetWeaponTrainingStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
-        {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
-
-            foreach (var group in filteredGroups)
-            {
-                var request = new WeaponTrainingStatsRequest(group);
-                var data = client.Perform<JObject>(request, token);
-
-                foreach (var id in request.AccountIds)
-                {
-                    yield return data.DeserializeWeaponTrainingStatsFor(id);
-                }
-            }
+            return data.DeserializeWeaponStats(training);
         }
     }
 }

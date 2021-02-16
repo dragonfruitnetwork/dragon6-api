@@ -36,6 +36,7 @@ namespace DragonFruit.Six.Api.Requests
         };
     }
 
+    // todo merge with above
     public sealed class WeaponTrainingStatsRequest : BasicStatsRequest
     {
         public WeaponTrainingStatsRequest(AccountInfo account)

@@ -9,9 +9,9 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class PlayerLevelStatsDeserializer
     {
-        public static ILookup<string, PlayerLevelStats> DeserializePlayerLevelStats(this JObject jObject)
+        public static ILookup<string, PlayerLevelStats> DeserializePlayerLevelStats(this JObject json)
         {
-            var data = jObject["player_profiles"] is JArray profiles
+            var data = json["player_profiles"] is JArray profiles
                 ? profiles.Select(x => x.ToObject<PlayerLevelStats>())
                 : Enumerable.Empty<PlayerLevelStats>();
 

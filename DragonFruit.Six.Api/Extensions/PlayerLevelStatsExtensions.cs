@@ -7,6 +7,7 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -18,7 +19,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static PlayerLevelStats GetLevel<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
         {
-            return GetLevel(client, new[] { account }, token)[account.Identifiers.Profile].FirstOrDefault();
+            return GetLevel(client, account.Yield(), token)[account.Identifiers.Profile].FirstOrDefault();
         }
 
         /// <summary>

@@ -15,44 +15,74 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class WeaponStatsDeserializer
     {
-        public static ILookup<string, WeaponStats> DeserializeWeaponStats(this JObject jObject)
+        public static ILookup<string, WeaponStats> DeserializeWeaponStats(this JObject json, bool training = false)
         {
-            var results = jObject[Misc.Results]?.ToObject<Dictionary<string, JObject>>();
+            var results = (json[Misc.Results] as JObject)?.Properties();
             IEnumerable<WeaponStats> enumeratedResults;
 
-            if (results == null || results.Count == 0)
+            if (results == null)
             {
                 enumeratedResults = Enumerable.Empty<WeaponStats>();
             }
             else
             {
                 var weapons = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
-                enumeratedResults = results.SelectMany(x => DeserializeInternal(x, weapons));
+
+                enumeratedResults = training switch
+                {
+                    true => results.SelectMany(x => DeserializeTrainingInternal(x, weapons)),
+                    false => results.SelectMany(x => DeserializeInternal(x, weapons))
+                };
             }
 
             return enumeratedResults.ToLookup(x => x.ProfileId);
         }
 
-        private static IEnumerable<WeaponStats> DeserializeInternal(KeyValuePair<string, JObject> data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
+        private static IEnumerable<WeaponStats> DeserializeInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
         {
             var numericIndex = (int)x;
+            var property = (JObject)data.Value;
 
             return new WeaponStats
             {
-                ProfileId = data.Key,
+                ProfileId = data.Name,
 
                 Class = x,
-                TimesChosen = data.Value.GetUInt(Weapon.Picked.ToIndexedStatsKey(numericIndex)),
+                TimesChosen = property.GetUInt(Weapon.Picked.ToIndexedStatsKey(numericIndex)),
 
-                Kills = data.Value.GetUInt(Weapon.Kills.ToIndexedStatsKey(numericIndex)),
-                Deaths = data.Value.GetUInt(Weapon.Deaths.ToIndexedStatsKey(numericIndex)),
+                Kills = property.GetUInt(Weapon.Kills.ToIndexedStatsKey(numericIndex)),
+                Deaths = property.GetUInt(Weapon.Deaths.ToIndexedStatsKey(numericIndex)),
 
-                Headshots = data.Value.GetUInt(Weapon.Headshots.ToIndexedStatsKey(numericIndex)),
-                Downs = data.Value.GetUInt(Weapon.Downs.ToIndexedStatsKey(numericIndex)),
-                DownAssists = data.Value.GetUInt(Weapon.DownAssists.ToIndexedStatsKey(numericIndex)),
+                Headshots = property.GetUInt(Weapon.Headshots.ToIndexedStatsKey(numericIndex)),
+                Downs = property.GetUInt(Weapon.Downs.ToIndexedStatsKey(numericIndex)),
+                DownAssists = property.GetUInt(Weapon.DownAssists.ToIndexedStatsKey(numericIndex)),
 
-                ShotsFired = data.Value.GetUInt(Weapon.ShotsFired.ToIndexedStatsKey(numericIndex)),
-                ShotsLanded = data.Value.GetUInt(Weapon.ShotsHit.ToIndexedStatsKey(numericIndex))
+                ShotsFired = property.GetUInt(Weapon.ShotsFired.ToIndexedStatsKey(numericIndex)),
+                ShotsLanded = property.GetUInt(Weapon.ShotsHit.ToIndexedStatsKey(numericIndex))
+            };
+        });
+
+        private static IEnumerable<WeaponStats> DeserializeTrainingInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
+        {
+            var numericIndex = (int)x;
+            var property = (JObject)data.Value;
+
+            return new WeaponStats
+            {
+                ProfileId = data.Name,
+
+                Class = x,
+                TimesChosen = property.GetUInt(Weapon.PickedTraining.ToIndexedStatsKey(numericIndex)),
+
+                Kills = property.GetUInt(Weapon.KillsTraining.ToIndexedStatsKey(numericIndex)),
+                Deaths = property.GetUInt(Weapon.DeathsTraining.ToIndexedStatsKey(numericIndex)),
+
+                Headshots = property.GetUInt(Weapon.HeadshotsTraining.ToIndexedStatsKey(numericIndex)),
+                Downs = property.GetUInt(Weapon.DownsTraining.ToIndexedStatsKey(numericIndex)),
+                DownAssists = property.GetUInt(Weapon.DownAssistsTraining.ToIndexedStatsKey(numericIndex)),
+
+                ShotsFired = property.GetUInt(Weapon.ShotsFiredTraining.ToIndexedStatsKey(numericIndex)),
+                ShotsLanded = property.GetUInt(Weapon.ShotsHitTraining.ToIndexedStatsKey(numericIndex))
             };
         });
     }

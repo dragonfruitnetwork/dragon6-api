@@ -6,13 +6,14 @@ using System.Linq;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests.Base;
 using DragonFruit.Six.Api.Strings;
+using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Requests
 {
     public sealed class OperatorStatsRequest : BasicStatsRequest
     {
         public OperatorStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
-            : this(new[] { account }, operators)
+            : this(account.Yield(), operators)
         {
         }
 
@@ -41,7 +42,7 @@ namespace DragonFruit.Six.Api.Requests
     public sealed class OperatorTrainingStatsRequest : BasicStatsRequest
     {
         public OperatorTrainingStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
-            : this(new[] { account }, operators)
+            : this(account.Yield(), operators)
         {
         }
 

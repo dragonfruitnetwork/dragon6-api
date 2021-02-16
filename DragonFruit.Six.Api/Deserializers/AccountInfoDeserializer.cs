@@ -14,7 +14,7 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountInfoDeserializer
     {
-        public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject jObject) => jObject[Misc.Profile] is JArray accountsJson
+        public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject json) => json[Misc.Profile] is JArray accountsJson
             ? accountsJson.Cast<JObject>().Select(DeserializeInternal)
             : Enumerable.Empty<AccountInfo>();
 
