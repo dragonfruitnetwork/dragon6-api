@@ -3,20 +3,18 @@
 
 using System;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class OperatorStats : StatsBase
+    public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiElementStatsResponse
     {
         private TimeSpan? _timePlayed;
 
-        /// <summary>
-        /// User Profile ID
-        /// </summary>
-        [JsonProperty("id")]
-        public string Guid { get; set; }
+        [JsonProperty("profile")]
+        internal string ProfileId { get; set; }
 
         /// <summary>
         /// Operator name (from datasheet/dictionary)
@@ -109,5 +107,7 @@ namespace DragonFruit.Six.Api.Entities
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 
         internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
+
+        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

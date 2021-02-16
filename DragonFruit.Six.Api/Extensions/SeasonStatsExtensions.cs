@@ -7,6 +7,7 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -20,7 +21,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats are now region-independent
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, "EMEA", -1, token).First();
+            => GetSeasonStats(client, account.Yield(), "EMEA", -1, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for the <see cref="AccountInfo"/> (latest season)
@@ -29,7 +30,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats are now region-independent
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, int season, CancellationToken token = default) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, "EMEA", season, token).First();
+            => GetSeasonStats(client, account.Yield(), "EMEA", season, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -37,7 +38,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <remarks>
         /// Seasonal stats are now region-independent
         /// </remarks>
-        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
             => GetSeasonStats(client, accounts, "EMEA", -1, token);
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
         public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
-            => GetSeasonStats(client, new[] { account }, region, seasonId, token).First();
+            => GetSeasonStats(client, account.Yield(), region, seasonId, token).For(account);
 
         /// <summary>
         /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
@@ -55,10 +56,10 @@ namespace DragonFruit.Six.Api.Extensions
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent (pass any region)
         /// </remarks>
-        public static IEnumerable<SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId, CancellationToken token = default)
-            where T : Dragon6Client
+        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, string region, int seasonId, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
+            JObject data = null;
 
             foreach (var group in filteredGroups)
             {
@@ -68,13 +69,19 @@ namespace DragonFruit.Six.Api.Extensions
                     Region = region
                 };
 
-                var data = client.Perform<JObject>(request, token);
+                var platformResponse = client.Perform<JObject>(request, token);
 
-                foreach (var id in request.AccountIds)
+                if (data == null)
                 {
-                    yield return data.DeserializeSeasonStatsFor(id);
+                    data = platformResponse;
+                }
+                else
+                {
+                    data.Merge(platformResponse);
                 }
             }
+
+            return data.DeserializeSeasonStats();
         }
     }
 }

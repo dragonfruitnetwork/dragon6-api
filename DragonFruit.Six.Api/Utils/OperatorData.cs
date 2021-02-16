@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Services;
 using DragonFruit.Six.Api.Entities;
@@ -10,7 +9,6 @@ using DragonFruit.Six.Api.Requests;
 
 namespace DragonFruit.Six.Api.Utils
 {
-    [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
     public static class OperatorData
     {
         /// <summary>
@@ -24,7 +22,7 @@ namespace DragonFruit.Six.Api.Utils
         }
 
         /// <summary>
-        /// Gets the <see cref="IEnumerable{T}"/> needed to use the <see cref="GetOperatorStats"/> extensions
+        /// Gets the <see cref="IEnumerable{T}"/> needed to use the <see cref="OperatorStatsRequest"/>
         /// </summary>
         /// <param name="client">The <see cref="ApiClient"/> to use</param>
         public static IEnumerable<OperatorStats> GetOperatorInfo(this ApiClient client)

@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
@@ -13,28 +14,20 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountInfoDeserializer
     {
-        public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject jObject)
+        public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject json) => json[Misc.Profile] is JArray accountsJson
+            ? accountsJson.Cast<JObject>().Select(DeserializeInternal)
+            : Enumerable.Empty<AccountInfo>();
+
+        private static AccountInfo DeserializeInternal(JObject data) => new()
         {
-            var accountsJson = jObject[Misc.Profile];
-
-            if (accountsJson == null)
-                yield break;
-
-            foreach (var jToken in JArray.FromObject(accountsJson))
+            PlayerName = data.GetString(Accounts.Name),
+            Platform = PlatformParser.PlatformEnumFor(data.GetString(Accounts.Platform)),
+            Identifiers = new UserIdentifiers
             {
-                var item = (JObject)jToken;
-                yield return new AccountInfo
-                {
-                    PlayerName = item.GetString(Accounts.Name),
-                    Platform = PlatformParser.PlatformEnumFor(item.GetString(Accounts.Platform)),
-                    Identifiers = new UserIdentifiers
-                    {
-                        Profile = item.GetString(Accounts.ProfileIdentifier),
-                        Platform = item.GetString(Accounts.PlatformIdentifier),
-                        Ubisoft = item.GetString(Accounts.UserIdentifier)
-                    }
-                };
+                Profile = data.GetString(Accounts.ProfileIdentifier),
+                Platform = data.GetString(Accounts.PlatformIdentifier),
+                Ubisoft = data.GetString(Accounts.UserIdentifier)
             }
-        }
+        };
     }
 }

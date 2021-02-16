@@ -3,17 +3,15 @@
 
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class AccountActivity
+    public class AccountActivity : IAssociatedWithAccount, IStatsResponse
     {
-        /// <summary>
-        /// User profile id
-        /// </summary>
-        [JsonProperty("guid")]
-        public string Guid { get; set; }
+        [JsonProperty("profile")]
+        internal string ProfileId { get; set; }
 
         [JsonProperty("platform")]
         public Platform Platform { get; set; }
@@ -29,5 +27,7 @@ namespace DragonFruit.Six.Api.Entities
         /// </summary>
         [JsonProperty("activity")]
         public ActivityDates Activity { get; set; }
+
+        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

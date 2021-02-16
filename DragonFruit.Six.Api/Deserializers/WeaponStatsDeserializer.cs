@@ -15,64 +15,75 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class WeaponStatsDeserializer
     {
-        public static IEnumerable<WeaponStats> DeserializeWeaponStatsFor(this JObject jObject, string guid)
+        public static ILookup<string, WeaponStats> DeserializeWeaponStats(this JObject json, bool training = false)
         {
-            var json = jObject[Misc.Results]?[guid] as JObject;
+            var results = (json[Misc.Results] as JObject)?.Properties();
+            IEnumerable<WeaponStats> enumeratedResults;
 
-            if (json == null)
-                yield break;
-
-            foreach (var index in Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>())
+            if (results == null)
             {
-                var numericIndex = (int)index;
+                enumeratedResults = Enumerable.Empty<WeaponStats>();
+            }
+            else
+            {
+                var weapons = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
 
-                yield return new WeaponStats
+                enumeratedResults = training switch
                 {
-                    Guid = guid,
-                    Class = index,
-                    TimesChosen = json.GetUInt(Weapon.Picked.ToIndexedStatsKey(numericIndex)),
-
-                    Kills = json.GetUInt(Weapon.Kills.ToIndexedStatsKey(numericIndex)),
-                    Deaths = json.GetUInt(Weapon.Deaths.ToIndexedStatsKey(numericIndex)),
-
-                    Headshots = json.GetUInt(Weapon.Headshots.ToIndexedStatsKey(numericIndex)),
-                    Downs = json.GetUInt(Weapon.Downs.ToIndexedStatsKey(numericIndex)),
-                    DownAssists = json.GetUInt(Weapon.DownAssists.ToIndexedStatsKey(numericIndex)),
-
-                    ShotsFired = json.GetUInt(Weapon.ShotsFired.ToIndexedStatsKey(numericIndex)),
-                    ShotsLanded = json.GetUInt(Weapon.ShotsHit.ToIndexedStatsKey(numericIndex))
+                    true => results.SelectMany(x => DeserializeTrainingInternal(x, weapons)),
+                    false => results.SelectMany(x => DeserializeInternal(x, weapons))
                 };
             }
+
+            return enumeratedResults.ToLookup(x => x.ProfileId);
         }
 
-        public static IEnumerable<WeaponStats> DeserializeWeaponTrainingStatsFor(this JObject jObject, string guid)
+        private static IEnumerable<WeaponStats> DeserializeInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
         {
-            var json = jObject[Misc.Results]?[guid] as JObject;
+            var numericIndex = (int)x;
+            var property = (JObject)data.Value;
 
-            if (json == null)
-                yield break;
-
-            foreach (var index in Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>())
+            return new WeaponStats
             {
-                var numericIndex = (int)index;
+                ProfileId = data.Name,
 
-                yield return new WeaponStats
-                {
-                    Guid = guid,
-                    Class = index,
-                    TimesChosen = json.GetUInt(Weapon.PickedTraining.ToIndexedStatsKey(numericIndex)),
+                Class = x,
+                TimesChosen = property.GetUInt(Weapon.Picked.ToIndexedStatsKey(numericIndex)),
 
-                    Kills = json.GetUInt(Weapon.KillsTraining.ToIndexedStatsKey(numericIndex)),
-                    Deaths = json.GetUInt(Weapon.DeathsTraining.ToIndexedStatsKey(numericIndex)),
+                Kills = property.GetUInt(Weapon.Kills.ToIndexedStatsKey(numericIndex)),
+                Deaths = property.GetUInt(Weapon.Deaths.ToIndexedStatsKey(numericIndex)),
 
-                    Headshots = json.GetUInt(Weapon.HeadshotsTraining.ToIndexedStatsKey(numericIndex)),
-                    Downs = json.GetUInt(Weapon.DownsTraining.ToIndexedStatsKey(numericIndex)),
-                    DownAssists = json.GetUInt(Weapon.DownAssistsTraining.ToIndexedStatsKey(numericIndex)),
+                Headshots = property.GetUInt(Weapon.Headshots.ToIndexedStatsKey(numericIndex)),
+                Downs = property.GetUInt(Weapon.Downs.ToIndexedStatsKey(numericIndex)),
+                DownAssists = property.GetUInt(Weapon.DownAssists.ToIndexedStatsKey(numericIndex)),
 
-                    ShotsFired = json.GetUInt(Weapon.ShotsFiredTraining.ToIndexedStatsKey(numericIndex)),
-                    ShotsLanded = json.GetUInt(Weapon.ShotsHitTraining.ToIndexedStatsKey(numericIndex))
-                };
-            }
-        }
+                ShotsFired = property.GetUInt(Weapon.ShotsFired.ToIndexedStatsKey(numericIndex)),
+                ShotsLanded = property.GetUInt(Weapon.ShotsHit.ToIndexedStatsKey(numericIndex))
+            };
+        });
+
+        private static IEnumerable<WeaponStats> DeserializeTrainingInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
+        {
+            var numericIndex = (int)x;
+            var property = (JObject)data.Value;
+
+            return new WeaponStats
+            {
+                ProfileId = data.Name,
+
+                Class = x,
+                TimesChosen = property.GetUInt(Weapon.PickedTraining.ToIndexedStatsKey(numericIndex)),
+
+                Kills = property.GetUInt(Weapon.KillsTraining.ToIndexedStatsKey(numericIndex)),
+                Deaths = property.GetUInt(Weapon.DeathsTraining.ToIndexedStatsKey(numericIndex)),
+
+                Headshots = property.GetUInt(Weapon.HeadshotsTraining.ToIndexedStatsKey(numericIndex)),
+                Downs = property.GetUInt(Weapon.DownsTraining.ToIndexedStatsKey(numericIndex)),
+                DownAssists = property.GetUInt(Weapon.DownAssistsTraining.ToIndexedStatsKey(numericIndex)),
+
+                ShotsFired = property.GetUInt(Weapon.ShotsFiredTraining.ToIndexedStatsKey(numericIndex)),
+                ShotsLanded = property.GetUInt(Weapon.ShotsHitTraining.ToIndexedStatsKey(numericIndex))
+            };
+        });
     }
 }

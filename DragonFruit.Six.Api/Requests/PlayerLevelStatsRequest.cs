@@ -6,6 +6,7 @@ using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests.Base;
+using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Requests
 {
@@ -16,7 +17,7 @@ namespace DragonFruit.Six.Api.Requests
         protected override bool RequireAuth => true;
 
         public PlayerLevelStatsRequest(AccountInfo account)
-            : this(new[] { account })
+            : this(account.Yield())
         {
         }
 

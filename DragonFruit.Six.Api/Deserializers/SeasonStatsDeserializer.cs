@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using System.Linq;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
@@ -12,42 +13,48 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class SeasonStatsDeserializer
     {
-        public static SeasonStats DeserializeSeasonStatsFor(this JObject jObject, string guid)
+        public static ILookup<string, SeasonStats> DeserializeSeasonStats(this JObject json)
         {
-            var json = jObject[Misc.Players]?[guid] as JObject;
+            var results = (json[Misc.Players] as JObject)?.Properties().Select(DeserializeInternal);
+            results ??= Enumerable.Empty<SeasonStats>();
 
-            if (json == null)
-                return null;
+            return results.ToLookup(x => x.ProfileId);
+        }
+
+        private static SeasonStats DeserializeInternal(JProperty data)
+        {
+            var property = (JObject)data.Value;
 
             return new SeasonStats
             {
-                Guid = guid,
-                TimeUpdated = DateTime.Parse(json.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(Dragon6Client.Culture)), Dragon6Client.Culture),
-                SeasonId = json.GetByte(Seasonal.Season),
+                ProfileId = data.Name,
 
-                Kills = json.GetUInt(Seasonal.Kills),
-                Deaths = json.GetUInt(Seasonal.Deaths),
+                TimeUpdated = DateTime.Parse(property.GetString(Seasonal.TimeUpdated, DateTime.Now.ToString(Dragon6Client.Culture)), Dragon6Client.Culture),
+                SeasonId = property.GetByte(Seasonal.Season),
 
-                Wins = json.GetUInt(Seasonal.Wins),
-                Losses = json.GetUInt(Seasonal.Losses),
-                Abandons = json.GetUInt(Seasonal.Abandons),
+                Kills = property.GetUInt(Seasonal.Kills),
+                Deaths = property.GetUInt(Seasonal.Deaths),
 
-                Rank = json.GetInt(Seasonal.Rank),
-                MaxRank = json.GetInt(Seasonal.MaxRank),
-                TopRankPosition = json.GetUInt(Seasonal.TopRankPosition),
+                Wins = property.GetUInt(Seasonal.Wins),
+                Losses = property.GetUInt(Seasonal.Losses),
+                Abandons = property.GetUInt(Seasonal.Abandons),
 
-                MMR = json.GetDouble(Seasonal.MMR),
-                MaxMMR = json.GetDouble(Seasonal.MaxMMR),
-                NextRankMMR = json.GetDouble(Seasonal.NextRankMMR),
-                PreviousRankMMR = json.GetDouble(Seasonal.PreviousRankMMR),
+                Rank = property.GetInt(Seasonal.Rank),
+                MaxRank = property.GetInt(Seasonal.MaxRank),
+                TopRankPosition = property.GetUInt(Seasonal.TopRankPosition),
 
-                SkillMean = json.GetDouble(Seasonal.SkillMean),
-                SkillUncertainty = json.GetDouble(Seasonal.SkillUncertainty),
+                MMR = property.GetDouble(Seasonal.MMR),
+                MaxMMR = property.GetDouble(Seasonal.MaxMMR),
+                NextRankMMR = property.GetDouble(Seasonal.NextRankMMR),
+                PreviousRankMMR = property.GetDouble(Seasonal.PreviousRankMMR),
 
-                LastMatchResult = (MatchResult)json.GetUInt(Seasonal.LastMatchResult),
-                LastMatchMMRChange = json.GetDouble(Seasonal.LastMatchMMRChange),
-                LastMatchSkillChange = json.GetDouble(Seasonal.LastMatchSkillChange),
-                LastMatchSkillUncertaintyChange = json.GetDouble(Seasonal.LastMatchSkillUncertaintyChange),
+                SkillMean = property.GetDouble(Seasonal.SkillMean),
+                SkillUncertainty = property.GetDouble(Seasonal.SkillUncertainty),
+
+                LastMatchResult = (MatchResult)property.GetInt(Seasonal.LastMatchResult),
+                LastMatchMMRChange = property.GetDouble(Seasonal.LastMatchMMRChange),
+                LastMatchSkillChange = property.GetDouble(Seasonal.LastMatchSkillChange),
+                LastMatchSkillUncertaintyChange = property.GetDouble(Seasonal.LastMatchSkillUncertaintyChange),
             };
         }
     }

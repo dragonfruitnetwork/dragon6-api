@@ -13,61 +13,72 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class OperatorStatsDeserializer
     {
-        public static IEnumerable<OperatorStats> DeserializeOperatorStatsFor(this JObject jObject, string guid, IEnumerable<OperatorStats> data)
+        public static ILookup<string, OperatorStats> DeserializeOperatorStats(this JObject json, IEnumerable<OperatorStats> data, bool training = false)
         {
-            var json = jObject[Misc.Results]?[guid] as JObject;
+            var results = (json[Misc.Results] as JObject)?.Properties();
 
-            if (json == null)
-                yield break;
-
-            foreach (var op in data.Select(x => x.Clone()))
+            var enumeratedResults = training switch
             {
-                op.Guid = guid;
+                true => results?.SelectMany(x => DeserializeTrainingInternal(x, data)),
+                false => results?.SelectMany(x => DeserializeInternal(x, data))
+            };
 
-                op.Kills = json.GetUInt(Operator.Kills.ToIndexedStatsKey(op.Index));
-                op.Deaths = json.GetUInt(Operator.Deaths.ToIndexedStatsKey(op.Index));
+            enumeratedResults ??= Enumerable.Empty<OperatorStats>();
 
-                op.Wins = json.GetUInt(Operator.Wins.ToIndexedStatsKey(op.Index));
-                op.Losses = json.GetUInt(Operator.Losses.ToIndexedStatsKey(op.Index));
+            return enumeratedResults.ToLookup(x => x.ProfileId);
+        }
 
-                op.RoundsPlayed = json.GetUInt(Operator.Rounds.ToIndexedStatsKey(op.Index));
-                op.Duration = json.GetUInt(Operator.Time.ToIndexedStatsKey(op.Index));
+        private static IEnumerable<OperatorStats> DeserializeInternal(JProperty data, IEnumerable<OperatorStats> operators)
+        {
+            var property = (JObject)data.Value;
 
-                op.Headshots = json.GetUInt(Operator.Headshots.ToIndexedStatsKey(op.Index));
-                op.Downs = json.GetUInt(Operator.Downs.ToIndexedStatsKey(op.Index));
+            foreach (var op in operators.Select(x => x.Clone()))
+            {
+                op.ProfileId = data.Name;
 
-                op.Experience = json.GetUInt(Operator.Experience.ToIndexedStatsKey(op.Index));
-                op.ActionCount = (uint?)json[op.OperatorActionResultId];
+                op.Kills = property.GetUInt(Operator.Kills.ToIndexedStatsKey(op.Index));
+                op.Deaths = property.GetUInt(Operator.Deaths.ToIndexedStatsKey(op.Index));
+
+                op.Wins = property.GetUInt(Operator.Wins.ToIndexedStatsKey(op.Index));
+                op.Losses = property.GetUInt(Operator.Losses.ToIndexedStatsKey(op.Index));
+
+                op.RoundsPlayed = property.GetUInt(Operator.Rounds.ToIndexedStatsKey(op.Index));
+                op.Duration = property.GetUInt(Operator.Time.ToIndexedStatsKey(op.Index));
+
+                op.Headshots = property.GetUInt(Operator.Headshots.ToIndexedStatsKey(op.Index));
+                op.Downs = property.GetUInt(Operator.Downs.ToIndexedStatsKey(op.Index));
+
+                op.Experience = property.GetUInt(Operator.Experience.ToIndexedStatsKey(op.Index));
+                op.ActionCount = (uint?)property[op.OperatorActionResultId];
 
                 yield return op;
             }
         }
 
-        public static IEnumerable<OperatorStats> DeserializeOperatorTrainingStatsFor(this JObject jObject, string guid, IEnumerable<OperatorStats> data)
+        public static IEnumerable<OperatorStats> DeserializeTrainingInternal(JProperty data, IEnumerable<OperatorStats> operators)
         {
-            var json = jObject[Misc.Results]?[guid] as JObject;
+            var property = (JObject)data.Value;
 
-            if (json == null)
-                yield break;
-
-            foreach (var op in data.Select(x => x.Clone()))
+            foreach (var op in operators.Select(x => x.Clone()))
             {
-                op.Guid = guid;
+                op.ProfileId = data.Name;
 
-                op.Kills = json.GetUInt(Operator.KillsTraining.ToIndexedStatsKey(op.Index));
-                op.Deaths = json.GetUInt(Operator.DeathsTraining.ToIndexedStatsKey(op.Index));
+                op.Kills = property.GetUInt(Operator.KillsTraining.ToIndexedStatsKey(op.Index));
+                op.Deaths = property.GetUInt(Operator.DeathsTraining.ToIndexedStatsKey(op.Index));
 
-                op.Wins = json.GetUInt(Operator.WinsTraining.ToIndexedStatsKey(op.Index));
-                op.Losses = json.GetUInt(Operator.LossesTraining.ToIndexedStatsKey(op.Index));
+                op.Wins = property.GetUInt(Operator.WinsTraining.ToIndexedStatsKey(op.Index));
+                op.Losses = property.GetUInt(Operator.LossesTraining.ToIndexedStatsKey(op.Index));
 
-                op.RoundsPlayed = json.GetUInt(Operator.RoundsTraining.ToIndexedStatsKey(op.Index));
-                op.Duration = json.GetUInt(Operator.TimeTraining.ToIndexedStatsKey(op.Index));
+                op.RoundsPlayed = property.GetUInt(Operator.RoundsTraining.ToIndexedStatsKey(op.Index));
+                op.Duration = property.GetUInt(Operator.TimeTraining.ToIndexedStatsKey(op.Index));
 
-                op.Headshots = json.GetUInt(Operator.HeadshotsTraining.ToIndexedStatsKey(op.Index));
-                op.Downs = json.GetUInt(Operator.DownsTraining.ToIndexedStatsKey(op.Index));
+                op.Headshots = property.GetUInt(Operator.HeadshotsTraining.ToIndexedStatsKey(op.Index));
+                op.Downs = property.GetUInt(Operator.DownsTraining.ToIndexedStatsKey(op.Index));
 
-                op.Experience = json.GetUInt(Operator.ExperienceTraining.ToIndexedStatsKey(op.Index));
-                op.ActionCount = (uint?)json[op.OperatorActionResultId];
+                op.Experience = property.GetUInt(Operator.ExperienceTraining.ToIndexedStatsKey(op.Index));
+
+                // right now the keys for the actions are all pvp, so we'd need to add pve and be able to switch them if we want to get this to work
+                op.ActionCount = null;
 
                 yield return op;
             }

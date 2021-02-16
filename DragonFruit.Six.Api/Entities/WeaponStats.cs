@@ -8,19 +8,12 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class WeaponStats : IHasKd
+    public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiElementStatsResponse
     {
-        private float? _kd;
-        private float? _power;
-        private float? _headshotRatio;
-        private float? _efficiency;
-        private float? _accuracy;
+        private float? _kd, _power, _headshotRatio, _efficiency, _accuracy;
 
-        /// <summary>
-        /// Profile Id
-        /// </summary>
-        [JsonProperty("id")]
-        public string Guid { get; set; }
+        [JsonProperty("profile")]
+        internal string ProfileId { get; set; }
 
         /// <summary>
         /// <see cref="WeaponType"/> the stats relate to
@@ -81,5 +74,7 @@ namespace DragonFruit.Six.Api.Entities
         /// </summary>
         [JsonProperty("pr")]
         public float Power => _power ??= RatioUtils.RatioOf(Kills, ShotsLanded);
+
+        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

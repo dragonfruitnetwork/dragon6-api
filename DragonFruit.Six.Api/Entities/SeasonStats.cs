@@ -4,18 +4,19 @@
 using System;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class SeasonStats : StatsBase
+    public class SeasonStats : StatsBase, IAssociatedWithAccount, IStatsResponse
     {
         private RankInfo _rankInfo;
         private RankInfo _maxRankInfo;
 
-        [JsonProperty("guid")]
-        public string Guid { get; set; }
+        [JsonProperty("profile")]
+        internal string ProfileId { get; set; }
 
         [JsonProperty("id")]
         public byte SeasonId { get; set; }
@@ -78,5 +79,7 @@ namespace DragonFruit.Six.Api.Entities
 
         [JsonIgnore]
         public RankInfo MaxRankInfo => _maxRankInfo ??= Rank > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
+
+        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

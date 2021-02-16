@@ -15,6 +15,18 @@ namespace DragonFruit.Six.Api.Extensions
     public static class AccountInfoExtensions
     {
         /// <summary>
+        /// Get a user's account info by name
+        /// </summary>
+        public static AccountInfo GetUserByName<T>(this T client, string name, Platform platform) where T : Dragon6Client
+            => client.GetUser(platform, LookupMethod.Name, name);
+
+        /// <summary>
+        /// Get a user's account info by userId
+        /// </summary>
+        public static AccountInfo GetUserByUbisoftId<T>(this T client, string userId, Platform platform) where T : Dragon6Client
+            => client.GetUser(platform, LookupMethod.UserId, userId);
+
+        /// <summary>
         /// Get a user's account info (in order to get stats)
         /// </summary>
         public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, string query, CancellationToken token = default) where T : Dragon6Client
@@ -29,17 +41,5 @@ namespace DragonFruit.Six.Api.Extensions
             var request = new AccountInfoRequest(platform, lookupMethod, queries);
             return client.Perform<JObject>(request, token).DeserializeAccountInfo();
         }
-
-        /// <summary>
-        /// Get a user's account info by name
-        /// </summary>
-        public static AccountInfo GetUserByName<T>(this T client, string name, Platform platform) where T : Dragon6Client
-            => client.GetUser(platform, LookupMethod.Name, name);
-
-        /// <summary>
-        /// Get a user's account info by userId
-        /// </summary>
-        public static AccountInfo GetUserByUbisoftId<T>(this T client, string userId, Platform platform) where T : Dragon6Client
-            => client.GetUser(platform, LookupMethod.UserId, userId);
     }
 }

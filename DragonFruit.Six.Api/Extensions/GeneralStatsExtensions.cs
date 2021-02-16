@@ -7,35 +7,43 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
-    public static class StatsExtentions
+    public static class GeneralStatsExtensions
     {
         /// <summary>
         /// Get the <see cref="GeneralStats"/> (non-seasonal) for an <see cref="AccountInfo"/>
         /// </summary>
         public static GeneralStats GetStats<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetStats(client, new[] { account }, token).First();
+            => GetStats(client, account.Yield(), token).For(account);
 
         /// <summary>
         /// Get the <see cref="GeneralStats"/> (non-seasonal) for an array of <see cref="AccountInfo"/>s
         /// </summary>
-        public static IEnumerable<GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             var filteredGroups = accounts.GroupBy(x => x.Platform);
+            JObject data = null;
 
             foreach (var group in filteredGroups)
             {
                 var request = new StatsRequest(group);
-                var data = client.Perform<JObject>(request, token);
+                var platformResponse = client.Perform<JObject>(request, token);
 
-                foreach (var id in request.AccountIds)
+                if (data == null)
                 {
-                    yield return data.DeserializeGeneralStatsFor(id);
+                    data = platformResponse;
+                }
+                else
+                {
+                    data.Merge(platformResponse);
                 }
             }
+
+            return data.DeserializeGeneralStats();
         }
     }
 }
