@@ -70,12 +70,13 @@ namespace DragonFruit.Six.Api
         /// </summary>
         protected abstract TokenBase GetToken();
 
-        public T Perform<T>(UbiApiRequest requestData, CancellationToken cancellationToken, CancellationToken token = default) where T : class
+        public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
         {
             lock (_lock)
             {
-                if (Token?.Expired != false)
+                if (Token is null || Token.Expired)
                 {
+                    // todo throw something if this is majorly expired or null
                     Token = GetToken();
                     ApplyToken(Token);
                 }
