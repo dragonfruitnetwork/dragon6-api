@@ -81,5 +81,8 @@ namespace DragonFruit.Six.Api.Entities
         public RankInfo MaxRankInfo => _maxRankInfo ??= Rank > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+
+        public override string ToString() => $"{ProfileId}: Season {SeasonId}";
+        public static implicit operator string(SeasonStats stats) => stats.ToString();
     }
 }

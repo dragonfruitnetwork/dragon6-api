@@ -133,5 +133,8 @@ namespace DragonFruit.Six.Api.Entities
         public ulong Experience { get; set; }
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+
+        public override string ToString() => $"{ProfileId}: {Overall?.Kd:0.00} K/D | {Overall?.Wl:0.00} W/L";
+        public static implicit operator string(GeneralStats stats) => stats.ToString();
     }
 }

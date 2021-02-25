@@ -30,5 +30,8 @@ namespace DragonFruit.Six.Api.Entities
         public uint Level { get; set; }
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+
+        public override string ToString() => $"{ProfileId}: Level {Level}";
+        public static implicit operator string(PlayerLevelStats stats) => stats.ToString();
     }
 }

@@ -76,5 +76,8 @@ namespace DragonFruit.Six.Api.Entities
         public float Power => _power ??= RatioUtils.RatioOf(Kills, ShotsLanded);
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+
+        public override string ToString() => $"{ProfileId}: {Class.ToString()}";
+        public static implicit operator string(WeaponStats stats) => stats.ToString();
     }
 }

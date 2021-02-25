@@ -109,5 +109,8 @@ namespace DragonFruit.Six.Api.Entities
         internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+
+        public override string ToString() => $"{ProfileId}: {Index} | {Kd:0.00} K/D | {Wl:0.00} W/L";
+        public static implicit operator string(OperatorStats stats) => stats.ToString();
     }
 }
