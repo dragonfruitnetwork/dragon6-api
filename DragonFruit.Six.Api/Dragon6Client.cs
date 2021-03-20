@@ -18,8 +18,8 @@ namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient
     {
-        public static readonly CultureInfo Culture = new("en-US", false);
         private readonly object _lock = new();
+        public static readonly CultureInfo Culture = new("en-US", false);
 
         #region Constructors
 
