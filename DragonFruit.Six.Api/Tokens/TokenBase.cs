@@ -10,11 +10,10 @@ namespace DragonFruit.Six.Api.Tokens
     {
         private DateTimeOffset? _safeExpiry;
 
-        public abstract string Token { get; set; }
-
-        public abstract DateTimeOffset Expiry { get; set; }
-
         public virtual string SessionId { get; set; }
+
+        public abstract string Token { get; set; }
+        public abstract DateTimeOffset Expiry { get; set; }
 
         [JsonIgnore]
         public bool Expired => InternalExpiry >= DateTimeOffset.Now;
