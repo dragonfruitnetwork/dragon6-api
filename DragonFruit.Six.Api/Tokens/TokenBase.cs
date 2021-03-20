@@ -8,13 +8,17 @@ namespace DragonFruit.Six.Api.Tokens
 {
     public abstract class TokenBase
     {
-        public abstract string Token { get; set; }
-
-        public abstract DateTimeOffset Expiry { get; set; }
+        private DateTimeOffset? _safeExpiry;
 
         public virtual string SessionId { get; set; }
 
+        public abstract string Token { get; set; }
+        public abstract DateTimeOffset Expiry { get; set; }
+
         [JsonIgnore]
-        public bool Expired => DateTimeOffset.Compare(DateTimeOffset.Now, Expiry) >= 0;
+        public bool Expired => InternalExpiry >= DateTimeOffset.Now;
+
+        [JsonIgnore]
+        private DateTimeOffset InternalExpiry => _safeExpiry ??= Expiry.AddMinutes(-5);
     }
 }

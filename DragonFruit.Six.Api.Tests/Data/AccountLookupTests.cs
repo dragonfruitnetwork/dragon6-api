@@ -11,8 +11,9 @@ namespace DragonFruit.Six.Api.Tests.Data
     [TestFixture]
     public class AccountLookupTests : Dragon6ApiTest
     {
+        [TestCase("Curry.", LookupMethod.Name)]
         [TestCase("papa.curry", LookupMethod.Name)]
-        [TestCase("Frost_Bites_", LookupMethod.Name)]
+        [TestCase("PaPa.Yukina", LookupMethod.Name)]
         [TestCase("a5e7c9c4-a225-4d8e-810f-0c529d829a34", LookupMethod.UserId, Platform.PSN)]
         [TestCase("b6c8e00a-00f9-44fb-b83e-eb9135933b91", LookupMethod.UserId, Platform.XB1)]
         public void TestAccountLookup(string identifier, LookupMethod method, Platform platform = Platform.PC)
