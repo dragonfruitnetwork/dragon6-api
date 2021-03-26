@@ -16,7 +16,7 @@ namespace DragonFruit.Six.Api.Tokens
         public abstract DateTimeOffset Expiry { get; set; }
 
         [JsonIgnore]
-        public bool Expired => InternalExpiry >= DateTimeOffset.Now;
+        public bool Expired => InternalExpiry <= DateTimeOffset.Now;
 
         [JsonIgnore]
         private DateTimeOffset InternalExpiry => _safeExpiry ??= Expiry.AddMinutes(-5);
