@@ -135,10 +135,5 @@ namespace DragonFruit.Six.Api.Entities
         public ulong Experience { get; set; }
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
     }
 }

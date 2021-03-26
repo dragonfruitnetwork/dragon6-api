@@ -111,10 +111,5 @@ namespace DragonFruit.Six.Api.Entities
         internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
     }
 }
