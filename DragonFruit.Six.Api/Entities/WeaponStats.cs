@@ -5,9 +5,11 @@ using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace DragonFruit.Six.Api.Entities
 {
+    [DebuggerDisplay("ProfileId = {ProfileId}, Class = {Class}")]
     public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiElementStatsResponse
     {
         private float? _kd, _power, _headshotRatio, _efficiency, _accuracy;

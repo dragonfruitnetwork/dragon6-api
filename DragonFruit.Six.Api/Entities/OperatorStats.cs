@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using System.Diagnostics;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
@@ -9,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
+    [DebuggerDisplay("ProfileId = {ProfileId}, Index = {Index}")]
     public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiElementStatsResponse
     {
         private TimeSpan? _timePlayed;

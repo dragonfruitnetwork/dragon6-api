@@ -4,9 +4,11 @@
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace DragonFruit.Six.Api.Entities
 {
+    [DebuggerDisplay("Id = {ProfileId}")]
     public class GeneralStats : IAssociatedWithAccount, IStatsResponse
     {
         [JsonProperty("profile")]
