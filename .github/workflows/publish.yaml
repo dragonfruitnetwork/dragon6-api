@@ -8,18 +8,25 @@ on:
 jobs:
   publish:
     runs-on: windows-latest
+    
+    env:
+      name: "DragonFruit.Six.Api"
+      project: "DragonFruit.Six.Api\\DragonFruit.Six.Api.csproj"
 
     steps:
-       - name: Checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
       - name: Setup PowerShell Policy
         run: Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+        
+      - name: Download Publish Script
+        run: powershell Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dragonfruitnetwork/publish-script/main/nuget.ps1" -OutFile ".\nuget.ps1"
 
       - name: NuGet Build and Publish (Release)
-        run: ./Nuget.ps1 -ApiKey ${{ secrets.NUGET_KEY }}
+        run: .\nuget.ps1 -TargetName $env:name -TargetProject $env:project -ApiKey ${{ secrets.NUGET_KEY }}
         if: "!github.event.release.prerelease"
 
       - name: Nuget Build and Publish (Beta)
-        run: ./Nuget.ps1 -ApiKey ${{ secrets.NUGET_KEY }} -Suffix "-beta"
+        run: .\nuget.ps1 -TargetName $env:name -TargetProject $env:project -ApiKey ${{ secrets.NUGET_KEY }} -Suffix "-beta"
         if: "github.event.release.prerelease"
