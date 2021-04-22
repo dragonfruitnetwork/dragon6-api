@@ -10,13 +10,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Install Dependencies (Chocolatey)
-        run: |
-          choco install visualstudio2019
-          choco install dotnetcore-sdk
-          choco install visualstudio2019-workload-netcorebuildtools
-
-      - name: Checkout
+       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Setup PowerShell Policy
