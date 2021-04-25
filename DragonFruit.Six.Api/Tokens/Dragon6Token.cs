@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.Api.Tokens
 {
     /// <summary>
-    /// The most basic implementation of <see cref="TokenBase"/>. Useful for storing the components that are actually needed
+    /// The most basic implementation of <see cref="TokenBase"/>.
     /// </summary>
     public class Dragon6Token : TokenBase
     {

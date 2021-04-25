@@ -16,9 +16,19 @@ namespace DragonFruit.Six.Api.Tokens
         public abstract DateTimeOffset Expiry { get; set; }
 
         [JsonIgnore]
-        public bool Expired => InternalExpiry <= DateTimeOffset.Now;
+        public bool Expired => GetSkewedExpiry() <= DateTimeOffset.Now;
 
-        [JsonIgnore]
-        private DateTimeOffset InternalExpiry => _safeExpiry ??= Expiry.AddMinutes(-5);
+        private DateTimeOffset GetSkewedExpiry()
+        {
+            if (!_safeExpiry.HasValue)
+            {
+                // if the ticks equals zero timespan is set to +8hrs, asking for the UtcTicks will cause an ArgumentOutOfRangeException
+                // 3000000000 ticks = 5 mins
+                var skewedTimeTicks = Math.Max(Expiry.UtcTicks - 3000000000, 0);
+                _safeExpiry = new DateTimeOffset(skewedTimeTicks, TimeSpan.Zero);
+            }
+
+            return _safeExpiry.Value;
+        }
     }
 }
