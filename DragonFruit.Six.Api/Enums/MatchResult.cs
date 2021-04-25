@@ -3,6 +3,9 @@
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// Describes the outcome of a match for a player
+    /// </summary>
     public enum MatchResult
     {
         Unknown = 0,

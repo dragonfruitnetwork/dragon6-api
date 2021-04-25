@@ -5,6 +5,9 @@ using System.ComponentModel;
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// The categories a weapon can fall under
+    /// </summary>
     public enum WeaponType
     {
         [Description("Assault Rifle")]
