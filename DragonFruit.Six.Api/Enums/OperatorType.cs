@@ -5,6 +5,12 @@ using System;
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// Describes the side the operator is on.
+    /// </summary>
+    /// <remarks>
+    /// Used in the Dragon6 Datasets
+    /// </remarks>
     [Flags]
     public enum OperatorType
     {

@@ -3,6 +3,9 @@
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// Describes the current state of the Rainbow Six infrastructure
+    /// </summary>
     public enum ServerStatus
     {
         /// <summary>

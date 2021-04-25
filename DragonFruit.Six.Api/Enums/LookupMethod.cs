@@ -3,6 +3,9 @@
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// Describes how the server should interpret the search queries provided in the request
+    /// </summary>
     public enum LookupMethod
     {
         /// <summary>
