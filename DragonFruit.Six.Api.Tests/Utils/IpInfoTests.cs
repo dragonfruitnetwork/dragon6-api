@@ -12,7 +12,7 @@ namespace DragonFruit.Six.Api.Tests.Utils
         [Test]
         public void TestIpInformation()
         {
-            Client.GetUserLocationInfo();
+            Client.GeolocateSelf();
         }
     }
 }

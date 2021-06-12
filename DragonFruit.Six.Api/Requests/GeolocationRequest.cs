@@ -5,7 +5,7 @@ using DragonFruit.Common.Data;
 
 namespace DragonFruit.Six.Api.Requests
 {
-    public class UserLocationInfoRequest : ApiRequest
+    public class GeolocationRequest : ApiRequest
     {
         public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
     }

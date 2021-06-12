@@ -33,11 +33,16 @@ namespace DragonFruit.Six.Api.Requests
         public IEnumerable<string> AppIds { get; set; }
 
         /// <summary>
+        /// A <see cref="IEnumerable{T}"/> of profile ids to use. If set, this will ignore the <see cref="Accounts"/> property
+        /// </summary>
+        public IEnumerable<string> Profiles { get; set; }
+
+        /// <summary>
         /// The accounts to check against the activity logs for <see cref="AppIds"/>
         /// </summary>
         public IEnumerable<AccountInfo> Accounts { get; set; }
 
         [QueryParameter("profileIds", CollectionConversionMode.Concatenated)]
-        private IEnumerable<string> ProfileIdString => Accounts.Select(x => x.Identifiers.Profile);
+        private IEnumerable<string> ProfileIdString => Profiles ?? Accounts.Select(x => x.Identifiers.Profile);
     }
 }
