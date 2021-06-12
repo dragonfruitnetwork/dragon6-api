@@ -10,13 +10,7 @@ namespace DragonFruit.Six.Api.Services.Developer
     {
         public Dragon6DeveloperClient(string key)
         {
-            ApiKey = key;
-        }
-
-        protected string ApiKey
-        {
-            get => Authorization.Substring(11);
-            set => Authorization = $"Dragon6-Api {value}";
+            Authorization = $"Dragon6-Api {key}";
         }
 
         protected override TokenBase GetToken() => Perform<Dragon6Token>(new DeveloperTokenRequest());
