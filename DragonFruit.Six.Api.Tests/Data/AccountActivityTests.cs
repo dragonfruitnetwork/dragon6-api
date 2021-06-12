@@ -23,7 +23,7 @@ namespace DragonFruit.Six.Api.Tests.Data
             }
 
             var account = GetAccountInfoFor(id, platform);
-            var login = Client.GetLoginInfo(account);
+            var login = Client.GetAccountActivity(account);
 
             Assert.IsTrue(login.Activity.Last.UtcDateTime.Date > lastLoginDate.Date);
         }

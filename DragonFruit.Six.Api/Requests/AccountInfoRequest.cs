@@ -19,11 +19,8 @@ namespace DragonFruit.Six.Api.Requests
         }
 
         public AccountInfoRequest(Platform platform, LookupMethod lookupMethod, string query)
+            : this(platform, lookupMethod, query.Yield())
         {
-            Platform = platform;
-            LookupMethod = lookupMethod;
-
-            LookupQuery = new[] { query };
         }
 
         public AccountInfoRequest(Platform platform, LookupMethod lookupMethod, IEnumerable<string> queries)
