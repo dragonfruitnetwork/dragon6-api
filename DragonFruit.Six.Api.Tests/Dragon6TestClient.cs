@@ -13,9 +13,8 @@ namespace DragonFruit.Six.Api.Tests
     public class Dragon6TestClient : Dragon6DeveloperClient
     {
         // This is a limited access key. If you want one for your own app contact DragonFruit. If we detect this key has been abused it will be reset
-        // If you're going to make an app it's likely you will need a server anyway - it's not hard to add your own token system
         public Dragon6TestClient()
-            : base(2, "obN8C3Hgi16twnv9S8LJ1Sdkieh7Hyx7qnXmoHkn6Y")
+            : base("obN8C3Hgi16twnv9S8LJ1Sdkieh7Hyx7qnXmoHkn6Y")
         {
         }
 

@@ -5,6 +5,6 @@ namespace DragonFruit.Six.Api.Services.Developer.Auth
 {
     public class DeveloperTokenRequest : DeveloperApiRequest
     {
-        public override string Path => $"{BaseEndpoint}/api/token/raw";
+        public override string Path => $"{BaseEndpoint}/api/v2/dev/token";
     }
 }
