@@ -12,9 +12,9 @@ namespace DragonFruit.Six.Api.Extensions
         /// <summary>
         /// Get the user's IP address and info from the ubisoft servers
         /// </summary>
-        public static UserLocationInfo GetUserLocationInfo<T>(this T client, CancellationToken token = default) where T : Dragon6Client
+        public static UserLocationInfo GeolocateSelf<T>(this T client, CancellationToken token = default) where T : Dragon6Client
         {
-            var request = new UserLocationInfoRequest();
+            var request = new GeolocationRequest();
             return client.Perform<UserLocationInfo>(request, token);
         }
     }
