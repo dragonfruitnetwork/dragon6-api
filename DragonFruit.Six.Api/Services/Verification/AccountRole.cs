@@ -3,9 +3,10 @@
 
 namespace DragonFruit.Six.Api.Services.Verification
 {
-    public enum AccountType
+    public enum AccountRole
     {
-        Blocked = -1,
+        BlockedByAdmin = -2,
+        BlockedBySelf = -1,
 
         Normal = 0,
 
@@ -14,7 +15,6 @@ namespace DragonFruit.Six.Api.Services.Verification
         Verified = 3,
         Supporter = 4,
         Contributor = 5,
-
-        Developer = 100
+        Developer = 6
     }
 }

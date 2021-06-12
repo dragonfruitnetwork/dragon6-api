@@ -11,7 +11,7 @@ namespace DragonFruit.Six.Api.Services.Verification
     public class Dragon6AccountInfo
     {
         [JsonProperty("Level")]
-        public AccountType AccountType { get; set; }
+        public AccountRole AccountRole { get; set; }
 
         [JsonProperty("Guid")]
         public string ProfileId { get; set; }

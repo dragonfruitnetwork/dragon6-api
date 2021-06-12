@@ -5,59 +5,62 @@ namespace DragonFruit.Six.Api.Services.Verification
 {
     public static class AccountTypeExtensions
     {
-        public static string GetName(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomTitle) ? GetDefaultName(dragon6User.AccountType) : dragon6User.CustomTitle;
-        public static string GetIcon(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomIcon) ? GetDefaultIcon(dragon6User.AccountType) : dragon6User.CustomIcon;
-        public static string GetColor(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomColour) ? GetDefaultColor(dragon6User.AccountType) : dragon6User.CustomColour;
+        public static string GetName(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomTitle) ? GetDefaultName(dragon6User.AccountRole) : dragon6User.CustomTitle;
+        public static string GetIcon(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomIcon) ? GetDefaultIcon(dragon6User.AccountRole) : dragon6User.CustomIcon;
+        public static string GetColor(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.CustomColour) ? GetDefaultColor(dragon6User.AccountRole) : dragon6User.CustomColour;
 
         /// <summary>
-        /// Retrieves the default title for the <see cref="AccountType"/> provided
+        /// Retrieves the default title for the <see cref="AccountRole"/> provided
         /// </summary>
-        private static string GetDefaultName(this AccountType type) => type switch
+        private static string GetDefaultName(this AccountRole role) => role switch
         {
-            AccountType.Blocked => "Data Blocked by Request",
+            AccountRole.BlockedByAdmin => "Account blocked by admin",
+            AccountRole.BlockedBySelf => "Account blocked by owner",
 
-            AccountType.Verified => "Verified User",
-            AccountType.Beta => "Beta Tester",
-            AccountType.Translator => "Dragon6 Translator",
-            AccountType.Supporter => "Dragon6 Supporter",
-            AccountType.Contributor => "Recognised Contributor",
-            AccountType.Developer => "Dragon6 Admin",
+            AccountRole.Verified => "Verified User",
+            AccountRole.Beta => "Beta Tester",
+            AccountRole.Translator => "Dragon6 Translator",
+            AccountRole.Supporter => "Dragon6 Supporter",
+            AccountRole.Contributor => "Recognised Contributor",
+            AccountRole.Developer => "Dragon6 Admin",
 
-            _ => "Standard User",
+            _ => "Standard User"
         };
 
         /// <summary>
-        /// Retrieves the default icon for the <see cref="AccountType"/> provided
+        /// Retrieves the default icon for the <see cref="AccountRole"/> provided
         /// </summary>
-        private static string GetDefaultIcon(this AccountType type) => type switch
+        private static string GetDefaultIcon(this AccountRole role) => role switch
         {
-            AccountType.Blocked => "explore_off",
+            AccountRole.BlockedByAdmin => "highlight_off",
+            AccountRole.BlockedBySelf => "explore_off",
 
-            AccountType.Verified => "check",
-            AccountType.Beta => "bug_report",
-            AccountType.Translator => "translate",
-            AccountType.Supporter => "favorite",
-            AccountType.Contributor => "code",
-            AccountType.Developer => "verified_user",
+            AccountRole.Verified => "check",
+            AccountRole.Beta => "bug_report",
+            AccountRole.Translator => "translate",
+            AccountRole.Supporter => "favorite",
+            AccountRole.Contributor => "code",
+            AccountRole.Developer => "verified_user",
 
             _ => "face",
         };
 
         /// <summary>
-        /// Retrieves the default title colour for the <see cref="AccountType"/> provided
+        /// Retrieves the default title colour for the <see cref="AccountRole"/> provided
         /// </summary>
-        private static string GetDefaultColor(this AccountType type) => type switch
+        private static string GetDefaultColor(this AccountRole role) => role switch
         {
-            AccountType.Blocked => "#bd1818",
+            AccountRole.BlockedByAdmin => "#BD1818",
+            AccountRole.BlockedBySelf => "#BD1818",
 
-            AccountType.Verified => "#20B2AA",
-            AccountType.Beta => "#FFA500",
-            AccountType.Translator => "#1f8b4c",
-            AccountType.Supporter => "#FFB6C1",
-            AccountType.Contributor => "#3498DB",
-            AccountType.Developer => "#90EE90",
+            AccountRole.Verified => "#20B2AA",
+            AccountRole.Beta => "#FFA500",
+            AccountRole.Translator => "#1f8b4c",
+            AccountRole.Supporter => "#FFB6C1",
+            AccountRole.Contributor => "#3498DB",
+            AccountRole.Developer => "#90EE90",
 
-            _ => "#ffffff",
+            _ => "#FFFFFF",
         };
     }
 }
