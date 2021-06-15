@@ -10,28 +10,22 @@ namespace DragonFruit.Six.Api.Services.Verification
     /// </summary>
     public class Dragon6AccountInfo
     {
-        [JsonProperty("Level")]
-        public AccountRole AccountRole { get; set; }
-
-        [JsonProperty("Guid")]
+        [JsonProperty("profile_id")]
         public string ProfileId { get; set; }
 
-        [JsonProperty("youtube")]
-        public string YouTube { get; set; }
+        [JsonProperty("role")]
+        public AccountRole AccountRole { get; set; }
 
-        [JsonProperty("twitch")]
-        public string Twitch { get; set; }
-
-        [JsonProperty("ImageHeaderLink")]
+        [JsonProperty("cover_img")]
         public string Image { get; set; }
 
-        [JsonProperty("CustomText")]
-        public string CustomTitle { get; set; }
+        [JsonProperty("title")]
+        public string Title { get; set; }
 
-        [JsonProperty("CustomIcon")]
-        public string CustomIcon { get; set; }
+        [JsonProperty("title_icon")]
+        public string TitleIcon { get; set; }
 
-        [JsonProperty("CustomColour")]
-        public string CustomColour { get; set; }
+        [JsonProperty("title_colour")]
+        public string TitleColour { get; set; }
     }
 }
