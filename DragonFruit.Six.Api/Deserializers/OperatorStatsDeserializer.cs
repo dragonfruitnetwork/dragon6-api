@@ -6,6 +6,7 @@ using System.Linq;
 using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
+using DragonFruit.Six.Api.Strings.Stats;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 

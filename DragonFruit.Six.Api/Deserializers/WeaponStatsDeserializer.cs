@@ -8,6 +8,7 @@ using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Strings.Stats;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
@@ -72,17 +73,17 @@ namespace DragonFruit.Six.Api.Deserializers
                 ProfileId = data.Name,
 
                 Class = x,
-                TimesChosen = property.GetUInt(Weapon.PickedTraining.ToIndexedStatsKey(numericIndex)),
+                TimesChosen = property.GetUInt(WeaponTraining.Picked.ToIndexedStatsKey(numericIndex)),
 
-                Kills = property.GetUInt(Weapon.KillsTraining.ToIndexedStatsKey(numericIndex)),
-                Deaths = property.GetUInt(Weapon.DeathsTraining.ToIndexedStatsKey(numericIndex)),
+                Kills = property.GetUInt(WeaponTraining.Kills.ToIndexedStatsKey(numericIndex)),
+                Deaths = property.GetUInt(WeaponTraining.Deaths.ToIndexedStatsKey(numericIndex)),
 
-                Headshots = property.GetUInt(Weapon.HeadshotsTraining.ToIndexedStatsKey(numericIndex)),
-                Downs = property.GetUInt(Weapon.DownsTraining.ToIndexedStatsKey(numericIndex)),
-                DownAssists = property.GetUInt(Weapon.DownAssistsTraining.ToIndexedStatsKey(numericIndex)),
+                Headshots = property.GetUInt(WeaponTraining.Headshots.ToIndexedStatsKey(numericIndex)),
+                Downs = property.GetUInt(WeaponTraining.Downs.ToIndexedStatsKey(numericIndex)),
+                DownAssists = property.GetUInt(WeaponTraining.DownAssists.ToIndexedStatsKey(numericIndex)),
 
-                ShotsFired = property.GetUInt(Weapon.ShotsFiredTraining.ToIndexedStatsKey(numericIndex)),
-                ShotsLanded = property.GetUInt(Weapon.ShotsHitTraining.ToIndexedStatsKey(numericIndex))
+                ShotsFired = property.GetUInt(WeaponTraining.ShotsFired.ToIndexedStatsKey(numericIndex)),
+                ShotsLanded = property.GetUInt(WeaponTraining.ShotsHit.ToIndexedStatsKey(numericIndex))
             };
         });
     }

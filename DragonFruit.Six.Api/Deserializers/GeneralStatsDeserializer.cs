@@ -6,6 +6,8 @@ using DragonFruit.Common.Data.Extensions;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
+using DragonFruit.Six.Api.Strings.Stats;
+using DragonFruit.Six.Api.Strings.Stats.Modes;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
@@ -85,42 +87,42 @@ namespace DragonFruit.Six.Api.Deserializers
 
                 Bomb = new BombModeStats
                 {
-                    Wins = property.GetUInt(Modes.Bomb.Wins.ToStatsKey()),
-                    Losses = property.GetUInt(Modes.Bomb.Losses.ToStatsKey()),
+                    Wins = property.GetUInt(Bomb.Wins.ToStatsKey()),
+                    Losses = property.GetUInt(Bomb.Losses.ToStatsKey()),
 
-                    Highscore = property.GetUInt(Modes.Bomb.Highscore.ToStatsKey()),
+                    Highscore = property.GetUInt(Bomb.Highscore.ToStatsKey()),
 
-                    Duration = property.GetUInt(Modes.Bomb.Time.ToStatsKey()),
-                    MatchesPlayed = property.GetUInt(Modes.Bomb.MatchesPlayed.ToStatsKey())
+                    Duration = property.GetUInt(Bomb.Time.ToStatsKey()),
+                    MatchesPlayed = property.GetUInt(Bomb.MatchesPlayed.ToStatsKey())
                 },
 
                 Hostage = new HostageModeStats
                 {
-                    Wins = property.GetUInt(Modes.Hostage.Wins.ToStatsKey()),
-                    Losses = property.GetUInt(Modes.Hostage.Losses.ToStatsKey()),
+                    Wins = property.GetUInt(Hostage.Wins.ToStatsKey()),
+                    Losses = property.GetUInt(Hostage.Losses.ToStatsKey()),
 
-                    Highscore = property.GetUInt(Modes.Hostage.Highscore.ToStatsKey()),
+                    Highscore = property.GetUInt(Hostage.Highscore.ToStatsKey()),
 
-                    Duration = property.GetUInt(Modes.Hostage.Time.ToStatsKey()),
-                    MatchesPlayed = property.GetUInt(Modes.Hostage.MatchesPlayed.ToStatsKey()),
+                    Duration = property.GetUInt(Hostage.Time.ToStatsKey()),
+                    MatchesPlayed = property.GetUInt(Hostage.MatchesPlayed.ToStatsKey()),
 
-                    Rescues = property.GetUInt(Modes.Hostage.Rescues.ToStatsKey()),
-                    Defenses = property.GetUInt(Modes.Hostage.Defenses.ToStatsKey())
+                    Rescues = property.GetUInt(Hostage.Rescues.ToStatsKey()),
+                    Defenses = property.GetUInt(Hostage.Defenses.ToStatsKey())
                 },
 
                 Secure = new SecureModeStats
                 {
-                    Wins = property.GetUInt(Modes.Secure.Wins.ToStatsKey()),
-                    Losses = property.GetUInt(Modes.Secure.Losses.ToStatsKey()),
+                    Wins = property.GetUInt(Secure.Wins.ToStatsKey()),
+                    Losses = property.GetUInt(Secure.Losses.ToStatsKey()),
 
-                    Highscore = property.GetUInt(Modes.Secure.Highscore.ToStatsKey()),
+                    Highscore = property.GetUInt(Secure.Highscore.ToStatsKey()),
 
-                    Duration = property.GetUInt(Modes.Secure.Time.ToStatsKey()),
-                    MatchesPlayed = property.GetUInt(Modes.Secure.MatchesPlayed.ToStatsKey()),
+                    Duration = property.GetUInt(Secure.Time.ToStatsKey()),
+                    MatchesPlayed = property.GetUInt(Secure.MatchesPlayed.ToStatsKey()),
 
-                    Aggressions = property.GetUInt(Modes.Secure.Aggressions.ToStatsKey()),
-                    Defenses = property.GetUInt(Modes.Secure.Defenses.ToStatsKey()),
-                    Captures = property.GetUInt(Modes.Secure.Captures.ToStatsKey())
+                    Aggressions = property.GetUInt(Secure.Aggressions.ToStatsKey()),
+                    Defenses = property.GetUInt(Secure.Defenses.ToStatsKey()),
+                    Captures = property.GetUInt(Secure.Captures.ToStatsKey())
                 },
 
                 #endregion

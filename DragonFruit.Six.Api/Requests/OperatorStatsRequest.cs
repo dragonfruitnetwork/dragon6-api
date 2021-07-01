@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests.Base;
-using DragonFruit.Six.Api.Strings;
+using DragonFruit.Six.Api.Strings.Stats;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Requests

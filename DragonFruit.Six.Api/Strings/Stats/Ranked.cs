@@ -1,8 +1,12 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-namespace DragonFruit.Six.Api.Strings
+using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Utils;
+
+namespace DragonFruit.Six.Api.Strings.Stats
 {
+    [DefaultStats(typeof(StatsRequest))]
     public static class Ranked
     {
         public static string Kills => "rankedpvp_kills";
