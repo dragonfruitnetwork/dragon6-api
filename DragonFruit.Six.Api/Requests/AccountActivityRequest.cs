@@ -16,7 +16,7 @@ namespace DragonFruit.Six.Api.Requests
         public override string Path => $"{Endpoints.IdServer}/applications";
 
         public AccountActivityRequest(AccountInfo profile)
-            : this(new[] { profile })
+            : this(profile.Yield())
         {
         }
 
