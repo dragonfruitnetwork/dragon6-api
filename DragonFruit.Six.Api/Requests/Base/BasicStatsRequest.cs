@@ -7,6 +7,8 @@ using DragonFruit.Common.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Utils;
 
+// ReSharper disable once InconsistentNaming
+
 namespace DragonFruit.Six.Api.Requests.Base
 {
     /// <summary>
@@ -14,7 +16,7 @@ namespace DragonFruit.Six.Api.Requests.Base
     /// </summary>
     public class BasicStatsRequest : PlatformSpecificRequest
     {
-        private IEnumerable<string> _stats;
+        protected IEnumerable<string> _stats;
 
         public override string Path => Platform.StatsEndpoint();
 
@@ -40,11 +42,10 @@ namespace DragonFruit.Six.Api.Requests.Base
         [QueryParameter("statistics", CollectionConversionMode.Concatenated)]
         public virtual IEnumerable<string> Stats
         {
-            get => _stats ??= this.GetDefaultStats();
+            get => _stats ?? this.GetDefaultStats();
             set => _stats = value;
         }
 
-        /// <inheritdoc />
         [QueryParameter("populations", CollectionConversionMode.Concatenated)]
         internal override IEnumerable<string> AccountIds => base.AccountIds;
     }
