@@ -19,8 +19,8 @@ namespace DragonFruit.Six.Api.Enums
         [Description("Light Machine Gun")]
         LightMachineGun = 3,
 
-        [Description("Sniper Rifle")]
-        Sniper = 4,
+        [Description("Marksman Rifle")]
+        MarksmanRifle = 4,
 
         [Description("Pistol")]
         Pistol = 5,

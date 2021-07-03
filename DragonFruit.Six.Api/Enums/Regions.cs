@@ -5,6 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DragonFruit.Six.Api.Enums
 {
+    /// <summary>
+    /// Represents the ranked regions used in-game
+    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum Regions
     {
