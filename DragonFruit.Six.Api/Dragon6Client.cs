@@ -96,20 +96,17 @@ namespace DragonFruit.Six.Api
         /// <summary>
         /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
-        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request)
+        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request) => response.StatusCode switch
         {
-            return response.StatusCode switch
-            {
-                HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
+            HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
 
-                HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
+            HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
 
-                HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
-                HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
+            HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
+            HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
 
-                _ => base.ValidateAndProcess<T>(response, request)
-            };
-        }
+            _ => base.ValidateAndProcess<T>(response, request)
+        };
 
         /// <summary>
         /// <see cref="Perform{T}"/> method that bypasses all auth checks
