@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Six.Api.Enums;
 
 namespace DragonFruit.Six.Api.Utils
@@ -12,10 +13,7 @@ namespace DragonFruit.Six.Api.Utils
         /// <summary>
         /// Convert Platform ID -> API Enum
         /// </summary>
-        public static Platform GetPlatform(string platformId)
-        {
-            return (Platform)Enum.Parse(typeof(Platform), platformId, true);
-        }
+        public static Platform GetPlatform(string platformId) => (Platform)Enum.Parse(typeof(Platform), platformId, true);
 
         /// <summary>
         /// Ubisoft string to <see cref="Platform"/> (reverses <see cref="PlatformIdentifierFor"/>)
@@ -48,15 +46,7 @@ namespace DragonFruit.Six.Api.Utils
         internal static Dictionary<T, Platform> PlatformsTo<T>(Func<Platform, T> selector)
         {
             var platforms = (Platform[])Enum.GetValues(typeof(Platform));
-            var result = new Dictionary<T, Platform>(platforms.Length);
-
-            foreach (var platform in platforms)
-            {
-                // for now none of them should throw an exception
-                result.Add(selector.Invoke(platform), platform);
-            }
-
-            return result;
+            return platforms.ToDictionary(selector.Invoke, x => x);
         }
     }
 }

@@ -50,12 +50,14 @@ namespace DragonFruit.Six.Api.Requests
         private string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
 
         [QueryParameter("nameOnPlatform", CollectionConversionMode.Concatenated)]
-        private IEnumerable<string> PlayerNames => LookupMethod == LookupMethod.Name ? LookupQuery : null;
+        private IEnumerable<string> PlayerNames => LookupString(LookupMethod.Name);
 
         [QueryParameter("idOnPlatform", CollectionConversionMode.Concatenated)]
-        private IEnumerable<string> PlatformIds => LookupMethod == LookupMethod.PlatformId ? LookupQuery : null;
+        private IEnumerable<string> PlatformIds => LookupString(LookupMethod.PlatformId);
 
         [QueryParameter("userId", CollectionConversionMode.Concatenated)]
-        private IEnumerable<string> UbisoftIds => LookupMethod == LookupMethod.UserId ? LookupQuery : null;
+        private IEnumerable<string> UbisoftIds => LookupString(LookupMethod.UserId);
+
+        private IEnumerable<string> LookupString(LookupMethod method) => LookupMethod == method ? LookupQuery : null;
     }
 }

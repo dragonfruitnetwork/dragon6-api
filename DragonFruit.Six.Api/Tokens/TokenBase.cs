@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Tokens
 {
+    /// <summary>
+    /// A token model used to authenticate requests against the ubisoft api
+    /// </summary>
     public abstract class TokenBase
     {
         private DateTimeOffset? _safeExpiry;

@@ -8,7 +8,7 @@ using DragonFruit.Six.Api.Entities;
 namespace DragonFruit.Six.Api.Tokens
 {
     /// <summary>
-    /// A Token directly from the Ubisoft servers
+    /// An implementation of <see cref="TokenBase"/> representing a direct response from the ubisoft auth servers
     /// </summary>
     public class UbisoftToken : TokenBase
     {
