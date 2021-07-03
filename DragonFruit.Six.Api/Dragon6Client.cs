@@ -23,22 +23,16 @@ namespace DragonFruit.Six.Api
 
         #region Constructors
 
-        protected Dragon6Client(TokenBase token)
-            : this()
-        {
-            Token = token;
-        }
-
         protected Dragon6Client(string userAgent)
             : this()
         {
             UserAgent = userAgent;
         }
 
-        protected Dragon6Client(string userAgent, string appId)
+        protected Dragon6Client(string userAgent, UbisoftService app)
             : this(userAgent)
         {
-            AppId = appId;
+            AppId = app.AppId();
         }
 
         protected Dragon6Client()
