@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests.Base;
-using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Requests
 {
-    public sealed class OperatorStatsRequest : BasicStatsRequest
+    public class OperatorStatsRequest : BasicStatsRequest
     {
         public OperatorStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
             : this(account.Yield(), operators)
@@ -20,26 +19,19 @@ namespace DragonFruit.Six.Api.Requests
         public OperatorStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
             : base(accounts)
         {
-            Stats = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
-            {
-                Operator.Kills,
-                Operator.Deaths,
+            OperatorActions = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x));
+        }
 
-                Operator.Headshots,
-                Operator.Downs,
+        private IEnumerable<string> OperatorActions { get; set; }
 
-                Operator.Wins,
-                Operator.Losses,
-
-                Operator.Rounds,
-                Operator.Time,
-
-                Operator.Experience
-            });
+        public override IEnumerable<string> Stats
+        {
+            get => (_stats ?? this.GetDefaultStats()).Concat(OperatorActions);
+            set => _stats = value;
         }
     }
 
-    public sealed class OperatorTrainingStatsRequest : BasicStatsRequest
+    public sealed class OperatorTrainingStatsRequest : OperatorStatsRequest
     {
         public OperatorTrainingStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
             : this(account.Yield(), operators)
@@ -47,24 +39,8 @@ namespace DragonFruit.Six.Api.Requests
         }
 
         public OperatorTrainingStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
-            : base(accounts)
+            : base(accounts, operators)
         {
-            Stats = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x)).Concat(new[]
-            {
-                Operator.KillsTraining,
-                Operator.DeathsTraining,
-
-                Operator.HeadshotsTraining,
-                Operator.DownsTraining,
-
-                Operator.WinsTraining,
-                Operator.LossesTraining,
-
-                Operator.RoundsTraining,
-                Operator.TimeTraining,
-
-                Operator.ExperienceTraining
-            });
         }
     }
 }
