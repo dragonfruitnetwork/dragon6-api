@@ -75,10 +75,10 @@ namespace DragonFruit.Six.Api.Entities
         #endregion
 
         [JsonIgnore]
-        public RankInfo RankInfo => _rankInfo ??= Rank > 14 ? SeasonalRanks.Rank(Rank) : SeasonalRanks.Legacy(Rank);
+        public RankInfo RankInfo => _rankInfo ??= SeasonId > 14 ? SeasonalRanks.Rank(Rank) : SeasonalRanks.Legacy(Rank);
 
         [JsonIgnore]
-        public RankInfo MaxRankInfo => _maxRankInfo ??= Rank > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
+        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonId > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
