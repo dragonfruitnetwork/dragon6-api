@@ -3,7 +3,6 @@
 
 using System.Collections.Generic;
 using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Requests.Base;
 
 namespace DragonFruit.Six.Api.Requests
 {
