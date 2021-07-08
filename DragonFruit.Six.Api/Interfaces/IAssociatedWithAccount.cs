@@ -5,6 +5,9 @@ using DragonFruit.Six.Api.Entities;
 
 namespace DragonFruit.Six.Api.Interfaces
 {
+    /// <summary>
+    /// Specified that the implementing class is linked to a <see cref="AccountInfo"/>
+    /// </summary>
     public interface IAssociatedWithAccount
     {
         public bool IsAssociatedWithAccount(AccountInfo account);

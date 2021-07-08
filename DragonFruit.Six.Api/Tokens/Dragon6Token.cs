@@ -11,17 +11,6 @@ namespace DragonFruit.Six.Api.Tokens
     /// </summary>
     public class Dragon6Token : TokenBase
     {
-        public Dragon6Token()
-        {
-        }
-
-        public Dragon6Token(UbisoftToken tokenBase)
-        {
-            Token = tokenBase.Token;
-            Expiry = tokenBase.Expiry;
-            SessionId = tokenBase.SessionId;
-        }
-
         [JsonProperty("token")]
         public override string Token { get; set; }
 
@@ -30,5 +19,15 @@ namespace DragonFruit.Six.Api.Tokens
 
         [JsonProperty("session_id")]
         public override string SessionId { get; set; }
+
+        /// <summary>
+        /// Creates a <see cref="Dragon6Token"/> from a <see cref="UbisoftToken"/>
+        /// </summary>
+        public static explicit operator Dragon6Token(UbisoftToken token) => new()
+        {
+            Token = token.Token,
+            Expiry = token.Expiry,
+            SessionId = token.SessionId
+        };
     }
 }

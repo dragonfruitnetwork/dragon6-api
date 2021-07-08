@@ -3,6 +3,9 @@
 
 namespace DragonFruit.Six.Api.Interfaces
 {
+    /// <summary>
+    /// Indicates that the implementing entity has information to provide a W/L ratio
+    /// </summary>
     public interface IHasWl
     {
         public uint Wins { get; set; }

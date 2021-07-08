@@ -3,6 +3,9 @@
 
 namespace DragonFruit.Six.Api.Interfaces
 {
+    /// <summary>
+    /// Indicates that the implementing entity has information to provide a K/D ratio
+    /// </summary>
     public interface IHasKd
     {
         public uint Kills { get; set; }
