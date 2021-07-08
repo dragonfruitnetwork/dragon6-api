@@ -10,10 +10,11 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
+    [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class SeasonStats : StatsBase, IAssociatedWithAccount, IStatsResponse
     {
-        private RankInfo _rankInfo;
-        private RankInfo _maxRankInfo;
+        private RankInfo _rankInfo, _maxRankInfo, _mmrRankInfo;
 
         [JsonProperty("profile")]
         internal string ProfileId { get; set; }
@@ -74,11 +75,10 @@ namespace DragonFruit.Six.Api.Entities
 
         #endregion
 
-        [JsonIgnore]
-        public RankInfo RankInfo => _rankInfo ??= SeasonId > 14 ? SeasonalRanks.Rank(Rank) : SeasonalRanks.Legacy(Rank);
-
-        [JsonIgnore]
-        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonId > 14 ? SeasonalRanks.Rank(MaxRank) : SeasonalRanks.Legacy(MaxRank);
+        public bool IsLegacySeason => SeasonId < 14;
+        public RankInfo RankInfo => _rankInfo ??= SeasonalRanks.GetFromId(Rank, IsLegacySeason);
+        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonalRanks.GetFromId(MaxRank, IsLegacySeason);
+        public RankInfo MMRRankInfo => _mmrRankInfo ??= SeasonalRanks.GetFromMMR((int)MMR, IsLegacySeason);
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }
