@@ -8,6 +8,7 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
@@ -30,7 +31,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get a user's account info (in order to get stats)
         /// </summary>
         public static AccountInfo GetUser<T>(this T client, Platform platform, LookupMethod lookupMethod, string query, CancellationToken token = default) where T : Dragon6Client
-            => GetUsers(client, platform, lookupMethod, new[] { query }, token).FirstOrDefault();
+            => GetUsers(client, platform, lookupMethod, query.Yield(), token).FirstOrDefault();
 
         /// <summary>
         /// Get multiple users' account info through a mass query search
