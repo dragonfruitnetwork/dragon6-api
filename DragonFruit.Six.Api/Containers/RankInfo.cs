@@ -7,11 +7,14 @@ namespace DragonFruit.Six.Api.Containers
 {
     public class RankInfo
     {
-        internal RankInfo(byte id, string name, string iconUrl)
+        internal RankInfo(byte id, string name, string iconUrl, int? minMMR, int? maxMMR)
         {
             Id = id;
             Name = name;
             IconUrl = iconUrl;
+
+            MinMMR = minMMR;
+            MaxMMR = maxMMR;
         }
 
         /// <summary>
@@ -31,5 +34,17 @@ namespace DragonFruit.Six.Api.Containers
         /// </summary>
         [JsonProperty("icon")]
         public string IconUrl { get; set; }
+
+        /// <summary>
+        /// The lower MMR boundary for this rank
+        /// </summary>
+        [JsonProperty("mmr_min")]
+        public int? MinMMR { get; set; }
+
+        /// <summary>
+        /// The upper MMR boudary for this rank
+        /// </summary>
+        [JsonProperty("mmr_max")]
+        public int? MaxMMR { get; set; }
     }
 }
