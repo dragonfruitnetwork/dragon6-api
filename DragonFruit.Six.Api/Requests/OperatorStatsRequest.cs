@@ -30,17 +30,4 @@ namespace DragonFruit.Six.Api.Requests
             set => _stats = value;
         }
     }
-
-    public sealed class OperatorTrainingStatsRequest : OperatorStatsRequest
-    {
-        public OperatorTrainingStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
-            : this(account.Yield(), operators)
-        {
-        }
-
-        public OperatorTrainingStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
-            : base(accounts, operators)
-        {
-        }
-    }
 }

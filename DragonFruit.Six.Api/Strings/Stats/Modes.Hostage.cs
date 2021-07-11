@@ -8,18 +8,17 @@ using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
-        [DefaultStats(typeof(StatsRequest))]
-        public static class Hostage
-        {
-            public static string Wins => "rescuehostagepvp_matchwon";
-            public static string Losses => "rescuehostagepvp_matchlost";
-            public static string MatchesPlayed => "rescuehostagepvp_matchplayed";
+    [DefaultStats(typeof(StatsRequest))]
+    public static class Hostage
+    {
+        public static string Wins => "rescuehostagepvp_matchwon";
+        public static string Losses => "rescuehostagepvp_matchlost";
+        public static string MatchesPlayed => "rescuehostagepvp_matchplayed";
 
-            public static string Time => "rescuehostagepvp_timeplayed";
-            public static string Highscore => "rescuehostagepvp_bestscore";
+        public static string Time => "rescuehostagepvp_timeplayed";
+        public static string Highscore => "rescuehostagepvp_bestscore";
 
-            public static string Rescues => "generalpvp_hostagerescue";
-            public static string Defenses => "generalpvp_hostagedefense";
-        }
-    
+        public static string Rescues => "generalpvp_hostagerescue";
+        public static string Defenses => "generalpvp_hostagedefense";
+    }
 }

@@ -27,6 +27,7 @@ namespace DragonFruit.Six.Api.Utils
     /// <summary>
     /// Marks a class of static strings as a default collection of metrics for a <see cref="BasicStatsRequest"/>
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal class DefaultStats : Attribute
     {
         public DefaultStats(Type targetRequest)

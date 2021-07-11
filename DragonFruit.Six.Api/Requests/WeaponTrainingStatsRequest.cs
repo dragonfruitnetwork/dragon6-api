@@ -1,4 +1,4 @@
-﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
@@ -7,14 +7,14 @@ using DragonFruit.Six.Api.Requests.Base;
 
 namespace DragonFruit.Six.Api.Requests
 {
-    public sealed class WeaponStatsRequest : BasicStatsRequest
+    public sealed class WeaponTrainingStatsRequest : BasicStatsRequest
     {
-        public WeaponStatsRequest(AccountInfo account)
+        public WeaponTrainingStatsRequest(AccountInfo account)
             : base(account)
         {
         }
 
-        public WeaponStatsRequest(IEnumerable<AccountInfo> accounts)
+        public WeaponTrainingStatsRequest(IEnumerable<AccountInfo> accounts)
             : base(accounts)
         {
         }
