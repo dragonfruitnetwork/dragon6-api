@@ -8,10 +8,10 @@ using System.Net.Http;
 using System.Threading;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
-using DragonFruit.Six.Api.Requests.Base;
 using DragonFruit.Six.Api.Tokens;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
+using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api

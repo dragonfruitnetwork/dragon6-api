@@ -7,7 +7,7 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 
-namespace DragonFruit.Six.Api.Requests.Base
+namespace DragonFruit.Six.Api.Requests
 {
     /// <summary>
     /// Request type where components are specific to a <see cref="Enums.Platform"/>

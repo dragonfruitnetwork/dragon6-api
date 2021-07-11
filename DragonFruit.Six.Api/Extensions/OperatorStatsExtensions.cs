@@ -7,7 +7,6 @@ using System.Threading;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
-using DragonFruit.Six.Api.Requests.Base;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 

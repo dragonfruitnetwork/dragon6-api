@@ -9,7 +9,7 @@ using DragonFruit.Six.Api.Utils;
 
 // ReSharper disable once InconsistentNaming
 
-namespace DragonFruit.Six.Api.Requests.Base
+namespace DragonFruit.Six.Api.Requests
 {
     /// <summary>
     /// Base for requesting general stats from the main endpoint
