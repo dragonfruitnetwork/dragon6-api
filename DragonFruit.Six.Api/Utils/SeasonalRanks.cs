@@ -9,6 +9,20 @@ namespace DragonFruit.Six.Api.Utils
     public static class SeasonalRanks
     {
         /// <summary>
+        /// Gets the <see cref="RankInfo"/> for the provided rank and season
+        /// </summary>
+        /// <param name="id">The id of the rank to return</param>
+        /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
+        public static RankInfo GetFromId(int id, int season = -1) => GetRank(id, season);
+
+        /// <summary>
+        /// Gets the <see cref="RankInfo"/> for the provided mmr and season
+        /// </summary>
+        /// <param name="mmr">The mmr of the rank to return</param>
+        /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
+        public static RankInfo GetFromMMR(int mmr, int season = -1) => GetRank(mmr, season, true);
+
+        /// <summary>
         /// Gets the <see cref="RankInfo"/> for the identifier and season
         /// </summary>
         /// <param name="identifier">The id of the rank or the mmr</param>
