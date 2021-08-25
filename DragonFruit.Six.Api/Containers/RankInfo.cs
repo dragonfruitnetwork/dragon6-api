@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Containers
 {
-    public class RankInfo
+    public struct RankInfo
     {
         internal RankInfo(byte id, string name, string iconUrl, int? minMMR, int? maxMMR)
         {
