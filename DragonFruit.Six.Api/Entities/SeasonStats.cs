@@ -14,7 +14,7 @@ namespace DragonFruit.Six.Api.Entities
     [JsonObject(MemberSerialization.OptIn)]
     public class SeasonStats : StatsBase, IAssociatedWithAccount, IStatsResponse
     {
-        private RankInfo _rankInfo, _maxRankInfo, _mmrRankInfo;
+        private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
         [JsonProperty("profile")]
         internal string ProfileId { get; set; }
@@ -75,10 +75,9 @@ namespace DragonFruit.Six.Api.Entities
 
         #endregion
 
-        public bool IsLegacySeason => SeasonId < 14;
-        public RankInfo RankInfo => _rankInfo ??= SeasonalRanks.GetFromId(Rank, IsLegacySeason);
-        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonalRanks.GetFromId(MaxRank, IsLegacySeason);
-        public RankInfo MMRRankInfo => _mmrRankInfo ??= SeasonalRanks.GetFromMMR((int)MMR, IsLegacySeason);
+        public RankInfo RankInfo => _rankInfo ??= SeasonalRanks.GetRank(Rank, SeasonId);
+        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonalRanks.GetRank(MaxRank, SeasonId);
+        public RankInfo MMRRankInfo => _mmrRankInfo ??= SeasonalRanks.GetRank((int)MMR, SeasonId, true);
 
         public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
     }

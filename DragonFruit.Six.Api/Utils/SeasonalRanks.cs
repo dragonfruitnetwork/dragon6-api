@@ -9,29 +9,88 @@ namespace DragonFruit.Six.Api.Utils
     public static class SeasonalRanks
     {
         /// <summary>
-        /// Gets the <see cref="RankInfo"/> for the current rank based on id
+        /// Gets the <see cref="RankInfo"/> for the provided rank and season
         /// </summary>
-        public static RankInfo GetFromId(int rankId, bool legacy = false) => GetRank(rankId, legacy);
+        /// <param name="id">The id of the rank to return</param>
+        /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
+        public static RankInfo GetFromId(int id, int season = -1) => GetRank(id, season);
 
         /// <summary>
-        /// Gets the <see cref="RankInfo"/> for the current rank based on the MMR value
+        /// Gets the <see cref="RankInfo"/> for the provided mmr and season
         /// </summary>
-        public static RankInfo GetFromMMR(int mmr, bool legacy = false) => GetRank(mmr, legacy, true);
+        /// <param name="mmr">The mmr of the rank to return</param>
+        /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
+        public static RankInfo GetFromMMR(int mmr, int season = -1) => GetRank(mmr, season, true);
 
-        private static RankInfo GetRank(int identifier, bool isLegacyRanks = false, bool isMMR = false)
+        /// <summary>
+        /// Gets the <see cref="RankInfo"/> for the identifier and season
+        /// </summary>
+        /// <param name="identifier">The id of the rank or the mmr</param>
+        /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
+        /// <param name="isMMR">Whether the <see cref="identifier"/> represents mmr.</param>
+        public static RankInfo GetRank(int identifier, int season = -1, bool isMMR = false)
         {
-            var itemsSource = isLegacyRanks ? LegacyRanks : Ranks;
-
-            return isMMR switch
+            var itemsSource = season switch
             {
-                false => itemsSource.ElementAtOrDefault(identifier) ?? Ranks[0],
-                true => itemsSource.Where(x => (x.MinMMR ?? int.MinValue) <= identifier && (x.MaxMMR ?? int.MaxValue) >= identifier).OrderByDescending(x => x.Id).First()
+                // season 1-14
+                >= 01 and <= 14 => RankingV1,
+
+                // season 15-22
+                >= 15 and <= 22 => RankingV2,
+
+                // season 23- (incl. latest season identifier)
+                _ => RankingV3
             };
+
+            if (isMMR)
+            {
+                return itemsSource.Where(x => (x.MinMMR ?? int.MinValue) <= identifier && (x.MaxMMR ?? int.MaxValue) >= identifier).OrderByDescending(x => x.Id).First();
+            }
+
+            // if the rank isn't in the array, return generic unranked one
+            return identifier + 1 <= itemsSource.Length ? itemsSource[identifier] : RankingV3[0];
         }
 
-        #region Data Source
+        #region Data Sources
 
-        private static readonly RankInfo[] Ranks =
+        private static readonly RankInfo[] RankingV3 =
+        {
+            new(0, "Unranked", "/rank/v3/0.svg", null, null),
+
+            new(1, "Copper 5", "/rank/v3/1.svg", null, 1199),
+            new(2, "Copper 4", "/rank/v3/2.svg", 1200, 1299),
+            new(3, "Copper 3", "/rank/v3/3.svg", 1300, 1399),
+            new(4, "Copper 2", "/rank/v3/4.svg", 1400, 1499),
+            new(5, "Copper 1", "/rank/v3/5.svg", 1500, 1599),
+
+            new(6, "Bronze 5", "/rank/v3/6.svg", 1600, 1699),
+            new(7, "Bronze 4", "/rank/v3/7.svg", 1700, 1799),
+            new(8, "Bronze 3", "/rank/v3/8.svg", 1800, 1899),
+            new(9, "Bronze 2", "/rank/v3/9.svg", 1900, 1999),
+            new(10, "Bronze 1", "/rank/v3/10.svg", 2000, 2099),
+
+            new(11, "Silver 5", "/rank/v3/11.svg", 2100, 2199),
+            new(12, "Silver 4", "/rank/v3/12.svg", 2200, 2299),
+            new(13, "Silver 3", "/rank/v3/13.svg", 2300, 2399),
+            new(14, "Silver 2", "/rank/v3/14.svg", 2400, 2499),
+            new(15, "Silver 1", "/rank/v3/15.svg", 2500, 2599),
+
+            new(16, "Gold 3", "/rank/v3/16.svg", 2600, 2799),
+            new(17, "Gold 2", "/rank/v3/17.svg", 2800, 2999),
+            new(18, "Gold 1", "/rank/v3/18.svg", 3000, 3199),
+
+            new(19, "Platinum 3", "/rank/v3/19.svg", 3200, 3499),
+            new(20, "Platinum 2", "/rank/v3/20.svg", 3500, 3799),
+            new(21, "Platinum 1", "/rank/v3/21.svg", 3800, 4099),
+
+            new(22, "Diamond 3", "/rank/v3/22.svg", 4100, 4399),
+            new(23, "Diamond 2", "/rank/v3/23.svg", 4400, 4699),
+            new(24, "Diamond 1", "/rank/v3/24.svg", 4700, 4999),
+
+            new(25, "Champion", "/rank/v3/25.svg", 5000, null)
+        };
+
+        private static readonly RankInfo[] RankingV2 =
         {
             new(0, "Unranked", "/rank/v2/0.svg", null, null),
 
@@ -65,7 +124,7 @@ namespace DragonFruit.Six.Api.Utils
             new(23, "Champion", "/rank/v2/23.svg", 5000, null)
         };
 
-        private static readonly RankInfo[] LegacyRanks =
+        private static readonly RankInfo[] RankingV1 =
         {
             new(0, "Unranked", "/rank/v1/0.svg", null, null),
 

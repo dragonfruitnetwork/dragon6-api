@@ -1,11 +1,12 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Containers
 {
-    public class RankInfo
+    public struct RankInfo : IEquatable<RankInfo>, IEquatable<int>
     {
         internal RankInfo(byte id, string name, string iconUrl, int? minMMR, int? maxMMR)
         {
@@ -46,5 +47,8 @@ namespace DragonFruit.Six.Api.Containers
         /// </summary>
         [JsonProperty("mmr_max")]
         public int? MaxMMR { get; set; }
+
+        public bool Equals(int other) => Id == other;
+        public bool Equals(RankInfo other) => Equals(other.Id);
     }
 }
