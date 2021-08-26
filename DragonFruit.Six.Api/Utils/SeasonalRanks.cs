@@ -55,39 +55,39 @@ namespace DragonFruit.Six.Api.Utils
 
         private static readonly RankInfo[] RankingV3 =
         {
-            new(0, "Unranked", "/rank/v2/0.svg", null, null),
+            new(0, "Unranked", "/rank/v3/0.svg", null, null),
 
-            new(1, "Copper 5", "/rank/v2/1.svg", null, 1199),
-            new(2, "Copper 4", "/rank/v2/2.svg", 1200, 1299),
-            new(3, "Copper 3", "/rank/v2/3.svg", 1300, 1399),
-            new(4, "Copper 2", "/rank/v2/4.svg", 1400, 1499),
-            new(5, "Copper 1", "/rank/v2/5.svg", 1500, 1599),
+            new(1, "Copper 5", "/rank/v3/1.svg", null, 1199),
+            new(2, "Copper 4", "/rank/v3/2.svg", 1200, 1299),
+            new(3, "Copper 3", "/rank/v3/3.svg", 1300, 1399),
+            new(4, "Copper 2", "/rank/v3/4.svg", 1400, 1499),
+            new(5, "Copper 1", "/rank/v3/5.svg", 1500, 1599),
 
-            new(6, "Bronze 5", "/rank/v2/6.svg", 1600, 1699),
-            new(7, "Bronze 4", "/rank/v2/7.svg", 1700, 1799),
-            new(8, "Bronze 3", "/rank/v2/8.svg", 1800, 1899),
-            new(9, "Bronze 2", "/rank/v2/9.svg", 1900, 1999),
-            new(10, "Bronze 1", "/rank/v2/10.svg", 2000, 2099),
+            new(6, "Bronze 5", "/rank/v3/6.svg", 1600, 1699),
+            new(7, "Bronze 4", "/rank/v3/7.svg", 1700, 1799),
+            new(8, "Bronze 3", "/rank/v3/8.svg", 1800, 1899),
+            new(9, "Bronze 2", "/rank/v3/9.svg", 1900, 1999),
+            new(10, "Bronze 1", "/rank/v3/10.svg", 2000, 2099),
 
-            new(11, "Silver 5", "/rank/v2/11.svg", 2100, 2199),
-            new(12, "Silver 4", "/rank/v2/12.svg", 2200, 2299),
-            new(13, "Silver 3", "/rank/v2/13.svg", 2300, 2399),
-            new(14, "Silver 2", "/rank/v2/14.svg", 2400, 2499),
-            new(15, "Silver 1", "/rank/v2/15.svg", 2500, 2599),
+            new(11, "Silver 5", "/rank/v3/11.svg", 2100, 2199),
+            new(12, "Silver 4", "/rank/v3/12.svg", 2200, 2299),
+            new(13, "Silver 3", "/rank/v3/13.svg", 2300, 2399),
+            new(14, "Silver 2", "/rank/v3/14.svg", 2400, 2499),
+            new(15, "Silver 1", "/rank/v3/15.svg", 2500, 2599),
 
-            new(16, "Gold 3", "/rank/v2/16.svg", 2600, 2799),
-            new(17, "Gold 2", "/rank/v2/17.svg", 2800, 2999),
-            new(18, "Gold 1", "/rank/v2/18.svg", 3000, 3199),
+            new(16, "Gold 3", "/rank/v3/16.svg", 2600, 2799),
+            new(17, "Gold 2", "/rank/v3/17.svg", 2800, 2999),
+            new(18, "Gold 1", "/rank/v3/18.svg", 3000, 3199),
 
-            new(19, "Platinum 3", "/rank/v2/19.svg", 3200, 3499),
-            new(20, "Platinum 2", "/rank/v2/20.svg", 3500, 3799),
-            new(21, "Platinum 1", "/rank/v2/21.svg", 3800, 4099),
+            new(19, "Platinum 3", "/rank/v3/19.svg", 3200, 3499),
+            new(20, "Platinum 2", "/rank/v3/20.svg", 3500, 3799),
+            new(21, "Platinum 1", "/rank/v3/21.svg", 3800, 4099),
 
-            new(22, "Diamond 3", "/rank/v2/22.svg", 4100, 4399),
-            new(23, "Diamond 2", "/rank/v2/22.svg", 4400, 4699),
-            new(24, "Diamond 1", "/rank/v2/22.svg", 4700, 4999),
+            new(22, "Diamond 3", "/rank/v3/22.svg", 4100, 4399),
+            new(23, "Diamond 2", "/rank/v3/23.svg", 4400, 4699),
+            new(24, "Diamond 1", "/rank/v3/24.svg", 4700, 4999),
 
-            new(25, "Champion", "/rank/v2/23.svg", 5000, null)
+            new(25, "Champion", "/rank/v3/25.svg", 5000, null)
         };
 
         private static readonly RankInfo[] RankingV2 =
