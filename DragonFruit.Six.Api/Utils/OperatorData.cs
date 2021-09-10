@@ -14,8 +14,6 @@ namespace DragonFruit.Six.Api.Utils
         /// <summary>
         /// Loads the operator info datasheet from a local file
         /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
         public static IEnumerable<OperatorStats> FromFile(string location)
         {
             return FileServices.ReadFile<IEnumerable<OperatorStats>>(location);
