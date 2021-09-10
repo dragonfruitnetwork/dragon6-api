@@ -16,37 +16,17 @@ using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api
 {
-    public abstract class Dragon6Client : ApiClient
+    public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
         private readonly object _lock = new();
         public static readonly CultureInfo Culture = new("en-US", false);
 
-        #region Constructors
-
-        protected Dragon6Client(string userAgent)
-            : this()
-        {
-            UserAgent = userAgent;
-        }
-
-        protected Dragon6Client(string userAgent, UbisoftService app)
-            : this(userAgent)
+        protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
         {
             AppId = app.AppId();
+            UserAgent = userAgent ?? "Dragon6-API";
+            Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = Culture);
         }
-
-        protected Dragon6Client()
-        {
-            Serializer = new ApiJsonSerializer(Culture);
-            AppId = UbisoftService.RainbowSix.AppId();
-
-            if (string.IsNullOrEmpty(UserAgent))
-            {
-                UserAgent = "Dragon6 API";
-            }
-        }
-
-        #endregion
 
         private TokenBase Token { get; set; }
 
