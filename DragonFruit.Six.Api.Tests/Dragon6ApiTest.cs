@@ -6,14 +6,13 @@ using System.Linq;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Extensions;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Services.Developer;
 
 namespace DragonFruit.Six.Api.Tests
 {
     public abstract class Dragon6ApiTest
     {
         private static readonly List<AccountInfo> Accounts = new();
-        protected static readonly Dragon6DeveloperClient Client = new("obN8C3Hgi16twnv9S8LJ1Sdkieh7Hyx7qnXmoHkn6Y");
+        protected static readonly Dragon6DeveloperClient Client = new("00000000-0000-0000-0000-000000000001.045a00e5c0", "d3574f2ae25d47f7993689f9b4ad40c2", "dragon6.token.read");
 
         protected static IEnumerable<OperatorStats> OperatorInfo { get; set; }
 

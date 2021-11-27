@@ -3,10 +3,17 @@
 
 using DragonFruit.Common.Data;
 
-namespace DragonFruit.Six.Api.Services.Developer
+namespace DragonFruit.Six.Api.Requests
 {
     public abstract class DeveloperApiRequest : ApiRequest
     {
+        protected const string BaseEndpoint = "https://dragon6.dragonfruit.network/api/v2";
+
         protected override bool RequireAuth => true;
+
+        protected override void OnRequestExecuting(ApiClient client)
+        {
+            (client as Dragon6DeveloperClient)?.ValidateAccess(this);
+        }
     }
 }

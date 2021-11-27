@@ -5,13 +5,12 @@ using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
+using System.Threading.Tasks;
 using DragonFruit.Common.Data;
 using DragonFruit.Common.Data.Serializers;
 using DragonFruit.Six.Api.Tokens;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
-using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api
@@ -19,6 +18,7 @@ namespace DragonFruit.Six.Api
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
         private readonly object _lock = new();
+
         public static readonly CultureInfo Culture = new("en-US", false);
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
@@ -47,33 +47,19 @@ namespace DragonFruit.Six.Api
         /// </remarks>
         protected abstract TokenBase GetToken();
 
-        public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
-        {
-            lock (_lock)
-            {
-                if (Token is null || Token.Expired)
-                {
-                    // todo throw something if this is majorly expired or null
-                    Token = GetToken();
-                    ApplyToken(Token);
-                }
-            }
-
-            return base.Perform<T>(requestData, token);
-        }
-
         /// <summary>
         /// Defines how a new token is applied to the client.
         /// </summary>
-        protected virtual void ApplyToken(TokenBase currentToken)
+        protected virtual void ApplyToken(TokenBase token)
         {
-            Authorization = $"ubi_v1 t={Token.Token}";
+            Authorization = $"ubi_v1 t={token.Token}";
         }
 
         /// <summary>
-        /// Handles the response before trying to deserialize it. If a recognized error code has been returned, an appropriate exception will be thrown.
+        /// Handles the response before trying to deserialize it.
+        /// If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
-        protected override T ValidateAndProcess<T>(HttpResponseMessage response, HttpRequestMessage request) => response.StatusCode switch
+        protected override Task<T> ValidateAndProcess<T>(HttpResponseMessage response) => response.StatusCode switch
         {
             HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
 
@@ -82,12 +68,21 @@ namespace DragonFruit.Six.Api
             HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
             HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
 
-            _ => base.ValidateAndProcess<T>(response, request)
+            _ => base.ValidateAndProcess<T>(response)
         };
 
-        /// <summary>
-        /// <see cref="Perform{T}"/> method that bypasses all auth checks
-        /// </summary>
-        protected internal T DirectPerform<T>(ApiRequest request, CancellationToken token = default) where T : class => base.Perform<T>(request, token);
+        internal void ValidateToken()
+        {
+            lock (_lock)
+            {
+                if (Token?.Expired != true)
+                {
+                    // todo throw something if this is majorly expired or null
+                    Token = GetToken();
+
+                    ApplyToken(Token);
+                }
+            }
+        }
     }
 }

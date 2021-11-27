@@ -34,7 +34,7 @@ namespace DragonFruit.Six.Api.Tests.Data
         [TestCase("352655b3-2ff4-4713-xxxx-c10eb080e6f6")]
         public void TestInvalidAccountLookup(string identifier)
         {
-            Assert.Catch<ArgumentException>(() => Client.GetUserByUbisoftId(identifier, Platform.PC));
+            Assert.Catch(() => Client.GetUserByUbisoftId(identifier, Platform.PC));
         }
     }
 }
