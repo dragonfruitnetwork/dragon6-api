@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
@@ -18,32 +19,36 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the <see cref="OperatorStats"/> for an <see cref="AccountInfo"/>
         /// </summary>
         public static IEnumerable<OperatorStats> GetOperatorStats<T>(this T client, AccountInfo account, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
-            => GetOperatorStats(client, account.Yield(), operators, training, token).AllFor(account);
+        {
+            return GetOperatorStats(client, account.Yield(), operators, training, token).AllFor(account);
+        }
 
         /// <summary>
         /// Get the <see cref="OperatorStats"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
         public static ILookup<string, OperatorStats> GetOperatorStats<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
-            JObject data = null;
+            return accounts.GroupBy(x => x.Platform)
+                           .Select(x => client.Perform<JObject>(training ? new OperatorTrainingStatsRequest(x, operators) : new OperatorStatsRequest(x, operators) as BasicStatsRequest))
+                           .Aggregate(GeneralStatsExtensions.Merge)
+                           .DeserializeOperatorStats(operators);
+        }
 
-            foreach (var group in filteredGroups)
-            {
-                var request = training ? new OperatorTrainingStatsRequest(group, operators) : new OperatorStatsRequest(group, operators) as BasicStatsRequest;
-                var platformResponse = client.Perform<JObject>(request, token);
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an <see cref="AccountInfo"/>
+        /// </summary>
+        public static Task<IEnumerable<OperatorStats>> GetOperatorStatsAsync<T>(this T client, AccountInfo account, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        {
+            return GetOperatorStatsAsync(client, account.Yield(), operators, training, token).ContinueWith(t => t.Result.AllFor(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
 
-                if (data == null)
-                {
-                    data = platformResponse;
-                }
-                else
-                {
-                    data.Merge(platformResponse);
-                }
-            }
-
-            return data.DeserializeOperatorStats(operators, training);
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an array of <see cref="AccountInfo"/>s
+        /// </summary>
+        public static Task<ILookup<string, OperatorStats>> GetOperatorStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        {
+            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(training ? new OperatorTrainingStatsRequest(x, operators) : new OperatorStatsRequest(x, operators) as BasicStatsRequest, token));
+            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializeOperatorStats(operators, training), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
 }
