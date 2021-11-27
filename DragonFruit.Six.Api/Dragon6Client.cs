@@ -40,8 +40,11 @@ namespace DragonFruit.Six.Api
         }
 
         /// <summary>
-        /// Method for getting a new <see cref="TokenBase"/>
+        /// Defines the procedure for retrieving a <see cref="UbisoftToken"/> for the client to use.
         /// </summary>
+        /// <remarks>
+        /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
+        /// </remarks>
         protected abstract TokenBase GetToken();
 
         public T Perform<T>(UbiApiRequest requestData, CancellationToken token = default) where T : class
@@ -60,7 +63,7 @@ namespace DragonFruit.Six.Api
         }
 
         /// <summary>
-        /// Method for setting a new token
+        /// Defines how a new token is applied to the client.
         /// </summary>
         protected virtual void ApplyToken(TokenBase currentToken)
         {
