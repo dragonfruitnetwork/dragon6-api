@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -28,8 +29,10 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static ILookup<string, OperatorStats> GetOperatorStats<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
+            Func<IEnumerable<AccountInfo>, BasicStatsRequest> requestFactory = training ? x => new OperatorTrainingStatsRequest(x, operators) : x => new OperatorStatsRequest(x, operators);
+
             return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(training ? new OperatorTrainingStatsRequest(x, operators) : new OperatorStatsRequest(x, operators) as BasicStatsRequest))
+                           .Select(x => client.Perform<JObject>(requestFactory(x)))
                            .Aggregate(GeneralStatsExtensions.Merge)
                            .DeserializeOperatorStats(operators);
         }
@@ -47,7 +50,9 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static Task<ILookup<string, OperatorStats>> GetOperatorStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
-            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(training ? new OperatorTrainingStatsRequest(x, operators) : new OperatorStatsRequest(x, operators) as BasicStatsRequest, token));
+            Func<IEnumerable<AccountInfo>, BasicStatsRequest> requestFactory = training ? x => new OperatorTrainingStatsRequest(x, operators) : x => new OperatorStatsRequest(x, operators);
+
+            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(requestFactory(x), token));
             return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializeOperatorStats(operators, training), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
