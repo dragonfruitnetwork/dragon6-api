@@ -14,7 +14,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <summary>
         /// Get the user's IP address and info from the ubisoft servers
         /// </summary>
-        public static UserLocationInfo Geolocate(ApiClient client, CancellationToken token = default)
+        public static UserLocationInfo Geolocate(this ApiClient client, CancellationToken token = default)
         {
             var request = new GeolocationRequest();
             return client.Perform<UserLocationInfo>(request, token);
@@ -23,7 +23,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <summary>
         /// Get the user's IP address and info from the ubisoft servers
         /// </summary>
-        public static Task<UserLocationInfo> GeolocateAsync(ApiClient client, CancellationToken token = default)
+        public static Task<UserLocationInfo> GeolocateAsync(this ApiClient client, CancellationToken token = default)
         {
             var request = new GeolocationRequest();
             return client.PerformAsync<UserLocationInfo>(request, token);

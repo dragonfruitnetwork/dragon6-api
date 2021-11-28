@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.Threading.Tasks;
 using DragonFruit.Six.Api.Extensions;
 using NUnit.Framework;
 
@@ -10,9 +11,12 @@ namespace DragonFruit.Six.Api.Tests.Utils
     public class IpInfoTests : Dragon6ApiTest
     {
         [Test]
-        public void TestIpInformation()
+        public async Task TestIpInformation()
         {
-            Client.GeolocateSelf();
+            var result = Client.Geolocate();
+            var asyncResult = await Client.GeolocateAsync();
+
+            Assert.AreEqual(result.IP, asyncResult.IP);
         }
     }
 }

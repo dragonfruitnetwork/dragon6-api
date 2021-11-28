@@ -21,7 +21,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="loginString">The base64 encoded string in the format username:password</param>
-        public static UbisoftToken GetUbiToken(ApiClient client, string loginString, CancellationToken token = default)
+        public static UbisoftToken GetUbiToken(this ApiClient client, string loginString, CancellationToken token = default)
         {
             var request = new TokenRequest(loginString);
             return client.Perform<UbisoftToken>(request, token);
@@ -38,7 +38,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="username">The username to use</param>
         /// <param name="password">The password to use</param>
-        public static UbisoftToken GetUbiToken(ApiClient client, string username, string password, CancellationToken token = default)
+        public static UbisoftToken GetUbiToken(this ApiClient client, string username, string password, CancellationToken token = default)
         {
             var request = new TokenRequest(username, password);
             return client.Perform<UbisoftToken>(request, token);
@@ -54,7 +54,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="loginString">The base64 encoded string in the format username:password</param>
-        public static Task<UbisoftToken> GetUbiTokenAsync(ApiClient client, string loginString, CancellationToken token = default)
+        public static Task<UbisoftToken> GetUbiTokenAsync(this ApiClient client, string loginString, CancellationToken token = default)
         {
             var request = new TokenRequest(loginString);
             return client.PerformAsync<UbisoftToken>(request, token);
@@ -71,7 +71,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="username">The username to use</param>
         /// <param name="password">The password to use</param>
-        public static Task<UbisoftToken> GetUbiTokenAsync(ApiClient client, string username, string password, CancellationToken token = default)
+        public static Task<UbisoftToken> GetUbiTokenAsync(this ApiClient client, string username, string password, CancellationToken token = default)
         {
             var request = new TokenRequest(username, password);
             return client.PerformAsync<UbisoftToken>(request, token);
