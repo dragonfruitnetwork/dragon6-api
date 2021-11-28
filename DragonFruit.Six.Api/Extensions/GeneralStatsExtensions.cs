@@ -29,7 +29,7 @@ namespace DragonFruit.Six.Api.Extensions
         public static ILookup<string, GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
             return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(new StatsRequest(x)))
+                           .Select(x => client.Perform<JObject>(new StatsRequest(x), token))
                            .Aggregate(Merge)
                            .DeserializeGeneralStats();
         }

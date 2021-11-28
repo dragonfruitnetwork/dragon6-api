@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Net.Http;
 using System.Text;
 using DragonFruit.Common.Data;
@@ -25,6 +26,14 @@ namespace DragonFruit.Six.Api.Requests
         public TokenRequest(string b64Login)
         {
             this.WithAuthHeader($"Basic {b64Login}");
+        }
+
+        /// <summary>
+        /// Initialises a new <see cref="TokenRequest"/> using the provided username/password combo
+        /// </summary>
+        public TokenRequest(string username, string password)
+            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")))
+        {
         }
     }
 }

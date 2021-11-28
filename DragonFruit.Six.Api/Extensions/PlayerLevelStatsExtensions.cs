@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
@@ -18,32 +19,36 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the level, level progression and alpha pack chances for an <see cref="AccountInfo"/>
         /// </summary>
         public static PlayerLevelStats GetLevel<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
-            => GetLevel(client, account.Yield(), token).For(account);
+        {
+            return GetLevel(client, account.Yield(), token).For(account);
+        }
 
         /// <summary>
         /// Get the level, level progression and alpha pack chances for an array of <see cref="AccountInfo"/>s
         /// </summary>
         public static ILookup<string, PlayerLevelStats> GetLevel<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
-            JObject data = null;
+            return accounts.GroupBy(x => x.Platform)
+                           .Select(x => client.Perform<JObject>(new PlayerLevelStatsRequest(x), token))
+                           .Aggregate(GeneralStatsExtensions.Merge)
+                           .DeserializePlayerLevelStats();
+        }
 
-            foreach (var group in filteredGroups)
-            {
-                var request = new PlayerLevelStatsRequest(group);
-                var platformResponse = client.Perform<JObject>(request, token);
+        /// <summary>
+        /// Get the level, level progression and alpha pack chances for an <see cref="AccountInfo"/>
+        /// </summary>
+        public static Task<PlayerLevelStats> GetLevelAsync<T>(this T client, AccountInfo account, CancellationToken token = default) where T : Dragon6Client
+        {
+            return GetLevelAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
 
-                if (data == null)
-                {
-                    data = platformResponse;
-                }
-                else
-                {
-                    data.Merge(platformResponse);
-                }
-            }
-
-            return data.DeserializePlayerLevelStats();
+        /// <summary>
+        /// Get the level, level progression and alpha pack chances for an array of <see cref="AccountInfo"/>s
+        /// </summary>
+        public static Task<ILookup<string, PlayerLevelStats>> GetLevelAsync<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
+        {
+            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(new PlayerLevelStatsRequest(x), token));
+            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializePlayerLevelStats(), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
 }

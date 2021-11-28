@@ -18,7 +18,6 @@ namespace DragonFruit.Six.Api
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
         private readonly object _lock = new();
-
         public static readonly CultureInfo Culture = new("en-US", false);
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
@@ -35,8 +34,8 @@ namespace DragonFruit.Six.Api
         /// </summary>
         public string AppId
         {
-            get => Headers["Ubi-AppId"];
-            set => Headers["Ubi-AppId"] = value;
+            get => Headers[UbisoftIdentifiers.UbiAppIdHeader];
+            set => Headers[UbisoftIdentifiers.UbiAppIdHeader] = value;
         }
 
         /// <summary>
