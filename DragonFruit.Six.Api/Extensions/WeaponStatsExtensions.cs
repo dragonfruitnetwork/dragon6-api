@@ -10,7 +10,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -30,10 +29,7 @@ namespace DragonFruit.Six.Api.Extensions
         public static ILookup<string, WeaponStats> GetWeaponStats<T>(this T client, IEnumerable<AccountInfo> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training);
-            return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(requestFactory(x), token))
-                           .Aggregate(GeneralStatsExtensions.Merge)
-                           .DeserializeWeaponStats();
+            return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeWeaponStats(), requestFactory);
         }
 
         /// <summary>
@@ -50,8 +46,7 @@ namespace DragonFruit.Six.Api.Extensions
         public static Task<ILookup<string, WeaponStats>> GetWeaponStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training);
-            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(requestFactory(x), token));
-            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializeWeaponStats(), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeWeaponStats(), requestFactory);
         }
 
         private static Func<IEnumerable<AccountInfo>, BasicStatsRequest> RequestFactory(bool training)

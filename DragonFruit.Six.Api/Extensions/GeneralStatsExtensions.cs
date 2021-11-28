@@ -9,7 +9,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -28,10 +27,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static ILookup<string, GeneralStats> GetStats<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
-            return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(new StatsRequest(x), token))
-                           .Aggregate(Merge)
-                           .DeserializeGeneralStats();
+            return PlatformStatsExtensions.GetPlatformStats<StatsRequest, GeneralStats>(client, accounts, token, j => j.DeserializeGeneralStats());
         }
 
         /// <summary>
@@ -47,14 +43,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static Task<ILookup<string, GeneralStats>> GetStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
-            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(new StatsRequest(x), token));
-            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(Merge).DeserializeGeneralStats(), TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
-
-        internal static JObject Merge(JObject a, JObject b)
-        {
-            a.Merge(b);
-            return a;
+            return PlatformStatsExtensions.GetPlatformStatsAsync<StatsRequest, GeneralStats>(client, accounts, token, j => j.DeserializeGeneralStats());
         }
     }
 }

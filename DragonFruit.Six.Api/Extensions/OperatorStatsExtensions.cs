@@ -10,7 +10,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -30,10 +29,7 @@ namespace DragonFruit.Six.Api.Extensions
         public static ILookup<string, OperatorStats> GetOperatorStats<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training, operators);
-            return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(requestFactory(x), token))
-                           .Aggregate(GeneralStatsExtensions.Merge)
-                           .DeserializeOperatorStats(operators);
+            return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeOperatorStats(operators), requestFactory);
         }
 
         /// <summary>
@@ -50,11 +46,10 @@ namespace DragonFruit.Six.Api.Extensions
         public static Task<ILookup<string, OperatorStats>> GetOperatorStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training, operators);
-            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(requestFactory(x), token));
-            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializeOperatorStats(operators, training), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeOperatorStats(operators), requestFactory);
         }
 
-        private static Func<IEnumerable<AccountInfo>, BasicStatsRequest> RequestFactory(bool training, IEnumerable<OperatorStats> operators)
+        private static Func<IEnumerable<AccountInfo>, OperatorStatsRequest> RequestFactory(bool training, IEnumerable<OperatorStats> operators)
         {
             return training ? x => new OperatorTrainingStatsRequest(x, operators) : x => new OperatorStatsRequest(x, operators);
         }

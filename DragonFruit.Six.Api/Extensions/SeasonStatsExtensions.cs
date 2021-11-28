@@ -9,7 +9,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -33,19 +32,11 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
-            return accounts.GroupBy(x => x.Platform)
-                           .Select(x =>
-                           {
-                               var request = new SeasonStatsRequest(x)
-                               {
-                                   Region = region,
-                                   Season = season
-                               };
-
-                               return client.Perform<JObject>(request, token);
-                           })
-                           .Aggregate(GeneralStatsExtensions.Merge)
-                           .DeserializeSeasonStats();
+            return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeSeasonStats(), a => new SeasonStatsRequest(a)
+            {
+                Region = region,
+                Season = season
+            });
         }
 
         /// <summary>
@@ -64,18 +55,11 @@ namespace DragonFruit.Six.Api.Extensions
         /// </remarks>
         public static Task<ILookup<string, SeasonStats>> GetSeasonStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
-            var requests = accounts.GroupBy(x => x.Platform).Select(x =>
+            return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeSeasonStats(), a => new SeasonStatsRequest(a)
             {
-                var request = new SeasonStatsRequest(x)
-                {
-                    Region = region,
-                    Season = season
-                };
-
-                return client.PerformAsync<JObject>(request, token);
+                Region = region,
+                Season = season
             });
-
-            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializeSeasonStats(), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
     }
 }

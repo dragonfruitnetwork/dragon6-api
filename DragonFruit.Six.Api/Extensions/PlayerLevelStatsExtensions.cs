@@ -9,7 +9,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -28,10 +27,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static ILookup<string, PlayerLevelStats> GetLevel<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
-            return accounts.GroupBy(x => x.Platform)
-                           .Select(x => client.Perform<JObject>(new PlayerLevelStatsRequest(x), token))
-                           .Aggregate(GeneralStatsExtensions.Merge)
-                           .DeserializePlayerLevelStats();
+            return PlatformStatsExtensions.GetPlatformStats<PlayerLevelStatsRequest, PlayerLevelStats>(client, accounts, token, j => j.DeserializePlayerLevelStats());
         }
 
         /// <summary>
@@ -47,8 +43,7 @@ namespace DragonFruit.Six.Api.Extensions
         /// </summary>
         public static Task<ILookup<string, PlayerLevelStats>> GetLevelAsync<T>(this T client, IEnumerable<AccountInfo> accounts, CancellationToken token = default) where T : Dragon6Client
         {
-            var requests = accounts.GroupBy(x => x.Platform).Select(x => client.PerformAsync<JObject>(new PlayerLevelStatsRequest(x), token));
-            return Task.WhenAll(requests).ContinueWith(t => t.Result.Aggregate(GeneralStatsExtensions.Merge).DeserializePlayerLevelStats(), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return PlatformStatsExtensions.GetPlatformStatsAsync<PlayerLevelStatsRequest, PlayerLevelStats>(client, accounts, token, j => j.DeserializePlayerLevelStats());
         }
     }
 }
