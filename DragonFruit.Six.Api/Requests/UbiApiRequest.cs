@@ -9,5 +9,10 @@ namespace DragonFruit.Six.Api.Requests
 {
     public abstract class UbiApiRequest : ApiRequest
     {
+        protected override void OnRequestExecuting(ApiClient client)
+        {
+            // all UbiApiRequests require an auth header
+            (client as Dragon6Client)?.ValidateToken();
+        }
     }
 }
