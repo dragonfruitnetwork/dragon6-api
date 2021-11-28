@@ -1,3 +1,6 @@
+name: Code Quality
+on: [ pull_request, push ]
+
 jobs:
   quality:
     runs-on: ubuntu-latest
