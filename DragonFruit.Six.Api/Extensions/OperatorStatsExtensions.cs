@@ -1,14 +1,15 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Extensions
 {
@@ -18,32 +19,39 @@ namespace DragonFruit.Six.Api.Extensions
         /// Get the <see cref="OperatorStats"/> for an <see cref="AccountInfo"/>
         /// </summary>
         public static IEnumerable<OperatorStats> GetOperatorStats<T>(this T client, AccountInfo account, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
-            => GetOperatorStats(client, account.Yield(), operators, training, token).AllFor(account);
+        {
+            return GetOperatorStats(client, account.Yield(), operators, training, token).AllFor(account);
+        }
 
         /// <summary>
         /// Get the <see cref="OperatorStats"/> for an array of <see cref="AccountInfo"/>s
         /// </summary>
         public static ILookup<string, OperatorStats> GetOperatorStats<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
-            var filteredGroups = accounts.GroupBy(x => x.Platform);
-            JObject data = null;
+            var requestFactory = RequestFactory(training, operators);
+            return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeOperatorStats(operators), requestFactory);
+        }
 
-            foreach (var group in filteredGroups)
-            {
-                var request = training ? new OperatorTrainingStatsRequest(group, operators) : new OperatorStatsRequest(group, operators) as BasicStatsRequest;
-                var platformResponse = client.Perform<JObject>(request, token);
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an <see cref="AccountInfo"/>
+        /// </summary>
+        public static Task<IEnumerable<OperatorStats>> GetOperatorStatsAsync<T>(this T client, AccountInfo account, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        {
+            return GetOperatorStatsAsync(client, account.Yield(), operators, training, token).ContinueWith(t => t.Result.AllFor(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
 
-                if (data == null)
-                {
-                    data = platformResponse;
-                }
-                else
-                {
-                    data.Merge(platformResponse);
-                }
-            }
+        /// <summary>
+        /// Get the <see cref="OperatorStats"/> for an array of <see cref="AccountInfo"/>s
+        /// </summary>
+        public static Task<ILookup<string, OperatorStats>> GetOperatorStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        {
+            var requestFactory = RequestFactory(training, operators);
+            return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeOperatorStats(operators), requestFactory);
+        }
 
-            return data.DeserializeOperatorStats(operators, training);
+        private static Func<IEnumerable<AccountInfo>, OperatorStatsRequest> RequestFactory(bool training, IEnumerable<OperatorStats> operators)
+        {
+            return training ? x => new OperatorTrainingStatsRequest(x, operators) : x => new OperatorStatsRequest(x, operators);
         }
     }
 }

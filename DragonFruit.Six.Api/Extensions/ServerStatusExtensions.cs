@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using DragonFruit.Common.Data;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests;
@@ -18,6 +19,15 @@ namespace DragonFruit.Six.Api.Extensions
         {
             var request = new ServerStatusRequest();
             return client.Perform<IEnumerable<ServerStatusReport>>(request, token);
+        }
+
+        /// <summary>
+        /// Get the current server status, as reported by Ubisoft's site (https://rainbow6.ubisoft.com/status/)
+        /// </summary>
+        public static Task<IEnumerable<ServerStatusReport>> GetServerStatusAsync(this ApiClient client, CancellationToken token = default)
+        {
+            var request = new ServerStatusRequest();
+            return client.PerformAsync<IEnumerable<ServerStatusReport>>(request, token);
         }
     }
 }
