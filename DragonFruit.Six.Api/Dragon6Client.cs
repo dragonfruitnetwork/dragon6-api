@@ -74,7 +74,7 @@ namespace DragonFruit.Six.Api
         {
             lock (_lock)
             {
-                if (Token?.Expired != true)
+                if (Token is null || Token.Expired)
                 {
                     // todo throw something if this is majorly expired or null
                     Token = GetToken();
