@@ -11,7 +11,7 @@ namespace DragonFruit.Six.Api.Tokens
     /// </summary>
     public abstract class TokenBase
     {
-        private DateTimeOffset? _safeExpiry;
+        private DateTimeOffset? _skewedExpiry;
 
         public virtual string SessionId { get; set; }
 
@@ -19,19 +19,23 @@ namespace DragonFruit.Six.Api.Tokens
         public abstract DateTimeOffset Expiry { get; set; }
 
         [JsonIgnore]
+        public DateTimeOffset ExpiryOffset => GetSkewedExpiry();
+
+        [JsonIgnore]
         public bool Expired => GetSkewedExpiry() <= DateTimeOffset.Now;
 
         private DateTimeOffset GetSkewedExpiry()
         {
-            if (!_safeExpiry.HasValue)
+            if (!_skewedExpiry.HasValue)
             {
-                // if the ticks equals zero timespan is set to +8hrs, asking for the UtcTicks will cause an ArgumentOutOfRangeException
-                // 3000000000 ticks = 5 mins
+                // we knock off 5 mins (3000000000 ticks) to allow clock skew.
+                // if the ticks equals zero when the timespan is positive (UTC)
+                // asking for the UtcTicks will cause an ArgumentOutOfRangeException
                 var skewedTimeTicks = Math.Max(Expiry.UtcTicks - 3000000000, 0);
-                _safeExpiry = new DateTimeOffset(skewedTimeTicks, TimeSpan.Zero);
+                _skewedExpiry = new DateTimeOffset(skewedTimeTicks, TimeSpan.Zero);
             }
 
-            return _safeExpiry.Value;
+            return _skewedExpiry.Value;
         }
     }
 }
