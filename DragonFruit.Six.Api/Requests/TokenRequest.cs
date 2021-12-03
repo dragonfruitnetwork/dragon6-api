@@ -9,7 +9,7 @@ using DragonFruit.Common.Data.Extensions;
 
 namespace DragonFruit.Six.Api.Requests
 {
-    internal sealed class TokenRequest : UbiApiRequest
+    internal sealed class TokenRequest : ApiRequest
     {
         public override string Path => Endpoints.IdServer + "/sessions";
 
