@@ -3,7 +3,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using DragonFruit.Common.Data;
+using DragonFruit.Data;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Tokens;
 

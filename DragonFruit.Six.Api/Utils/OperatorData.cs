@@ -3,8 +3,8 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Services;
+using DragonFruit.Data;
+using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests;
 

@@ -1,7 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Exceptions;
