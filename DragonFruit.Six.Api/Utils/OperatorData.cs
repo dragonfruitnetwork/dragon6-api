@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DragonFruit.Data;
 using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
@@ -27,6 +28,16 @@ namespace DragonFruit.Six.Api.Utils
         {
             var request = new OperatorDataRequest(null);
             return client.Perform<IEnumerable<OperatorStats>>(request);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="IEnumerable{T}"/> needed to use the <see cref="OperatorStatsRequest"/>
+        /// </summary>
+        /// <param name="client">The <see cref="ApiClient"/> to use</param>
+        public static Task<IEnumerable<OperatorStats>> GetOperatorInfoAsync(this ApiClient client)
+        {
+            var request = new OperatorDataRequest(null);
+            return client.PerformAsync<IEnumerable<OperatorStats>>(request);
         }
     }
 }
