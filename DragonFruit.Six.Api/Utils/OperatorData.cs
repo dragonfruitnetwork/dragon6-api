@@ -2,8 +2,8 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Services;
+using DragonFruit.Data;
+using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests;
 

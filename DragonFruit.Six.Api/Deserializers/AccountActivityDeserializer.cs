@@ -3,7 +3,7 @@
 
 using System;
 using System.Linq;
-using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Strings;

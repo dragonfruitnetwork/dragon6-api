@@ -4,8 +4,8 @@
 using System;
 using System.Net.Http;
 using System.Text;
-using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Extensions;
+using DragonFruit.Data;
+using DragonFruit.Data.Extensions;
 
 namespace DragonFruit.Six.Api.Requests
 {
