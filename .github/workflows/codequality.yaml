@@ -1,24 +1,31 @@
 name: Code Quality
-
 on: [ pull_request, push ]
 
 jobs:
   quality:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install CodeCutter
-        run: powershell Invoke-WebRequest -Uri "https://github.com/dragonfruitnetwork/CodeCutter/releases/latest/download/DragonFruit.CodeCutter.exe" -OutFile ".\DragonFruit.CodeCutter.exe"
+      - name: Install .NET 3.1.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "3.1.x"
+            
+      - name: Install .NET 6.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
 
-      - name: "Setup MSBuild"
-        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Restore Tools
+        run: dotnet tool restore
 
-      - name: NuGet Restore
-        run: |
-          nuget locals all -clear
-          nuget restore
+      - name: Restore Packages
+        run: dotnet restore
 
-      - name: Code Quality Check
-        run: ".\\DragonFruit.CodeCutter.exe"
+      - name: InspectCode
+        run: dotnet jb inspectcode ${{github.workspace}}/DragonFruit.Six.Api.sln --output=${{github.workspace}}/inspectcodereport.xml --cachesDir=${{github.workspace}}/inspectcode --verbosity=WARN --no-build
+
+      - name: NVika
+        run: dotnet nvika parsereport "${{github.workspace}}/inspectcodereport.xml"

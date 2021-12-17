@@ -12,12 +12,13 @@ using DragonFruit.Six.Api.Tokens;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Utils;
+using Nito.AsyncEx;
 
 namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
-        private readonly object _lock = new();
+        private readonly AsyncLock _lock = new();
         public static readonly CultureInfo Culture = new("en-US", false);
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
@@ -72,13 +73,12 @@ namespace DragonFruit.Six.Api
 
         internal void ValidateToken()
         {
-            lock (_lock)
+            using (_lock.Lock())
             {
-                if (Token is null || Token.Expired)
+                if (Token?.Expired is not false)
                 {
                     // todo throw something if this is majorly expired or null
                     Token = GetToken();
-
                     ApplyToken(Token);
                 }
             }
