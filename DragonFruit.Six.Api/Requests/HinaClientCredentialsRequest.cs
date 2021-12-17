@@ -1,8 +1,8 @@
 ﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Data;
+using DragonFruit.Data.Parameters;
 
 namespace DragonFruit.Six.Api.Requests
 {

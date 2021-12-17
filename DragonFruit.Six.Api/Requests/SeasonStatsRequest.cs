@@ -2,8 +2,8 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using DragonFruit.Common.Data;
-using DragonFruit.Common.Data.Parameters;
+using DragonFruit.Data;
+using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Entities;
 
 #pragma warning disable 628
