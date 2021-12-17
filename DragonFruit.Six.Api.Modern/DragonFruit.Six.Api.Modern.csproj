@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Title>Dragon6 Modern API</Title>
+        <PackageId>Dragon6.API.Modern</PackageId>
+        <Description>Dragon6 Modern Stats API</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\DragonFruit.Six.Api\DragonFruit.Six.Api.csproj" />
+    </ItemGroup>
+
+    <Import Project="$(SolutionDir)DragonFruit.Six.Api.props" />
+
+</Project>

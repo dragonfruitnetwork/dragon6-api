@@ -3,14 +3,15 @@
 
 using System;
 using DragonFruit.Data;
+using DragonFruit.Data.Basic;
 using DragonFruit.Data.Extensions;
-using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Modern;
 using DragonFruit.Six.Api.Tokens;
 using Newtonsoft.Json.Linq;
 
-namespace DragonFruit.Six.Api
+namespace DragonFruit.Six.Api.Tests
 {
-    public class Dragon6DeveloperClient : Dragon6Client
+    public class Dragon6DeveloperClient : ModernDragon6Client
     {
         private string _accessToken;
         private DateTime? _accessExpires;
@@ -47,6 +48,14 @@ namespace DragonFruit.Six.Api
             sourceRequest.WithAuthHeader($"Bearer {_accessToken}");
         }
 
-        protected override TokenBase GetToken() => Perform<Dragon6Token>(new DeveloperTokenRequest());
+        protected override TokenBase GetToken()
+        {
+            var request = new BasicApiRequest("https://dragon6.dragonfruit.network/api/v2/dev/access");
+
+            // inject auth header
+            ValidateAccess(request);
+
+            return Perform<Dragon6Token>(request);
+        }
     }
 }

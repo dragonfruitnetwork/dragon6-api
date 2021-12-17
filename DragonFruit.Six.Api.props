@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryType>Git</RepositoryType>
+        <Authors>DragonFruit Network</Authors>
+        <Copyright>Copyright DragonFruit Network (c) 2021</Copyright>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageTags>r6stats, r6api, r6, rainbowsix, dragon6, ubisoft</PackageTags>
+        <RepositoryUrl>https://github.com/dragonfruitnetwork/dragon6-api</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/dragonfruitnetwork/dragon6-api</PackageProjectUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="$(SolutionDir)icon.png" Pack="true" PackagePath="."/>
+    </ItemGroup>
+
+</Project>

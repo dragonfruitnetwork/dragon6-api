@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\DragonFruit.Six.Api.Modern\DragonFruit.Six.Api.Modern.csproj" />
       <ProjectReference Include="..\DragonFruit.Six.Api\DragonFruit.Six.Api.csproj" />
     </ItemGroup>
 

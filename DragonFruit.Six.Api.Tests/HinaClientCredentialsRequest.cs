@@ -4,7 +4,7 @@
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Tests
 {
     internal class HinaClientCredentialsRequest : ApiRequest
     {
