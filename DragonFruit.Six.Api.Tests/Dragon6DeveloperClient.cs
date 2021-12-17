@@ -50,7 +50,7 @@ namespace DragonFruit.Six.Api.Tests
 
         protected override TokenBase GetToken()
         {
-            var request = new BasicApiRequest("https://dragon6.dragonfruit.network/api/v2/dev/access");
+            var request = new BasicApiRequest("https://dragon6.dragonfruit.network/api/v2/dev/token");
 
             // inject auth header
             ValidateAccess(request);
