@@ -12,6 +12,7 @@ namespace DragonFruit.Six.Api.Utils
         private static IReadOnlyDictionary<string, Platform> _gameIds;
 
         internal const string UbiAppIdHeader = "Ubi-AppId";
+        internal const string UbiSessionIdHeader = "Ubi-SessionId";
 
         /// <summary>
         /// <see cref="IReadOnlyDictionary{TKey,TValue}"/> of platforms to game ids used for checking playtime stats

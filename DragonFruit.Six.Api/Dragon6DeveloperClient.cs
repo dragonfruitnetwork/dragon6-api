@@ -4,8 +4,8 @@
 using System;
 using DragonFruit.Data;
 using DragonFruit.Data.Extensions;
+using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Requests;
-using DragonFruit.Six.Api.Tokens;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api
@@ -47,6 +47,6 @@ namespace DragonFruit.Six.Api
             sourceRequest.WithAuthHeader($"Bearer {_accessToken}");
         }
 
-        protected override TokenBase GetToken() => Perform<Dragon6Token>(new DeveloperTokenRequest());
+        protected override IUbisoftToken GetToken() => Perform<Dragon6Token>(new DeveloperTokenRequest());
     }
 }

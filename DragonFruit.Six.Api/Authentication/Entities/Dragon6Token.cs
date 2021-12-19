@@ -4,26 +4,26 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Tokens
+namespace DragonFruit.Six.Api.Authentication.Entities
 {
     /// <summary>
-    /// The most basic implementation of <see cref="TokenBase"/>.
+    /// A <see cref="IUbisoftToken"/> containing minimal data
     /// </summary>
-    public class Dragon6Token : TokenBase
+    public class Dragon6Token : IUbisoftToken
     {
         [JsonProperty("token")]
-        public override string Token { get; set; }
+        public string Token { get; set; }
 
         [JsonProperty("expiry")]
-        public override DateTimeOffset Expiry { get; set; }
+        public DateTimeOffset Expiry { get; set; }
 
         [JsonProperty("session_id")]
-        public override string SessionId { get; set; }
+        public string SessionId { get; set; }
 
         /// <summary>
         /// Creates a <see cref="Dragon6Token"/> from a <see cref="UbisoftToken"/>
         /// </summary>
-        public static explicit operator Dragon6Token(UbisoftToken token) => new()
+        public static Dragon6Token From(UbisoftToken token) => new()
         {
             Token = token.Token,
             Expiry = token.Expiry,

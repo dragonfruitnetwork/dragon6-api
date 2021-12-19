@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DragonFruit.Data;
 using DragonFruit.Data.Serializers.Newtonsoft;
-using DragonFruit.Six.Api.Tokens;
+using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Utils;
@@ -17,7 +17,9 @@ namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
-        private readonly object _lock = new();
+        private ClientAccessToken _access;
+        private readonly object _accessSync = new();
+        
         public static readonly CultureInfo Culture = new("en-US", false);
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
@@ -27,10 +29,10 @@ namespace DragonFruit.Six.Api
             Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = Culture);
         }
 
-        private TokenBase Token { get; set; }
+        private IUbisoftToken Token { get; set; }
 
         /// <summary>
-        /// The Ubi-AppId header to be supplied to each request. Defaults to <see cref="UbisoftService.RainbowSix"/> in <see cref="UbisoftIdentifiers.Websites"/>
+        /// The Ubi-AppId header to be supplied to each request. Defaults to <see cref="UbisoftService.RainbowSix"/>
         /// </summary>
         public string AppId
         {
@@ -44,15 +46,7 @@ namespace DragonFruit.Six.Api
         /// <remarks>
         /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
         /// </remarks>
-        protected abstract TokenBase GetToken();
-
-        /// <summary>
-        /// Defines how a new token is applied to the client.
-        /// </summary>
-        protected virtual void ApplyToken(TokenBase token)
-        {
-            Authorization = $"ubi_v1 t={token.Token}";
-        }
+        protected abstract IUbisoftToken GetToken();
 
         /// <summary>
         /// Handles the response before trying to deserialize it.
@@ -70,17 +64,22 @@ namespace DragonFruit.Six.Api
             _ => base.ValidateAndProcess<T>(response)
         };
 
-        internal void ValidateToken()
+        protected internal ClientAccessToken RequestAccessToken()
         {
-            lock (_lock)
+            if (_access?.Expired is false)
             {
-                if (Token is null || Token.Expired)
-                {
-                    // todo throw something if this is majorly expired or null
-                    Token = GetToken();
+                return _access;
+            }
 
-                    ApplyToken(Token);
+            lock (_accessSync)
+            {
+                // check again in case of a backlog of requests
+                if (_access?.Expired is not false)
+                {
+                    _access = new ClientAccessToken(GetToken());
                 }
+
+                return _access;
             }
         }
     }

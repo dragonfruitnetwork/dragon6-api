@@ -7,9 +7,9 @@ using System.Text;
 using DragonFruit.Data;
 using DragonFruit.Data.Extensions;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Authentication.Requests
 {
-    internal sealed class TokenRequest : ApiRequest
+    public sealed class UbisoftTokenRequest : ApiRequest
     {
         public override string Path => Endpoints.IdServer + "/sessions";
 
@@ -20,20 +20,11 @@ namespace DragonFruit.Six.Api.Requests
         // tokens need an empty request body in UTF8, with app/json type...
         protected override HttpContent BodyContent => new StringContent(string.Empty, Encoding.UTF8, "application/json");
 
-        /// <summary>
-        /// Initialises a new <see cref="TokenRequest"/> with a pre-encoded b64 login
-        /// </summary>
-        public TokenRequest(string b64Login)
+        internal UbisoftTokenRequest()
         {
-            this.WithAuthHeader($"Basic {b64Login}");
         }
 
-        /// <summary>
-        /// Initialises a new <see cref="TokenRequest"/> using the provided username/password combo
-        /// </summary>
-        public TokenRequest(string username, string password)
-            : this(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")))
-        {
-        }
+        public static UbisoftTokenRequest FromEncodedCredentials(string basicAuth) => new UbisoftTokenRequest().WithAuthHeader($"Basic {basicAuth}");
+        public static UbisoftTokenRequest FromUsername(string username, string password) => FromEncodedCredentials(Convert.ToBase64String(Encoding.ASCII.GetBytes($"{username}:{password}")));
     }
 }
