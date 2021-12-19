@@ -6,11 +6,12 @@ using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using DragonFruit.Six.Api.Accounts.Entities;
 
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("ProfileId = {ProfileId}, Class = {Class}")]
-    public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiElementStatsResponse
+    public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiUbisoftEntity
     {
         private float? _kd, _power, _headshotRatio, _efficiency, _accuracy;
 
@@ -77,6 +78,6 @@ namespace DragonFruit.Six.Api.Entities
         [JsonProperty("pr")]
         public float Power => _power ??= RatioUtils.RatioOf(Kills, ShotsLanded);
 
-        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

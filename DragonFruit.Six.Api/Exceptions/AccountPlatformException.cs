@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Enums;
 
@@ -11,7 +12,7 @@ namespace DragonFruit.Six.Api.Exceptions
 {
     public class AccountPlatformException : Exception
     {
-        public AccountPlatformException(IEnumerable<AccountInfo> accounts)
+        public AccountPlatformException(IEnumerable<UbisoftAccount> accounts)
             : base("A platform-specific request was formed with accounts from multiple platforms.")
         {
             FoundPlatforms = accounts.Select(x => x.Platform).Distinct();

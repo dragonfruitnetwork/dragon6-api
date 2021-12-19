@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Data.Serializers.Newtonsoft;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
@@ -18,10 +19,10 @@ namespace DragonFruit.Six.Api.Deserializers
         {
             var token = json.ToObject<UbisoftToken>() ?? throw new TokenDeserializationException();
 
-            token.Account = new AccountInfo
+            token.Account = new UbisoftAccount
             {
                 Platform = PlatformParser.PlatformEnumFor(json.GetString(Accounts.PlatformIdentifier, "uplay")),
-                PlayerName = json.GetString(Accounts.Name),
+                Username = json.GetString(Accounts.Name),
                 Identifiers = new UserIdentifiers
                 {
                     Platform = json.GetString(Accounts.ProfileIdentifier)

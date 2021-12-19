@@ -5,11 +5,12 @@ using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using DragonFruit.Six.Api.Accounts.Entities;
 
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("Id = {ProfileId}")]
-    public class GeneralStats : IAssociatedWithAccount, IStatsResponse
+    public class GeneralStats : IAssociatedWithAccount, IStandaloneUbisoftEntity
     {
         [JsonProperty("profile")]
         internal string ProfileId { get; set; }
@@ -134,6 +135,6 @@ namespace DragonFruit.Six.Api.Entities
         [JsonProperty("experience")]
         public ulong Experience { get; set; }
 
-        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

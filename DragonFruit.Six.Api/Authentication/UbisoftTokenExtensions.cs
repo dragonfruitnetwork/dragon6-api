@@ -7,7 +7,7 @@ using DragonFruit.Data;
 using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Authentication.Requests;
 
-namespace DragonFruit.Six.Api.Authentication.Extensions
+namespace DragonFruit.Six.Api.Authentication
 {
     public static class UbisoftTokenExtensions
     {

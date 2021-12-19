@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 
 #pragma warning disable 628
@@ -14,18 +15,18 @@ namespace DragonFruit.Six.Api.Requests
     {
         public override string Path => Platform.SeasonalStatsEndpoint();
 
-        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts)
+        public SeasonStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)
         {
         }
 
-        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts, int seasonId)
+        public SeasonStatsRequest(IEnumerable<UbisoftAccount> accounts, int seasonId)
             : base(accounts)
         {
             Season = seasonId;
         }
 
-        public SeasonStatsRequest(IEnumerable<AccountInfo> accounts, int seasonId, string boardId)
+        public SeasonStatsRequest(IEnumerable<UbisoftAccount> accounts, int seasonId, string boardId)
             : base(accounts)
         {
             Season = seasonId;

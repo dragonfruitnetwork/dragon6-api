@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Utils;
 
@@ -10,12 +11,12 @@ namespace DragonFruit.Six.Api.Requests
 {
     public class OperatorStatsRequest : BasicStatsRequest
     {
-        public OperatorStatsRequest(AccountInfo account, IEnumerable<OperatorStats> operators)
+        public OperatorStatsRequest(UbisoftAccount account, IEnumerable<OperatorStats> operators)
             : this(account.Yield(), operators)
         {
         }
 
-        public OperatorStatsRequest(IEnumerable<AccountInfo> accounts, IEnumerable<OperatorStats> operators)
+        public OperatorStatsRequest(IEnumerable<UbisoftAccount> accounts, IEnumerable<OperatorStats> operators)
             : base(accounts)
         {
             OperatorActions = operators.Select(x => x.OperatorActionId).Where(x => !string.IsNullOrWhiteSpace(x));

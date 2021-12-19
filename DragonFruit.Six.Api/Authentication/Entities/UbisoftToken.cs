@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Entities;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Authentication.Entities
@@ -13,7 +12,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
     public class UbisoftToken : IUbisoftToken
     {
         [JsonProperty("expiration")]
-        public DateTimeOffset Expiry { get; set; }
+        public DateTime Expiry { get; set; }
 
         [JsonProperty("ticket")]
         public string Token { get; set; }
@@ -35,8 +34,5 @@ namespace DragonFruit.Six.Api.Authentication.Entities
 
         [JsonProperty("sessionKey")]
         public string SessionKey { get; set; }
-
-        [JsonProperty("account")]
-        public AccountInfo Account { get; set; }
     }
 }

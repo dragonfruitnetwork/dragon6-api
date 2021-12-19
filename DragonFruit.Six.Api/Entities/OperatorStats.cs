@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
@@ -11,7 +12,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("ProfileId = {ProfileId}, Index = {Index}")]
-    public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiElementStatsResponse
+    public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiUbisoftEntity
     {
         private TimeSpan? _timePlayed;
 
@@ -110,6 +111,6 @@ namespace DragonFruit.Six.Api.Entities
 
         internal OperatorStats Clone() => (OperatorStats)MemberwiseClone();
 
-        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

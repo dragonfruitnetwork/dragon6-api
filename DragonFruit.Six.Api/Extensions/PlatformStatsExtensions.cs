@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DragonFruit.Data;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests;
 using Newtonsoft.Json.Linq;
@@ -12,7 +13,7 @@ namespace DragonFruit.Six.Api.Extensions
 {
     internal static class PlatformStatsExtensions
     {
-        internal static Task<ILookup<string, TReturn>> GetPlatformStatsAsync<TRequest, TReturn>(ApiClient client, IEnumerable<AccountInfo> accounts, CancellationToken token, Func<JObject, ILookup<string, TReturn>> callback, Func<IEnumerable<AccountInfo>, TRequest> requestFactory = null) where TRequest : PlatformSpecificRequest
+        internal static Task<ILookup<string, TReturn>> GetPlatformStatsAsync<TRequest, TReturn>(ApiClient client, IEnumerable<UbisoftAccount> accounts, CancellationToken token, Func<JObject, ILookup<string, TReturn>> callback, Func<IEnumerable<UbisoftAccount>, TRequest> requestFactory = null) where TRequest : PlatformSpecificRequest
         {
             requestFactory ??= a => (TRequest)Activator.CreateInstance(typeof(TRequest), a);
 
@@ -20,7 +21,7 @@ namespace DragonFruit.Six.Api.Extensions
             return Task.WhenAll(requests).ContinueWith(t => callback.Invoke(t.Result.Aggregate(Merge)), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        internal static ILookup<string, TReturn> GetPlatformStats<TRequest, TReturn>(ApiClient client, IEnumerable<AccountInfo> accounts, CancellationToken token, Func<JObject, ILookup<string, TReturn>> callback, Func<IEnumerable<AccountInfo>, TRequest> requestFactory = null) where TRequest : PlatformSpecificRequest
+        internal static ILookup<string, TReturn> GetPlatformStats<TRequest, TReturn>(ApiClient client, IEnumerable<UbisoftAccount> accounts, CancellationToken token, Func<JObject, ILookup<string, TReturn>> callback, Func<IEnumerable<UbisoftAccount>, TRequest> requestFactory = null) where TRequest : PlatformSpecificRequest
         {
             requestFactory ??= a => (TRequest)Activator.CreateInstance(typeof(TRequest), a);
 

@@ -4,8 +4,7 @@
 using System;
 using System.Linq;
 using DragonFruit.Data.Serializers.Newtonsoft;
-using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
@@ -14,16 +13,16 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountActivityDeserializer
     {
-        public static ILookup<string, AccountActivity> DeserializeAccountLoginInfo(this JObject json)
+        public static ILookup<string, UbisoftAccountActivity> DeserializeAccountLoginInfo(this JObject json)
         {
             var deserializedItems = json["applications"] is JArray data
                 ? data.Cast<JObject>().Select(DeserializeInternal)
-                : Enumerable.Empty<AccountActivity>();
+                : Enumerable.Empty<UbisoftAccountActivity>();
 
             return deserializedItems.ToLookup(x => x.ProfileId);
         }
 
-        private static AccountActivity DeserializeInternal(JObject data) => new()
+        private static UbisoftAccountActivity DeserializeInternal(JObject data) => new()
         {
             ProfileId = data.GetString(Activity.Guid),
             SessionCount = data.GetUInt(Activity.Sessions),

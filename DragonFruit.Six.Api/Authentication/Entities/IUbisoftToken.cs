@@ -13,6 +13,6 @@ namespace DragonFruit.Six.Api.Authentication.Entities
         string Token { get; }
         string SessionId { get; }
 
-        DateTimeOffset Expiry { get; }
+        DateTime Expiry { get; }
     }
 }

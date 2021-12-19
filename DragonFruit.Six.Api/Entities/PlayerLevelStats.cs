@@ -1,12 +1,13 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class PlayerLevelStats : IAssociatedWithAccount, IStatsResponse
+    public class PlayerLevelStats : IAssociatedWithAccount, IStandaloneUbisoftEntity
     {
         [JsonProperty("profile_id")]
         internal string ProfileId { get; set; }
@@ -29,6 +30,6 @@ namespace DragonFruit.Six.Api.Entities
         [JsonProperty("level")]
         public uint Level { get; set; }
 
-        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

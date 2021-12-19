@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Utils;
 
@@ -15,12 +16,12 @@ namespace DragonFruit.Six.Api.Requests
 
         protected override bool RequireAuth => true;
 
-        public PlayerLevelStatsRequest(AccountInfo account)
+        public PlayerLevelStatsRequest(UbisoftAccount account)
             : this(account.Yield())
         {
         }
 
-        public PlayerLevelStatsRequest(IEnumerable<AccountInfo> accounts)
+        public PlayerLevelStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)
         {
         }

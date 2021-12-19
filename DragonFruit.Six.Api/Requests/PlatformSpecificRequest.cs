@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
@@ -18,7 +19,7 @@ namespace DragonFruit.Six.Api.Requests
 
         protected override bool RequireAuth => true;
 
-        protected PlatformSpecificRequest(IEnumerable<AccountInfo> accounts)
+        protected PlatformSpecificRequest(IEnumerable<UbisoftAccount> accounts)
         {
             Accounts = accounts.ToArray();
             Platform = Accounts.First().Platform;
@@ -37,7 +38,7 @@ namespace DragonFruit.Six.Api.Requests
         /// <summary>
         /// The accounts to perform a lookup on
         /// </summary>
-        public AccountInfo[] Accounts { get; }
+        public UbisoftAccount[] Accounts { get; }
 
         /// <summary>
         /// The profile ids to lookup

@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Utils;
 
@@ -21,17 +22,17 @@ namespace DragonFruit.Six.Api.Requests
         public override string Path => Platform.StatsEndpoint();
 
         /// <summary>
-        /// Initialises a <see cref="BasicStatsRequest"/> for a single <see cref="AccountInfo"/>
+        /// Initialises a <see cref="BasicStatsRequest"/> for a single <see cref="UbisoftAccount"/>
         /// </summary>
-        public BasicStatsRequest(AccountInfo account)
+        public BasicStatsRequest(UbisoftAccount account)
             : base(account.Yield())
         {
         }
 
         /// <summary>
-        /// Initialises a <see cref="BasicStatsRequest"/> for an array of <see cref="AccountInfo"/>s
+        /// Initialises a <see cref="BasicStatsRequest"/> for an array of <see cref="UbisoftAccount"/>s
         /// </summary>
-        public BasicStatsRequest(IEnumerable<AccountInfo> accounts)
+        public BasicStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)
         {
         }

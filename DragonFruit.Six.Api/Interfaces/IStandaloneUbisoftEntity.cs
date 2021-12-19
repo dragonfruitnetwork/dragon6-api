@@ -4,16 +4,16 @@
 namespace DragonFruit.Six.Api.Interfaces
 {
     /// <summary>
-    /// Represents one-to-one stats response
+    /// Represents one-to-one Ubisoft response
     /// </summary>
-    public interface IStatsResponse
+    public interface IStandaloneUbisoftEntity
     {
     }
 
     /// <summary>
-    /// Represents a one-to-many stats response
+    /// Represents a one-to-many Ubisoft response
     /// </summary>
-    public interface IMultiElementStatsResponse
+    public interface IMultiUbisoftEntity
     {
     }
 }

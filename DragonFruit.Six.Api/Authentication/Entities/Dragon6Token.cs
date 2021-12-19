@@ -15,7 +15,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
         public string Token { get; set; }
 
         [JsonProperty("expiry")]
-        public DateTimeOffset Expiry { get; set; }
+        public DateTime Expiry { get; set; }
 
         [JsonProperty("session_id")]
         public string SessionId { get; set; }

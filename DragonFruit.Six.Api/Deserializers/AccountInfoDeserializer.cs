@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Data.Serializers.Newtonsoft;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Strings;
@@ -14,13 +15,13 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class AccountInfoDeserializer
     {
-        public static IEnumerable<AccountInfo> DeserializeAccountInfo(this JObject json) => json[Misc.Profile] is JArray accountsJson
+        public static IEnumerable<UbisoftAccount> DeserializeAccountInfo(this JObject json) => json[Misc.Profile] is JArray accountsJson
             ? accountsJson.Cast<JObject>().Select(DeserializeInternal)
-            : Enumerable.Empty<AccountInfo>();
+            : Enumerable.Empty<UbisoftAccount>();
 
-        private static AccountInfo DeserializeInternal(JObject data) => new()
+        private static UbisoftAccount DeserializeInternal(JObject data) => new()
         {
-            PlayerName = data.GetString(Accounts.Name),
+            Username = data.GetString(Accounts.Name),
             Platform = PlatformParser.PlatformEnumFor(data.GetString(Accounts.Platform)),
             Identifiers = new UserIdentifiers
             {

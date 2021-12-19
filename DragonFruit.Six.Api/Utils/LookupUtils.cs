@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using DragonFruit.Six.Api.Entities;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Interfaces;
 
 namespace DragonFruit.Six.Api.Utils
@@ -17,19 +17,19 @@ namespace DragonFruit.Six.Api.Utils
         /// Retrieves the first occurence of the specified key in the lookup.
         /// Returns null if not found
         /// </summary>
-        public static T For<T>(this ILookup<string, T> lookup, string id) where T : IStatsResponse => lookup[id].FirstOrDefault();
+        public static T For<T>(this ILookup<string, T> lookup, string id) where T : IStandaloneUbisoftEntity => lookup[id].FirstOrDefault();
 
         /// <summary>
         /// Retrieves all occurances for the specified key in the lookup.
         /// Returns null if no entries were found
         /// </summary>
-        public static IEnumerable<T> AllFor<T>(this ILookup<string, T> lookup, string id) where T : IMultiElementStatsResponse => lookup[id];
+        public static IEnumerable<T> AllFor<T>(this ILookup<string, T> lookup, string id) where T : IMultiUbisoftEntity => lookup[id];
 
         /// <summary>
         /// Tries to retrieve the matching entity from the <see cref="ILookup{TKey,TElement}"/>.
         /// Returns a <c>bool</c> representing the success state of the operation
         /// </summary>
-        public static bool TryRetrieveFor<T>(this ILookup<string, T> lookup, string id, out T output) where T : IStatsResponse
+        public static bool TryRetrieveFor<T>(this ILookup<string, T> lookup, string id, out T output) where T : IStandaloneUbisoftEntity
         {
             output = For(lookup, id);
             return output != null;
@@ -39,7 +39,7 @@ namespace DragonFruit.Six.Api.Utils
         /// Tries to retrieve all matching entities from the <see cref="ILookup{TKey,TElement}"/>.
         /// Returns a <c>bool</c> representing the success state of the operation
         /// </summary>
-        public static bool TryRetrieveAllFor<T>(this ILookup<string, T> lookup, string id, out IEnumerable<T> output) where T : IMultiElementStatsResponse
+        public static bool TryRetrieveAllFor<T>(this ILookup<string, T> lookup, string id, out IEnumerable<T> output) where T : IMultiUbisoftEntity
         {
             output = AllFor(lookup, id);
             return output != null;
@@ -51,19 +51,19 @@ namespace DragonFruit.Six.Api.Utils
         /// Retrieves the item with a reference to the user's profile id.
         /// Returns null if not found
         /// </summary>
-        public static T For<T>(this ILookup<string, T> lookup, AccountInfo account) where T : IStatsResponse => For(lookup, account.Identifiers.Profile);
+        public static T For<T>(this ILookup<string, T> lookup, UbisoftAccount account) where T : IStandaloneUbisoftEntity => For(lookup, account.ProfileId);
 
         /// <summary>
         /// Retrieves any item with a reference to the user's profile id.
         /// Returns null if not found
         /// </summary>
-        public static IEnumerable<T> AllFor<T>(this ILookup<string, T> lookup, AccountInfo account) where T : IMultiElementStatsResponse => AllFor(lookup, account.Identifiers.Profile);
+        public static IEnumerable<T> AllFor<T>(this ILookup<string, T> lookup, UbisoftAccount account) where T : IMultiUbisoftEntity => AllFor(lookup, account.ProfileId);
 
         /// <summary>
         /// Tries to retrieve the item with the reference to the user's profile id.
         /// Returns a <c>bool</c> representing the success state of the operation
         /// </summary>
-        public static bool TryRetrieveFor<T>(this ILookup<string, T> lookup, AccountInfo account, out T output) where T : IStatsResponse
+        public static bool TryRetrieveFor<T>(this ILookup<string, T> lookup, UbisoftAccount account, out T output) where T : IStandaloneUbisoftEntity
         {
             output = For(lookup, account);
             return output != null;
@@ -73,7 +73,7 @@ namespace DragonFruit.Six.Api.Utils
         /// Tries to retrieve all items with a reference to the user's profile id.
         /// Returns a <c>bool</c> representing the success state of the operation
         /// </summary>
-        public static bool TryRetrieveAllFor<T>(this ILookup<string, T> lookup, AccountInfo account, out IEnumerable<T> output) where T : IMultiElementStatsResponse
+        public static bool TryRetrieveAllFor<T>(this ILookup<string, T> lookup, UbisoftAccount account, out IEnumerable<T> output) where T : IMultiUbisoftEntity
         {
             output = AllFor(lookup, account);
             return output != null;

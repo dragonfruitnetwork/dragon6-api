@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
 using DragonFruit.Six.Api.Requests;
@@ -17,20 +18,20 @@ namespace DragonFruit.Six.Api.Extensions
         private const string DefaultRegion = "EMEA";
 
         /// <summary>
-        /// Get ranked (seasonal) stats for the <see cref="AccountInfo"/>
+        /// Get ranked (seasonal) stats for the <see cref="UbisoftAccount"/>
         /// </summary>
-        public static SeasonStats GetSeasonStats<T>(this T client, AccountInfo account, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
+        public static SeasonStats GetSeasonStats<T>(this T client, UbisoftAccount account, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
             return GetSeasonStats(client, account.Yield(), season, region, token).For(account);
         }
 
         /// <summary>
-        /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
+        /// Get ranked (seasonal) stats for an array of <see cref="UbisoftAccount"/>s (latest season)
         /// </summary>
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent
         /// </remarks>
-        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<AccountInfo> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, SeasonStats> GetSeasonStats<T>(this T client, IEnumerable<UbisoftAccount> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
             return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeSeasonStats(), a => new SeasonStatsRequest(a)
             {
@@ -40,20 +41,20 @@ namespace DragonFruit.Six.Api.Extensions
         }
 
         /// <summary>
-        /// Get ranked (seasonal) stats for the <see cref="AccountInfo"/>
+        /// Get ranked (seasonal) stats for the <see cref="UbisoftAccount"/>
         /// </summary>
-        public static Task<SeasonStats> GetSeasonStatsAsync<T>(this T client, AccountInfo account, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
+        public static Task<SeasonStats> GetSeasonStatsAsync<T>(this T client, UbisoftAccount account, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
             return GetSeasonStatsAsync(client, account.Yield(), season, region, token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
-        /// Get ranked (seasonal) stats for an array of <see cref="AccountInfo"/>s (latest season)
+        /// Get ranked (seasonal) stats for an array of <see cref="UbisoftAccount"/>s (latest season)
         /// </summary>
         /// <remarks>
         /// Seasonal stats pre-season 18 are region-independent
         /// </remarks>
-        public static Task<ILookup<string, SeasonStats>> GetSeasonStatsAsync<T>(this T client, IEnumerable<AccountInfo> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
+        public static Task<ILookup<string, SeasonStats>> GetSeasonStatsAsync<T>(this T client, IEnumerable<UbisoftAccount> accounts, int season = -1, string region = DefaultRegion, CancellationToken token = default) where T : Dragon6Client
         {
             return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeSeasonStats(), a => new SeasonStatsRequest(a)
             {

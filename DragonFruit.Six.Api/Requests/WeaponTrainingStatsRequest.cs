@@ -2,18 +2,19 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 
 namespace DragonFruit.Six.Api.Requests
 {
     public sealed class WeaponTrainingStatsRequest : BasicStatsRequest
     {
-        public WeaponTrainingStatsRequest(AccountInfo account)
+        public WeaponTrainingStatsRequest(UbisoftAccount account)
             : base(account)
         {
         }
 
-        public WeaponTrainingStatsRequest(IEnumerable<AccountInfo> accounts)
+        public WeaponTrainingStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)
         {
         }

@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Interfaces;
@@ -12,7 +13,7 @@ namespace DragonFruit.Six.Api.Entities
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class SeasonStats : StatsBase, IAssociatedWithAccount, IStatsResponse
+    public class SeasonStats : StatsBase, IAssociatedWithAccount, IStandaloneUbisoftEntity
     {
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
@@ -79,6 +80,6 @@ namespace DragonFruit.Six.Api.Entities
         public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonalRanks.GetRank(MaxRank, SeasonId);
         public RankInfo MMRRankInfo => _mmrRankInfo ??= SeasonalRanks.GetRank((int)MMR, SeasonId, true);
 
-        public bool IsAssociatedWithAccount(AccountInfo account) => account.Identifiers.Profile.Equals(ProfileId);
+        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }
