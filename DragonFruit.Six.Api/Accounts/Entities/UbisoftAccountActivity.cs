@@ -2,13 +2,12 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Accounts.Entities
 {
     [Serializable]
-    public class UbisoftAccountActivity : IStandaloneUbisoftEntity, IEquatable<UbisoftAccount>
+    public class UbisoftAccountActivity : IEquatable<UbisoftAccount>
     {
         [JsonProperty("profileId")]
         internal string ProfileId { get; set; }

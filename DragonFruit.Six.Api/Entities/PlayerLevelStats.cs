@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
