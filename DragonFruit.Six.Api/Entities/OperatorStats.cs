@@ -5,7 +5,6 @@ using System;
 using System.Diagnostics;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities

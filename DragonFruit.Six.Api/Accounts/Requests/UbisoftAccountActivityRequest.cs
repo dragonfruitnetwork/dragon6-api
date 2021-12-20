@@ -6,7 +6,6 @@ using System.Linq;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Accounts.Requests

@@ -1,34 +1,35 @@
-﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
+using DragonFruit.Six.Api.Requests;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Services.Status
 {
-    public class ServerStatusRequest : ApiRequest
+    public class UbisoftServerStatusRequest : ApiRequest
     {
         public override string Path => "https://game-status-api.ubisoft.com/v1/instances";
 
         /// <summary>
         /// Initialises a <see cref="ServerStatusRequest" /> for all siege platforms
         /// </summary>
-        public ServerStatusRequest()
+        public UbisoftServerStatusRequest()
             : this(UbisoftIdentifiers.GameIds.Keys)
         {
         }
 
         /// <inheritdoc />
-        public ServerStatusRequest(params string[] appIds)
+        public UbisoftServerStatusRequest(params string[] appIds)
             : this((IEnumerable<string>)appIds)
         {
         }
 
         /// <summary>
-        /// Initialises a <see cref="ServerStatusRequest"/> for the app ids provided
+        /// Initialises a <see cref="UbisoftServerStatusRequest"/> for the app ids provided
         /// </summary>
-        public ServerStatusRequest(IEnumerable<string> appIds)
+        public UbisoftServerStatusRequest(IEnumerable<string> appIds)
         {
             AppIds = appIds;
         }

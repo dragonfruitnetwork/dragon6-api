@@ -12,7 +12,7 @@ using DragonFruit.Six.Api.Utils;
 
 #pragma warning disable 628
 
-namespace DragonFruit.Six.Api.Seasonal
+namespace DragonFruit.Six.Api.Seasonal.Requests
 {
     public sealed class SeasonalStatsRequest : PlatformSpecificRequest
     {

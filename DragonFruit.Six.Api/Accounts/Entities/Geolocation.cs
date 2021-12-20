@@ -1,11 +1,13 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Entities
+namespace DragonFruit.Six.Api.Accounts.Entities
 {
-    public class UserLocationInfo
+    [Serializable]
+    public class Geolocation
     {
         [JsonProperty("ip")]
         public string IP { get; set; }

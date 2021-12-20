@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 

@@ -11,7 +11,6 @@ using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
-using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api
 {
@@ -19,25 +18,12 @@ namespace DragonFruit.Six.Api
     {
         private ClientAccessToken _access;
         private readonly object _accessSync = new();
-        
-        public static readonly CultureInfo Culture = new("en-US", false);
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
         {
-            AppId = app.AppId();
+            SetUbiAppId(app);
             UserAgent = userAgent ?? "Dragon6-API";
-            Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = Culture);
-        }
-
-        private IUbisoftToken Token { get; set; }
-
-        /// <summary>
-        /// The Ubi-AppId header to be supplied to each request. Defaults to <see cref="UbisoftService.RainbowSix"/>
-        /// </summary>
-        public string AppId
-        {
-            get => Headers[UbisoftIdentifiers.UbiAppIdHeader];
-            set => Headers[UbisoftIdentifiers.UbiAppIdHeader] = value;
+            Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -49,12 +35,18 @@ namespace DragonFruit.Six.Api
         protected abstract IUbisoftToken GetToken();
 
         /// <summary>
+        /// Updates the Ubi-AppId header to be supplied to each request.
+        /// Defaults to <see cref="UbisoftService.RainbowSix"/>
+        /// </summary>
+        public void SetUbiAppId(UbisoftService service) => Headers[UbisoftIdentifiers.UbiAppIdHeader] = service.AppId();
+
+        /// <summary>
         /// Handles the response before trying to deserialize it.
         /// If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
         protected override Task<T> ValidateAndProcess<T>(HttpResponseMessage response) => response.StatusCode switch
         {
-            HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
+            HttpStatusCode.Unauthorized => throw new InvalidTokenException(_access.Token),
 
             HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
 

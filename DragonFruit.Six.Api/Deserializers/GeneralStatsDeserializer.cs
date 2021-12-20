@@ -8,7 +8,6 @@ using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Strings.Stats;
 using DragonFruit.Six.Api.Strings.Stats.Modes;
-using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Deserializers

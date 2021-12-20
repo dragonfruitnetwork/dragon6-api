@@ -6,7 +6,6 @@ using System.Linq;
 using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Strings;
-using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Deserializers

@@ -5,7 +5,7 @@ using DragonFruit.Data;
 
 #nullable enable
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api
 {
     /// <summary>
     /// Represents a Ubisoft API request that requires authentication.

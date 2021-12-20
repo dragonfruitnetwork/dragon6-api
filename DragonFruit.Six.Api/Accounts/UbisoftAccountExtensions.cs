@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DragonFruit.Data;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Accounts.Requests;
@@ -66,5 +67,10 @@ namespace DragonFruit.Six.Api.Accounts
             var request = new UbisoftAccountActivityRequest(accounts);
             return client.PerformAsync<JObject>(request).ContinueWith(t => t.Result.DeserializeUbisoftAccountActivity());
         }
+
+        /// <summary>
+        /// Get the current device location based on a IP Geolocation lookup
+        /// </summary>
+        public static Task<Geolocation> GeolocateAsync(this ApiClient client) => client.PerformAsync<Geolocation>(new UbisoftGeolocationRequest());
     }
 }

@@ -1,22 +1,22 @@
-﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Entities
+namespace DragonFruit.Six.Api.Services.Status
 {
-    public class ServerStatusReport
+    [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
+    public class UbisoftServerStatus
     {
         [JsonProperty("AppID ")] // the space is intentional
         public string AppId { get; set; }
 
         [JsonProperty("ImpactedFeatures")]
-        public IEnumerable<string> AffectedServices { get; set; }
+        public string[] AffectedServices { get; set; }
 
         [JsonProperty("Status")]
         private string StatusString { get; set; }
@@ -24,19 +24,14 @@ namespace DragonFruit.Six.Api.Entities
         [JsonProperty("Maintenance")]
         private bool? Maintenance { get; set; }
 
-        [JsonIgnore]
+        public Platform? Platform { get; set; }
         public ServerStatus Status { get; set; }
-
-        [JsonIgnore]
-        public Platform Platform { get; set; }
 
         [OnDeserialized]
         internal void ProcessData(StreamingContext context)
         {
-            Platform = UbisoftIdentifiers.GameIds[AppId];
-            Status = Maintenance == true
-                ? ServerStatus.Maintenance
-                : (ServerStatus)Enum.Parse(typeof(ServerStatus), StatusString, true);
+            Platform = UbisoftIdentifiers.GameIds.TryGetValue(AppId, out var platform) ? platform : null;
+            Status = Maintenance == true ? ServerStatus.Maintenance : (ServerStatus)Enum.Parse(typeof(ServerStatus), StatusString, true);
         }
     }
 }

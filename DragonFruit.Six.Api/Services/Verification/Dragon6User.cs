@@ -8,7 +8,7 @@ namespace DragonFruit.Six.Api.Services.Verification
     /// <summary>
     /// Publicly-exposed data about a user's verified account (on the dragon6 site)
     /// </summary>
-    public class Dragon6AccountInfo
+    public class Dragon6User
     {
         [JsonProperty("profile_id")]
         public string ProfileId { get; set; }

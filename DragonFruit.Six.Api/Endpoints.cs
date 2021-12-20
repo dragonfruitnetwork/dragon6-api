@@ -3,7 +3,6 @@
 
 using System;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api
 {

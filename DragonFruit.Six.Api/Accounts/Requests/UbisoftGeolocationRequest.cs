@@ -4,11 +4,10 @@
 using DragonFruit.Data;
 using DragonFruit.Data.Extensions;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Accounts.Requests
 {
-    public class GeolocationRequest : UbiApiRequest
+    public class UbisoftGeolocationRequest : UbiApiRequest
     {
         public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
 
