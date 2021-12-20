@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Seasonal.Entites;
@@ -36,7 +35,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="seasonId">The season id. Defaults to the current season</param>
         /// <param name="board">The leaderboard to get rankings for</param>
         /// <param name="region">The region to get stats for. Seasons after ~17 do not need to set this</param>
-        public static Task<ILookup<string, SeasonalStats>> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
+        public static Task<IReadOnlyDictionary<string, SeasonalStats>> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
         {
             var request = new SeasonalStatsRequest(accounts, board, seasonId, region);
             return client.PerformAsync<JObject>(request).ContinueWith(t => t.Result.DeserializeSeasonalStats(), TaskContinuationOptions.OnlyOnRanToCompletion);

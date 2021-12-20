@@ -61,7 +61,7 @@ namespace DragonFruit.Six.Api.Accounts
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get play stats for</param>
         /// <returns>A <see cref="UbisoftAccountActivity"/> for each account that owns the game</returns>
-        public static Task<ILookup<string, UbisoftAccountActivity>> GetAccountActivityAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts)
+        public static Task<IReadOnlyDictionary<string, UbisoftAccountActivity>> GetAccountActivityAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts)
         {
             var request = new UbisoftAccountActivityRequest(accounts);
             return client.PerformAsync<JObject>(request).ContinueWith(t => t.Result.DeserializeUbisoftAccountActivity());

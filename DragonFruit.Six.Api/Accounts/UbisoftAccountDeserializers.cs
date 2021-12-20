@@ -16,10 +16,10 @@ namespace DragonFruit.Six.Api.Accounts
             return json.RemoveContainer().ToObject<IEnumerable<UbisoftAccount>>();
         }
 
-        public static ILookup<string, UbisoftAccountActivity> DeserializeUbisoftAccountActivity(this JObject json)
+        public static IReadOnlyDictionary<string, UbisoftAccountActivity> DeserializeUbisoftAccountActivity(this JObject json)
         {
             var data = json.RemoveContainer().ToObject<IEnumerable<UbisoftAccountActivity>>() ?? Enumerable.Empty<UbisoftAccountActivity>();
-            return data.ToLookup(x => x.ProfileId);
+            return data.ToDictionary(x => x.ProfileId);
         }
 
         /// <summary>
@@ -27,23 +27,14 @@ namespace DragonFruit.Six.Api.Accounts
         /// </summary>
         internal static JToken RemoveContainer(this JObject json) => json.Children().SingleOrDefault();
 
+        /// <summary>
+        /// Deserializes a <see cref="JObject"/> with a single "padding" property into a <see cref="IReadOnlyDictionary{TKey,TValue}"/>
+        /// </summary>
         // todo move to own class
-        internal static ILookup<string, T> DeserializeTo<T>(this JObject json) where T : IAssociatedWithProfile, IHasSingleLevelContainer
+        internal static IReadOnlyDictionary<string, T> DeserializeDictionariedStats<T>(this JObject json) where T : IHasSingleLevelContainer
         {
             // this removes the padding (.results) and converts each property into the requested type,
-            // setting the ProfileId to the property name
-            var data = json.Children<JObject>().SingleOrDefault()?.Properties().Select(x =>
-            {
-                var obj = x.Value.ToObject<T>();
-
-                // in this case the property name is the profile we looked up
-                obj.ProfileId = x.Name;
-
-                return obj;
-            });
-
-            // this kinda builds an internal dictionary, so ToArray() is not needed
-            return data.ToLookup(x => x.ProfileId);
+            return json.Children().SingleOrDefault()?.ToObject<Dictionary<string, T>>();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entites
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class SeasonalStats : IStandaloneUbisoftEntity, IAssociatedWithProfile, IHasSingleLevelContainer
+    public class SeasonalStats : IStandaloneUbisoftEntity, IHasSingleLevelContainer
     {
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 

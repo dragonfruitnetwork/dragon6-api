@@ -2,9 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Threading.Tasks;
-using DragonFruit.Six.Api.Extensions;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Seasonal;
 using NUnit.Framework;
 
 namespace DragonFruit.Six.Api.Tests.Data
