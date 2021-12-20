@@ -134,7 +134,5 @@ namespace DragonFruit.Six.Api.Entities
         /// </summary>
         [JsonProperty("experience")]
         public ulong Experience { get; set; }
-
-        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
     }
 }

@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Interfaces;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Accounts
@@ -26,15 +25,5 @@ namespace DragonFruit.Six.Api.Accounts
         /// Removes the container the data is stored behind without knowing the key
         /// </summary>
         internal static JToken RemoveContainer(this JObject json) => json.Children().SingleOrDefault();
-
-        /// <summary>
-        /// Deserializes a <see cref="JObject"/> with a single "padding" property into a <see cref="IReadOnlyDictionary{TKey,TValue}"/>
-        /// </summary>
-        // todo move to own class
-        internal static IReadOnlyDictionary<string, T> DeserializeDictionariedStats<T>(this JObject json) where T : IHasSingleLevelContainer
-        {
-            // this removes the padding (.results) and converts each property into the requested type,
-            return json.Children().SingleOrDefault()?.ToObject<Dictionary<string, T>>();
-        }
     }
 }

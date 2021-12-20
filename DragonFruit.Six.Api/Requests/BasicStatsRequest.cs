@@ -47,6 +47,6 @@ namespace DragonFruit.Six.Api.Requests
         }
 
         [QueryParameter("populations", CollectionConversionMode.Concatenated)]
-        internal override IEnumerable<string> AccountIds => base.AccountIds;
+        protected override IEnumerable<string> AccountIds => base.AccountIds;
     }
 }

@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Interfaces;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
@@ -11,7 +10,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entites
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class SeasonalStats : IStandaloneUbisoftEntity, IHasSingleLevelContainer
+    public class SeasonalStats
     {
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
