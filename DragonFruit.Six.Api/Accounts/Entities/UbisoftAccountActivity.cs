@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.Api.Accounts.Entities
 {
     [Serializable]
-    public class UbisoftAccountActivity : IStandaloneUbisoftEntity
+    public class UbisoftAccountActivity : IStandaloneUbisoftEntity, IEquatable<UbisoftAccount>
     {
         [JsonProperty("profileId")]
         internal string ProfileId { get; set; }
@@ -30,5 +30,7 @@ namespace DragonFruit.Six.Api.Accounts.Entities
         /// </summary>
         [JsonProperty("lastSessionDate")]
         public DateTime LastSession { get; set; }
+
+        public bool Equals(UbisoftAccount other) => string.Equals(ProfileId, other?.ProfileId, StringComparison.OrdinalIgnoreCase);
     }
 }
