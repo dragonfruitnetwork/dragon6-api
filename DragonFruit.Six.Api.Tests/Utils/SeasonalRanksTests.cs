@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using DragonFruit.Six.Api.Seasonal;
 using DragonFruit.Six.Api.Utils;
 using NUnit.Framework;
 
@@ -15,7 +16,7 @@ namespace DragonFruit.Six.Api.Tests.Utils
         [TestCase(6050, 23)]
         public void TestMMR(int mmr, byte expectedRankId)
         {
-            var rank = SeasonalRanks.GetRank(mmr, 22, true);
+            var rank = RankInfo.GetRank(mmr, 22, true);
             Assert.AreEqual(expectedRankId, rank.Id);
         }
 
@@ -25,14 +26,14 @@ namespace DragonFruit.Six.Api.Tests.Utils
         [TestCase(4800, 20)]
         public void TestLegacyMMR(int mmr, byte expectedRankId)
         {
-            var rank = SeasonalRanks.GetRank(mmr, 12, true);
+            var rank = RankInfo.GetRank(mmr, 12, true);
             Assert.AreEqual(expectedRankId, rank.Id);
         }
 
         [Test]
         public void TestInvalidRank()
         {
-            var rank = SeasonalRanks.GetRank(100);
+            var rank = RankInfo.GetRank(100);
             Assert.AreEqual(rank.Name, "Unranked");
         }
     }

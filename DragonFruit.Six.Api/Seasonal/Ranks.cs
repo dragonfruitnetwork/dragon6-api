@@ -1,12 +1,12 @@
-﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
+﻿// Dragon6 API Copyright 2021 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Linq;
-using DragonFruit.Six.Api.Containers;
+using DragonFruit.Six.Api.Seasonal.Entites;
 
-namespace DragonFruit.Six.Api.Utils
+namespace DragonFruit.Six.Api.Seasonal
 {
-    public static class SeasonalRanks
+    public static class Ranks
     {
         /// <summary>
         /// Gets the <see cref="RankInfo"/> for the provided rank and season
@@ -27,7 +27,7 @@ namespace DragonFruit.Six.Api.Utils
         /// </summary>
         /// <param name="identifier">The id of the rank or the mmr</param>
         /// <param name="season">The id of the season (optional, -1 for the latest season)</param>
-        /// <param name="isMMR">Whether the <see cref="identifier"/> represents mmr.</param>
+        /// <param name="isMMR">Whether the <see cref="RankInfo"/> represents mmr.</param>
         public static RankInfo GetRank(int identifier, int season = -1, bool isMMR = false)
         {
             var itemsSource = season switch

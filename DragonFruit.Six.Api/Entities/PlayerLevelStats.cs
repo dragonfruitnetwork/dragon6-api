@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Entities
 {
-    public class PlayerLevelStats : IAssociatedWithAccount, IStandaloneUbisoftEntity
+    public class PlayerLevelStats : IStandaloneUbisoftEntity
     {
         [JsonProperty("profile_id")]
         internal string ProfileId { get; set; }

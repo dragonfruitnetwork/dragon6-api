@@ -4,14 +4,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 
 namespace DragonFruit.Six.Api.Requests
 {
     /// <summary>
-    /// Request type where components are specific to a <see cref="Enums.Platform"/>
+    /// A request involving <see cref="Accounts"/> where the <see cref="T:Platform"/> must be the same for all accounts
     /// </summary>
     public abstract class PlatformSpecificRequest : UbiApiRequest
     {
@@ -43,6 +42,6 @@ namespace DragonFruit.Six.Api.Requests
         /// <summary>
         /// The profile ids to lookup
         /// </summary>
-        internal virtual IEnumerable<string> AccountIds => _accountIds ??= Accounts.Select(x => x.Identifiers.Profile);
+        protected virtual IEnumerable<string> AccountIds => _accountIds ??= Accounts.Select(x => x.ProfileId);
     }
 }

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("ProfileId = {ProfileId}, Index = {Index}")]
-    public class OperatorStats : StatsBase, IAssociatedWithAccount, IMultiUbisoftEntity
+    public class OperatorStats : StatsBase, IMultiUbisoftEntity
     {
         private TimeSpan? _timePlayed;
 

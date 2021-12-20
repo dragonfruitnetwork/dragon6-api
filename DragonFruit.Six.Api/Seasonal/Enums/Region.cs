@@ -3,13 +3,13 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace DragonFruit.Six.Api.Enums
+namespace DragonFruit.Six.Api.Seasonal.Enums
 {
     /// <summary>
     /// Represents the ranked regions used in-game
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public enum Regions
+    public enum Region
     {
         EMEA,
         NCSA,

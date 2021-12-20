@@ -2,26 +2,24 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Containers;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Interfaces;
+using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Entities
+namespace DragonFruit.Six.Api.Seasonal.Entites
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public class SeasonStats : StatsBase, IAssociatedWithAccount, IStandaloneUbisoftEntity
+    public class SeasonalStats : IStandaloneUbisoftEntity, IAssociatedWithProfile, IHasSingleLevelContainer
     {
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
-        [JsonProperty("profile")]
-        internal string ProfileId { get; set; }
-
         [JsonProperty("id")]
         public byte SeasonId { get; set; }
+
+        [JsonProperty("profile")]
+        public string ProfileId { get; set; }
 
         [JsonProperty("update_time")]
         public DateTime? TimeUpdated { get; set; }
@@ -29,8 +27,27 @@ namespace DragonFruit.Six.Api.Entities
         [JsonProperty("last_match_result")]
         public MatchResult LastMatchResult { get; set; }
 
+        #region WL/KD
+
+        [JsonProperty("wins")]
+        public int Wins { get; set; }
+
+        [JsonProperty("losses")]
+        public int Losses { get; set; }
+
         [JsonProperty("abandons")]
-        public uint Abandons { get; set; }
+        public int Abandons { get; set; }
+
+        [JsonProperty("kills")]
+        public int Kills { get; set; }
+
+        [JsonProperty("deaths")]
+        public int Deaths { get; set; }
+
+        public float Kd => RatioUtils.RatioOf(Kills, Deaths);
+        public float Wl => RatioUtils.RatioOf(Wins, Losses + Abandons);
+
+        #endregion
 
         #region Rank
 
@@ -76,10 +93,8 @@ namespace DragonFruit.Six.Api.Entities
 
         #endregion
 
-        public RankInfo RankInfo => _rankInfo ??= SeasonalRanks.GetRank(Rank, SeasonId);
-        public RankInfo MaxRankInfo => _maxRankInfo ??= SeasonalRanks.GetRank(MaxRank, SeasonId);
-        public RankInfo MMRRankInfo => _mmrRankInfo ??= SeasonalRanks.GetRank((int)MMR, SeasonId, true);
-
-        public bool IsAssociatedWithAccount(UbisoftAccount account) => account.Identifiers.Profile.Equals(ProfileId);
+        public RankInfo RankInfo => _rankInfo ??= Ranks.GetRank(Rank, SeasonId);
+        public RankInfo MaxRankInfo => _maxRankInfo ??= Ranks.GetRank(MaxRank, SeasonId);
+        public RankInfo MMRRankInfo => _mmrRankInfo ??= Ranks.GetRank((int)MMR, SeasonId, true);
     }
 }

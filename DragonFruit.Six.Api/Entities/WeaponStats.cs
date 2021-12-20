@@ -11,7 +11,7 @@ using DragonFruit.Six.Api.Accounts.Entities;
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("ProfileId = {ProfileId}, Class = {Class}")]
-    public class WeaponStats : IHasKd, IAssociatedWithAccount, IMultiUbisoftEntity
+    public class WeaponStats : IHasKd, IMultiUbisoftEntity
     {
         private float? _kd, _power, _headshotRatio, _efficiency, _accuracy;
 

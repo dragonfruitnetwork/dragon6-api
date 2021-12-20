@@ -10,7 +10,7 @@ using DragonFruit.Six.Api.Accounts.Entities;
 namespace DragonFruit.Six.Api.Entities
 {
     [DebuggerDisplay("Id = {ProfileId}")]
-    public class GeneralStats : IAssociatedWithAccount, IStandaloneUbisoftEntity
+    public class GeneralStats : IStandaloneUbisoftEntity
     {
         [JsonProperty("profile")]
         internal string ProfileId { get; set; }

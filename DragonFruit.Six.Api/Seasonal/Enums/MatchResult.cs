@@ -1,7 +1,7 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
-namespace DragonFruit.Six.Api.Enums
+namespace DragonFruit.Six.Api.Seasonal.Enums
 {
     /// <summary>
     /// Describes the outcome of a match for a player

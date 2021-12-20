@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Utils;
 
 // ReSharper disable once InconsistentNaming

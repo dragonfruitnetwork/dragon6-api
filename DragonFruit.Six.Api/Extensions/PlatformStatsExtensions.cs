@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using DragonFruit.Data;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Requests;
 using Newtonsoft.Json.Linq;
 
