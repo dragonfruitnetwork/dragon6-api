@@ -24,6 +24,6 @@ namespace DragonFruit.Six.Api.Accounts
         /// <summary>
         /// Removes the container the data is stored behind without knowing the key
         /// </summary>
-        internal static JToken RemoveContainer(this JObject json) => json.Children().SingleOrDefault();
+        internal static JObject RemoveContainer(this JObject json) => json.Children<JObject>().SingleOrDefault();
     }
 }

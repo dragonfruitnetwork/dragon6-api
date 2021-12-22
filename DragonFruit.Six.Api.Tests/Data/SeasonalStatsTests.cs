@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Threading.Tasks;
+using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Enums;
 using NUnit.Framework;
 

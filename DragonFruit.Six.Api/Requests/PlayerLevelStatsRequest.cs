@@ -13,8 +13,6 @@ namespace DragonFruit.Six.Api.Requests
     {
         public override string Path => Platform.ProfileStatsEndpoint();
 
-        protected override bool RequireAuth => true;
-
         public PlayerLevelStatsRequest(UbisoftAccount account)
             : this(account.Yield())
         {
@@ -26,6 +24,6 @@ namespace DragonFruit.Six.Api.Requests
         }
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
-        internal override IEnumerable<string> AccountIds => base.AccountIds;
+        protected override IEnumerable<string> AccountIds => base.AccountIds;
     }
 }

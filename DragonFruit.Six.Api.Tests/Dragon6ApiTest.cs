@@ -7,6 +7,7 @@ using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Legacy.Entities;
 
 namespace DragonFruit.Six.Api.Tests
 {
@@ -15,7 +16,7 @@ namespace DragonFruit.Six.Api.Tests
         private static readonly List<UbisoftAccount> Accounts = new();
         protected static readonly Dragon6DeveloperClient Client = new("00000000-0000-0000-0000-000000000001.045a00e5c0", "d3574f2ae25d47f7993689f9b4ad40c2", "dragon6.token.read");
 
-        protected static IEnumerable<OperatorStats> OperatorInfo { get; set; }
+        protected static IEnumerable<LegacyOperatorStats> OperatorInfo { get; set; }
 
         protected UbisoftAccount GetAccountInfoFor(string identifier, Platform platform)
         {

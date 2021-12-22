@@ -3,6 +3,7 @@
 
 using System;
 using System.Globalization;
+using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Enums;
 using NUnit.Framework;
 

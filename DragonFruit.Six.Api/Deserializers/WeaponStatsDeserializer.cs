@@ -8,6 +8,8 @@ using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Strings;
 using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Legacy.Entities;
+using DragonFruit.Six.Api.Legacy.Strings;
 using DragonFruit.Six.Api.Strings.Stats;
 using Newtonsoft.Json.Linq;
 
@@ -15,14 +17,14 @@ namespace DragonFruit.Six.Api.Deserializers
 {
     public static class WeaponStatsDeserializer
     {
-        public static ILookup<string, WeaponStats> DeserializeWeaponStats(this JObject json, bool training = false)
+        public static ILookup<string, LegacyWeaponStats> DeserializeWeaponStats(this JObject json, bool training = false)
         {
             var results = (json[Misc.Results] as JObject)?.Properties();
-            IEnumerable<WeaponStats> enumeratedResults;
+            IEnumerable<LegacyWeaponStats> enumeratedResults;
 
             if (results == null)
             {
-                enumeratedResults = Enumerable.Empty<WeaponStats>();
+                enumeratedResults = Enumerable.Empty<LegacyWeaponStats>();
             }
             else
             {
@@ -38,12 +40,12 @@ namespace DragonFruit.Six.Api.Deserializers
             return enumeratedResults.ToLookup(x => x.ProfileId);
         }
 
-        private static IEnumerable<WeaponStats> DeserializeInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
+        private static IEnumerable<LegacyWeaponStats> DeserializeInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
         {
             var numericIndex = (int)x;
             var property = (JObject)data.Value;
 
-            return new WeaponStats
+            return new LegacyWeaponStats
             {
                 ProfileId = data.Name,
 
@@ -62,12 +64,12 @@ namespace DragonFruit.Six.Api.Deserializers
             };
         });
 
-        private static IEnumerable<WeaponStats> DeserializeTrainingInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
+        private static IEnumerable<LegacyWeaponStats> DeserializeTrainingInternal(JProperty data, IEnumerable<WeaponType> weapons) => weapons.Select(x =>
         {
             var numericIndex = (int)x;
             var property = (JObject)data.Value;
 
-            return new WeaponStats
+            return new LegacyWeaponStats
             {
                 ProfileId = data.Name,
 

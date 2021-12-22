@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Entities;
 using DragonFruit.Six.Api.Deserializers;
+using DragonFruit.Six.Api.Legacy.Entities;
+using DragonFruit.Six.Api.Legacy.Requests;
 using DragonFruit.Six.Api.Requests;
 using DragonFruit.Six.Api.Utils;
 
@@ -17,40 +19,40 @@ namespace DragonFruit.Six.Api.Extensions
     public static class WeaponStatsExtensions
     {
         /// <summary>
-        /// Get <see cref="WeaponStats"/> for an <see cref="UbisoftAccount"/>
+        /// Get <see cref="LegacyWeaponStats"/> for an <see cref="UbisoftAccount"/>
         /// </summary>
-        public static IEnumerable<WeaponStats> GetWeaponStats<T>(this T client, UbisoftAccount account, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        public static IEnumerable<LegacyWeaponStats> GetWeaponStats<T>(this T client, UbisoftAccount account, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             return GetWeaponStats(client, account.Yield(), training, token).AllFor(account);
         }
 
         /// <summary>
-        /// Get <see cref="WeaponStats"/> for an array of <see cref="UbisoftAccount"/>s
+        /// Get <see cref="LegacyWeaponStats"/> for an array of <see cref="UbisoftAccount"/>s
         /// </summary>
-        public static ILookup<string, WeaponStats> GetWeaponStats<T>(this T client, IEnumerable<UbisoftAccount> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        public static ILookup<string, LegacyWeaponStats> GetWeaponStats<T>(this T client, IEnumerable<UbisoftAccount> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training);
             return PlatformStatsExtensions.GetPlatformStats(client, accounts, token, j => j.DeserializeWeaponStats(), requestFactory);
         }
 
         /// <summary>
-        /// Get <see cref="WeaponStats"/> for an <see cref="UbisoftAccount"/>
+        /// Get <see cref="LegacyWeaponStats"/> for an <see cref="UbisoftAccount"/>
         /// </summary>
-        public static Task<IEnumerable<WeaponStats>> GetWeaponStatsAsync<T>(this T client, UbisoftAccount account, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        public static Task<IEnumerable<LegacyWeaponStats>> GetWeaponStatsAsync<T>(this T client, UbisoftAccount account, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             return GetWeaponStatsAsync(client, account.Yield(), training, token).ContinueWith(t => t.Result.AllFor(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
-        /// Get <see cref="WeaponStats"/> for an array of <see cref="UbisoftAccount"/>s
+        /// Get <see cref="LegacyWeaponStats"/> for an array of <see cref="UbisoftAccount"/>s
         /// </summary>
-        public static Task<ILookup<string, WeaponStats>> GetWeaponStatsAsync<T>(this T client, IEnumerable<UbisoftAccount> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
+        public static Task<ILookup<string, LegacyWeaponStats>> GetWeaponStatsAsync<T>(this T client, IEnumerable<UbisoftAccount> accounts, bool training = false, CancellationToken token = default) where T : Dragon6Client
         {
             var requestFactory = RequestFactory(training);
             return PlatformStatsExtensions.GetPlatformStatsAsync(client, accounts, token, j => j.DeserializeWeaponStats(), requestFactory);
         }
 
-        private static Func<IEnumerable<UbisoftAccount>, BasicStatsRequest> RequestFactory(bool training)
+        private static Func<IEnumerable<UbisoftAccount>, LegacyStatsRequest> RequestFactory(bool training)
         {
             return training ? x => new WeaponTrainingStatsRequest(x) : x => new WeaponStatsRequest(x);
         }

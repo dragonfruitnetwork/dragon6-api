@@ -11,6 +11,7 @@ using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
+using DragonFruit.Six.Api.Legacy;
 
 namespace DragonFruit.Six.Api
 {
@@ -24,6 +25,11 @@ namespace DragonFruit.Six.Api
             SetUbiAppId(app);
             UserAgent = userAgent ?? "Dragon6-API";
             Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = CultureInfo.InvariantCulture);
+        }
+
+        static Dragon6Client()
+        {
+            LegacyStatsMapping.InitialiseStatsBuckets();
         }
 
         /// <summary>
