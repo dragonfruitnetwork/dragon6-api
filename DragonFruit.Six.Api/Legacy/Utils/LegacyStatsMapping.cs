@@ -49,7 +49,12 @@ namespace DragonFruit.Six.Api.Legacy.Utils
                                     .Select(x => (string)x.GetRawConstantValue());
 
                 // get or add entry, then push
-                (cache[attr.TargetCategory] ??= new List<string>()).AddRange(classKeys);
+                if (!cache.ContainsKey(attr.TargetCategory))
+                {
+                    cache.Add(attr.TargetCategory, new List<string>());
+                }
+
+                cache[attr.TargetCategory].AddRange(classKeys);
             }
 
             foreach (var list in cache.Values)

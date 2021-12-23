@@ -4,7 +4,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Seasonal.Entites
+namespace DragonFruit.Six.Api.Seasonal.Entities
 {
     public struct RankInfo : IEquatable<RankInfo>, IEquatable<int>
     {

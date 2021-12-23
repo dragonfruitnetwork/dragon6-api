@@ -4,7 +4,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Seasonal.Entites;
+using DragonFruit.Six.Api.Seasonal.Entities;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Seasonal.Requests;
 
@@ -23,7 +23,7 @@ namespace DragonFruit.Six.Api.Seasonal
         public static Task<SeasonalStats> GetSeasonalStatsAsync(this Dragon6Client client, UbisoftAccount account, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
         {
             var request = new SeasonalStatsRequest(account, board, seasonId, region);
-            return client.PerformAsync<UbisoftAccountBackedResult<SeasonalStats>>(request).ContinueWith(t => t.Result[account], TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.PerformAsync<SeasonalStatsResponse>(request).ContinueWith(t => t.Result[account], TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="seasonId">The season id. Defaults to the current season</param>
         /// <param name="board">The leaderboard to get rankings for</param>
         /// <param name="region">The region to get stats for. Seasons after ~17 do not need to set this</param>
-        public static Task<UbisoftAccountBackedResult<SeasonalStats>> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
+        public static Task<SeasonalStatsResponse> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
         {
             var request = new SeasonalStatsRequest(accounts, board, seasonId, region);
-            return client.PerformAsync<UbisoftAccountBackedResult<SeasonalStats>>(request);
+            return client.PerformAsync<SeasonalStatsResponse>(request);
         }
     }
 }

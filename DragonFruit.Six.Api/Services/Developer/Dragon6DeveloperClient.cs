@@ -30,7 +30,7 @@ namespace DragonFruit.Six.Api.Services.Developer
 
             lock (_accessSync)
             {
-                if (_access?.ExpiresUtc > DateTime.UtcNow)
+                if (_access is null || _access.ExpiresUtc <= DateTime.UtcNow)
                 {
                     _access = Perform<DragonFruitClientCredentials>(new DragonFruitClientCredentialsRequest
                     {

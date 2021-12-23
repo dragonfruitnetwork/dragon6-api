@@ -10,6 +10,9 @@ namespace DragonFruit.Six.Api.Services.Developer
     {
         public override string Path => "https://id.dragonfruit.network/connect/token";
 
+        protected override Methods Method => Methods.Post;
+        protected override BodyType BodyType => BodyType.Encoded;
+
         [FormParameter("client_id")]
         public string ClientId { get; set; }
 

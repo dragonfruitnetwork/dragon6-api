@@ -6,7 +6,7 @@ using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Seasonal.Entites
+namespace DragonFruit.Six.Api.Seasonal.Entities
 {
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
@@ -14,10 +14,10 @@ namespace DragonFruit.Six.Api.Seasonal.Entites
     {
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
-        [JsonProperty("id")]
+        [JsonProperty("season")]
         public byte SeasonId { get; set; }
 
-        [JsonProperty("profile")]
+        [JsonProperty("profile_id")]
         public string ProfileId { get; set; }
 
         [JsonProperty("update_time")]
@@ -53,7 +53,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entites
         [JsonProperty("rank")]
         public int Rank { get; set; }
 
-        [JsonProperty("maxrank")]
+        [JsonProperty("max_rank")]
         public int MaxRank { get; set; }
 
         [JsonProperty("top_rank_position")]
@@ -66,7 +66,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entites
         [JsonProperty("mmr")]
         public double MMR { get; set; }
 
-        [JsonProperty("maxmmr")]
+        [JsonProperty("max_mmr")]
         public double MaxMMR { get; set; }
 
         [JsonProperty("next_rank_mmr")]

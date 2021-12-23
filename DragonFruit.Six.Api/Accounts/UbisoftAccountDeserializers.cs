@@ -12,18 +12,19 @@ namespace DragonFruit.Six.Api.Accounts
     {
         public static IEnumerable<UbisoftAccount> DeserializeUbisoftAccounts(this JObject json)
         {
-            return json.RemoveContainer().ToObject<IEnumerable<UbisoftAccount>>();
+            var data = json.RemoveContainer<JArray>();
+            return data.ToObject<IEnumerable<UbisoftAccount>>();
         }
 
         public static IReadOnlyDictionary<string, UbisoftAccountActivity> DeserializeUbisoftAccountActivity(this JObject json)
         {
-            var data = json.RemoveContainer().ToObject<IEnumerable<UbisoftAccountActivity>>() ?? Enumerable.Empty<UbisoftAccountActivity>();
+            var data = json.RemoveContainer<JArray>().ToObject<IEnumerable<UbisoftAccountActivity>>() ?? Enumerable.Empty<UbisoftAccountActivity>();
             return data.ToDictionary(x => x.ProfileId);
         }
 
         /// <summary>
         /// Removes the container the data is stored behind without knowing the key
         /// </summary>
-        internal static JObject RemoveContainer(this JObject json) => json.Children<JObject>().SingleOrDefault();
+        internal static T RemoveContainer<T>(this JObject json) where T : JToken => json.Children().SingleOrDefault().Value<JProperty>()?.Value as T;
     }
 }

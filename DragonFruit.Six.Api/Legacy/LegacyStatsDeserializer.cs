@@ -22,13 +22,13 @@ namespace DragonFruit.Six.Api.Legacy
         /// <summary>
         /// Deserializes a <see cref="JObject"/> into a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="Entities.LegacyStats"/>
         /// </summary>
-        public static IReadOnlyDictionary<string, Entities.LegacyStats> DeserializeGeneralStats(this JObject json)
+        public static IReadOnlyDictionary<string, LegacyStats> DeserializeGeneralStats(this JObject json)
         {
-            var results = json.RemoveContainer()?.Properties().Select(data =>
+            var results = json.RemoveContainer<JObject>()?.Properties().Select(data =>
             {
                 var property = (JObject)data.Value;
 
-                return new Entities.LegacyStats
+                return new LegacyStats
                 {
                     ProfileId = data.Name,
 
@@ -145,7 +145,7 @@ namespace DragonFruit.Six.Api.Legacy
                 };
             });
 
-            return (results ?? Enumerable.Empty<Entities.LegacyStats>()).ToDictionary(x => x.ProfileId, x => x, StringComparer.OrdinalIgnoreCase);
+            return (results ?? Enumerable.Empty<LegacyStats>()).ToDictionary(x => x.ProfileId, x => x, StringComparer.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace DragonFruit.Six.Api.Legacy
         public static ILookup<string, LegacyOperatorStats> DeserializeOperatorStats(this JObject json)
         {
             // selectmany function needs to be split due to yield statement (this applies to all ILookup-returning functions)
-            return json.RemoveContainer()?.Properties().SelectMany(DeserializeOperatorStatsInternal).ToLookup(x => x.ProfileId);
+            return json.RemoveContainer<JObject>()?.Properties().SelectMany(DeserializeOperatorStatsInternal).ToLookup(x => x.ProfileId);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace DragonFruit.Six.Api.Legacy
         public static ILookup<string, LegacyWeaponStats> DeserializeWeaponStats(this JObject json)
         {
             var weaponClasses = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
-            return json.RemoveContainer()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);
+            return json.RemoveContainer<JObject>()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);
         }
 
         /// <summary>

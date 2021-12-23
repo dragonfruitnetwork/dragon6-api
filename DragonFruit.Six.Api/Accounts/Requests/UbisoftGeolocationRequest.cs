@@ -7,7 +7,7 @@ using DragonFruit.Six.Api.Enums;
 
 namespace DragonFruit.Six.Api.Accounts.Requests
 {
-    public class UbisoftGeolocationRequest : UbiApiRequest
+    public class UbisoftGeolocationRequest : ApiRequest
     {
         public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
 

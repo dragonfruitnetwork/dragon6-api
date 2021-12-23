@@ -2,7 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Linq;
-using DragonFruit.Six.Api.Seasonal.Entites;
+using DragonFruit.Six.Api.Seasonal.Entities;
 
 namespace DragonFruit.Six.Api.Seasonal
 {
