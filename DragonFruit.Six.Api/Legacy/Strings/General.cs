@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
-    [DefaultStats(LegacyStats.General)]
+    [DefaultStats(LegacyStatTypes.General)]
     public static class General
     {
         public const string Kills = "generalpvp_kills";

@@ -12,11 +12,11 @@ namespace DragonFruit.Six.Api.Legacy
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     internal class DefaultStatsAttribute : Attribute
     {
-        public DefaultStatsAttribute(LegacyStats targetCategory)
+        public DefaultStatsAttribute(LegacyStatTypes targetCategory)
         {
             TargetCategory = targetCategory;
         }
 
-        public LegacyStats TargetCategory { get; }
+        public LegacyStatTypes TargetCategory { get; }
     }
 }

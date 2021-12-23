@@ -8,7 +8,6 @@ using DragonFruit.Data;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Accounts.Requests;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json.Linq;
 

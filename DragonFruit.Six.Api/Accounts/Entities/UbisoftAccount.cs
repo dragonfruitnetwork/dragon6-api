@@ -3,7 +3,6 @@
 
 using System;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Accounts.Entities

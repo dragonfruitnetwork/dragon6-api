@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
-    [DefaultStats(LegacyStats.Ranked)]
+    [DefaultStats(LegacyStatTypes.Ranked)]
     public static class Ranked
     {
         public const string Kills = "rankedpvp_kills";

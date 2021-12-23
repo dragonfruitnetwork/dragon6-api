@@ -152,13 +152,13 @@ namespace DragonFruit.Six.Api.Legacy
         /// <summary>
         /// Deserializes a <see cref="JObject"/> into a <see cref="ILookup{TKey,TElement}"/> of <see cref="LegacyOperatorStats"/>
         /// </summary>
-        public static ILookup<string, LegacyOperatorStats> DeserialzeOperatorStats(this JObject json)
+        public static ILookup<string, LegacyOperatorStats> DeserializeOperatorStats(this JObject json)
         {
             // selectmany function needs to be split due to yield statement (this applies to all ILookup-returning functions)
             return json.RemoveContainer()?.Properties().SelectMany(DeserializeOperatorStatsInternal).ToLookup(x => x.ProfileId);
         }
 
-        public static ILookup<string, LegacyWeaponStats> DeserilizeWeaponStats(this JObject json)
+        public static ILookup<string, LegacyWeaponStats> DeserializeWeaponStats(this JObject json)
         {
             var weaponClasses = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
             return json.RemoveContainer()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);

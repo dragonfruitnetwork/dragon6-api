@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
-    [DefaultStats(LegacyStats.Operators)]
+    [DefaultStats(LegacyStatTypes.Operators)]
     public static class Operator
     {
         public const string Wins = "operatorpvp_roundwon";

@@ -22,36 +22,36 @@ namespace DragonFruit.Six.Api.Legacy.Requests
         /// <summary>
         /// Initialises a <see cref="LegacyStatsRequest"/> for a single <see cref="UbisoftAccount"/>
         /// </summary>
-        public LegacyStatsRequest(UbisoftAccount account, LegacyStats stats)
+        public LegacyStatsRequest(UbisoftAccount account, LegacyStatTypes stats)
             : base(account.Yield())
         {
-            Stats = stats;
+            Types = stats;
         }
 
         /// <summary>
         /// Initialises a <see cref="LegacyStatsRequest"/> for an array of <see cref="UbisoftAccount"/>s
         /// </summary>
-        public LegacyStatsRequest(IEnumerable<UbisoftAccount> accounts, LegacyStats stats)
+        public LegacyStatsRequest(IEnumerable<UbisoftAccount> accounts, LegacyStatTypes stats)
             : base(accounts)
         {
-            Stats = stats;
+            Types = stats;
         }
 
         /// <summary>
-        /// The <see cref="LegacyStats"/> to retrieve with this request
+        /// The <see cref="LegacyStatTypes"/> to retrieve with this request
         /// </summary>
-        public LegacyStats Stats { get; set; }
+        public LegacyStatTypes Types { get; set; }
 
         /// <summary>
         /// An <see cref="IEnumerable{T}"/> of stats to fetch (can be found in <see cref="Strings"/> namespace)
         /// </summary>
         /// <remarks>
-        /// If unset, this will use the <see cref="Stats"/> property and resolve the default stats
+        /// If unset, this will use the <see cref="Types"/> property and resolve the default stats
         /// </remarks>
         [QueryParameter("statistics", CollectionConversionMode.Concatenated)]
         public virtual IEnumerable<string> StatsKeys
         {
-            get => _stats ?? Stats.GetDefaultStats();
+            get => _stats ?? Types.GetDefaultStats();
             set => _stats = value;
         }
 

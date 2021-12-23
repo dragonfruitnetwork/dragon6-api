@@ -10,20 +10,20 @@ namespace DragonFruit.Six.Api.Legacy
 {
     internal static class LegacyStatsMapping
     {
-        private static Dictionary<LegacyStats, List<string>> _categoryCache;
+        private static Dictionary<LegacyStatTypes, List<string>> _categoryCache;
 
         /// <summary>
-        /// Gets the stats identifiers for the <see cref="LegacyStats"/> keys provided
+        /// Gets the stats identifiers for the <see cref="LegacyStatTypes"/> keys provided
         /// </summary>
-        public static IEnumerable<string> GetDefaultStats(this LegacyStats stats)
+        public static IEnumerable<string> GetDefaultStats(this LegacyStatTypes stats)
         {
-            return Enum.GetValues(typeof(LegacyStats))
-                       .Cast<LegacyStats>()
+            return Enum.GetValues(typeof(LegacyStatTypes))
+                       .Cast<LegacyStatTypes>()
                        .Aggregate(Enumerable.Empty<string>(), (a, b) => _categoryCache.TryGetValue(b, out var data) ? a.Concat(data) : a);
         }
 
         /// <summary>
-        /// Initializes the <see cref="LegacyStats"/> keys for resolving at request-time via <see cref="GetDefaultStats"/>
+        /// Initializes the <see cref="LegacyStatTypes"/> keys for resolving at request-time via <see cref="GetDefaultStats"/>
         /// </summary>
         public static void InitialiseStatsBuckets()
         {
@@ -32,7 +32,7 @@ namespace DragonFruit.Six.Api.Legacy
                 return;
             }
 
-            var cache = new Dictionary<LegacyStats, List<string>>(7);
+            var cache = new Dictionary<LegacyStatTypes, List<string>>(7);
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {

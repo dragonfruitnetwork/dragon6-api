@@ -7,12 +7,12 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Containers
 {
-    public class LegacyBombModeStats : LegacyModeStatsContainer
+    public class LegacyBombModeStats : LegacyModeStats
     {
         // no bonus stats right now...
     }
 
-    public class LegacyHostageModeStats : LegacyModeStatsContainer
+    public class LegacyHostageModeStats : LegacyModeStats
     {
         /// <summary>
         /// The number of hostages the player has rescued
@@ -27,7 +27,7 @@ namespace DragonFruit.Six.Api.Containers
         public uint Defenses { get; set; }
     }
 
-    public class LegacySecureModeStats : LegacyModeStatsContainer
+    public class LegacySecureModeStats : LegacyModeStats
     {
         [JsonProperty("aggressions")]
         public uint Aggressions { get; set; }
@@ -45,7 +45,7 @@ namespace DragonFruit.Six.Api.Containers
         public uint Captures { get; set; }
     }
 
-    public abstract class LegacyModeStatsContainer : IHasWl
+    public abstract class LegacyModeStats
     {
         private float? _wl;
         private TimeSpan? _timePlayed;
@@ -80,7 +80,6 @@ namespace DragonFruit.Six.Api.Containers
         [JsonProperty("wl")]
         public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);
 
-        [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
     }
 }

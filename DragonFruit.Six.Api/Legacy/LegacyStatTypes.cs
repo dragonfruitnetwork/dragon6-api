@@ -6,7 +6,7 @@ using System;
 namespace DragonFruit.Six.Api.Legacy
 {
     [Flags]
-    public enum LegacyStats
+    public enum LegacyStatTypes
     {
         Overall = 1 << 0,
         General = 1 << 1,

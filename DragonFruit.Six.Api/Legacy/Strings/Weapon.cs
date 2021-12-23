@@ -3,7 +3,7 @@
 
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
-    [DefaultStats(LegacyStats.Weapons)]
+    [DefaultStats(LegacyStatTypes.Weapons)]
     public static class Weapon
     {
         public const string Picked = "weapontypepvp_chosen";

@@ -26,13 +26,13 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         public LegacyPlaylistStats Training { get; set; }
 
         [JsonProperty("bomb")]
-        public LegacyModeStatsContainer Bomb { get; set; }
+        public LegacyModeStats Bomb { get; set; }
 
         [JsonProperty("hostage")]
-        public LegacyModeStatsContainer Hostage { get; set; }
+        public LegacyModeStats Hostage { get; set; }
 
         [JsonProperty("secure")]
-        public LegacyModeStatsContainer Secure { get; set; }
+        public LegacyModeStats Secure { get; set; }
 
         /// <summary>
         /// Total barricades built

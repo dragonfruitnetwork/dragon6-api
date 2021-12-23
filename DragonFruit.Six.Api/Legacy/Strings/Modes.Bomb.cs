@@ -7,7 +7,7 @@ using DragonFruit.Six.Api.Legacy;
 
 namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
-    [DefaultStats(LegacyStats.Playlists)]
+    [DefaultStats(LegacyStatTypes.Playlists)]
 
     public static class Bomb
     {

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 
 namespace DragonFruit.Six.Api.Requests
