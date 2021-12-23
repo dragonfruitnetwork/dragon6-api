@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Diagnostics;
-using DragonFruit.Six.Api.Containers;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Legacy.Entities

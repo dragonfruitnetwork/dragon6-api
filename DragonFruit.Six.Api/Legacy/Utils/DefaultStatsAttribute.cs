@@ -4,7 +4,7 @@
 using System;
 using DragonFruit.Six.Api.Legacy.Requests;
 
-namespace DragonFruit.Six.Api.Legacy
+namespace DragonFruit.Six.Api.Legacy.Utils
 {
     /// <summary>
     /// Marks a class of static strings as a default collection of metrics for a <see cref="LegacyStatsRequest"/>

@@ -3,9 +3,9 @@
 
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Entities
+namespace DragonFruit.Six.Api.Legacy.Entities
 {
-    public class PlayerLevelStats
+    public class LegacyLevelStats
     {
         [JsonProperty("profile_id")]
         internal string ProfileId { get; set; }

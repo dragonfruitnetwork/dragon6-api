@@ -7,7 +7,7 @@ using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Exceptions;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Legacy.Requests
 {
     /// <summary>
     /// A request involving <see cref="Accounts"/> where the <see cref="T:Platform"/> must be the same for all accounts

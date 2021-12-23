@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace DragonFruit.Six.Api.Legacy
+namespace DragonFruit.Six.Api.Legacy.Utils
 {
     internal static class LegacyStatsMapping
     {

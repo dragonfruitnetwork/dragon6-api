@@ -5,7 +5,7 @@ using System;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Containers
+namespace DragonFruit.Six.Api.Legacy.Entities
 {
     public class LegacyBombModeStats : LegacyModeStats
     {

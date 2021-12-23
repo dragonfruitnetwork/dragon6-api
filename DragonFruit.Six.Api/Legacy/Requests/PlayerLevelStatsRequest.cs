@@ -7,7 +7,7 @@ using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Utils;
 
-namespace DragonFruit.Six.Api.Requests
+namespace DragonFruit.Six.Api.Legacy.Requests
 {
     public class PlayerLevelStatsRequest : PlatformSpecificRequest
     {

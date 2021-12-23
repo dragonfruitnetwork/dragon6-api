@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Legacy.Utils;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Legacy.Requests

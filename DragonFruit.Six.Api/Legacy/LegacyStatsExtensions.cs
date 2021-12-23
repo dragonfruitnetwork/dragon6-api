@@ -18,11 +18,6 @@ namespace DragonFruit.Six.Api.Legacy
     public static class LegacyStatsExtensions
     {
         /// <summary>
-        /// The <see cref="LegacyStatTypes"/> to use when requesting entities in the <see cref="LegacyStats"/> object
-        /// </summary>
-        private const LegacyStatTypes GeneralStats = LegacyStatTypes.All & ~(LegacyStatTypes.Operators | LegacyStatTypes.Weapons);
-
-        /// <summary>
         /// Gets the <see cref="LegacyStats"/> for the <see cref="UbisoftAccount"/> provided
         /// </summary>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
@@ -31,7 +26,7 @@ namespace DragonFruit.Six.Api.Legacy
         /// <returns>The <see cref="LegacyStats"/> for the <see cref="UbisoftAccount"/> provided, or <c>null</c> if the account was not returned by the server</returns>
         public static Task<LegacyStats> GetLegacyStatsAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
         {
-            return GetLegacyStatsAsync(client, account.Yield(), GeneralStats, token, LegacyStatsDeserializer.DeserializeGeneralStats).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return GetLegacyStatsAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
@@ -43,10 +38,59 @@ namespace DragonFruit.Six.Api.Legacy
         /// <returns>A <see cref="IReadOnlyDictionary{TKey,TValue}"/> mapping the user profile id to the corresponding <see cref="LegacyStats"/></returns>
         public static Task<IReadOnlyDictionary<string, LegacyStats>> GetLegacyStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
         {
-            return GetLegacyStatsAsync(client, accounts, GeneralStats, token, LegacyStatsDeserializer.DeserializeGeneralStats);
+            const LegacyStatTypes generalStats = LegacyStatTypes.All & ~(LegacyStatTypes.Operators | LegacyStatTypes.Weapons);
+            return GetLegacyStatsAsync(client, accounts, generalStats, LegacyStatsDeserializer.DeserializeGeneralStats, token);
         }
 
-        private static Task<T> GetLegacyStatsAsync<T>(ApiClient client, IEnumerable<UbisoftAccount> accounts, LegacyStatTypes stats, CancellationToken token, Func<JObject, T> postProcessor)
+        /// <summary>
+        /// Gets the <see cref="LegacyOperatorStats"/> for the <see cref="UbisoftAccount"/> provided
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="account">The <see cref="UbisoftAccount"/> to get stats for</param>
+        /// <param name="token">Optional cancellation token</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="LegacyOperatorStats"/> for the provided <see cref="UbisoftAccount"/></returns>
+        public static Task<IEnumerable<LegacyOperatorStats>> GetLegacyOperatorStatsAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
+        {
+            return GetLegacyOperatorStatsAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="LegacyOperatorStats"/> for the <see cref="UbisoftAccount"/>s provided
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get stats for</param>
+        /// <param name="token">Optional cancellation token</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="LegacyOperatorStats"/> for the provided <see cref="UbisoftAccount"/></returns>
+        public static Task<ILookup<string, LegacyOperatorStats>> GetLegacyOperatorStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
+        {
+            return GetLegacyStatsAsync(client, accounts, LegacyStatTypes.Operators, LegacyStatsDeserializer.DeserializeOperatorStats, token);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="LegacyWeaponStats"/> for the <see cref="UbisoftAccount"/> provided
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="account">The <see cref="UbisoftAccount"/> to get stats for</param>
+        /// <param name="token">Optional cancellation token</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/></returns>
+        public static Task<IEnumerable<LegacyWeaponStats>> GetLegacyWeaponStatsAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
+        {
+            return GetLegacyWeaponStatsAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="LegacyWeaponStats"/> for the <see cref="UbisoftAccount"/>s provided
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get stats for</param>
+        /// <param name="token">Optional cancellation token</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/></returns>
+        public static Task<ILookup<string, LegacyWeaponStats>> GetLegacyWeaponStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
+        {
+            return GetLegacyStatsAsync(client, accounts, LegacyStatTypes.Weapons, LegacyStatsDeserializer.DeserializeWeaponStats, token);
+        }
+
+        private static Task<T> GetLegacyStatsAsync<T>(ApiClient client, IEnumerable<UbisoftAccount> accounts, LegacyStatTypes stats, Func<JObject, T> postProcessor, CancellationToken token)
         {
             // LegacyStatsRequest is a PlatformSpecific request, so the accounts need to be split by platform
             var requests = accounts.GroupBy(x => x.Platform).Select(x =>

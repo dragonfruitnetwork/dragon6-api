@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Requests;
+using DragonFruit.Six.Api.Legacy.Requests;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Utils;
 

@@ -4,7 +4,6 @@
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
-using DragonFruit.Six.Api.Requests;
 
 namespace DragonFruit.Six.Api.Services.Status
 {

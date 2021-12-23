@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using DragonFruit.Six.Api.Legacy;
+using DragonFruit.Six.Api.Legacy.Utils;
 
 // ReSharper disable CheckNamespace
 

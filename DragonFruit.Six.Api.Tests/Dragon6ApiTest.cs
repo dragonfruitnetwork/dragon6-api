@@ -3,11 +3,12 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using DragonFruit.Six.Api.Accounts;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Entities;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Legacy.Entities;
+using DragonFruit.Six.Api.Services.Developer;
 
 namespace DragonFruit.Six.Api.Tests
 {
@@ -18,16 +19,16 @@ namespace DragonFruit.Six.Api.Tests
 
         protected static IEnumerable<LegacyOperatorStats> OperatorInfo { get; set; }
 
-        protected UbisoftAccount GetAccountInfoFor(string identifier, Platform platform)
+        protected async Task<UbisoftAccount> GetAccountInfoFor(string identifier, Platform platform)
         {
-            var account = Accounts.SingleOrDefault(x => identifier == x.Identifiers.Ubisoft);
+            var account = Accounts.SingleOrDefault(x => identifier == x.UbisoftId);
 
             if (account != null)
             {
                 return account;
             }
 
-            var onlineAccount = Client.GetUser(platform, IdentifierType.UserId, identifier);
+            var onlineAccount = await Client.GetAccountAsync(identifier, platform, IdentifierType.UserId).ConfigureAwait(false);
             Accounts.Add(onlineAccount);
 
             return onlineAccount;

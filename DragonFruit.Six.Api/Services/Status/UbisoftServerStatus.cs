@@ -4,7 +4,6 @@
 using System;
 using System.Runtime.Serialization;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Services.Status

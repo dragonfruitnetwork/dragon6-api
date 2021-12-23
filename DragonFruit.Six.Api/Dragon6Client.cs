@@ -11,7 +11,7 @@ using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
-using DragonFruit.Six.Api.Legacy;
+using DragonFruit.Six.Api.Legacy.Utils;
 
 namespace DragonFruit.Six.Api
 {

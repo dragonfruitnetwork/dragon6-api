@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Accounts;
-using DragonFruit.Six.Api.Containers;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Legacy.Entities;
 using DragonFruit.Six.Api.Legacy.Strings;
@@ -158,10 +157,26 @@ namespace DragonFruit.Six.Api.Legacy
             return json.RemoveContainer()?.Properties().SelectMany(DeserializeOperatorStatsInternal).ToLookup(x => x.ProfileId);
         }
 
+        /// <summary>
+        /// Deserializes a <see cref="JObject"/> into a <see cref="ILookup{TKey,TElement}"/> of <see cref="LegacyWeaponStats"/>
+        /// </summary>
         public static ILookup<string, LegacyWeaponStats> DeserializeWeaponStats(this JObject json)
         {
             var weaponClasses = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
             return json.RemoveContainer()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);
+        }
+
+        /// <summary>
+        /// Deserializes a <see cref="JObject"/> into a collection of <see cref="LegacyLevelStats"/>
+        /// </summary>
+        public static IReadOnlyDictionary<string, LegacyLevelStats> DeserializePlayerLevelStats(this JObject json)
+        {
+            var data = json["player_profiles"] is JArray profiles
+                ? profiles.Select(x => x.ToObject<LegacyLevelStats>())
+                : Enumerable.Empty<LegacyLevelStats>();
+
+            // extra where check there because rider was saying something about a NRE
+            return data.Where(x => x != null).ToDictionary(x => x.ProfileId);
         }
 
         private static IEnumerable<LegacyOperatorStats> DeserializeOperatorStatsInternal(JProperty data)
