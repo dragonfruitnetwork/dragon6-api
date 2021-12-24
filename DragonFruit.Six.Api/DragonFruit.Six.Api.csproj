@@ -3,11 +3,11 @@
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
         <TargetFramework>netstandard2.0</TargetFramework>
-        
+
         <Title>Dragon6 API</Title>
         <Authors>DragonFruit Network</Authors>
         <Description>A Rainbow Six Stats API for .NET</Description>
-        
+
         <PackageIcon>icon.png</PackageIcon>
         <PackageId>DragonFruit.Six.Api</PackageId>
         <PackageTags>r6stats, r6api, r6, rainbowsix</PackageTags>
@@ -19,12 +19,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\res\icon.png" Pack="true" PackagePath="." />
+        <None Include="..\res\icon.png" Pack="true" PackagePath="."/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DragonFruit.Data" Version="2021.1218.0" />
-        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1218.0" />
+        <PackageReference Include="DragonFruit.Data" Version="2021.1218.0"/>
+        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1218.0"/>
     </ItemGroup>
 
 </Project>
