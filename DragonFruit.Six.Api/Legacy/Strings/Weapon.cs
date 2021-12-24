@@ -9,11 +9,14 @@ namespace DragonFruit.Six.Api.Legacy.Strings
     internal static class Weapon
     {
         public const string Picked = "weapontypepvp_chosen";
+
         public const string Kills = "weapontypepvp_kills";
         public const string Deaths = "weapontypepvp_death";
+
         public const string Headshots = "weapontypepvp_headshot";
         public const string Downs = "weapontypepvp_dbno";
         public const string DownAssists = "weapontypepvp_dbnoassists";
+
         public const string ShotsFired = "weapontypepvp_bulletfired";
         public const string ShotsHit = "weapontypepvp_bullethit";
     }

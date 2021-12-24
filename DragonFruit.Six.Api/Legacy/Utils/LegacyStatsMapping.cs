@@ -10,16 +10,16 @@ namespace DragonFruit.Six.Api.Legacy.Utils
 {
     internal static class LegacyStatsMapping
     {
-        private static Dictionary<LegacyStatTypes, List<string>> _categoryCache;
+        private static LegacyStatTypes[] _categories;
+        private static Dictionary<LegacyStatTypes, string[]> _categoryKeys;
 
         /// <summary>
         /// Gets the stats identifiers for the <see cref="LegacyStatTypes"/> keys provided
         /// </summary>
         public static IEnumerable<string> GetDefaultStats(this LegacyStatTypes stats)
         {
-            return Enum.GetValues(typeof(LegacyStatTypes))
-                       .Cast<LegacyStatTypes>()
-                       .Aggregate(Enumerable.Empty<string>(), (a, b) => _categoryCache.TryGetValue(b, out var data) ? a.Concat(data) : a);
+            return _categories.Where(x => (stats & x) == x)
+                              .Aggregate(Enumerable.Empty<string>(), (a, b) => _categoryKeys.TryGetValue(b, out var data) ? a.Concat(data) : a);
         }
 
         /// <summary>
@@ -27,12 +27,12 @@ namespace DragonFruit.Six.Api.Legacy.Utils
         /// </summary>
         public static void InitialiseStatsBuckets()
         {
-            if (_categoryCache is not null)
+            if (_categoryKeys is not null)
             {
                 return;
             }
 
-            var cache = new Dictionary<LegacyStatTypes, List<string>>(7);
+            var cache = new Dictionary<LegacyStatTypes, IEnumerable<string>>(7);
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
             {
@@ -48,22 +48,20 @@ namespace DragonFruit.Six.Api.Legacy.Utils
                                     .Where(x => x.IsLiteral && !x.IsInitOnly)
                                     .Select(x => (string)x.GetRawConstantValue());
 
-                // get or add entry, then push
-                if (!cache.ContainsKey(attr.TargetCategory))
+                // get or add stats key
+                if (cache.TryGetValue(attr.TargetCategory, out var currentKeys))
                 {
-                    cache.Add(attr.TargetCategory, new List<string>());
+                    cache[attr.TargetCategory] = currentKeys.Concat(classKeys);
                 }
-
-                cache[attr.TargetCategory].AddRange(classKeys);
+                else
+                {
+                    cache[attr.TargetCategory] = classKeys;
+                }
             }
 
-            foreach (var list in cache.Values)
-            {
-                // these lists won't be modified anymore, so trim excess space
-                list.TrimExcess();
-            }
-
-            _categoryCache = cache;
+            // then create a new dictionary by enumerating all values
+            _categories = Enum.GetValues(typeof(LegacyStatTypes)).Cast<LegacyStatTypes>().ToArray();
+            _categoryKeys = cache.ToDictionary(x => x.Key, x => x.Value.ToArray());
         }
     }
 }
