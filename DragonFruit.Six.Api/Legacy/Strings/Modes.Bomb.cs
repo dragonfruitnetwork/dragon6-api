@@ -9,7 +9,6 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
     [DefaultStats(LegacyStatTypes.Playlists)]
-
     internal static class Bomb
     {
         public const string Wins = "plantbombpvp_matchwon";

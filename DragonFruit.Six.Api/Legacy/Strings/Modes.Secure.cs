@@ -9,7 +9,6 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
     [DefaultStats(LegacyStatTypes.Playlists)]
-
     internal static class Secure
     {
         public const string Wins = "secureareapvp_matchwon";
