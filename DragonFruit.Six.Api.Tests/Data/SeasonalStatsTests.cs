@@ -2,8 +2,9 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System.Threading.Tasks;
-using DragonFruit.Six.Api.Extensions;
-using DragonFruit.Six.Api.Enums;
+using DragonFruit.Six.Api.Accounts.Enums;
+using DragonFruit.Six.Api.Seasonal;
+using DragonFruit.Six.Api.Seasonal.Enums;
 using NUnit.Framework;
 
 namespace DragonFruit.Six.Api.Tests.Data
@@ -12,19 +13,19 @@ namespace DragonFruit.Six.Api.Tests.Data
     public class SeasonalStatsTests : Dragon6ApiTest
     {
         [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC, 17, 17)]
-        public void TestSeasonalStats(string identifier, Platform platform, int season, int maxRank)
+        public async Task TestSeasonalStats(string identifier, Platform platform, int season, int maxRank)
         {
-            var account = GetAccountInfoFor(identifier, platform);
-            var stats = Client.GetSeasonStats(account, season);
+            var account = await GetAccountInfoFor(identifier, platform);
+            var stats = await Client.GetSeasonalStatsAsync(account, season);
 
             Assert.AreEqual(maxRank, stats.MaxRank);
         }
 
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC, "EMEA", 10, 13)]
-        public async Task TestLegacySeasonalStats(string identifier, Platform platform, string region, int season, int maxRank)
+        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC, Region.EMEA, 10, 13)]
+        public async Task TestLegacySeasonalStats(string identifier, Platform platform, Region region, int season, int maxRank)
         {
-            var account = GetAccountInfoFor(identifier, platform);
-            var stats = await Client.GetSeasonStatsAsync(account, season, region);
+            var account = await GetAccountInfoFor(identifier, platform);
+            var stats = await Client.GetSeasonalStatsAsync(account, season, region: region);
 
             Assert.AreEqual(maxRank, stats.MaxRank);
         }

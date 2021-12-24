@@ -1,31 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-        <AssemblyName>DragonFruit.Six.Api</AssemblyName>
-        <RootNamespace>DragonFruit.Six.Api</RootNamespace>
-        <!--must be left for legacy reasons-->
-        <PackageId>Dragon6.API</PackageId>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <PackageTitle>Dragon6 Api</PackageTitle>
-        <PackageDescription>A Rainbow Six Stats API for .NET</PackageDescription>
-        <PackageSummary>A Rainbow Six Stats API</PackageSummary>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageProjectUrl>https://github.com/dragonfruitnetwork/dragon6-api</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/dragonfruitnetwork/dragon6-api</RepositoryUrl>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <RepositoryType>Git</RepositoryType>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageTags>r6stats, r6api, r6, rainbowsix</PackageTags>
-        <Authors>DragonFruit Network</Authors>
         <LangVersion>latest</LangVersion>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        
+        <Title>Dragon6 API</Title>
+        <Authors>DragonFruit Network</Authors>
+        <Description>A Rainbow Six Stats API for .NET</Description>
+        
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageId>DragonFruit.Six.Api</PackageId>
+        <PackageTags>r6stats, r6api, r6, rainbowsix</PackageTags>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+
+        <RepositoryType>Git</RepositoryType>
+        <RepositoryUrl>https://github.com/dragonfruitnetwork/dragon6-api</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/dragonfruitnetwork/dragon6-api</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\res\icon.png">
-            <Pack>true</Pack>
-            <PackagePath>.</PackagePath>
-        </None>
+        <None Include="..\res\icon.png" Pack="true" PackagePath="." />
     </ItemGroup>
 
     <ItemGroup>

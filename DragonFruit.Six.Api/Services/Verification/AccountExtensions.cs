@@ -5,9 +5,9 @@ namespace DragonFruit.Six.Api.Services.Verification
 {
     public static class AccountExtensions
     {
-        public static string GetName(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.Title) ? GetName(dragon6User.AccountRole) : dragon6User.Title;
-        public static string GetIcon(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.TitleIcon) ? GetIcon(dragon6User.AccountRole) : dragon6User.TitleIcon;
-        public static string GetColor(this Dragon6AccountInfo dragon6User) => string.IsNullOrEmpty(dragon6User.TitleColour) ? GetColor(dragon6User.AccountRole) : dragon6User.TitleColour;
+        public static string GetName(this Dragon6User dragon6User) => string.IsNullOrEmpty(dragon6User.Title) ? GetName(dragon6User.AccountRole) : dragon6User.Title;
+        public static string GetIcon(this Dragon6User dragon6User) => string.IsNullOrEmpty(dragon6User.TitleIcon) ? GetIcon(dragon6User.AccountRole) : dragon6User.TitleIcon;
+        public static string GetColor(this Dragon6User dragon6User) => string.IsNullOrEmpty(dragon6User.TitleColour) ? GetColor(dragon6User.AccountRole) : dragon6User.TitleColour;
 
         /// <summary>
         /// Retrieves the default title for the <see cref="AccountRole"/> provided

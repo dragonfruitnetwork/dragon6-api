@@ -8,35 +8,28 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using DragonFruit.Data;
 using DragonFruit.Data.Serializers.Newtonsoft;
-using DragonFruit.Six.Api.Tokens;
+using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
-using DragonFruit.Six.Api.Utils;
-using Nito.AsyncEx;
+using DragonFruit.Six.Api.Legacy.Utils;
 
 namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
-        private readonly AsyncLock _lock = new();
-        public static readonly CultureInfo Culture = new("en-US", false);
+        private ClientAccessToken _access;
+        private readonly object _accessSync = new();
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
         {
-            AppId = app.AppId();
+            SetUbiAppId(app);
             UserAgent = userAgent ?? "Dragon6-API";
-            Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = Culture);
+            Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = CultureInfo.InvariantCulture);
         }
 
-        private TokenBase Token { get; set; }
-
-        /// <summary>
-        /// The Ubi-AppId header to be supplied to each request. Defaults to <see cref="UbisoftService.RainbowSix"/> in <see cref="UbisoftIdentifiers.Websites"/>
-        /// </summary>
-        public string AppId
+        static Dragon6Client()
         {
-            get => Headers[UbisoftIdentifiers.UbiAppIdHeader];
-            set => Headers[UbisoftIdentifiers.UbiAppIdHeader] = value;
+            LegacyStatsMapping.InitialiseStatsBuckets();
         }
 
         /// <summary>
@@ -45,15 +38,13 @@ namespace DragonFruit.Six.Api
         /// <remarks>
         /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
         /// </remarks>
-        protected abstract TokenBase GetToken();
+        protected abstract IUbisoftToken GetToken();
 
         /// <summary>
-        /// Defines how a new token is applied to the client.
+        /// Updates the Ubi-AppId header to be supplied to each request.
+        /// Defaults to <see cref="UbisoftService.RainbowSix"/>
         /// </summary>
-        protected virtual void ApplyToken(TokenBase token)
-        {
-            Authorization = $"ubi_v1 t={token.Token}";
-        }
+        public void SetUbiAppId(UbisoftService service) => Headers[UbisoftIdentifiers.UbiAppIdHeader] = service.AppId();
 
         /// <summary>
         /// Handles the response before trying to deserialize it.
@@ -61,7 +52,7 @@ namespace DragonFruit.Six.Api
         /// </summary>
         protected override Task<T> ValidateAndProcess<T>(HttpResponseMessage response) => response.StatusCode switch
         {
-            HttpStatusCode.Unauthorized => throw new InvalidTokenException(Token),
+            HttpStatusCode.Unauthorized => throw new InvalidTokenException(_access.Token),
 
             HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
 
@@ -71,16 +62,22 @@ namespace DragonFruit.Six.Api
             _ => base.ValidateAndProcess<T>(response)
         };
 
-        internal void ValidateToken()
+        protected internal ClientAccessToken RequestAccessToken()
         {
-            using (_lock.Lock())
+            if (_access?.Expired is false)
             {
-                if (Token?.Expired is not false)
+                return _access;
+            }
+
+            lock (_accessSync)
+            {
+                // check again in case of a backlog of requests
+                if (_access?.Expired is not false)
                 {
-                    // todo throw something if this is majorly expired or null
-                    Token = GetToken();
-                    ApplyToken(Token);
+                    _access = new ClientAccessToken(GetToken());
                 }
+
+                return _access;
             }
         }
     }

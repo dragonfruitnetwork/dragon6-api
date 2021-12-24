@@ -2,18 +2,18 @@
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
 using System;
-using DragonFruit.Six.Api.Tokens;
+using DragonFruit.Six.Api.Authentication.Entities;
 
 namespace DragonFruit.Six.Api.Exceptions
 {
     public class InvalidTokenException : Exception
     {
-        public InvalidTokenException(TokenBase token)
+        public InvalidTokenException(IUbisoftToken token)
             : base("The Token has expired or is invalid")
         {
             Token = token;
         }
 
-        public TokenBase Token { get; }
+        public IUbisoftToken Token { get; }
     }
 }
