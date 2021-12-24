@@ -97,9 +97,9 @@ namespace DragonFruit.Six.Api.Legacy
         /// <param name="account">The <see cref="UbisoftAccount"/>s to get stats for</param>
         /// <param name="token">Optional cancellation token</param>
         /// <returns><see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/>, or null if not found</returns>
-        public static Task<LegacyLevelStats> GetLegacyLevelStatsAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
+        public static Task<LegacyLevelStats> GetLegacyLevelAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
         {
-            return GetLegacyLevelStatsAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return GetLegacyLevelAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace DragonFruit.Six.Api.Legacy
         /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get stats for</param>
         /// <param name="token">Optional cancellation token</param>
         /// <returns><see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/></returns>
-        public static Task<IReadOnlyDictionary<string, LegacyLevelStats>> GetLegacyLevelStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
+        public static Task<IReadOnlyDictionary<string, LegacyLevelStats>> GetLegacyLevelAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
         {
             return GetLegacyStatsAsync(client, accounts, a => new PlayerLevelStatsRequest(a), LegacyStatsDeserializer.DeserializePlayerLevelStats, token);
         }
