@@ -1,24 +1,24 @@
 name: Unit Tests
 
-on: [ pull_request ]
+on:
+  pull_request:
+    branches: master
 
 jobs:
-  quality:
-    runs-on: windows-latest
+  test:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: "Setup MSBuild"
-        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Install .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
 
-      - name: NuGet Restore
-        run: |
-          nuget locals all -clear
-          nuget restore
+      - name: Build
+        run: dotnet build -c Debug
 
-      - name: Build Project
-        run: dotnet build -c Release
-        
-      - name: Test
+      - name: Unit Tests
         run: dotnet test
