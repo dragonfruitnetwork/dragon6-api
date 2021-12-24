@@ -72,8 +72,10 @@ This API supports:
         }
     }
     ```
-3. Create an instance of the class you just defined in either a `static` location or as a `Singleton` (if you're using a dependency container)
+3. Create an instance of the class you just defined in either a `static` location or as a `Singleton` (if you're using a
+   dependency container)
 4. Add some using statements where you want to consume the class:
+
 ```c#
 using DragonFruit.Six.Api.Legacy;
 using DragonFruit.Six.Api.Seasonal;
@@ -81,7 +83,9 @@ using DragonFruit.Six.Api.Accounts;
 using DragonFruit.Six.Api.Modern;
 ```
 
-5. Check out the extension methods available to you using IntelliSense (type the client name followed by the dot and browse the extensions):
+5. Check out the extension methods available to you using IntelliSense (type the client name followed by the dot and
+   browse the extensions):
+
 ```c#
 var myAccount = await statsClient.GetAccountAsync("PaPa.Curry", Platform.PC, IdentifierType.Name);
 ```
