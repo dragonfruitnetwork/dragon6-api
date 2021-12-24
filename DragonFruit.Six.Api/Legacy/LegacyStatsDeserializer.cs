@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Accounts;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Legacy.Entities;
 using DragonFruit.Six.Api.Legacy.Strings;
 using DragonFruit.Six.Api.Strings.Stats.Modes;
@@ -162,21 +161,16 @@ namespace DragonFruit.Six.Api.Legacy
         /// </summary>
         public static ILookup<string, LegacyWeaponStats> DeserializeWeaponStats(this JObject json)
         {
-            var weaponClasses = Enum.GetValues(typeof(WeaponType)).Cast<WeaponType>();
+            var weaponClasses = Enum.GetValues(typeof(LegacyWeaponType)).Cast<LegacyWeaponType>();
             return json.RemoveContainer<JObject>()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);
         }
 
         /// <summary>
-        /// Deserializes a <see cref="JObject"/> into a collection of <see cref="LegacyLevelStats"/>
+        /// Deserializes a <see cref="JObject"/> into a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="LegacyLevelStats"/>
         /// </summary>
         public static IReadOnlyDictionary<string, LegacyLevelStats> DeserializePlayerLevelStats(this JObject json)
         {
-            var data = json["player_profiles"] is JArray profiles
-                ? profiles.Select(x => x.ToObject<LegacyLevelStats>())
-                : Enumerable.Empty<LegacyLevelStats>();
-
-            // extra where check there because rider was saying something about a NRE
-            return data.Where(x => x != null).ToDictionary(x => x.ProfileId);
+            return json.RemoveContainer<JArray>().ToObject<IEnumerable<LegacyLevelStats>>()?.ToDictionary(x => x.ProfileId);
         }
 
         private static IEnumerable<LegacyOperatorStats> DeserializeOperatorStatsInternal(JProperty data)
@@ -209,7 +203,7 @@ namespace DragonFruit.Six.Api.Legacy
             }
         }
 
-        private static IEnumerable<LegacyWeaponStats> DeserializeWeaponStatsInternal(JProperty data, IEnumerable<WeaponType> weaponClasses)
+        private static IEnumerable<LegacyWeaponStats> DeserializeWeaponStatsInternal(JProperty data, IEnumerable<LegacyWeaponType> weaponClasses)
         {
             var property = (JObject)data.Value;
 

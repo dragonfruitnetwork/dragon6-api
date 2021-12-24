@@ -1,8 +1,8 @@
 ﻿// Dragon6 API Copyright 2020 DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Please refer to the LICENSE file for more info
 
+using System.ComponentModel;
 using System.Diagnostics;
-using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
 
@@ -17,10 +17,10 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         internal string ProfileId { get; set; }
 
         /// <summary>
-        /// <see cref="WeaponType"/> the stats relate to
+        /// <see cref="LegacyWeaponType"/> the stats relate to
         /// </summary>
         [JsonProperty("class")]
-        public WeaponType Class { get; set; }
+        public LegacyWeaponType Class { get; set; }
 
         /// <summary>
         /// Total times this class has been picked by the user
@@ -75,5 +75,38 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         /// </summary>
         [JsonProperty("pr")]
         public float Power => _power ??= RatioUtils.RatioOf(Kills, ShotsLanded);
+    }
+
+    /// <summary>
+    /// The categories a weapon can fall under
+    /// </summary>
+    public enum LegacyWeaponType
+    {
+        [Description("Assault Rifle")]
+        AssaultRifle = 1,
+
+        [Description("Submachine Gun")]
+        SubmachineGun = 2,
+
+        [Description("Light Machine Gun")]
+        LightMachineGun = 3,
+
+        [Description("Marksman Rifle")]
+        MarksmanRifle = 4,
+
+        [Description("Pistol")]
+        Pistol = 5,
+
+        [Description("Shotgun")]
+        Shotgun = 6,
+
+        [Description("Machine Pistol")]
+        MachinePistol = 7,
+
+        [Description("Shield")]
+        Shield = 8,
+
+        [Description("Launcher")]
+        Launcher = 9,
     }
 }
