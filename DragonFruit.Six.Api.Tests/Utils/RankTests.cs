@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DragonFruit.Six.Api.Tests.Utils
 {
     [TestFixture]
-    public class SeasonalRanksTests
+    public class RankTests
     {
         [TestCase(5, 1)]
         [TestCase(4000, 21)]

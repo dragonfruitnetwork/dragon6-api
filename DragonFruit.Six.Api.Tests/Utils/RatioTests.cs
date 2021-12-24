@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace DragonFruit.Six.Api.Tests.Utils
 {
     [TestFixture]
-    public class RatioUtilTests
+    public class RatioTests
     {
         [TestCase(2, 1, 2)]
         [TestCase(10, 1, 10)]
