@@ -23,7 +23,7 @@ namespace DragonFruit.Six.Api.Seasonal
         public static Task<SeasonalStats> GetSeasonalStatsAsync(this Dragon6Client client, UbisoftAccount account, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA)
         {
             var request = new SeasonalStatsRequest(account, board, seasonId, region);
-            return client.PerformAsync<SeasonalStatsResponse>(request).ContinueWith(t => t.Result[account], TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.PerformAsync<SeasonalStatsResponse>(request).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
