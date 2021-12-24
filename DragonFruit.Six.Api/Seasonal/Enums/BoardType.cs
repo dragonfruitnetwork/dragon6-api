@@ -9,6 +9,6 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
     public enum BoardType
     {
         Ranked,
-        CasualAndUnranked
+        Casual
     }
 }

@@ -8,7 +8,6 @@ using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Legacy.Requests;
 using DragonFruit.Six.Api.Seasonal.Enums;
-using DragonFruit.Six.Api.Utils;
 
 #pragma warning disable 628
 
@@ -17,14 +16,6 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
     public sealed class SeasonalStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Platform.SeasonalStatsEndpoint();
-
-        /// <summary>
-        /// Creates a seasonal stats request for the provided <see cref="UbisoftAccount"/>
-        /// </summary>
-        public SeasonalStatsRequest(UbisoftAccount account, BoardType board = BoardType.Ranked, int season = -1, Region region = Region.EMEA)
-            : this(account.Yield(), board, season, region)
-        {
-        }
 
         /// <summary>
         /// Creates a seasonal stats request for the provided <see cref="UbisoftAccount"/>s
@@ -62,7 +53,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         private string BoardId => Board switch
         {
             BoardType.Ranked => "pvp_ranked",
-            BoardType.CasualAndUnranked => "pvp_casual",
+            BoardType.Casual => "pvp_casual",
 
             _ => throw new ArgumentOutOfRangeException()
         };
