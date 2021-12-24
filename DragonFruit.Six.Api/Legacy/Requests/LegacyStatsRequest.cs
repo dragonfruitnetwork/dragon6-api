@@ -6,7 +6,6 @@ using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Legacy.Utils;
-using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Legacy.Requests
 {
@@ -18,15 +17,6 @@ namespace DragonFruit.Six.Api.Legacy.Requests
         private IEnumerable<string> _stats;
 
         public override string Path => Platform.StatsEndpoint();
-
-        /// <summary>
-        /// Initialises a <see cref="LegacyStatsRequest"/> for a single <see cref="UbisoftAccount"/>
-        /// </summary>
-        public LegacyStatsRequest(UbisoftAccount account, LegacyStatTypes stats)
-            : base(account.Yield())
-        {
-            Types = stats;
-        }
 
         /// <summary>
         /// Initialises a <see cref="LegacyStatsRequest"/> for an array of <see cref="UbisoftAccount"/>s

@@ -5,18 +5,12 @@ using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Legacy.Requests
 {
     public class PlayerLevelStatsRequest : PlatformSpecificRequest
     {
         public override string Path => Platform.ProfileStatsEndpoint();
-
-        public PlayerLevelStatsRequest(UbisoftAccount account)
-            : this(account.Yield())
-        {
-        }
 
         public PlayerLevelStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)
