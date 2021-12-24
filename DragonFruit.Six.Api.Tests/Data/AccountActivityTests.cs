@@ -13,7 +13,7 @@ namespace DragonFruit.Six.Api.Tests.Data
     [TestFixture]
     public class AccountActivityTests : Dragon6ApiTest
     {
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC, 20201201)]
+        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC, 20211101)]
         [TestCase("352655b3-2ff4-4713-9ad5-c10eb080e6f6", Platform.PC, 20200901)]
         [TestCase("a5e7c9c4-a225-4d8e-810f-0c529d829a34", Platform.PSN, 20191001)]
         public async Task TestAccountActivity(string id, Platform platform, int lastLogin)
