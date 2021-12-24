@@ -10,7 +10,7 @@ namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
     [DefaultStats(LegacyStatTypes.Playlists)]
 
-    public static class Secure
+    internal static class Secure
     {
         public const string Wins = "secureareapvp_matchwon";
         public const string Losses = "secureareapvp_matchlost";

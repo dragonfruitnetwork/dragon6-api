@@ -6,7 +6,7 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
     [DefaultStats(LegacyStatTypes.Operators)]
-    public static class Operator
+    internal static class Operator
     {
         public const string Wins = "operatorpvp_roundwon";
         public const string WinsTraining = "operatorpve_roundwon";

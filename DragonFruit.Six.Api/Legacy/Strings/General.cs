@@ -6,7 +6,7 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
     [DefaultStats(LegacyStatTypes.General)]
-    public static class General
+    internal static class General
     {
         public const string Kills = "generalpvp_kills";
         public const string Deaths = "generalpvp_death";

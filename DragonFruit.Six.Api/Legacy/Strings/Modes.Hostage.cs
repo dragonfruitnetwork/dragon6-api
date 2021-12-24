@@ -9,7 +9,7 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Strings.Stats.Modes
 {
     [DefaultStats(LegacyStatTypes.Playlists)]
-    public static class Hostage
+    internal static class Hostage
     {
         public const string Wins = "rescuehostagepvp_matchwon";
         public const string Losses = "rescuehostagepvp_matchlost";

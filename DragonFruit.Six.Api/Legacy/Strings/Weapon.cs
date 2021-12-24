@@ -6,7 +6,7 @@ using DragonFruit.Six.Api.Legacy.Utils;
 namespace DragonFruit.Six.Api.Legacy.Strings
 {
     [DefaultStats(LegacyStatTypes.Weapons)]
-    public static class Weapon
+    internal static class Weapon
     {
         public const string Picked = "weapontypepvp_chosen";
         public const string Kills = "weapontypepvp_kills";
