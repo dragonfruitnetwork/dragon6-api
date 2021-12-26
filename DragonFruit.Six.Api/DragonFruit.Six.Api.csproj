@@ -16,6 +16,7 @@
         <RepositoryType>Git</RepositoryType>
         <RepositoryUrl>https://github.com/dragonfruitnetwork/dragon6-api</RepositoryUrl>
         <PackageProjectUrl>https://github.com/dragonfruitnetwork/dragon6-api</PackageProjectUrl>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>

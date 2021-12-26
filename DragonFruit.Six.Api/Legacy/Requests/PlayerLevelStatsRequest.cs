@@ -10,7 +10,7 @@ namespace DragonFruit.Six.Api.Legacy.Requests
 {
     public class PlayerLevelStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Platform.ProfileStatsEndpoint();
+        public override string Path => $"{Platform.SandboxUrl()}/r6playerprofile/playerprofile/progressions";
 
         public PlayerLevelStatsRequest(IEnumerable<UbisoftAccount> accounts)
             : base(accounts)

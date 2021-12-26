@@ -6,7 +6,7 @@ using DragonFruit.Six.Api.Accounts.Enums;
 
 namespace DragonFruit.Six.Api
 {
-    public static class Endpoints
+    internal static class Endpoints
     {
         /// <summary>
         /// Public API endpoint
@@ -21,7 +21,7 @@ namespace DragonFruit.Six.Api
         /// <summary>
         /// Url of the platform-specific "sandbox", the place where all the stats are acquired from
         /// </summary>
-        private static string SandboxUrlFor(this Platform platform) => $"{BaseEndpoint}/v1/spaces/{platform.GameSpaceId()}/sandboxes" + platform switch
+        public static string SandboxUrl(this Platform platform) => $"{BaseEndpoint}/v1/spaces/{platform.GameSpaceId()}/sandboxes" + platform switch
         {
             Platform.PSN => "/OSBOR_PS4_LNCH_A",
             Platform.XB1 => "/OSBOR_XBOXONE_LNCH_A",
@@ -29,9 +29,5 @@ namespace DragonFruit.Six.Api
 
             _ => throw new ArgumentOutOfRangeException()
         };
-
-        public static string StatsEndpoint(this Platform platform) => $"{SandboxUrlFor(platform)}/playerstats2/statistics";
-        public static string SeasonalStatsEndpoint(this Platform platform) => $"{SandboxUrlFor(platform)}/r6karma/players";
-        public static string ProfileStatsEndpoint(this Platform platform) => $"{SandboxUrlFor(platform)}/r6playerprofile/playerprofile/progressions";
     }
 }
