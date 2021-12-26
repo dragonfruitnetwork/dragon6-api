@@ -11,19 +11,6 @@ namespace DragonFruit.Six.Api.Accounts.Utils
     public static class PlatformParser
     {
         /// <summary>
-        /// <see cref="Platform"/> Identifier to Ubisoft string
-        /// </summary>
-        // todo move to reflecting EnumMember
-        public static string PlatformIdentifierFor(Platform platform) => platform switch
-        {
-            Platform.PSN => "psn",
-            Platform.XB1 => "xbl",
-            Platform.PC => "uplay",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        /// <summary>
         /// Enumerates over all <see cref="Platform"/>s, producing a <see cref="Dictionary{TKey,TValue}"/>
         /// of platforms to a user-defined value
         /// </summary>

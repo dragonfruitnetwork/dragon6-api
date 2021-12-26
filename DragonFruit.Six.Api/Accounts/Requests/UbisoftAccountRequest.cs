@@ -1,12 +1,13 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Accounts.Utils;
 using DragonFruit.Six.Api.Utils;
+using JetBrains.Annotations;
 
 namespace DragonFruit.Six.Api.Accounts.Requests
 {
@@ -48,15 +49,26 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         /// </summary>
         public IEnumerable<string> Identifiers { get; set; }
 
+        [UsedImplicitly]
         [QueryParameter("platformType")]
-        private string PlatformValue => PlatformParser.PlatformIdentifierFor(Platform);
+        private string PlatformValue => Platform switch
+        {
+            Platform.PSN => "psn",
+            Platform.XB1 => "xbl",
+            Platform.PC => "uplay",
 
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        [UsedImplicitly]
         [QueryParameter("nameOnPlatform", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> PlayerNames => LookupString(IdentifierType.Name);
 
+        [UsedImplicitly]
         [QueryParameter("idOnPlatform", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> PlatformIds => LookupString(IdentifierType.PlatformId);
 
+        [UsedImplicitly]
         [QueryParameter("userId", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> UbisoftIds => LookupString(IdentifierType.UserId);
 
