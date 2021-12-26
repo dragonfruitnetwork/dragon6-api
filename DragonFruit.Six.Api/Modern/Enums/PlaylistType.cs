@@ -8,10 +8,10 @@ namespace DragonFruit.Six.Api.Modern.Enums
     [Flags]
     public enum PlaylistType
     {
-        Casual,
-        Ranked,
-        Unranked,
+        Casual = 1 << 0,
+        Ranked = 1 << 1,
+        Unranked = 1 << 2,
 
-        All
+        All = 1 << 3
     }
 }
