@@ -24,6 +24,9 @@ namespace DragonFruit.Six.Api.Modern.Utils
         /// <summary>
         /// Checks whether a specific flag is present.
         /// </summary>
+        /// <remarks>
+        /// Taken from https://github.com/ppy/osu-framework/blob/be97749235c2cb2e9d876a40525a6f1d7127f611/osu.Framework/Extensions/EnumExtensions/EnumExtensions.cs#L64
+        /// </remarks>
         [Pure]
         internal static unsafe bool HasFlagFast<T>(this T enumValue, T flag) where T : unmanaged, Enum
         {
