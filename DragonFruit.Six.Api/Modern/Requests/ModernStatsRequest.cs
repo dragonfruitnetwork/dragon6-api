@@ -4,13 +4,12 @@
 using System;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Modern.Enums;
 using DragonFruit.Six.Api.Modern.Utils;
 using JetBrains.Annotations;
 
-namespace DragonFruit.Six.Api.Modern
+namespace DragonFruit.Six.Api.Modern.Requests
 {
     public abstract class ModernStatsRequest : UbiApiRequest
     {
@@ -102,14 +101,7 @@ namespace DragonFruit.Six.Api.Modern
 
         [UsedImplicitly]
         [QueryParameter("platform")]
-        private string PlatformName => Account.Platform switch
-        {
-            Platform.PC => "PC",
-            Platform.PSN => "PSN",
-            Platform.XB1 => "XONE",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        private string PlatformName => Account.Platform.ModernName();
 
         [UsedImplicitly]
         [QueryParameter("gameMode")]
