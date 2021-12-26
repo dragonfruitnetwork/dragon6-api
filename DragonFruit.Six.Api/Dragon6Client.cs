@@ -59,6 +59,8 @@ namespace DragonFruit.Six.Api
             HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
             HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
 
+            HttpStatusCode.NoContent => default,
+
             _ => base.ValidateAndProcess<T>(response)
         };
 
