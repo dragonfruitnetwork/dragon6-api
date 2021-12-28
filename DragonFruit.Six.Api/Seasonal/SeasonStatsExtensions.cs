@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using DragonFruit.Data;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Seasonal.Entities;
 using DragonFruit.Six.Api.Seasonal.Enums;
@@ -41,6 +42,18 @@ namespace DragonFruit.Six.Api.Seasonal
         {
             var request = new SeasonalStatsRequest(accounts, board, seasonId, region);
             return client.PerformAsync<SeasonalStatsResponse>(request, token);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="IReadOnlyCollection{T}"/> of metadata for all seasons with stats available
+        /// </summary>
+        /// <remarks>
+        /// The information returned by this method is maintained by the Dragon6 team
+        /// </remarks>
+        /// <param name="client">The <see cref="ApiClient"/> to use</param>
+        public static Task<IReadOnlyCollection<SeasonInfo>> GetSeasonInfoAsync(this ApiClient client)
+        {
+            return client.PerformAsync<IReadOnlyCollection<SeasonInfo>>(new SeasonInfoRequest());
         }
     }
 }
