@@ -19,12 +19,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\res\icon.png" Pack="true" PackagePath="."/>
+        <None Include="..\res\icon.png" Pack="true" PackagePath="." />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DragonFruit.Data" Version="2021.1218.0"/>
-        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1218.0"/>
+        <PackageReference Include="DragonFruit.Data" Version="2021.1218.0" />
+        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1218.0" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     </ItemGroup>
 
 </Project>
