@@ -14,6 +14,11 @@ namespace DragonFruit.Six.Api
         public static string BaseEndpoint => "https://public-ubiservices.ubi.com";
 
         /// <summary>
+        /// The Dragon6 static assets endpoint
+        /// </summary>
+        public static string AssetsEndpoint => "https://d6static.dragonfruit.network";
+
+        /// <summary>
         /// Public-facing endpoint for generating access tokens
         /// </summary>
         public static string IdServer => BaseEndpoint + "/v3/profiles";
