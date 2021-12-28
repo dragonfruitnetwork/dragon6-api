@@ -16,29 +16,26 @@ namespace DragonFruit.Six.Api.Legacy.Entities
     [Serializable]
     public class LegacyOperatorInfo
     {
-        [JsonProperty("profile")]
-        internal string ProfileId { get; set; }
-
         /// <summary>
-        /// Operator name (from datasheet/dictionary)
+        /// Operator name
         /// </summary>
         [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Operator Identifier (from datasheet/dictionary)
+        /// Operator Identifier
         /// </summary>
         [JsonProperty("index")]
-        public string Index { get; set; }
+        public string OperatorId { get; set; }
 
         /// <summary>
-        /// Logical order (from datasheet/dictionary)
+        /// Logical order
         /// </summary>
         [JsonProperty("ord")]
         public ushort Order { get; set; }
 
         /// <summary>
-        /// Operator Icon (from datasheet)
+        /// Operator Icon
         /// </summary>
         [JsonProperty("img")]
         public string ImageUrl { get; set; }
@@ -50,13 +47,13 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         public string Organisation { get; set; }
 
         /// <summary>
-        /// The subtitle, as seen underneath the operator's name in game (from datasheet)
+        /// The subtitle, as seen underneath the operator's name in game
         /// </summary>
         [JsonProperty("sub")]
         public string Subtitle { get; set; }
 
         /// <summary>
-        /// The operator's use, attacker/defender (from datasheet)
+        /// The operator's use, attacker/defender
         /// </summary>
         [JsonProperty("type")]
         public OperatorType Type { get; set; }
