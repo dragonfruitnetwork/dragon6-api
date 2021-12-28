@@ -6,10 +6,10 @@ using System.Collections.Generic;
 
 namespace DragonFruit.Six.Api.Utils
 {
-    internal static class EnumerableUtils
+    public static class EnumerableUtils
     {
         /// <summary>
-        /// Yield returns a single item
+        /// Wraps an item in an <see cref="IEnumerable{T}"/>
         /// </summary>
         /// <exception cref="NullReferenceException"><see cref="item"/> was null</exception>
         public static IEnumerable<T> Yield<T>(this T item)
