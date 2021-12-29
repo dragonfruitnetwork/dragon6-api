@@ -15,6 +15,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entities
         [JsonProperty("players")]
         private Dictionary<string, SeasonalStats> Data { get; set; }
 
+        public IReadOnlyDictionary<string, SeasonalStats> Stats => Data;
         public SeasonalStats For(UbisoftAccount account) => For(account.ProfileId);
         public SeasonalStats For(string profileId) => Data.TryGetValue(profileId, out var data) ? data : null;
     }
