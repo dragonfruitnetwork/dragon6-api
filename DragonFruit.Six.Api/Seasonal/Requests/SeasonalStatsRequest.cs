@@ -15,7 +15,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
 {
     public sealed class SeasonalStatsRequest : PlatformSpecificRequest
     {
-        public override string Path => Platform.SeasonalStatsEndpoint();
+        public override string Path => $"{Platform.SandboxUrl()}/r6karma/players";
 
         /// <summary>
         /// Creates a seasonal stats request for the provided <see cref="UbisoftAccount"/>s

@@ -16,7 +16,7 @@ namespace DragonFruit.Six.Api.Legacy.Requests
     {
         private IEnumerable<string> _stats;
 
-        public override string Path => Platform.StatsEndpoint();
+        public override string Path => $"{Platform.SandboxUrl()}/playerstats2/statistics";
 
         /// <summary>
         /// Initialises a <see cref="LegacyStatsRequest"/> for an array of <see cref="UbisoftAccount"/>s
