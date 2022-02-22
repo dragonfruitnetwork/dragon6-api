@@ -26,11 +26,6 @@ namespace DragonFruit.Six.Api.Modern.Requests
         }
 
         [QueryParameter("trendType")]
-        protected string TrendType => TrendSpan switch
-        {
-            TrendSpan.Weekly => "weeks",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        protected string TrendType => TrendSpan == TrendSpan.Weekly ? "weeks" : throw new ArgumentOutOfRangeException();
     }
 }
