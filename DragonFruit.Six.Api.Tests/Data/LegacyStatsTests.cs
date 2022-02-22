@@ -47,11 +47,21 @@ namespace DragonFruit.Six.Api.Tests.Data
             var selectedOperator = await Client.GetLegacyOperatorStatsAsync(account).ContinueWith(t => t.Result.SingleOrDefault(y => y.OperatorId == operatorIndex));
 
             Assert.IsNotNull(selectedOperator);
+
             Assert.GreaterOrEqual(selectedOperator.Kills, kills);
             Assert.GreaterOrEqual(selectedOperator.Wins, wins);
 
             Assert.IsTrue(selectedOperator.Kd > 0);
             Assert.IsTrue(selectedOperator.Wl > 0);
+        }
+
+        [Test]
+        public async Task TestOperatorMetadata()
+        {
+            var operatorInfo = await Client.GetLegacyOperatorInfoAsync();
+
+            Assert.IsNotNull(operatorInfo);
+            Assert.GreaterOrEqual(operatorInfo.Count, 50);
         }
 
         [TestCase("603fc6ba-db16-4aba-81b2-e9f9601d7d24", Platform.PC, 300)]
