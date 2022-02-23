@@ -29,7 +29,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
             // this must be lowercase for the modern api to work
             request.WithAuthHeader($"ubi_v1 t={Token.Token}");
 
-            // modern api requests need botht the session id and the expiration headers added
+            // modern api requests need both the session id and the expiration headers added
             request.WithHeader("Expiration", Token.Expiry.ToString("O"));
             request.WithHeader(UbisoftIdentifiers.UbiSessionIdHeader, Token.SessionId);
         }
