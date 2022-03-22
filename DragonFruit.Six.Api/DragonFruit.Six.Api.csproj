@@ -20,13 +20,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\res\icon.png" Pack="true" PackagePath="."/>
+        <None Include="..\res\icon.png" Pack="true" PackagePath="." />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DragonFruit.Data" Version="2021.1225.0"/>
-        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1225.0"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2021.3.0"/>
+        <PackageReference Include="DragonFruit.Data" Version="2021.1225.0" />
+        <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2021.1225.0" />
+        <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
     </ItemGroup>
 
 </Project>

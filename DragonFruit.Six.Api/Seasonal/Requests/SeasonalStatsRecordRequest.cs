@@ -3,64 +3,58 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Legacy.Requests;
+using DragonFruit.Six.Api.Modern.Utils;
 using DragonFruit.Six.Api.Seasonal.Enums;
-
-#pragma warning disable 628
+using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Seasonal.Requests
 {
-    public sealed class SeasonalStatsRequest : PlatformSpecificRequest
+    public sealed class SeasonalStatsRecordRequest : PlatformSpecificRequest
     {
-        public override string Path => $"{Platform.SandboxUrl()}/r6karma/players";
+        public override string Path => $"{Platform.SandboxUrl()}/r6karma/player_skill_records";
 
         /// <summary>
         /// Creates a seasonal stats request for the provided <see cref="UbisoftAccount"/>s
         /// </summary>
-        public SeasonalStatsRequest(IEnumerable<UbisoftAccount> accounts, BoardType board = BoardType.Ranked, int season = -1, Region region = Region.EMEA)
+        public SeasonalStatsRecordRequest(IEnumerable<UbisoftAccount> accounts, BoardType boards = BoardType.Ranked, IEnumerable<int> seasons = null, Region regions = Region.EMEA | Region.NCSA | Region.APAC)
             : base(accounts)
         {
-            Board = board;
-            Season = season;
-            Region = region;
+            Boards = boards;
+            Regions = regions;
+
+            Seasons = seasons ?? (-1).Yield();
         }
 
         /// <summary>
         /// The leaderboard to return stats for
         /// </summary>
-        public BoardType Board { get; set; }
+        public BoardType Boards { get; set; }
 
         /// <summary>
         /// The season number (where <c>-1</c> is the current season)
         /// </summary>
-        [QueryParameter("season_id")]
-        public int Season { get; set; }
+        [QueryParameter("season_ids", CollectionConversionMode.Concatenated)]
+        public IEnumerable<int> Seasons { get; set; }
 
         /// <summary>
-        /// The <see cref="T:Region"/> to return.
+        /// The <see cref="T:Region"/>s to return.
         /// </summary>
         /// <remarks>
         /// This property has been made redundant by changes to Ubisoft mechanics since (around) season 17.
         /// This is left for legacy seasons, which remain region-specific
         /// </remarks>
-        [QueryParameter("region_id", EnumHandlingMode.String)]
-        public Region Region { get; set; }
+        [QueryParameter("region_ids", EnumHandlingMode.StringLower)]
+        public Region Regions { get; set; }
 
-        [QueryParameter("board_id")]
-        private string BoardId => GetBoardId(Board);
+        [QueryParameter("board_ids", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> BoardIds => Enum.GetValues(typeof(BoardType)).Cast<BoardType>().Where(x => Boards.HasFlagFast(x)).Select(SeasonalStatsRequest.GetBoardId);
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
         protected override IEnumerable<string> AccountIds => base.AccountIds;
-
-        internal static string GetBoardId(BoardType board) => board switch
-        {
-            BoardType.Ranked => "pvp_ranked",
-            BoardType.Casual => "pvp_casual",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
     }
 }
