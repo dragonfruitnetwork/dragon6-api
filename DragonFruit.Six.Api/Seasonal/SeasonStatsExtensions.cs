@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
+using DragonFruit.Six.Api.Legacy;
 using DragonFruit.Six.Api.Seasonal.Entities;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Seasonal.Requests;
 using DragonFruit.Six.Api.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Seasonal
 {
@@ -27,7 +27,8 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="token">Optional cancellation token</param>
         public static Task<SeasonalStats> GetSeasonalStatsAsync(this Dragon6Client client, UbisoftAccount account, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA, CancellationToken token = default)
         {
-            return GetSeasonalStatsAsync(client, account.Yield(), seasonId, board, region, token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
+            var request = new SeasonalStatsRequest(account.Yield(), board, seasonId, region);
+            return client.PerformAsync<SeasonalStatsResponse>(request, token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
         /// <summary>
@@ -41,8 +42,9 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="token">Optional cancellation token</param>
         public static Task<SeasonalStatsResponse> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA, CancellationToken token = default)
         {
-            var request = new SeasonalStatsRequest(accounts, board, seasonId, region);
-            return client.PerformAsync<SeasonalStatsResponse>(request, token);
+            return LegacyStatsExtensions.GetLegacyStatsImplAsync(client, accounts,
+                p => new SeasonalStatsRequest(p, board, seasonId, region),
+                j => j.ToObject<SeasonalStatsResponse>(), token);
         }
 
         /// <summary>
@@ -60,8 +62,9 @@ namespace DragonFruit.Six.Api.Seasonal
         /// </remarks>
         public static Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType boards, Region regions, CancellationToken token = default)
         {
-            var request = new SeasonalStatsRecordRequest(accounts, boards, seasonIds, regions);
-            return client.PerformAsync<JObject>(request, token).ContinueWith(r => r.Result.SelectTokens("$..players_skill_records[*]").Select(x => x.ToObject<SeasonalStats>()));
+            return LegacyStatsExtensions.GetLegacyStatsImplAsync(client, accounts,
+                p => new SeasonalStatsRecordRequest(p, boards, seasonIds, regions),
+                j => j.SelectTokens("$..players_skill_records[*]").Select(x => x.ToObject<SeasonalStats>()), token);
         }
     }
 }
