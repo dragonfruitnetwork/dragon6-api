@@ -2,6 +2,9 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace DragonFruit.Six.Api.Seasonal.Enums
 {
@@ -9,9 +12,13 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
     /// Represents the seasonal ranking boards available for querying
     /// </summary>
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum BoardType
     {
+        [EnumMember(Value = "pvp_ranked")]
         Ranked = 1,
+
+        [EnumMember(Value = "pvp_casual")]
         Casual = 2
     }
 }
