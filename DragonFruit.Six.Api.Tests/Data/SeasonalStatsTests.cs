@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System.Linq;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Seasonal;
@@ -28,6 +29,17 @@ namespace DragonFruit.Six.Api.Tests.Data
             var stats = await Client.GetSeasonalStatsAsync(account, season, region: region);
 
             Assert.AreEqual(maxRank, stats.MaxRank);
+        }
+
+        [Test]
+        public async Task TestSeasonInformation()
+        {
+            var seasons = await Client.GetSeasonInfoAsync();
+            var whiteNoise = seasons.SingleOrDefault(x => x.Id == 8);
+
+            Assert.IsNotNull(whiteNoise);
+            Assert.IsNotNull(whiteNoise.Name);
+            Assert.AreEqual(2, whiteNoise.Year);
         }
     }
 }

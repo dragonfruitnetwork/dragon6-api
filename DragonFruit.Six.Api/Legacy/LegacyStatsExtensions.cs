@@ -71,6 +71,15 @@ namespace DragonFruit.Six.Api.Legacy
         }
 
         /// <summary>
+        /// Gets a <see cref="IReadOnlyCollection{T}"/> of legacy operator metadata entries
+        /// </summary>
+        /// <param name="client">The <see cref="ApiClient"/> to use</param>
+        public static Task<IReadOnlyCollection<LegacyOperatorInfo>> GetLegacyOperatorInfoAsync(this ApiClient client)
+        {
+            return client.PerformAsync<IReadOnlyCollection<LegacyOperatorInfo>>(new LegacyOperatorInfoRequest());
+        }
+
+        /// <summary>
         /// Gets the <see cref="LegacyWeaponStats"/> for the <see cref="UbisoftAccount"/> provided
         /// </summary>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>

@@ -2,16 +2,11 @@ name: Publish
 
 on:
   release:
-    types:
-      - published
+    types: [ published ]
 
 jobs:
-  publish:
+  build:
     runs-on: windows-latest
-    
-    env:
-      name: "DragonFruit.Six.Api"
-      project: "DragonFruit.Six.Api\\DragonFruit.Six.Api.csproj"
 
     steps:
       - name: Checkout
@@ -19,14 +14,25 @@ jobs:
 
       - name: Setup PowerShell Policy
         run: Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
-        
-      - name: Download Publish Script
-        run: powershell Invoke-WebRequest -Uri "https://raw.githubusercontent.com/dragonfruitnetwork/publish-script/main/nuget.ps1" -OutFile ".\nuget.ps1"
 
-      - name: NuGet Build and Publish (Release)
-        run: .\nuget.ps1 -TargetName $env:name -TargetProject $env:project -ApiKey ${{ secrets.NUGET_KEY }}
-        if: "!github.event.release.prerelease"
+      - name: Install .NET 6
+        run: choco install dotnet-sdk
 
-      - name: Nuget Build and Publish (Beta)
-        run: .\nuget.ps1 -TargetName $env:name -TargetProject $env:project -ApiKey ${{ secrets.NUGET_KEY }} -Suffix "-beta"
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release -v normal -p:Version=${{ github.ref_name }}
+
+      - name: Pack (Beta)
+        run: dotnet pack -c Release --include-symbols --no-build -v normal -o $env:GITHUB_WORKSPACE -p:PackageVersion=${{ github.ref_name }}-beta
         if: "github.event.release.prerelease"
+
+      - name: Pack (Stable)
+        run: dotnet pack -c Release --include-symbols --no-build -v normal -o $env:GITHUB_WORKSPACE -p:PackageVersion=${{ github.ref_name }}
+        if: "!github.event.release.prerelease"
+        
+      - name: Publish
+        run: |
+          cd $env:GITHUB_WORKSPACE
+          dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_KEY }} --skip-duplicate -s https://api.nuget.org/v3/index.json
