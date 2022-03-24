@@ -4,6 +4,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
@@ -52,7 +54,10 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         public Region Regions { get; set; }
 
         [QueryParameter("board_ids", CollectionConversionMode.Concatenated)]
-        private IEnumerable<string> BoardIds => Enum.GetValues(typeof(BoardType)).Cast<BoardType>().Where(x => Boards.HasFlagFast(x)).Select(SeasonalStatsRequest.GetBoardId);
+        private IEnumerable<string> BoardIds => Enum.GetValues(typeof(BoardType))
+                                                    .Cast<BoardType>()
+                                                    .Where(x => Boards.HasFlagFast(x))
+                                                    .Select(x => typeof(BoardType).GetField(x.ToString()).GetCustomAttribute<EnumMemberAttribute>()?.Value);
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
         protected override IEnumerable<string> AccountIds => base.AccountIds;
