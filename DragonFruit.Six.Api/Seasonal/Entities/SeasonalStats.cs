@@ -18,7 +18,10 @@ namespace DragonFruit.Six.Api.Seasonal.Entities
         public byte SeasonId { get; set; }
 
         [JsonProperty("region")]
-        public string Region { get; set; }
+        public Region Region { get; set; }
+
+        [JsonProperty("board_id")]
+        public BoardType Board { get; set; }
 
         [JsonProperty("profile_id")]
         public string ProfileId { get; set; }

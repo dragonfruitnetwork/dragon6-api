@@ -49,6 +49,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         [QueryParameter("region_id", EnumHandlingMode.String)]
         public Region Region { get; set; }
 
+        // todo board_id should be resolved via reflection
         [QueryParameter("board_id")]
         private string BoardId => GetBoardId(Board);
 
