@@ -3,6 +3,8 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace DragonFruit.Six.Api.Seasonal.Enums
 {
@@ -10,6 +12,7 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
     /// Represents the ranked regions used in-game
     /// </summary>
     [Flags]
+    [JsonConverter(typeof(StringEnumConverter))]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum Region
     {
