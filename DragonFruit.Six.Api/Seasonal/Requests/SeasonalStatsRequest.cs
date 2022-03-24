@@ -1,8 +1,9 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
-using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.Serialization;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
@@ -50,13 +51,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         public Region Region { get; set; }
 
         [QueryParameter("board_id")]
-        private string BoardId => Board switch
-        {
-            BoardType.Ranked => "pvp_ranked",
-            BoardType.Casual => "pvp_casual",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        private string BoardId => typeof(BoardType).GetField(Board.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
         protected override IEnumerable<string> AccountIds => base.AccountIds;
