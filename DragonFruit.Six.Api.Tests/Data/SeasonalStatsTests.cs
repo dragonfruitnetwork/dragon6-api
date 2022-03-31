@@ -47,10 +47,10 @@ namespace DragonFruit.Six.Api.Tests.Data
         {
             var account = await GetAccountInfoFor(identifier, platform);
             var seasons = Enumerable.Range(15, 7);
-            var stats = (await Client.GetSeasonalStatsRecordsAsync(account, seasons, BoardType.Ranked, Region.EMEA)).ToArray();
+            var stats = (await Client.GetSeasonalStatsRecordsAsync(account, seasons, BoardType.Ranked, Region.EMEA)).ToDictionary(x => x.SeasonId);
 
-            Assert.AreEqual(season15Rank, stats.SingleOrDefault(x => x.SeasonId == 15)?.Rank);
-            Assert.AreEqual(season17Rank, stats.SingleOrDefault(x => x.SeasonId == 17)?.Rank);
+            Assert.AreEqual(season15Rank, stats[15].Rank);
+            Assert.AreEqual(season17Rank, stats[17].Rank);
         }
     }
 }
