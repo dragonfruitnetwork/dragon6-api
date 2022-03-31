@@ -2,16 +2,25 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Runtime.Serialization;
 
 namespace DragonFruit.Six.Api.Modern.Enums
 {
     [Flags]
     public enum PlaylistType
     {
-        Casual = 1 << 0,
-        Ranked = 1 << 1,
-        Unranked = 1 << 2,
+        [EnumMember(Value = "all")]
+        Independent = 0,
 
-        All = 1 << 3
+        [EnumMember(Value = "casual")]
+        Casual = 1,
+
+        [EnumMember(Value = "ranked")]
+        Ranked = 2,
+
+        [EnumMember(Value = "unranked")]
+        Unranked = 3,
+
+        All = Casual | Ranked | Unranked | Independent
     }
 }

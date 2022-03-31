@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Runtime.Serialization;
 
 namespace DragonFruit.Six.Api.Enums
 {
@@ -17,16 +18,21 @@ namespace DragonFruit.Six.Api.Enums
         /// <summary>
         /// Attacker or Defender (i.e. Recruit)
         /// </summary>
+        [EnumMember(Value = "all")]
         Independent = 0,
 
         /// <summary>
         /// Attacking Operator
         /// </summary>
+        [EnumMember(Value = "attacker")]
         Attacker = 1,
 
         /// <summary>
         /// Defending Operator
         /// </summary>
-        Defender = 2
+        [EnumMember(Value = "defender")]
+        Defender = 2,
+
+        All = Attacker | Defender | Independent
     }
 }
