@@ -19,6 +19,9 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
         Ranked = 1,
 
         [EnumMember(Value = "pvp_casual")]
-        Casual = 2
+        Casual = 2,
+
+        [EnumMember(Value = "pvp_warmup")]
+        Deathmatch = 4
     }
 }
