@@ -69,7 +69,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
         /// <exception cref="ArgumentOutOfRangeException">The date provided was more than 120 days ago</exception>
         public virtual DateTimeOffset StartDate
         {
-            get => _startDate ??= DateTimeOffset.Now.AddDays(-DefaultStartWindow);
+            get => _startDate ??= DateTimeOffset.UtcNow.AddDays(-DefaultStartWindow);
             set
             {
                 if (DateTimeOffset.UtcNow.Date.AddDays(-120) > value.Date)
@@ -87,7 +87,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
         /// <exception cref="ArgumentOutOfRangeException">The date provided is in the future</exception>
         public virtual DateTimeOffset EndDate
         {
-            get => _endDate ??= DateTimeOffset.Now;
+            get => _endDate ??= DateTimeOffset.UtcNow.AddDays(-1);
             set
             {
                 if (DateTimeOffset.UtcNow.Date > value.Date)
@@ -101,11 +101,11 @@ namespace DragonFruit.Six.Api.Modern.Requests
 
         [UsedImplicitly]
         [QueryParameter("platform")]
-        private string PlatformName => Account.Platform.ModernName();
+        protected string PlatformName => Account.Platform.ModernName();
 
         [UsedImplicitly]
         [QueryParameter("gameMode")]
-        private string PlaylistNames => Playlist.Expand();
+        protected string PlaylistNames => Playlist.Expand();
 
         [UsedImplicitly]
         [QueryParameter("startDate")]
@@ -117,10 +117,6 @@ namespace DragonFruit.Six.Api.Modern.Requests
 
         [UsedImplicitly]
         [QueryParameter("teamRole")]
-        protected virtual string OperatorTypeNames => OperatorType.HasFlagFast(OperatorType.Independent)
-            // independent = all
-            ? (OperatorType.Attacker | OperatorType.Defender).Expand() + ",all"
-            // here we remove the independent flag then expand
-            : (OperatorType & ~OperatorType.Independent).Expand();
+        protected virtual string OperatorTypeNames => OperatorType.Expand();
     }
 }
