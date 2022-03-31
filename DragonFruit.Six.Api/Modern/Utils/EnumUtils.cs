@@ -3,7 +3,10 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Text;
 using JetBrains.Annotations;
 
 namespace DragonFruit.Six.Api.Modern.Utils
@@ -15,10 +18,32 @@ namespace DragonFruit.Six.Api.Modern.Utils
         /// </summary>
         public static string Expand<T>(this T enumValue) where T : unmanaged, Enum
         {
-            return string.Join(",", Enum.GetValues(typeof(T))
-                                        .Cast<T>()
-                                        .Where(x => enumValue.HasFlagFast(x))
-                                        .Select(x => x.ToString().ToLower()));
+            var matchingFlags = Enum.GetValues(typeof(T)).Cast<T>().Where(x => enumValue.HasFlagFast(x));
+            var builder = new StringBuilder();
+            var firstFlag = true;
+
+            foreach (var flag in matchingFlags)
+            {
+                var enumMember = typeof(T).GetField(flag.ToString()).GetCustomAttribute<EnumMemberAttribute>();
+
+                if (enumMember is null)
+                {
+                    continue;
+                }
+
+                if (!firstFlag)
+                {
+                    builder.Append(",");
+                }
+                else
+                {
+                    firstFlag = false;
+                }
+
+                builder.Append(enumMember.Value);
+            }
+
+            return builder.ToString();
         }
 
         /// <summary>

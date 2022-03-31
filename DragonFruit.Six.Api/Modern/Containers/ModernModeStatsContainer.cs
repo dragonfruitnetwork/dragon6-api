@@ -15,10 +15,10 @@ namespace DragonFruit.Six.Api.Modern.Containers
         [JsonIgnore]
         public ModernRoleStatsContainer<T> this[PlaylistType type] => type switch
         {
-            PlaylistType.All => AllModes,
             PlaylistType.Casual => Casual,
             PlaylistType.Ranked => Ranked,
             PlaylistType.Unranked => Unranked,
+            PlaylistType.Independent => AllModes,
 
             _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
         };
