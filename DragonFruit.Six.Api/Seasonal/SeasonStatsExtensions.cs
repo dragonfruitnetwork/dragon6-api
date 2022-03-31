@@ -72,6 +72,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <remarks>
         /// This call is able to return results for multiple accounts spanning large numbers of seasons, ranking boards and regions. If you need a single season, use <see cref="GetSeasonalStatsAsync(DragonFruit.Six.Api.Dragon6Client,DragonFruit.Six.Api.Accounts.Entities.UbisoftAccount,int,DragonFruit.Six.Api.Seasonal.Enums.BoardType,DragonFruit.Six.Api.Seasonal.Enums.Region,System.Threading.CancellationToken)"/> instead.
         /// Elements are returned ungrouped and unordered due to the large ways the dataset could be sorted. It is recommended to sort then convert the returned <see cref="IEnumerable{T}"/> to an array afterwards.
+        /// This does not return stats for the current season (either -1 or the positive id), use the other overload to get the current season
         /// </remarks>
         public static Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType boards, Region regions, CancellationToken token = default)
         {
@@ -92,6 +93,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <remarks>
         /// This call is able to return results for multiple accounts spanning large numbers of seasons, ranking boards and regions. If you need a single season, use <see cref="GetSeasonalStatsAsync(DragonFruit.Six.Api.Dragon6Client,DragonFruit.Six.Api.Accounts.Entities.UbisoftAccount,int,DragonFruit.Six.Api.Seasonal.Enums.BoardType,DragonFruit.Six.Api.Seasonal.Enums.Region,System.Threading.CancellationToken)"/> instead.
         /// Elements are returned ungrouped and unordered due to the large ways the dataset could be sorted. It is recommended to sort then convert the returned <see cref="IEnumerable{T}"/> to an array afterwards.
+        /// This does not return stats for the current season (either -1 or the positive id), use the other overload to get the current season
         /// </remarks>
         public static Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, UbisoftAccount account, IEnumerable<int> seasonIds, BoardType boards, Region regions, CancellationToken token = default)
         {
