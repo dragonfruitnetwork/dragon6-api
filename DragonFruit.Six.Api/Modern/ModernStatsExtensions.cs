@@ -17,7 +17,7 @@ namespace DragonFruit.Six.Api.Modern
 {
     public static class ModernStatsExtensions
     {
-        public static Task<ModernModeStatsContainer<IEnumerable<ModernMapStats>>> GetModernMapStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.Independent, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public static Task<ModernModeStatsContainer<IEnumerable<ModernMapStats>>> GetModernMapStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
         {
             var request = new ModernMapStatsRequest(account)
             {
@@ -32,7 +32,7 @@ namespace DragonFruit.Six.Api.Modern
                          .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernMapStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public static Task<ModernModeStatsContainer<IEnumerable<ModernOperatorStats>>> GetModernOperatorStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.Independent, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public static Task<ModernModeStatsContainer<IEnumerable<ModernOperatorStats>>> GetModernOperatorStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
         {
             var request = new ModernOperatorStatsRequest(account)
             {
@@ -58,7 +58,7 @@ namespace DragonFruit.Six.Api.Modern
                          .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernSeasonStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsSummary>>> GetModernStatsSummaryAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.Independent, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsSummary>>> GetModernStatsSummaryAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
         {
             var request = new ModernStatsSummaryRequest(account)
             {
@@ -73,7 +73,7 @@ namespace DragonFruit.Six.Api.Modern
                          .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernStatsSummary>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsTrend>>> GetModernStatsTrendAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.Independent, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsTrend>>> GetModernStatsTrendAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
         {
             var request = new ModernStatsTrendRequest(account)
             {
@@ -89,7 +89,7 @@ namespace DragonFruit.Six.Api.Modern
                          .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernStatsTrend>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
         }
 
-        public static Task<ModernModeStatsContainer<WeaponSlot>> GetModernWeaponStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.Independent, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
+        public static Task<ModernModeStatsContainer<WeaponSlot>> GetModernWeaponStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null)
         {
             var request = new ModernWeaponStatsRequest(account)
             {
