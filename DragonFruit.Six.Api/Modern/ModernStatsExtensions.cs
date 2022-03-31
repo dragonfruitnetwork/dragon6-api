@@ -27,7 +27,7 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="operatorType">The <see cref="OperatorType"/> to filter stats by</param>
         /// <param name="startDate">The first day to return stats for. Must be within the last 120 days</param>
-        /// <param name="endDate">The last day to include stats for. Must be at least 1 day before current UTC time</param>
+        /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested map stats. Will return null if no stats found</returns>
         [CanBeNull]
@@ -54,7 +54,7 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="operatorType">The <see cref="OperatorType"/> to filter stats by</param>
         /// <param name="startDate">The first day to return stats for. Must be within the last 120 days</param>
-        /// <param name="endDate">The last day to include stats for. Must be at least 1 day before current UTC time</param>
+        /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested operator stats. Will return null if no stats found</returns>
         [CanBeNull]
@@ -101,7 +101,7 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="operatorType">The <see cref="OperatorType"/> to filter stats by</param>
         /// <param name="startDate">The first day to return stats for. Must be within the last 120 days</param>
-        /// <param name="endDate">The last day to include stats for. Must be at least 1 day before current UTC time</param>
+        /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested stats. Will return null if no stats found.</returns>
         /// <remarks>This returns a collection of <see cref="ModernStatsSummary"/> items, but is recommended to use FirstOrDefault() to get the correct stats object</remarks>
@@ -129,7 +129,7 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="operatorType">The <see cref="OperatorType"/> to filter stats by</param>
         /// <param name="startDate">The first day to return stats for. Must be within the last 120 days</param>
-        /// <param name="endDate">The last day to include stats for. Must be at least 1 day before current UTC time</param>
+        /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the data needed to plot the graphs seen on the ubisoft stats site. Will return null if no stats found</returns>
         [CanBeNull]
@@ -157,7 +157,7 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="operatorType">The <see cref="OperatorType"/> to filter stats by</param>
         /// <param name="startDate">The first day to return stats for. Must be within the last 120 days</param>
-        /// <param name="endDate">The last day to include stats for. Must be at least 1 day before current UTC time</param>
+        /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested weapon stats. Will return null if no stats found</returns>
         [CanBeNull]
