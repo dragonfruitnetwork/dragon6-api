@@ -33,6 +33,9 @@ namespace DragonFruit.Six.Api.Enums
         [EnumMember(Value = "defender")]
         Defender = 2,
 
+        /// <summary>
+        /// Attackers, Defenders and totals
+        /// </summary>
         All = Attacker | Defender | Independent
     }
 }

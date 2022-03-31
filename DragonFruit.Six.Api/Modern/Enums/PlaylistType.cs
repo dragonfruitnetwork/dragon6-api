@@ -9,6 +9,9 @@ namespace DragonFruit.Six.Api.Modern.Enums
     [Flags]
     public enum PlaylistType
     {
+        /// <summary>
+        /// Return stats independent of playlist (i.e. all playlists)
+        /// </summary>
         [EnumMember(Value = "all")]
         Independent = 0,
 
@@ -21,6 +24,9 @@ namespace DragonFruit.Six.Api.Modern.Enums
         [EnumMember(Value = "unranked")]
         Unranked = 3,
 
+        /// <summary>
+        /// Return stats for every playlist type and a combined total
+        /// </summary>
         All = Casual | Ranked | Unranked | Independent
     }
 }
