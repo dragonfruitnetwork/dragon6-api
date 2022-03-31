@@ -87,7 +87,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
         /// <exception cref="ArgumentOutOfRangeException">The date provided is in the future</exception>
         public virtual DateTimeOffset EndDate
         {
-            get => _endDate ??= DateTimeOffset.UtcNow.AddDays(-1);
+            get => _endDate ??= DateTimeOffset.UtcNow;
             set
             {
                 if (DateTimeOffset.UtcNow.Date > value.Date)
