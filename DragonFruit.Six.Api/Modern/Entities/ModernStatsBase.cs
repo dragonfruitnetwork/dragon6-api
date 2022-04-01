@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.Api.Modern.Containers;
 using DragonFruit.Six.Api.Modern.Utils;
 using DragonFruit.Six.Api.Utils;
 using Newtonsoft.Json;
@@ -18,8 +19,6 @@ namespace DragonFruit.Six.Api.Modern.Entities
         [JsonProperty("statsDetail")]
         public string Name { get; set; }
 
-        #region Match Stats
-
         [JsonProperty("matchesWon")]
         public uint MatchesWon { get; set; }
 
@@ -29,26 +28,14 @@ namespace DragonFruit.Six.Api.Modern.Entities
         [JsonProperty("matchesPlayed")]
         public uint MatchesPlayed { get; set; }
 
-        public float MatchWl => _matchWl ??= RatioUtils.RatioOf(MatchesWon, MatchesLost);
-
-        #endregion
-
-        #region Round Stats
-
-        [JsonProperty("roundsPlayed")]
-        public uint RoundsPlayed { get; set; }
-
         [JsonProperty("roundsWon")]
         public uint RoundsWon { get; set; }
 
         [JsonProperty("roundsLost")]
         public uint RoundsLost { get; set; }
 
-        public float RoundWl => _roundWl ??= RatioUtils.RatioOf(RoundsWon, RoundsLost);
-
-        #endregion
-
-        #region Kill/Deaths
+        [JsonProperty("roundsPlayed")]
+        public uint RoundsPlayed { get; set; }
 
         [JsonProperty("kills")]
         public uint Kills { get; set; }
@@ -86,19 +73,11 @@ namespace DragonFruit.Six.Api.Modern.Entities
         [JsonProperty("openingDeathTrades")]
         public uint OpeningDeathTrades { get; set; }
 
-        #endregion
-
-        #region Distance Stats
-
         [JsonProperty("distanceTravelled")]
         public float DistanceTravelled { get; set; }
 
         [JsonProperty("distancePerRound")]
         public float DistanceTravelledPerRound { get; set; }
-
-        #endregion
-
-        #region Time Played
 
         [JsonProperty("timeAlivePerMatch")]
         public float SecondsAlivePerMatch { get; set; }
@@ -109,48 +88,90 @@ namespace DragonFruit.Six.Api.Modern.Entities
         [JsonProperty("minutesPlayed")]
         public float MinutesPlayed { get; set; }
 
+        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
+        public float MatchWl => _matchWl ??= RatioUtils.RatioOf(MatchesWon, MatchesLost);
+        public float RoundWl => _roundWl ??= RatioUtils.RatioOf(RoundsWon, RoundsLost);
+
         public TimeSpan TimeAlivePerMatch => _timeAlivePerMatch ??= TimeSpan.FromSeconds(SecondsAlivePerMatch);
         public TimeSpan TimeDeadPerMatch => _timeDeadPerMatch ??= TimeSpan.FromSeconds(SecondsDeadPerMatch);
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromMinutes(MinutesPlayed);
 
-        #endregion
-
-        #region Ratios
-
-        [JsonProperty("headshotAccuracy.value")]
-        public float HeadshotAccuracy { get; set; }
-
-        [JsonProperty("killsPerRound.value")]
-        public float KillsPerRound { get; set; }
-
-        [JsonProperty("roundsWithAKill.value")]
-        public float RoundsWithSingleKill { get; set; }
-
-        [JsonProperty("roundsWithMultiKill.value")]
-        public float RoundsWithMultipleKills { get; set; }
-
-        [JsonProperty("roundsWithOpeningKill.value")]
-        public float RoundsWithFirstKill { get; set; }
-
-        [JsonProperty("roundsWithOpeningDeath.value")]
-        public float RoundsWithFirstDeath { get; set; }
-
-        [JsonProperty("roundsSurvived.value")]
-        public float RoundsSurvived { get; set; }
-
-        [JsonProperty("roundsWithAnAce.value")]
-        public float RoundsAced { get; set; }
-
-        [JsonProperty("roundsWithClutch.value")]
-        public float RoundsClutched { get; set; }
+        public RatioBackedStat HeadshotAccuracy { get; set; }
+        public RatioBackedStat KillsPerRound { get; set; }
+        public RatioBackedStat RoundsWithSingleKill { get; set; }
+        public RatioBackedStat RoundsWithMultipleKills { get; set; }
+        public RatioBackedStat RoundsWithFirstKill { get; set; }
+        public RatioBackedStat RoundsWithFirstDeath { get; set; }
+        public RatioBackedStat RoundsSurvived { get; set; }
+        public RatioBackedStat RoundsAced { get; set; }
+        public RatioBackedStat RoundsClutched { get; set; }
 
         /// <summary>
         /// Rounds with a kill, objective completion, survive or trade kills
         /// </summary>
-        [JsonProperty("roundsWithKOST.value")]
-        public float RoundsWithKillObjectiveSurvivalOrTrade { get; set; }
+        public RatioBackedStat RoundsWithKillObjectiveSurvivalOrTrade { get; set; }
 
-        public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
+        #region Ratio Backing Fields
+
+        [JsonProperty("headshotAccuracy.value", Order = 1)]
+        private float HeadshotAccuracyRatio
+        {
+            set => HeadshotAccuracy = new RatioBackedStat(Kills, value);
+        }
+
+        [JsonProperty("killsPerRound.value", Order = 1)]
+        private float KillsPerRoundRatio
+        {
+            set => KillsPerRound = new RatioBackedStat(Kills, value);
+        }
+
+        [JsonProperty("roundsWithAKill.value", Order = 1)]
+        private float RoundsWithSingleKillRatio
+        {
+            set => RoundsWithSingleKill = new RatioBackedStat(Kills, value);
+        }
+
+        [JsonProperty("roundsWithMultiKill.value", Order = 1)]
+        private float RoundsWithMultipleKillsRatio
+        {
+            set => RoundsWithMultipleKills = new RatioBackedStat(Kills, value);
+        }
+
+        [JsonProperty("roundsWithOpeningKill.value", Order = 1)]
+        private float RoundsWithFirstKillRatio
+        {
+            set => RoundsWithFirstKill = new RatioBackedStat(Kills, value);
+        }
+
+        [JsonProperty("roundsWithOpeningDeath.value", Order = 1)]
+        private float RoundsWithFirstDeathRatio
+        {
+            set => RoundsWithFirstDeath = new RatioBackedStat(RoundsPlayed, value);
+        }
+
+        [JsonProperty("roundsSurvived.value", Order = 1)]
+        private float RoundsSurvivedRatio
+        {
+            set => RoundsSurvived = new RatioBackedStat(RoundsPlayed, value);
+        }
+
+        [JsonProperty("roundsWithAnAce.value", Order = 1)]
+        private float RoundsAcedRatio
+        {
+            set => RoundsAced = new RatioBackedStat(RoundsPlayed, value);
+        }
+
+        [JsonProperty("roundsWithClutch.value", Order = 1)]
+        private float RoundsClutchedRatio
+        {
+            set => RoundsClutched = new RatioBackedStat(RoundsPlayed, value);
+        }
+
+        [JsonProperty("roundsWithKOST.value", Order = 1)]
+        private float RoundsWithKillObjectiveSurvivalOrTradeRatio
+        {
+            set => RoundsWithKillObjectiveSurvivalOrTrade = new RatioBackedStat(RoundsPlayed, value);
+        }
 
         #endregion
     }
