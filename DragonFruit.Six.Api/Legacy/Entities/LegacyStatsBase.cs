@@ -14,16 +14,16 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         private float? _kd, _wl;
 
         [JsonProperty("kills")]
-        public uint Kills { get; set; }
+        public int Kills { get; set; }
 
         [JsonProperty("deaths")]
-        public uint Deaths { get; set; }
+        public int Deaths { get; set; }
 
         [JsonProperty("wins")]
-        public uint Wins { get; set; }
+        public int Wins { get; set; }
 
         [JsonProperty("losses")]
-        public uint Losses { get; set; }
+        public int Losses { get; set; }
 
         public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
         public float Wl => _wl ??= RatioUtils.RatioOf(Wins, Losses);

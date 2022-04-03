@@ -21,13 +21,13 @@ namespace DragonFruit.Six.Api.Modern.Entities
         #region Match Stats
 
         [JsonProperty("matchesWon")]
-        public uint MatchesWon { get; set; }
+        public int MatchesWon { get; set; }
 
         [JsonProperty("matchesLost")]
-        public uint MatchesLost { get; set; }
+        public int MatchesLost { get; set; }
 
         [JsonProperty("matchesPlayed")]
-        public uint MatchesPlayed { get; set; }
+        public int MatchesPlayed { get; set; }
 
         public float MatchWl => _matchWl ??= RatioUtils.RatioOf(MatchesWon, MatchesLost);
 
@@ -36,13 +36,13 @@ namespace DragonFruit.Six.Api.Modern.Entities
         #region Round Stats
 
         [JsonProperty("roundsPlayed")]
-        public uint RoundsPlayed { get; set; }
+        public int RoundsPlayed { get; set; }
 
         [JsonProperty("roundsWon")]
-        public uint RoundsWon { get; set; }
+        public int RoundsWon { get; set; }
 
         [JsonProperty("roundsLost")]
-        public uint RoundsLost { get; set; }
+        public int RoundsLost { get; set; }
 
         public float RoundWl => _roundWl ??= RatioUtils.RatioOf(RoundsWon, RoundsLost);
 
@@ -51,40 +51,40 @@ namespace DragonFruit.Six.Api.Modern.Entities
         #region Kill/Deaths
 
         [JsonProperty("kills")]
-        public uint Kills { get; set; }
+        public int Kills { get; set; }
 
         [JsonProperty("assists")]
-        public uint Assists { get; set; }
+        public int Assists { get; set; }
 
         [JsonProperty("death")]
-        public uint Deaths { get; set; }
+        public int Deaths { get; set; }
 
         [JsonProperty("headshots")]
-        public uint Headshots { get; set; }
+        public int Headshots { get; set; }
 
         [JsonProperty("meleeKills")]
-        public uint Knifes { get; set; }
+        public int Knifes { get; set; }
 
         [JsonProperty("teamKills")]
-        public uint TeamKills { get; set; }
+        public int TeamKills { get; set; }
 
         [JsonProperty("openingKills")]
-        public uint OpeningKills { get; set; }
+        public int OpeningKills { get; set; }
 
         [JsonProperty("openingDeaths")]
-        public uint OpeningDeaths { get; set; }
+        public int OpeningDeaths { get; set; }
 
         [JsonProperty("trades")]
-        public uint Trades { get; set; }
+        public int Trades { get; set; }
 
         [JsonProperty("revives")]
-        public uint Revives { get; set; }
+        public int Revives { get; set; }
 
         [JsonProperty("openingKillTrades")]
-        public uint OpeningKillTrades { get; set; }
+        public int OpeningKillTrades { get; set; }
 
         [JsonProperty("openingDeathTrades")]
-        public uint OpeningDeathTrades { get; set; }
+        public int OpeningDeathTrades { get; set; }
 
         #endregion
 

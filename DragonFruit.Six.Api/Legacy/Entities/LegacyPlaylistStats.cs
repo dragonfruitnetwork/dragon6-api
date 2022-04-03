@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.Api.Seasonal.Entities;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Legacy.Entities
@@ -11,12 +12,28 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         private TimeSpan? _timePlayed;
 
         [JsonProperty("matches")]
-        public uint MatchesPlayed { get; set; }
+        public int MatchesPlayed { get; set; }
 
         [JsonProperty("time")]
-        protected internal uint Duration { get; set; }
+        protected internal int Duration { get; set; }
 
         [JsonIgnore]
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
+
+        /// <summary>
+        /// Apply the seasonal stats to the current <see cref="LegacyPlaylistStats"/>
+        /// </summary>
+        public void Include(SeasonalStats stats, bool includeAbandonsAsLosses = true)
+        {
+            Kills += stats.Kills;
+            Deaths += stats.Deaths;
+            Wins += stats.Wins;
+            Losses += stats.Losses;
+
+            if (includeAbandonsAsLosses)
+            {
+                Losses += stats.Abandons;
+            }
+        }
     }
 }

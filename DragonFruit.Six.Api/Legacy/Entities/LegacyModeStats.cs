@@ -18,33 +18,35 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         /// The number of hostages the player has rescued
         /// </summary>
         [JsonProperty("rescues")]
-        public uint Rescues { get; set; }
+        public int Rescues { get; set; }
 
         /// <summary>
         /// Number of people killed while inside the room with the hostage
         /// </summary>
         [JsonProperty("defenses")]
-        public uint Defenses { get; set; }
+        public int Defenses { get; set; }
     }
 
     public class LegacySecureModeStats : LegacyModeStats
     {
         [JsonProperty("aggressions")]
-        public uint Aggressions { get; set; }
+        public int Aggressions { get; set; }
 
         /// <summary>
         /// People killed securing the room
         /// </summary>
         [JsonProperty("defenses")]
-        public uint Defenses { get; set; }
+        public int Defenses { get; set; }
 
         /// <summary>
         /// Rooms successfully secured
         /// </summary>
         [JsonProperty("hacks")]
-        public uint Captures { get; set; }
+        public int Captures { get; set; }
     }
 
+    [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class LegacyModeStats
     {
         private float? _wl;
@@ -54,25 +56,25 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         /// Total wins in mode
         /// </summary>
         [JsonProperty("wins")]
-        public uint Wins { get; set; }
+        public int Wins { get; set; }
 
         /// <summary>
         /// Total losses in mode
         /// </summary>
         [JsonProperty("losses")]
-        public uint Losses { get; set; }
+        public int Losses { get; set; }
 
         /// <summary>
         /// Sum of all matches played
         /// </summary>
         [JsonProperty("total_matches")]
-        public uint MatchesPlayed { get; set; }
+        public int MatchesPlayed { get; set; }
 
         /// <summary>
         /// Highest score achieved
         /// </summary>
         [JsonProperty("highscore")]
-        public uint Highscore { get; set; }
+        public int Highscore { get; set; }
 
         [JsonProperty("time")]
         protected internal uint Duration { get; set; }
