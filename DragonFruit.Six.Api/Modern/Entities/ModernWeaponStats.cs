@@ -21,22 +21,22 @@ namespace DragonFruit.Six.Api.Modern.Entities
         public string Name { get; set; }
 
         [JsonProperty("kills")]
-        public uint Kills { get; set; }
+        public int Kills { get; set; }
 
         [JsonProperty("headshots")]
-        public uint Headshots { get; set; }
+        public int Headshots { get; set; }
 
         [JsonProperty("headshotAccuracy")]
         public float HeadshotAccuracy { get; set; }
 
         [JsonProperty("roundsWon")]
-        public uint Wins { get; set; }
+        public int Wins { get; set; }
 
         [JsonProperty("roundsLost")]
-        public uint Losses { get; set; }
+        public int Losses { get; set; }
 
         [JsonProperty("roundsPlayed")]
-        public uint RoundsPlayed { get; set; }
+        public int RoundsPlayed { get; set; }
 
         [JsonProperty("roundsWithAKill")]
         public float RoundsWithSingleKill { get; set; }

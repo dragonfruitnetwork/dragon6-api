@@ -25,22 +25,22 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         /// Total operator headshots
         /// </summary>
         [JsonProperty("headshots")]
-        public uint Headshots { get; set; }
+        public int Headshots { get; set; }
 
         /// <summary>
         /// Total operator downs (the player has downed)
         /// </summary>
         [JsonProperty("downs")]
-        public uint Downs { get; set; }
+        public int Downs { get; set; }
 
         [JsonProperty("rounds")]
-        public uint RoundsPlayed { get; set; }
+        public int RoundsPlayed { get; set; }
 
         [JsonProperty("exp")]
-        public uint Experience { get; set; }
+        public int Experience { get; set; }
 
         [JsonProperty("time")]
-        protected internal uint Duration { get; set; }
+        protected internal int Duration { get; set; }
 
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 

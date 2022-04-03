@@ -16,7 +16,7 @@ namespace DragonFruit.Six.Api.Accounts.Entities
         /// Number of times the game has been opened
         /// </summary>
         [JsonProperty("sessionsCount")]
-        public uint SessionCount { get; set; }
+        public int SessionCount { get; set; }
 
         /// <summary>
         /// The <see cref="DateTime"/> of the user's first session (in UTC)

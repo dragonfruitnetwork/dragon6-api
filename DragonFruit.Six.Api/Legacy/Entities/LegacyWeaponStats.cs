@@ -26,28 +26,28 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         /// Total times this class has been picked by the user
         /// </summary>
         [JsonProperty("picks")]
-        public uint TimesChosen { get; set; }
+        public int TimesChosen { get; set; }
 
         [JsonProperty("kills")]
-        public uint Kills { get; set; }
+        public int Kills { get; set; }
 
         [JsonProperty("deaths")]
-        public uint Deaths { get; set; }
+        public int Deaths { get; set; }
 
         [JsonProperty("headshots")]
-        public uint Headshots { get; set; }
+        public int Headshots { get; set; }
 
         [JsonProperty("downs")]
-        public uint Downs { get; set; }
+        public int Downs { get; set; }
 
         [JsonProperty("down_assists")]
-        public uint DownAssists { get; set; }
+        public int DownAssists { get; set; }
 
         [JsonProperty("shots_fired")]
-        public uint ShotsFired { get; set; }
+        public long ShotsFired { get; set; }
 
         [JsonProperty("shots_landed")]
-        public uint ShotsLanded { get; set; }
+        public long ShotsLanded { get; set; }
 
         [JsonProperty("kd")]
         public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);
