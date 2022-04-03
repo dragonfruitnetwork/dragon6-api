@@ -55,7 +55,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="token">Optional cancellation token</param>
         public static Task<SeasonalStatsResponse> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, int seasonId = -1, BoardType board = BoardType.Ranked, Region region = Region.EMEA, CancellationToken token = default)
         {
-            return LegacyStatsExtensions.GetLegacyStatsImplAsync(client, accounts,
+            return LegacyStatsExtensions.GetPlatformStatsImplAsync(client, accounts,
                 p => new SeasonalStatsRequest(p, board, seasonId, region),
                 j => j.ToObject<SeasonalStatsResponse>(), token);
         }
@@ -76,7 +76,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// </remarks>
         public static Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType boards, Region regions, CancellationToken token = default)
         {
-            return LegacyStatsExtensions.GetLegacyStatsImplAsync(client, accounts,
+            return LegacyStatsExtensions.GetPlatformStatsImplAsync(client, accounts,
                 p => new SeasonalStatsRecordRequest(p, boards, seasonIds, regions),
                 j => j.SelectTokens("$..players_skill_records[*]").Select(x => x.ToObject<SeasonalStats>()), token);
         }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using DragonFruit.Data;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Modern.Containers;
@@ -71,6 +72,15 @@ namespace DragonFruit.Six.Api.Modern
 
             return client.PerformAsync<JObject>(request, token)
                          .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernOperatorStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        /// <summary>
+        /// Gets a copy of the modern operator info database, returned as individual entries for each operator
+        /// </summary>
+        /// <param name="client">The <see cref="ApiClient"/> to use</param>
+        public static Task<ModernOperatorInfo[]> GetModernOperatorInfoAsync(this ApiClient client)
+        {
+            return client.PerformAsync<ModernOperatorInfo[]>(new ModernOperatorInfoRequest());
         }
 
         /// <summary>
