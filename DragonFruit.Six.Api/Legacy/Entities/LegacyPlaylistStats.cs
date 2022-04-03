@@ -21,7 +21,7 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         public TimeSpan TimePlayed => _timePlayed ??= TimeSpan.FromSeconds(Duration);
 
         /// <summary>
-        /// Apply the seasonal stats to the current <see cref="LegacyPlaylistStats"/>
+        /// Applies the seasonal stats provided to the current <see cref="LegacyPlaylistStats"/>
         /// </summary>
         public void Include(SeasonalStats stats, bool includeAbandonsAsLosses = true)
         {
