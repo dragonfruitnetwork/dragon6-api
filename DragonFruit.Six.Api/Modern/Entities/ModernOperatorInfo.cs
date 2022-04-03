@@ -3,20 +3,22 @@
 
 using System;
 using DragonFruit.Six.Api.Enums;
-using DragonFruit.Six.Api.Modern.Entities;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Legacy.Entities
+namespace DragonFruit.Six.Api.Modern.Entities
 {
     /// <summary>
-    /// Represents a DragonFruit-maintained operator info database entry targeting the legacy stats api
+    /// Represents a DragonFruit-maintained operator info database entry, compatible with the modern stats api
     /// </summary>
-    /// <remarks>
-    /// As of Y6S4, the database is no longer maintained. It is recommended to begin migration to modern stats and consume <see cref="ModernOperatorInfo"/> instead
-    /// </remarks>
     [Serializable]
-    public class LegacyOperatorInfo
+    public class ModernOperatorInfo
     {
+        /// <summary>
+        /// Operator Identifier
+        /// </summary>
+        [JsonProperty("id")]
+        public string OperatorId { get; set; }
+
         /// <summary>
         /// Operator name
         /// </summary>
@@ -24,19 +26,13 @@ namespace DragonFruit.Six.Api.Legacy.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// Operator Identifier
-        /// </summary>
-        [JsonProperty("index")]
-        public string OperatorId { get; set; }
-
-        /// <summary>
-        /// Logical order
+        /// Numeric value representing the relative release order of the operator
         /// </summary>
         [JsonProperty("ord")]
         public ushort Order { get; set; }
 
         /// <summary>
-        /// Operator Icon
+        /// Fully qualified operator icon url
         /// </summary>
         [JsonProperty("img")]
         public string ImageUrl { get; set; }
