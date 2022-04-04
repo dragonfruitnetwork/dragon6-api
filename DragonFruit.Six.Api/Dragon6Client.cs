@@ -52,12 +52,12 @@ namespace DragonFruit.Six.Api
         /// </summary>
         protected override Task<T> ValidateAndProcess<T>(HttpResponseMessage response) => response.StatusCode switch
         {
-            HttpStatusCode.Unauthorized => throw new InvalidTokenException(_access.Token),
+            HttpStatusCode.Unauthorized => Task.FromException<T>(new InvalidTokenException(_access.Token)),
 
-            HttpStatusCode.BadRequest => throw new ArgumentException("Request was poorly formed. Check the properties passed and try again"),
+            HttpStatusCode.BadRequest => Task.FromException<T>(new ArgumentException("Request was poorly formed. Check the properties passed and try again")),
 
-            HttpStatusCode.Forbidden => throw new UbisoftErrorException(),
-            HttpStatusCode.BadGateway => throw new UbisoftErrorException(),
+            HttpStatusCode.Forbidden => Task.FromException<T>(new UbisoftErrorException()),
+            HttpStatusCode.BadGateway => Task.FromException<T>(new UbisoftErrorException()),
 
             HttpStatusCode.NoContent => Task.FromResult<T>(default),
 
