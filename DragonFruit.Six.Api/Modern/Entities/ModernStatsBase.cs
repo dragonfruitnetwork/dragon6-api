@@ -8,8 +8,8 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Modern.Entities
 {
+    [JsonPathSerializable]
     [JsonObject(MemberSerialization.OptIn)]
-    [JsonConverter(typeof(JsonPathConverter))]
     public abstract class ModernStatsBase
     {
         private float? _roundWl, _matchWl, _kd;
@@ -117,37 +117,47 @@ namespace DragonFruit.Six.Api.Modern.Entities
 
         #region Ratios
 
-        [JsonProperty("headshotAccuracy.value")]
+        [JsonProperty("headshotAccuracy")]
+        [JsonPath("headshotAccuracy.value")]
         public float HeadshotAccuracy { get; set; }
 
-        [JsonProperty("killsPerRound.value")]
+        [JsonProperty("killsPerRound")]
+        [JsonPath("killsPerRound.value")]
         public float KillsPerRound { get; set; }
 
-        [JsonProperty("roundsWithAKill.value")]
+        [JsonProperty("roundsWithAKill")]
+        [JsonPath("roundsWithAKill.value")]
         public float RoundsWithSingleKill { get; set; }
 
-        [JsonProperty("roundsWithMultiKill.value")]
+        [JsonProperty("roundsWithMultiKill")]
+        [JsonPath("roundsWithMultiKill.value")]
         public float RoundsWithMultipleKills { get; set; }
 
-        [JsonProperty("roundsWithOpeningKill.value")]
+        [JsonProperty("roundsWithOpeningKill")]
+        [JsonPath("roundsWithOpeningKill.value")]
         public float RoundsWithFirstKill { get; set; }
 
-        [JsonProperty("roundsWithOpeningDeath.value")]
+        [JsonProperty("roundsWithOpeningDeath")]
+        [JsonPath("roundsWithOpeningDeath.value")]
         public float RoundsWithFirstDeath { get; set; }
 
-        [JsonProperty("roundsSurvived.value")]
+        [JsonProperty("roundsSurvived")]
+        [JsonPath("roundsSurvived.value")]
         public float RoundsSurvived { get; set; }
 
-        [JsonProperty("roundsWithAnAce.value")]
+        [JsonProperty("roundsWithAnAce")]
+        [JsonPath("roundsWithAnAce.value")]
         public float RoundsAced { get; set; }
 
-        [JsonProperty("roundsWithClutch.value")]
+        [JsonProperty("roundsWithClutch")]
+        [JsonPath("roundsWithClutch.value")]
         public float RoundsClutched { get; set; }
 
         /// <summary>
         /// Rounds with a kill, objective completion, survive or trade kills
         /// </summary>
-        [JsonProperty("roundsWithKOST.value")]
+        [JsonProperty("roundsWithKOST")]
+        [JsonPath("roundsWithKOST.value")]
         public float RoundsWithKillObjectiveSurvivalOrTrade { get; set; }
 
         public float Kd => _kd ??= RatioUtils.RatioOf(Kills, Deaths);

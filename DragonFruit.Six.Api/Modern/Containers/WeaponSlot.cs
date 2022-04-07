@@ -7,14 +7,16 @@ using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Modern.Containers
 {
+    [JsonPathSerializable]
     [JsonObject(MemberSerialization.OptIn)]
-    [JsonConverter(typeof(JsonPathConverter))]
     public class WeaponSlot
     {
-        [JsonProperty("weaponSlots.primaryWeapons.weaponTypes")]
+        [JsonProperty("primary")]
+        [JsonPath("weaponSlots.primaryWeapons.weaponTypes")]
         public IEnumerable<WeaponGroup> Primary { get; set; }
 
-        [JsonProperty("weaponSlots.secondaryWeapons.weaponTypes")]
+        [JsonProperty("secondary")]
+        [JsonPath("weaponSlots.secondaryWeapons.weaponTypes")]
         public IEnumerable<WeaponGroup> Secondary { get; set; }
     }
 }
