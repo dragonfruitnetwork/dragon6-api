@@ -8,6 +8,7 @@ namespace DragonFruit.Six.Api.Modern.Utils
     /// <summary>
     /// Marks a class as being able to be deserialized by path reference
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class)]
     internal class JsonPathSerializableAttribute : Attribute
     {
     }

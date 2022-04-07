@@ -5,6 +5,10 @@ using System;
 
 namespace DragonFruit.Six.Api.Modern.Utils
 {
+    /// <summary>
+    /// Indicates the attributed property has a custom JPath that should be deserialized from
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
     internal class JsonPathAttribute : Attribute
     {
         public JsonPathAttribute(string path)
