@@ -4,6 +4,7 @@
 using DragonFruit.Six.Api.Modern.Containers;
 using DragonFruit.Six.Api.Modern.Requests;
 using DragonFruit.Six.Api.Modern.Utils;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Modern
@@ -16,7 +17,10 @@ namespace DragonFruit.Six.Api.Modern
         public static ModernModeStatsContainer<T> ProcessData<T>(this JObject source, ModernStatsRequest request)
         {
             var data = source?["platforms"]?[request.Account.Platform.ModernName()];
-            return data?.ToObject<ModernModeStatsContainer<T>>();
+            return data?.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
+            {
+                Converters = { new JsonPathConverter() }
+            });
         }
     }
 }

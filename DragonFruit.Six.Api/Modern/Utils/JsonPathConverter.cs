@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
@@ -10,10 +11,10 @@ using Newtonsoft.Json.Serialization;
 namespace DragonFruit.Six.Api.Modern.Utils
 {
     /// <summary>
-    /// A <see cref="JsonConverter"/> for traversing through multiple properties separated by a full stop
+    /// A <see cref="JsonConverter"/> for extracting elements based on a JPath expression
     /// </summary>
     /// <remarks>
-    /// Taken from https://automationrhapsody.com/partial-json-deserialize-jsonpath-json-net/
+    /// Portions taken from https://automationrhapsody.com/partial-json-deserialize-jsonpath-json-net/
     /// </remarks>
     internal class JsonPathConverter : JsonConverter
     {
@@ -27,32 +28,27 @@ namespace DragonFruit.Six.Api.Modern.Utils
 
             foreach (var prop in objectType.GetProperties().Where(p => p.CanRead && p.CanWrite))
             {
-                var jsonPropertyAttr = prop.GetCustomAttributes(true).OfType<JsonPropertyAttribute>().FirstOrDefault();
+                // allow fetching by path or by jsonproperty if there's no path
+                var path = prop.GetCustomAttribute<JsonPathAttribute>(true)?.Path ?? prop.GetCustomAttribute<JsonPropertyAttribute>(true)?.PropertyName;
 
-                if (jsonPropertyAttr == null)
+                if (path == null)
                 {
                     continue;
                 }
 
-                var token = jObject.SelectToken(jsonPropertyAttr.PropertyName);
+                var token = jObject.SelectToken(path);
 
                 if (token == null || token.Type == JTokenType.Null)
                 {
                     continue;
                 }
 
-                var jsonConverterAttr = prop.GetCustomAttributes(true).OfType<JsonConverterAttribute>().FirstOrDefault();
+                var jsonConverterAttr = prop.GetCustomAttribute<JsonConverterAttribute>(true);
                 object value;
 
-                if (jsonConverterAttr == null)
-                {
-                    serializer.Converters.Clear();
-                    value = token.ToObject(prop.PropertyType, serializer);
-                }
-                else
-                {
-                    value = JsonConvert.DeserializeObject(token.ToString(), prop.PropertyType, (JsonConverter)Activator.CreateInstance(jsonConverterAttr.ConverterType));
-                }
+                value = jsonConverterAttr == null
+                    ? token.ToObject(prop.PropertyType, serializer)
+                    : JsonConvert.DeserializeObject(token.ToString(), prop.PropertyType, (JsonConverter)Activator.CreateInstance(jsonConverterAttr.ConverterType));
 
                 prop.SetValue(targetObj, value, null);
             }
@@ -68,7 +64,7 @@ namespace DragonFruit.Six.Api.Modern.Utils
             return targetObj;
         }
 
-        public override bool CanConvert(Type objectType) => true;
+        public override bool CanConvert(Type objectType) => !objectType.IsInterface && objectType.GetCustomAttribute<JsonPathSerializableAttribute>() is not null;
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
     }

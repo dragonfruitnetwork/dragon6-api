@@ -22,7 +22,7 @@ namespace DragonFruit.Six.Api.Tests.Data
             var data = await Client.GetModernStatsSummaryAsync(account);
 
             // summaries are returned in an array but there should only be one entry
-            data?.AllModes.AsAny.SingleOrDefault();
+            var stats = data?.AllModes.AsAny.SingleOrDefault();
         }
 
         [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC)]
