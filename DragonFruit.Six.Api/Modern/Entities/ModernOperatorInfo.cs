@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using DragonFruit.Six.Api.Enums;
 using Newtonsoft.Json;
@@ -17,6 +18,7 @@ namespace DragonFruit.Six.Api.Modern.Entities
         /// <summary>
         /// Operator Identifier
         /// </summary>
+        [Key]
         [Column("id")]
         [JsonProperty("id")]
         public string OperatorId { get; set; }
@@ -31,7 +33,7 @@ namespace DragonFruit.Six.Api.Modern.Entities
         /// <summary>
         /// Numeric value representing the relative release order of the operator
         /// </summary>
-        [Column("order")]
+        [Column("ord")]
         [JsonProperty("ord")]
         public ushort Order { get; set; }
 
