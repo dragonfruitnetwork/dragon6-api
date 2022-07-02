@@ -1,7 +1,9 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System.Threading.Tasks;
 using DragonFruit.Data;
+using DragonFruit.Data.Requests;
 
 #nullable enable
 
@@ -11,15 +13,19 @@ namespace DragonFruit.Six.Api
     /// Represents a Ubisoft API request that requires authentication.
     /// Supports header injection via a <see cref="Dragon6Client"/>
     /// </summary>
-    public abstract class UbiApiRequest : ApiRequest
+    public abstract class UbiApiRequest : ApiRequest, IAsyncRequestExecutingCallback
     {
         protected override bool RequireAuth => true;
 
-        protected override void OnRequestExecuting(ApiClient client)
+        async ValueTask IAsyncRequestExecutingCallback.OnRequestExecutingAsync(ApiClient client)
         {
             // all ubisoft api requests need authentication
             // the Dragon6Client caches auth tokens and allows the headers to be injected
-            (client as Dragon6Client)?.RequestAccessToken().Inject(this);
+            if (client is Dragon6Client d6Client)
+            {
+                var token = await d6Client.RequestAccessToken().ConfigureAwait(false);
+                token.Inject(this);
+            }
         }
     }
 }

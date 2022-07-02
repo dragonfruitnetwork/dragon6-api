@@ -3,15 +3,16 @@
 
 using DragonFruit.Data;
 using DragonFruit.Data.Extensions;
+using DragonFruit.Data.Requests;
 using DragonFruit.Six.Api.Enums;
 
 namespace DragonFruit.Six.Api.Accounts.Requests
 {
-    public class UbisoftGeolocationRequest : ApiRequest
+    public class UbisoftGeolocationRequest : ApiRequest, IRequestExecutingCallback
     {
         public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
 
-        protected override void OnRequestExecuting(ApiClient client)
+        void IRequestExecutingCallback.OnRequestExecuting(ApiClient client)
         {
             if (client is not Dragon6Client)
             {
