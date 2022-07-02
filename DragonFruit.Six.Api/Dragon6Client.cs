@@ -12,13 +12,14 @@ using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Legacy.Utils;
+using Nito.AsyncEx;
 
 namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
         private ClientAccessToken _access;
-        private readonly object _accessSync = new();
+        private readonly AsyncLock _accessSync = new();
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
         {
@@ -38,7 +39,7 @@ namespace DragonFruit.Six.Api
         /// <remarks>
         /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
         /// </remarks>
-        protected abstract IUbisoftToken GetToken();
+        protected abstract ValueTask<IUbisoftToken> GetToken();
 
         /// <summary>
         /// Updates the Ubi-AppId header to be supplied to each request.
@@ -64,19 +65,20 @@ namespace DragonFruit.Six.Api
             _ => base.ValidateAndProcess<T>(response)
         };
 
-        protected internal ClientAccessToken RequestAccessToken()
+        protected internal async ValueTask<ClientAccessToken> RequestAccessToken()
         {
             if (_access?.Expired is false)
             {
                 return _access;
             }
 
-            lock (_accessSync)
+            using (await _accessSync.LockAsync().ConfigureAwait(false))
             {
-                // check again in case of a backlog of requests
+                // check again in case of a backlog
                 if (_access?.Expired is not false)
                 {
-                    _access = new ClientAccessToken(GetToken());
+                    var token = await GetToken().ConfigureAwait(false);
+                    _access = new ClientAccessToken(token);
                 }
 
                 return _access;
