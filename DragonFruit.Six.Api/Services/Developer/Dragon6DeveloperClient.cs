@@ -22,7 +22,7 @@ namespace DragonFruit.Six.Api.Services.Developer
             _scopes = scopes;
         }
 
-        protected override async ValueTask<IUbisoftToken> GetToken()
+        protected override async Task<IUbisoftToken> GetToken(string sessionId)
         {
             return await PerformAsync<Dragon6Token>(new Dragon6TokenRequest()).ConfigureAwait(false);
         }

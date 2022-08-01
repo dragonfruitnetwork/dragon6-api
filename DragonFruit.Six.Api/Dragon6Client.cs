@@ -36,10 +36,11 @@ namespace DragonFruit.Six.Api
         /// <summary>
         /// Defines the procedure for retrieving a <see cref="UbisoftToken"/> for the client to use.
         /// </summary>
+        /// <param name="sessionId">The last recorded session id. This should be used to check if a new session should be created from the server</param>
         /// <remarks>
         /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
         /// </remarks>
-        protected abstract ValueTask<IUbisoftToken> GetToken();
+        protected abstract Task<IUbisoftToken> GetToken(string sessionId);
 
         /// <summary>
         /// Updates the Ubi-AppId header to be supplied to each request.
@@ -77,7 +78,7 @@ namespace DragonFruit.Six.Api
                 // check again in case of a backlog
                 if (_access?.Expired is not false)
                 {
-                    var token = await GetToken().ConfigureAwait(false);
+                    var token = await GetToken(_access?.Token.SessionId).ConfigureAwait(false);
                     _access = new ClientAccessToken(token);
                 }
 
