@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using DragonFruit.Data;
+using DragonFruit.Data.Serializers.Newtonsoft;
 using DragonFruit.Six.Api.Services.Geolocation.Requests;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +18,10 @@ namespace DragonFruit.Six.Api.Services.Geolocation
         /// <summary>
         /// Get the current device location based on a IP Geolocation lookup
         /// </summary>
-        public static Task<Geolocation> GeolocateAsync(this ApiClient client) => client.PerformAsync<Geolocation>(new UbisoftSelfGeolocationRequest());
+        public static Task<Geolocation> GeolocateAsync<T>(this T client) where T : ApiClient<ApiJsonSerializer>
+        {
+            return client.PerformAsync<Geolocation>(new UbisoftSelfGeolocationRequest());
+        }
 
         /// <summary>
         /// Get the approximate location and ISP info for a collection of IP addresses
