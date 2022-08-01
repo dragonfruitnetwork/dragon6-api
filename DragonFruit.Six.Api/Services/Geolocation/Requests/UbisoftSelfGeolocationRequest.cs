@@ -6,9 +6,15 @@ using DragonFruit.Data.Extensions;
 using DragonFruit.Data.Requests;
 using DragonFruit.Six.Api.Enums;
 
-namespace DragonFruit.Six.Api.Accounts.Requests
+namespace DragonFruit.Six.Api.Services.Geolocation.Requests
 {
-    public class UbisoftGeolocationRequest : ApiRequest, IRequestExecutingCallback
+    /// <summary>
+    /// Creates a request to get the approximate location of the current user-agent
+    /// </summary>
+    /// <remarks>
+    /// While this endpoint does not require authentication, a valid Ubi-AppId header will be attached
+    /// </remarks>
+    public class UbisoftSelfGeolocationRequest : ApiRequest, IRequestExecutingCallback
     {
         public override string Path => $"{Endpoints.BaseEndpoint}/v2/profiles/me/iplocation";
 
