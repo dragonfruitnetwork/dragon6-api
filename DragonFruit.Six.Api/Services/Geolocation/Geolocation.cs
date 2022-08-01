@@ -4,7 +4,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace DragonFruit.Six.Api.Accounts.Entities
+namespace DragonFruit.Six.Api.Services.Geolocation
 {
     [Serializable]
     public class Geolocation
