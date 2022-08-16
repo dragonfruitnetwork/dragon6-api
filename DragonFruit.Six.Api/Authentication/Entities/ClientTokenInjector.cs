@@ -7,18 +7,19 @@ using DragonFruit.Data.Extensions;
 
 namespace DragonFruit.Six.Api.Authentication.Entities
 {
-    public class ClientAccessToken
+    public class ClientTokenInjector
     {
-        internal readonly IUbisoftToken Token;
         private readonly DateTime _tokenExpiryOffset;
 
-        internal ClientAccessToken(IUbisoftToken token)
+        internal ClientTokenInjector(IUbisoftToken token)
         {
             Token = token;
             _tokenExpiryOffset = new DateTime(Math.Max(Token.Expiry.Ticks - 3000000000, 0), DateTimeKind.Utc);
         }
 
         internal bool Expired => _tokenExpiryOffset < DateTime.UtcNow;
+
+        public IUbisoftToken Token { get; }
 
         /// <summary>
         /// Injects Ubisoft authentication headers into the <see cref="ApiRequest"/> provided

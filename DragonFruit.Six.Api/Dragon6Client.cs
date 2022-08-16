@@ -18,7 +18,7 @@ namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
-        private ClientAccessToken _access;
+        private ClientTokenInjector _access;
         private readonly AsyncLock _accessSync = new();
 
         protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
@@ -66,7 +66,7 @@ namespace DragonFruit.Six.Api
             _ => base.ValidateAndProcess<T>(response)
         };
 
-        protected internal async ValueTask<ClientAccessToken> RequestAccessToken()
+        protected internal async ValueTask<ClientTokenInjector> RequestToken()
         {
             if (_access?.Expired is false)
             {
@@ -79,7 +79,7 @@ namespace DragonFruit.Six.Api
                 if (_access?.Expired is not false)
                 {
                     var token = await GetToken(_access?.Token.SessionId).ConfigureAwait(false);
-                    _access = new ClientAccessToken(token);
+                    _access = new ClientTokenInjector(token);
                 }
 
                 return _access;
