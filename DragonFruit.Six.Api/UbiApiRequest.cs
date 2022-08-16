@@ -23,7 +23,7 @@ namespace DragonFruit.Six.Api
             // the Dragon6Client caches auth tokens and allows the headers to be injected
             if (client is Dragon6Client d6Client)
             {
-                var token = await d6Client.RequestAccessToken().ConfigureAwait(false);
+                var token = await d6Client.RequestToken().ConfigureAwait(false);
                 token.Inject(this);
             }
         }
