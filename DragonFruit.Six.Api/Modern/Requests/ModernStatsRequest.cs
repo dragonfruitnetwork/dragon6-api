@@ -20,7 +20,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
         private OperatorType? _operatorType;
         private DateTimeOffset? _startDate, _endDate;
 
-        public override string Path => $"https://prod.datadev.ubisoft.com/v1/profiles/{Account.ProfileId}";
+        public override string Path => $"https://prod.datadev.ubisoft.com/v1/profiles/{Account.ProfileId}/playerstats";
 
         protected ModernStatsRequest(UbisoftAccount account)
         {
