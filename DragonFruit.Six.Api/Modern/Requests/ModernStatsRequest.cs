@@ -20,25 +20,12 @@ namespace DragonFruit.Six.Api.Modern.Requests
         private OperatorType? _operatorType;
         private DateTimeOffset? _startDate, _endDate;
 
-        public override string Path => $"https://r6s-stats.ubisoft.com/v1/{RequestCategory}/{RequestType}/{Account.ProfileId}";
+        public override string Path => $"https://prod.datadev.ubisoft.com/v1/profiles/{Account.ProfileId}/playerstats";
 
         protected ModernStatsRequest(UbisoftAccount account)
         {
             Account = account ?? throw new NullReferenceException();
         }
-
-        /// <summary>
-        /// The category the request fits in (i.e. current, seasonal, narrative, etc.)
-        /// </summary>
-        protected virtual string RequestCategory => "current";
-
-        /// <summary>
-        /// The type of request (general, operators, weapons, etc.)
-        /// </summary>
-        /// <remarks>
-        /// This is the string included in the uri
-        /// </remarks>
-        protected abstract string RequestType { get; }
 
         /// <summary>
         /// The account to get stats for
@@ -99,9 +86,30 @@ namespace DragonFruit.Six.Api.Modern.Requests
             }
         }
 
+        /// <summary>
+        /// The type of request (general, operators, weapons, etc.)
+        /// </summary>
+        /// <remarks>
+        /// This is the string included in the uri
+        /// </remarks>
+        [UsedImplicitly]
+        [QueryParameter("aggregation")]
+        protected abstract string RequestType { get; }
+
+        /// <summary>
+        /// The category the request fits in (i.e. current, seasonal, narrative, etc.)
+        /// </summary>
+        [UsedImplicitly]
+        [QueryParameter("view")]
+        protected virtual string RequestCategory => "current";
+
         [UsedImplicitly]
         [QueryParameter("platform")]
         protected string PlatformName => Account.Platform.ModernName();
+
+        [UsedImplicitly]
+        [QueryParameter("spaceId")]
+        protected string GameSpaceId => Account.Platform.GameSpaceId();
 
         [UsedImplicitly]
         [QueryParameter("gameMode")]

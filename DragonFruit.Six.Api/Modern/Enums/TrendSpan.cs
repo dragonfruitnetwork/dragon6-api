@@ -5,6 +5,7 @@ namespace DragonFruit.Six.Api.Modern.Enums
 {
     public enum TrendSpan
     {
+        Daily,
         Weekly
     }
 }
