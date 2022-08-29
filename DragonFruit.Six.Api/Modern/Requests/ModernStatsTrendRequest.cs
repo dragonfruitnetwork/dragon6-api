@@ -1,7 +1,6 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
-using System;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Modern.Enums;
@@ -12,7 +11,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
     {
         private TrendSpan? _trendSpan;
 
-        protected override string RequestType => "trend";
+        protected override string RequestType => "movingpoint";
 
         public ModernStatsTrendRequest(UbisoftAccount account)
             : base(account)
@@ -26,6 +25,6 @@ namespace DragonFruit.Six.Api.Modern.Requests
         }
 
         [QueryParameter("trendType")]
-        protected string TrendType => TrendSpan == TrendSpan.Weekly ? "weeks" : throw new ArgumentOutOfRangeException();
+        protected string TrendType => TrendSpan.ToString().ToLowerInvariant();
     }
 }
