@@ -4,6 +4,7 @@
 using System;
 using DragonFruit.Six.Api.Modern.Utils;
 using DragonFruit.Six.Api.Utils;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Modern.Entities
@@ -17,6 +18,14 @@ namespace DragonFruit.Six.Api.Modern.Entities
 
         [JsonProperty("statsDetail")]
         public string Name { get; set; }
+
+        [CanBeNull]
+        [JsonProperty("seasonNumber")]
+        public string SeasonNumber { get; set; }
+
+        [CanBeNull]
+        [JsonProperty("seasonYear")]
+        public string SeasonYear { get; set; }
 
         #region Match Stats
 
