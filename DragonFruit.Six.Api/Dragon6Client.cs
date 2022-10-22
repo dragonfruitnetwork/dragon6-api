@@ -68,7 +68,7 @@ namespace DragonFruit.Six.Api
 
         protected internal async ValueTask<ClientTokenInjector> RequestToken()
         {
-            if (_access?.Expired is false)
+            if (_access?.Expired == false)
             {
                 return _access;
             }
@@ -76,13 +76,23 @@ namespace DragonFruit.Six.Api
             using (await _accessSync.LockAsync().ConfigureAwait(false))
             {
                 // check again in case of a backlog
-                if (_access?.Expired is not false)
+                if (_access?.Expired == false)
+                {
+                    return _access;
+                }
+
+                for (int i = 0; i < 2; i++)
                 {
                     var token = await GetToken(_access?.Token.SessionId).ConfigureAwait(false);
                     _access = new ClientTokenInjector(token);
+
+                    if (!_access.Expired)
+                    {
+                        return _access;
+                    }
                 }
 
-                return _access;
+                throw new InvalidTokenException(_access?.Token);
             }
         }
     }
