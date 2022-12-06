@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 namespace DragonFruit.Six.Api.Accounts.Entities
 {
     [Serializable]
+    [Obsolete("Ubisoft has stopped updating this entity. This will be removed in a future update")]
     public class UbisoftAccountActivity : IEquatable<UbisoftAccount>
     {
         [JsonProperty("profileId")]

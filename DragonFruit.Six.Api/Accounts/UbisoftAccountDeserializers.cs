@@ -6,6 +6,8 @@ using System.Linq;
 using DragonFruit.Six.Api.Accounts.Entities;
 using Newtonsoft.Json.Linq;
 
+#pragma warning disable CS0618
+
 namespace DragonFruit.Six.Api.Accounts
 {
     public static class UbisoftAccountDeserializers
