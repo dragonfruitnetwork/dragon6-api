@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,6 +49,7 @@ namespace DragonFruit.Six.Api.Accounts
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="account">The <see cref="UbisoftAccount"/> to get play stats for</param>
         /// <returns>The <see cref="UbisoftAccountActivity"/> for the account, or <c>null</c> if the user does not own the game</returns>
+        [Obsolete("Ubisoft has stopped updating this endpoint. This will be removed in a future update")]
         public static Task<UbisoftAccountActivity> GetAccountActivityAsync(this Dragon6Client client, UbisoftAccount account)
         {
             var request = new UbisoftAccountActivityRequest(account);
@@ -60,6 +62,7 @@ namespace DragonFruit.Six.Api.Accounts
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get play stats for</param>
         /// <returns>A <see cref="UbisoftAccountActivity"/> for each account that owns the game</returns>
+        [Obsolete("Ubisoft has stopped updating this endpoint. This will be removed in a future update")]
         public static Task<IReadOnlyDictionary<string, UbisoftAccountActivity>> GetAccountActivityAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts)
         {
             var request = new UbisoftAccountActivityRequest(accounts);
