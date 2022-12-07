@@ -39,7 +39,7 @@ namespace DragonFruit.Six.Api.Seasonal
                 >= 15 and <= 22 => RankingV2,
 
                 // season 23-27
-                >= 27 => RankingV3,
+                <= 27 => RankingV3,
 
                 // season 28- (incl. latest season identifier)
                 _ => RankingV4
