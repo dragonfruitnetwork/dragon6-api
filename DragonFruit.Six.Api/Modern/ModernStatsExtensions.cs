@@ -21,6 +21,20 @@ namespace DragonFruit.Six.Api.Modern
     public static class ModernStatsExtensions
     {
         /// <summary>
+        /// Performs a <see cref="ModernStatsRequest"/>, processing the raw result into a <see cref="ModernModeStatsContainer{T}"/>
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="request">The request to perform</param>
+        /// <param name="token">Optional <see cref="CancellationToken"/></param>
+        /// <returns>A container with the requested stats (<see cref="TResponse"/>). Will return null if no stats found</returns>
+        [CanBeNull]
+        public static async Task<ModernModeStatsContainer<TResponse>> GetModernStatsAsync<TResponse>(this Dragon6Client client, ModernStatsRequest request, CancellationToken token = default)
+        {
+            var response = await client.PerformAsync<JObject>(request, token).ConfigureAwait(false);
+            return response.ProcessData<TResponse>(request);
+        }
+
+        /// <summary>
         /// Gets the user's recently played maps, with information including K/D, W/L and time alive
         /// </summary>
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
@@ -43,8 +57,7 @@ namespace DragonFruit.Six.Api.Modern
             ValueUtils.ApplyValue(startDate, s => request.StartDate = s);
             ValueUtils.ApplyValue(endDate, e => request.EndDate = e);
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernMapStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<IEnumerable<ModernMapStats>>(request, token);
         }
 
         /// <summary>
@@ -70,8 +83,7 @@ namespace DragonFruit.Six.Api.Modern
             ValueUtils.ApplyValue(startDate, s => request.StartDate = s);
             ValueUtils.ApplyValue(endDate, e => request.EndDate = e);
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernOperatorStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<IEnumerable<ModernOperatorStats>>(request, token);
         }
 
         /// <summary>
@@ -99,8 +111,7 @@ namespace DragonFruit.Six.Api.Modern
                 Playlist = playlistType
             };
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernSeasonStats>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<IEnumerable<ModernSeasonStats>>(request, token);
         }
 
         /// <summary>
@@ -127,8 +138,7 @@ namespace DragonFruit.Six.Api.Modern
             ValueUtils.ApplyValue(startDate, s => request.StartDate = s);
             ValueUtils.ApplyValue(endDate, e => request.EndDate = e);
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernStatsSummary>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<IEnumerable<ModernStatsSummary>>(request, token);
         }
 
         /// <summary>
@@ -155,8 +165,7 @@ namespace DragonFruit.Six.Api.Modern
             ValueUtils.ApplyValue(startDate, s => request.StartDate = s);
             ValueUtils.ApplyValue(endDate, e => request.EndDate = e);
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<IEnumerable<ModernStatsTrend>>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<IEnumerable<ModernStatsTrend>>(request, token);
         }
 
         /// <summary>
@@ -182,8 +191,7 @@ namespace DragonFruit.Six.Api.Modern
             ValueUtils.ApplyValue(startDate, s => request.StartDate = s);
             ValueUtils.ApplyValue(endDate, e => request.EndDate = e);
 
-            return client.PerformAsync<JObject>(request, token)
-                         .ContinueWith(t => t.Result.ProcessData<WeaponSlot>(request), TaskContinuationOptions.OnlyOnRanToCompletion);
+            return client.GetModernStatsAsync<WeaponSlot>(request, token);
         }
     }
 }
