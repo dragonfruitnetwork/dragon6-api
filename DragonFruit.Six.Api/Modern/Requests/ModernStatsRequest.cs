@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Collections.Generic;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
@@ -88,6 +89,12 @@ namespace DragonFruit.Six.Api.Modern.Requests
         }
 
         /// <summary>
+        /// List of seasons to return stats for. Provides an alternative timespan compared to start-end dates.
+        /// </summary>
+        [QueryParameter("seasons", CollectionConversionMode.Concatenated)]
+        public virtual IEnumerable<string> Seasons { get; set; }
+
+        /// <summary>
         /// Optional <see cref="PlatformGroup"/> to override when getting cross-progression metrics
         /// </summary>
         [QueryParameter("platformGroup", EnumHandlingMode.StringUpper)]
@@ -123,13 +130,15 @@ namespace DragonFruit.Six.Api.Modern.Requests
         [QueryParameter("gameMode")]
         protected string PlaylistNames => Playlist.Expand();
 
+        [CanBeNull]
         [UsedImplicitly]
         [QueryParameter("startDate")]
-        protected virtual string FormattedStartDate => StartDate.UtcDateTime.ToString(DateTimeFormat);
+        protected virtual string FormattedStartDate => Seasons == null ? StartDate.UtcDateTime.ToString(DateTimeFormat) : null;
 
+        [CanBeNull]
         [UsedImplicitly]
         [QueryParameter("endDate")]
-        protected virtual string FormattedEndDate => EndDate.UtcDateTime.ToString(DateTimeFormat);
+        protected virtual string FormattedEndDate => Seasons == null ? EndDate.UtcDateTime.ToString(DateTimeFormat) : null;
 
         [UsedImplicitly]
         [QueryParameter("teamRole")]
