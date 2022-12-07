@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <TargetFramework>netstandard2.0</TargetFramework>
 
         <Title>Dragon6 API</Title>
