@@ -16,8 +16,8 @@ namespace DragonFruit.Six.Api.Modern
         /// </summary>
         public static ModernModeStatsContainer<T> ProcessData<T>(this JObject source, ModernStatsRequest request)
         {
-            var data = source?["platforms"]?[request.Account.Platform.ModernName()];
-            return data?.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
+            var platformKey = request.PlatformGroup?.ToString().ToUpperInvariant() ?? request.Account.Platform.ModernName();
+            return source?["platforms"]?[platformKey]?.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
             {
                 Converters = { new JsonPathConverter() }
             });
