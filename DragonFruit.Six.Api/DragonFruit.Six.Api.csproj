@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <TargetFramework>netstandard2.0</TargetFramework>
 
         <Title>Dragon6 API</Title>
@@ -14,9 +15,10 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 
         <RepositoryType>Git</RepositoryType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <RepositoryUrl>https://github.com/dragonfruitnetwork/dragon6-api</RepositoryUrl>
         <PackageProjectUrl>https://github.com/dragonfruitnetwork/dragon6-api</PackageProjectUrl>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
