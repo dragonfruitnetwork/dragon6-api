@@ -21,7 +21,7 @@ namespace DragonFruit.Six.Api
         private ClientTokenInjector _access;
         private readonly AsyncLock _accessSync = new();
 
-        protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSix)
+        protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSixClient)
         {
             SetUbiAppId(app);
             UserAgent = userAgent ?? "Dragon6-API";

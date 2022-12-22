@@ -31,5 +31,10 @@ namespace DragonFruit.Six.Api.Enums
         /// The new (2020) Rainbow Six Stats Site
         /// </summary>
         NewStatsSite = 4,
+
+        /// <summary>
+        /// The R6S client
+        /// </summary>
+        RainbowSixClient = 5
     }
 }

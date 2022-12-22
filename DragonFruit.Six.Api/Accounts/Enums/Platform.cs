@@ -17,6 +17,9 @@ namespace DragonFruit.Six.Api.Accounts.Enums
         PSN = 2,
 
         [EnumMember(Value = "xbl")]
-        XB1 = 3
+        XB1 = 3,
+
+        [EnumMember(Value = "xplay")]
+        CrossPlatform = 4
     }
 }

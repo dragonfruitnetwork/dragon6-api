@@ -3,6 +3,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.Serialization;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Enums;
@@ -28,6 +30,11 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         /// </summary>
         public UbisoftAccountRequest(IEnumerable<string> queries, Platform platform, IdentifierType identifierType)
         {
+            if (Platform == Platform.CrossPlatform)
+            {
+                throw new ArgumentException($"Cannot lookup an account against {nameof(Platform.CrossPlatform)}", nameof(Platform));
+            }
+
             Platform = platform;
             IdentifierType = identifierType;
 
@@ -50,17 +57,6 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         public IEnumerable<string> Identifiers { get; set; }
 
         [UsedImplicitly]
-        [QueryParameter("platformType")]
-        private string PlatformValue => Platform switch
-        {
-            Platform.PSN => "psn",
-            Platform.XB1 => "xbl",
-            Platform.PC => "uplay",
-
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        [UsedImplicitly]
         [QueryParameter("nameOnPlatform", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> PlayerNames => LookupString(IdentifierType.Name);
 
@@ -71,6 +67,10 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         [UsedImplicitly]
         [QueryParameter("userId", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> UbisoftIds => LookupString(IdentifierType.UserId);
+
+        [UsedImplicitly]
+        [QueryParameter("platformType")]
+        private string PlatformValue => typeof(Platform).GetProperty(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
 
         private IEnumerable<string> LookupString(IdentifierType method) => IdentifierType == method ? Identifiers : null;
     }
