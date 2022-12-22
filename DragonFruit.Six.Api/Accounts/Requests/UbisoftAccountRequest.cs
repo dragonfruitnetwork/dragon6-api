@@ -70,7 +70,7 @@ namespace DragonFruit.Six.Api.Accounts.Requests
 
         [UsedImplicitly]
         [QueryParameter("platformType")]
-        private string PlatformValue => typeof(Platform).GetProperty(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
+        private string PlatformValue => typeof(Platform).GetField(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
 
         private IEnumerable<string> LookupString(IdentifierType method) => IdentifierType == method ? Identifiers : null;
     }
