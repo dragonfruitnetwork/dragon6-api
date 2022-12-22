@@ -14,8 +14,11 @@ namespace DragonFruit.Six.Api
         internal const string UbiSessionIdHeader = "Ubi-SessionId";
 
         /// <summary>
-        /// <see cref="IReadOnlyDictionary{TKey,TValue}"/> of platforms to game ids used for checking playtime stats
+        /// <see cref="IReadOnlyDictionary{TKey,TValue}"/> of platforms to game ids used for checking server status
         /// </summary>
+        /// <remarks>
+        /// Data (ids) sourced from https://www.ubisoft.com/en-us/game/rainbow-six/siege/status
+        /// </remarks>
         internal static IReadOnlyDictionary<string, Platform> GameIds = new Dictionary<string, Platform>
         {
             ["e3d5ea9e-50bd-43b7-88bf-39794f4e3d40"] = Platform.PC,
