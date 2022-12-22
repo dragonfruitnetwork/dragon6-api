@@ -11,6 +11,11 @@ namespace DragonFruit.Six.Api.Tests
 {
     public class Dragon6TestAccounts : IEnumerable<UbisoftAccount>
     {
+        public UbisoftAccount this[string id] => _accounts.FirstOrDefault(x => x.UbisoftId == id);
+
+        public IEnumerator<UbisoftAccount> GetEnumerator() => _accounts.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         private readonly IReadOnlyList<UbisoftAccount> _accounts = new[]
         {
             new UbisoftAccount
@@ -92,13 +97,15 @@ namespace DragonFruit.Six.Api.Tests
                 ProfileId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92",
                 UbisoftId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92",
                 PlatformId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92"
+            },
+            new UbisoftAccount
+            {
+                Username = "Unique.Enough",
+                Platform = Platform.PC,
+                ProfileId = "3dc3cd27-8eb7-4fe0-8774-1006a8f509a2",
+                UbisoftId = "3dc3cd27-8eb7-4fe0-8774-1006a8f509a2",
+                PlatformId = "3DC3CD27-8EB7-4FE0-8774-1006A8F509A2"
             }
         };
-
-        public UbisoftAccount this[string id] => _accounts.FirstOrDefault(x => x.UbisoftId == id);
-
-        public IEnumerator<UbisoftAccount> GetEnumerator() => _accounts.GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
