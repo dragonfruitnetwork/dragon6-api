@@ -31,6 +31,7 @@ namespace DragonFruit.Six.Api
             UbisoftService.UbisoftClub => "314d4fef-e568-454a-ae06-43e3bece12a6",
             UbisoftService.UbisoftAccount => "c5393f10-7ac7-4b4f-90fa-21f8f3451a04",
             UbisoftService.NewStatsSite => "3587dcbb-7f81-457c-9781-0e3f29f6f56a",
+            UbisoftService.RainbowSixClient => "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40",
 
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -44,7 +45,7 @@ namespace DragonFruit.Six.Api
             Platform.XB1 => "4008612d-3baf-49e4-957a-33066726a7bc",
             Platform.PC => "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40",
 
-            _ => throw new ArgumentOutOfRangeException()
+            _ => null
         };
 
         /// <summary>
@@ -55,6 +56,7 @@ namespace DragonFruit.Six.Api
             Platform.PSN => "05bfb3f7-6c21-4c42-be1f-97a33fb5cf66",
             Platform.XB1 => "98a601e5-ca91-4440-b1c5-753f601a2c90",
             Platform.PC => "5172a557-50b5-4665-b7db-e3f2e8c5041d",
+            Platform.CrossPlatform => "0d2ae42d-4c27-4cb7-af6c-2099062302bb",
 
             _ => throw new ArgumentOutOfRangeException()
         };
