@@ -4,22 +4,24 @@
 using System;
 using System.Collections.Generic;
 using DragonFruit.Six.Api.Accounts.Enums;
-using DragonFruit.Six.Api.Accounts.Utils;
 using DragonFruit.Six.Api.Enums;
 
 namespace DragonFruit.Six.Api
 {
     public static class UbisoftIdentifiers
     {
-        private static IReadOnlyDictionary<string, Platform> _gameIds;
-
         internal const string UbiAppIdHeader = "Ubi-AppId";
         internal const string UbiSessionIdHeader = "Ubi-SessionId";
 
         /// <summary>
         /// <see cref="IReadOnlyDictionary{TKey,TValue}"/> of platforms to game ids used for checking playtime stats
         /// </summary>
-        internal static IReadOnlyDictionary<string, Platform> GameIds => _gameIds ??= PlatformParser.PlatformsTo(p => p.GameId());
+        internal static IReadOnlyDictionary<string, Platform> GameIds = new Dictionary<string, Platform>
+        {
+            ["e3d5ea9e-50bd-43b7-88bf-39794f4e3d40"] = Platform.PC,
+            ["4008612d-3baf-49e4-957a-33066726a7bc"] = Platform.XB1,
+            ["fb4cc4c9-2063-461d-a1e8-84a7d36525fc"] = Platform.PSN
+        };
 
         /// <summary>
         /// Gets the Ubi-AppId for the specified service
@@ -34,18 +36,6 @@ namespace DragonFruit.Six.Api
             UbisoftService.RainbowSixClient => "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40",
 
             _ => throw new ArgumentOutOfRangeException()
-        };
-
-        /// <summary>
-        /// Ubisoft-assigned ids for getting account play stats
-        /// </summary>
-        public static string GameId(this Platform platform) => platform switch
-        {
-            Platform.PSN => "fb4cc4c9-2063-461d-a1e8-84a7d36525fc",
-            Platform.XB1 => "4008612d-3baf-49e4-957a-33066726a7bc",
-            Platform.PC => "e3d5ea9e-50bd-43b7-88bf-39794f4e3d40",
-
-            _ => null
         };
 
         /// <summary>
