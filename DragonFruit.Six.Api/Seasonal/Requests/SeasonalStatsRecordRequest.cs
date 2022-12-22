@@ -9,28 +9,47 @@ using System.Runtime.Serialization;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
-using DragonFruit.Six.Api.Legacy.Requests;
+using DragonFruit.Six.Api.Accounts.Enums;
+using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Modern.Utils;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Utils;
 
 namespace DragonFruit.Six.Api.Seasonal.Requests
 {
-    public sealed class SeasonalStatsRecordRequest : PlatformSpecificRequest
+    public class SeasonalStatsRecordRequest : UbiApiRequest
     {
+        internal const int CrossPlatformProgressionId = 28;
+
         public override string Path => $"{Platform.SandboxUrl()}/r6karma/player_skill_records";
 
         /// <summary>
         /// Creates a seasonal stats request for the provided <see cref="UbisoftAccount"/>s
         /// </summary>
-        public SeasonalStatsRecordRequest(IEnumerable<UbisoftAccount> accounts, BoardType boards = BoardType.Ranked, IEnumerable<int> seasons = null, Region regions = Region.EMEA | Region.NCSA | Region.APAC)
-            : base(accounts)
+        public SeasonalStatsRecordRequest(IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasons = null, BoardType boards = BoardType.All)
         {
-            Boards = boards;
-            Regions = regions;
-
+            Accounts = accounts as IReadOnlyCollection<UbisoftAccount> ?? accounts.ToList();
             Seasons = seasons ?? (-1).Yield();
+            Boards = boards;
+
+            // due to how platform switching now works, the user can request both old and new stats at the same time.
+            // for simplicity, the request will only switch to crossplay if either -1 or seasons 28+ is requested.
+            Platform = Seasons.Any(x => x is >= CrossPlatformProgressionId or -1) ? Platform.CrossPlatform : Accounts.First().Platform;
+
+            // because old seasons use platform-specific spaces, perform platform checks
+            if (Platform != Platform.CrossPlatform && Accounts.Any(x => x.Platform != Platform))
+            {
+                throw new AccountPlatformException(Accounts);
+            }
         }
+
+        public IReadOnlyCollection<UbisoftAccount> Accounts { get; }
+
+        /// <summary>
+        /// The platform to target stats lookups on.
+        /// This may not be the same as the <see cref="Accounts"/>' platforms due to the way seasonal stats are stored
+        /// </summary>
+        public Platform Platform { get; }
 
         /// <summary>
         /// The leaderboard to return stats for
@@ -51,15 +70,15 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         /// This is left for legacy seasons, which remain region-specific
         /// </remarks>
         [QueryParameter("region_ids", EnumHandlingMode.StringLower)]
-        public Region Regions { get; set; }
+        public Region Regions { get; set; } = Region.All;
+
+        [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
+        private IEnumerable<string> AccountIds => Accounts.Select(x => x.ProfileId);
 
         [QueryParameter("board_ids", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> BoardIds => Enum.GetValues(typeof(BoardType))
                                                     .Cast<BoardType>()
                                                     .Where(x => Boards.HasFlagFast(x))
                                                     .Select(x => typeof(BoardType).GetField(x.ToString()).GetCustomAttribute<EnumMemberAttribute>()?.Value);
-
-        [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
-        protected override IEnumerable<string> AccountIds => base.AccountIds;
     }
 }

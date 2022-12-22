@@ -15,7 +15,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entities
         private RankInfo? _rankInfo, _maxRankInfo, _mmrRankInfo;
 
         [JsonProperty("season")]
-        public byte SeasonId { get; set; }
+        public int SeasonId { get; set; }
 
         [JsonProperty("region")]
         public Region Region { get; set; }

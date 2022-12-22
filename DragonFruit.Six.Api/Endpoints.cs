@@ -36,7 +36,7 @@ namespace DragonFruit.Six.Api
             Platform.PSN => "/OSBOR_PS4_LNCH_A",
             Platform.XB1 => "/OSBOR_XBOXONE_LNCH_A",
             Platform.PC => "/OSBOR_PC_LNCH_A",
-            Platform.CrossPlatform => "/OSBOR/XPLAY/LNCH_A",
+            Platform.CrossPlatform => "/OSBOR_XPLAY_LNCH_A",
 
             _ => throw new ArgumentOutOfRangeException()
         };
