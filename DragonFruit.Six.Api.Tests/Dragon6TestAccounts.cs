@@ -84,6 +84,14 @@ namespace DragonFruit.Six.Api.Tests
                 ProfileId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f",
                 UbisoftId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f",
                 PlatformId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f"
+            },
+            new UbisoftAccount
+            {
+                Username = string.Empty,
+                Platform = Platform.PC,
+                ProfileId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92",
+                UbisoftId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92",
+                PlatformId = "9b1918ce-a45b-4140-b1d8-7e00965fbf92"
             }
         };
 
