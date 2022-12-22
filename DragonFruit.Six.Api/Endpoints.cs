@@ -24,13 +24,19 @@ namespace DragonFruit.Six.Api
         public static string IdServer => BaseEndpoint + "/v3/profiles";
 
         /// <summary>
+        /// Url of the "space", where urls are derived from
+        /// </summary>
+        public static string SpaceUrl(this Platform platform, int version) => $"{BaseEndpoint}/v{version}/spaces/{platform.GameSpaceId()}";
+
+        /// <summary>
         /// Url of the platform-specific "sandbox", the place where all the stats are acquired from
         /// </summary>
-        public static string SandboxUrl(this Platform platform) => $"{BaseEndpoint}/v1/spaces/{platform.GameSpaceId()}/sandboxes" + platform switch
+        public static string SandboxUrl(this Platform platform, int version = 1) => $"{platform.SpaceUrl(version)}/sandboxes" + platform switch
         {
             Platform.PSN => "/OSBOR_PS4_LNCH_A",
             Platform.XB1 => "/OSBOR_XBOXONE_LNCH_A",
             Platform.PC => "/OSBOR_PC_LNCH_A",
+            Platform.CrossPlatform => "/OSBOR/XPLAY/LNCH_A",
 
             _ => throw new ArgumentOutOfRangeException()
         };
