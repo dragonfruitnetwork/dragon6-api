@@ -76,10 +76,18 @@ namespace DragonFruit.Six.Api.Tests
                 ProfileId = "603fc6ba-db16-4aba-81b2-e9f9601d7d24",
                 UbisoftId = "603fc6ba-db16-4aba-81b2-e9f9601d7d24",
                 PlatformId = "603FC6BA-DB16-4ABA-81B2-E9F9601D7D24"
+            },
+            new UbisoftAccount
+            {
+                Username = "Revilo_333",
+                Platform = Platform.PC,
+                ProfileId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f",
+                UbisoftId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f",
+                PlatformId = "e76672be-1269-4afd-a1f5-d2ec6f5a2c7f"
             }
         };
 
-        public UbisoftAccount this[string id] => _accounts.SingleOrDefault(x => x.UbisoftId == id);
+        public UbisoftAccount this[string id] => _accounts.FirstOrDefault(x => x.UbisoftId == id);
 
         public IEnumerator<UbisoftAccount> GetEnumerator() => _accounts.GetEnumerator();
 
