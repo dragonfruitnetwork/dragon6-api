@@ -1,11 +1,14 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DragonFruit.Six.Api.Accounts.Enums;
+using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Modern;
+using DragonFruit.Six.Api.Modern.Containers;
 using DragonFruit.Six.Api.Modern.Enums;
 using NUnit.Framework;
 
@@ -14,45 +17,44 @@ namespace DragonFruit.Six.Api.Tests.Data
     [TestFixture]
     public class ModernStatsTests : Dragon6ApiTest
     {
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC)]
-        [TestCase("d0cc86e3-f3b8-493c-bb36-c9416183477a", Platform.PC)]
-        public async Task TestModernSummary(string userId, Platform platform)
+        [TestCaseSource(nameof(Accounts))]
+        public async Task TestModernSummary(UbisoftAccount account)
         {
-            var account = await GetAccountInfoFor(userId, platform);
             var data = await Client.GetModernStatsSummaryAsync(account);
 
-            // summaries are returned in an array but there should only be one entry
-            var stats = data?.AllModes.AsAny.SingleOrDefault();
+            ValidateResponse(data, s => s.AllModes.AsAny);
+            Assert.AreEqual(1, data.AllModes.AsAny.Count());
         }
 
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC)]
-        [TestCase("d0cc86e3-f3b8-493c-bb36-c9416183477a", Platform.PC)]
-        public async Task TestModernOperators(string userId, Platform platform)
+        [TestCaseSource(nameof(Accounts))]
+        public async Task TestModernOperators(UbisoftAccount account)
         {
-            var account = await GetAccountInfoFor(userId, platform);
             var data = await Client.GetModernOperatorStatsAsync(account, operatorType: OperatorType.Attacker);
-
-            var operators = data?.AllModes.AsAttacker;
+            ValidateResponse(data, s => s.AllModes.AsAttacker);
         }
 
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC)]
-        [TestCase("d0cc86e3-f3b8-493c-bb36-c9416183477a", Platform.PC)]
-        public async Task TestModernWeapons(string userId, Platform platform)
+        [TestCaseSource(nameof(Accounts))]
+        public async Task TestModernWeapons(UbisoftAccount account)
         {
-            var account = await GetAccountInfoFor(userId, platform);
             var data = await Client.GetModernWeaponStatsAsync(account);
-
-            var primaryWeapons = data?.AllModes.AsDefender.Primary;
+            ValidateResponse(data, s => s.AllModes.AsDefender.Primary);
         }
 
-        [TestCase("14c01250-ef26-4a32-92ba-e04aa557d619", Platform.PC)]
-        [TestCase("d0cc86e3-f3b8-493c-bb36-c9416183477a", Platform.PC)]
-        public async Task TestModernSeasons(string userId, Platform platform)
+        [TestCaseSource(nameof(Accounts))]
+        public async Task TestModernSeasons(UbisoftAccount account)
         {
-            var account = await GetAccountInfoFor(userId, platform);
             var data = await Client.GetModernSeasonStatsAsync(account, PlaylistType.Independent);
+            ValidateResponse(data, s => s.AllModes.AsAny);
+        }
 
-            var seasons = data?.AllModes.AsAny;
+        private static void ValidateResponse<T, TTarget>(ModernModeStatsContainer<T> container, Func<ModernModeStatsContainer<T>, IEnumerable<TTarget>> selector)
+        {
+            if (container == null)
+            {
+                Assert.Inconclusive();
+            }
+
+            Assert.IsNotEmpty(selector.Invoke(container));
         }
     }
 }
