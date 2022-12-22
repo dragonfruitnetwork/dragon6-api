@@ -18,12 +18,6 @@ namespace DragonFruit.Six.Api.Accounts
             return data.ToObject<IEnumerable<UbisoftAccount>>();
         }
 
-        public static IReadOnlyDictionary<string, UbisoftAccountActivity> DeserializeUbisoftAccountActivity(this JObject json)
-        {
-            var data = json.RemoveContainer<JArray>().ToObject<IEnumerable<UbisoftAccountActivity>>() ?? Enumerable.Empty<UbisoftAccountActivity>();
-            return data.ToDictionary(x => x.ProfileId);
-        }
-
         /// <summary>
         /// Removes the container the data is stored behind without knowing the key
         /// </summary>
