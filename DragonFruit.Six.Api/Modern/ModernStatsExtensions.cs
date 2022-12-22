@@ -13,7 +13,6 @@ using DragonFruit.Six.Api.Modern.Entities;
 using DragonFruit.Six.Api.Modern.Enums;
 using DragonFruit.Six.Api.Modern.Requests;
 using DragonFruit.Six.Api.Modern.Utils;
-using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 
 namespace DragonFruit.Six.Api.Modern
@@ -27,7 +26,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="request">The request to perform</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested stats (<see cref="TResponse"/>). Will return null if no stats found</returns>
-        [CanBeNull]
         public static async Task<ModernModeStatsContainer<TResponse>> GetModernStatsAsync<TResponse>(this Dragon6Client client, ModernStatsRequest request, CancellationToken token = default)
         {
             var response = await client.PerformAsync<JObject>(request, token).ConfigureAwait(false);
@@ -45,7 +43,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested map stats. Will return null if no stats found</returns>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<IEnumerable<ModernMapStats>>> GetModernMapStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, CancellationToken token = default)
         {
             var request = new ModernMapStatsRequest(account)
@@ -71,7 +68,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested operator stats. Will return null if no stats found</returns>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<IEnumerable<ModernOperatorStats>>> GetModernOperatorStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, CancellationToken token = default)
         {
             var request = new ModernOperatorStatsRequest(account)
@@ -103,7 +99,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with all seasons tracked. Will return null if no stats found</returns>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<IEnumerable<ModernSeasonStats>>> GetModernSeasonStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, CancellationToken token = default)
         {
             var request = new ModernSeasonalStatsRequest(account)
@@ -126,7 +121,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested stats. Will return null if no stats found.</returns>
         /// <remarks>This returns a collection of <see cref="ModernStatsSummary"/> items, but is recommended to use FirstOrDefault() to get the correct stats object</remarks>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsSummary>>> GetModernStatsSummaryAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, CancellationToken token = default)
         {
             var request = new ModernStatsSummaryRequest(account)
@@ -152,7 +146,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the data needed to plot the graphs seen on the ubisoft stats site. Will return null if no stats found</returns>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<IEnumerable<ModernStatsTrend>>> GetModernStatsTrendAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, CancellationToken token = default)
         {
             var request = new ModernStatsTrendRequest(account)
@@ -179,7 +172,6 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="endDate">The last day to include stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with the requested weapon stats. Will return null if no stats found</returns>
-        [CanBeNull]
         public static Task<ModernModeStatsContainer<WeaponSlot>> GetModernWeaponStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, OperatorType operatorType = OperatorType.All, DateTimeOffset? startDate = null, DateTimeOffset? endDate = null, CancellationToken token = default)
         {
             var request = new ModernWeaponStatsRequest(account)
