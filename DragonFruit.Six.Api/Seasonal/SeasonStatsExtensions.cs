@@ -77,8 +77,8 @@ namespace DragonFruit.Six.Api.Seasonal
                 x.Regions = regions.Value;
                 return client.PerformAsync<JObject>(x, token);
             });
-            var seasonalStatsResponses = await Task.WhenAll(seasonalStatsRequests).ConfigureAwait(false);
 
+            var seasonalStatsResponses = await Task.WhenAll(seasonalStatsRequests).ConfigureAwait(false);
             return seasonalStatsResponses.SelectMany(x => x.SelectTokens("$..players_skill_records[*]")).Select(x => x.ToObject<SeasonalStats>()).ToList();
         }
     }
