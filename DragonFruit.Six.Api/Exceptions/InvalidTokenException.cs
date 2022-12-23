@@ -14,6 +14,15 @@ namespace DragonFruit.Six.Api.Exceptions
             Token = token;
         }
 
+        public InvalidTokenException(string token)
+            : base("The Token has expired or is invalid for this request")
+        {
+            Token = new Dragon6Token
+            {
+                Token = token
+            };
+        }
+
         public IUbisoftToken Token { get; }
     }
 }
