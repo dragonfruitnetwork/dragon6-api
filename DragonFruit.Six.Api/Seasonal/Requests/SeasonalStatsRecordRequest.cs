@@ -70,7 +70,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         /// This is left for legacy seasons, which remain region-specific
         /// </remarks>
         [QueryParameter("region_ids", EnumHandlingMode.StringLower)]
-        public Region Regions { get; set; } = Region.APAC | Region.EMEA | Region.NCSA;
+        public Region Regions { get; set; } = Region.EMEA;
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> AccountIds => Accounts.Select(x => x.ProfileId);
