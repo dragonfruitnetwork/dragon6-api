@@ -11,6 +11,12 @@ namespace DragonFruit.Six.Api.Authentication.Entities
     /// </summary>
     public class Dragon6Token : IUbisoftToken
     {
+        /// <summary>
+        /// App-Id must be set client side.
+        /// </summary>
+        [JsonProperty("appId")]
+        public string AppId { get; set; }
+
         [JsonProperty("token")]
         public string Token { get; set; }
 
@@ -25,6 +31,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
         /// </summary>
         public static Dragon6Token From(UbisoftToken token) => new()
         {
+            AppId = token.AppId,
             Token = token.Token,
             Expiry = token.Expiry,
             SessionId = token.SessionId
