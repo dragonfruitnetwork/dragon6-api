@@ -15,6 +15,12 @@ namespace DragonFruit.Six.Api.Tests.Data
         public async Task GetAccountLevel(UbisoftAccount account)
         {
             var level = await Client.GetAccountLevelAsync(account).ConfigureAwait(false);
+
+            if (level.Level == 0)
+            {
+                Assert.Inconclusive("User level has not been synchronised across all platforms");
+            }
+
             Assert.GreaterOrEqual(level.Level, 5);
         }
     }
