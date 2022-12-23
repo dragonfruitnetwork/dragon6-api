@@ -18,8 +18,6 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
     {
         EMEA = 1,
         NCSA = 2,
-        APAC = 4,
-
-        All = EMEA | NCSA | APAC
+        APAC = 4
     }
 }
