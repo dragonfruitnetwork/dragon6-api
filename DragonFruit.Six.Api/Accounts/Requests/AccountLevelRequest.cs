@@ -4,6 +4,7 @@
 using DragonFruit.Data.Parameters;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
+using JetBrains.Annotations;
 
 namespace DragonFruit.Six.Api.Accounts.Requests
 {
@@ -18,6 +19,7 @@ namespace DragonFruit.Six.Api.Accounts.Requests
 
         public UbisoftAccount Account { get; }
 
+        [UsedImplicitly]
         [QueryParameter("profile_id")]
         private string ProfileId => Account.ProfileId;
     }
