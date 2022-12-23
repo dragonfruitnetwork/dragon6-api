@@ -2,13 +2,14 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Net;
 
 namespace DragonFruit.Six.Api.Exceptions
 {
     public class UbisoftErrorException : Exception
     {
-        public UbisoftErrorException()
-            : base("A Ubisoft server has disallowed this request, probably due to the Ubi-AppId header. Please check and try again")
+        public UbisoftErrorException(HttpStatusCode code, string message)
+            : base($"Ubisoft returned an error: {code} - {message}")
         {
         }
     }
