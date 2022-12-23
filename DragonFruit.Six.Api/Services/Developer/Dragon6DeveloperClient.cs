@@ -4,6 +4,7 @@
 using System;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Authentication.Entities;
+using DragonFruit.Six.Api.Enums;
 using Nito.AsyncEx;
 
 namespace DragonFruit.Six.Api.Services.Developer
@@ -22,9 +23,13 @@ namespace DragonFruit.Six.Api.Services.Developer
             _scopes = scopes;
         }
 
-        protected override async Task<IUbisoftToken> GetToken(string sessionId)
+        protected override async Task<IUbisoftToken> GetToken(UbisoftService service, string sessionId)
         {
-            return await PerformAsync<Dragon6Token>(new Dragon6TokenRequest()).ConfigureAwait(false);
+            // todo change request based on service
+            var token = await PerformAsync<Dragon6Token>(new Dragon6TokenRequest()).ConfigureAwait(false);
+            token.AppId = UbisoftService.NewStatsSite.AppId();
+
+            return token;
         }
 
         internal async ValueTask<DragonFruitClientCredentials> RequestDragonFruitAccessToken()

@@ -17,9 +17,9 @@ namespace DragonFruit.Six.Api.Authentication.Entities
             _tokenExpiryOffset = new DateTime(Math.Max(Token.Expiry.Ticks - 3000000000, 0), DateTimeKind.Utc);
         }
 
-        internal bool Expired => _tokenExpiryOffset < DateTime.UtcNow;
+        internal IUbisoftToken Token { get; }
 
-        public IUbisoftToken Token { get; }
+        internal bool Expired => _tokenExpiryOffset < DateTime.UtcNow;
 
         /// <summary>
         /// Injects Ubisoft authentication headers into the <see cref="ApiRequest"/> provided
@@ -32,6 +32,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
 
             // modern api requests need both the session id and the expiration headers added
             request.WithHeader("Expiration", Token.Expiry.ToString("O"));
+            request.WithHeader(UbisoftIdentifiers.UbiAppIdHeader, Token.AppId);
             request.WithHeader(UbisoftIdentifiers.UbiSessionIdHeader, Token.SessionId);
         }
     }

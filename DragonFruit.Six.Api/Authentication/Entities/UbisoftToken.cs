@@ -11,6 +11,12 @@ namespace DragonFruit.Six.Api.Authentication.Entities
     /// </summary>
     public class UbisoftToken : IUbisoftToken
     {
+        /// <summary>
+        /// App-Id must be set client side.
+        /// </summary>
+        [JsonProperty("appId")]
+        public string AppId { get; set; }
+
         [JsonProperty("expiration")]
         public DateTime Expiry { get; set; }
 

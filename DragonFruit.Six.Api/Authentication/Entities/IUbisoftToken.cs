@@ -10,6 +10,8 @@ namespace DragonFruit.Six.Api.Authentication.Entities
     /// </summary>
     public interface IUbisoftToken
     {
+        string AppId { get; }
+
         string Token { get; }
         string SessionId { get; }
 

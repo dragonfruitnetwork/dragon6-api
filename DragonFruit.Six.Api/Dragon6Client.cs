@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
@@ -12,18 +13,15 @@ using DragonFruit.Six.Api.Authentication.Entities;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Exceptions;
 using DragonFruit.Six.Api.Legacy.Utils;
-using Nito.AsyncEx;
 
 namespace DragonFruit.Six.Api
 {
     public abstract class Dragon6Client : ApiClient<ApiJsonSerializer>
     {
-        private ClientTokenInjector _access;
-        private readonly AsyncLock _accessSync = new();
+        private readonly ConcurrentDictionary<UbisoftService, ClientTokenAccessor> _access = new();
 
-        protected Dragon6Client(string userAgent = null, UbisoftService app = UbisoftService.RainbowSixClient)
+        protected Dragon6Client(string userAgent = null)
         {
-            SetUbiAppId(app);
             UserAgent = userAgent ?? "Dragon6-API";
             Serializer.Configure<ApiJsonSerializer>(o => o.Serializer.Culture = CultureInfo.InvariantCulture);
         }
@@ -34,19 +32,19 @@ namespace DragonFruit.Six.Api
         }
 
         /// <summary>
+        /// The default <see cref="UbisoftService"/> to use in requests. Some APIs may override this and require a specific service to be used.
+        /// </summary>
+        public UbisoftService DefaultService { get; set; } = UbisoftService.RainbowSix;
+
+        /// <summary>
         /// Defines the procedure for retrieving a <see cref="UbisoftToken"/> for the client to use.
         /// </summary>
+        /// <param name="service">The service to fetch a token for</param>
         /// <param name="sessionId">The last recorded session id. This should be used to check if a new session should be created from the server</param>
         /// <remarks>
         /// It is recommended to store the token to a file and try to retrieve from there before resorting to the online systems, as accounts can be blocked due to rate-limits
         /// </remarks>
-        protected abstract Task<IUbisoftToken> GetToken(string sessionId);
-
-        /// <summary>
-        /// Updates the Ubi-AppId header to be supplied to each request.
-        /// Defaults to <see cref="UbisoftService.RainbowSix"/>
-        /// </summary>
-        public void SetUbiAppId(UbisoftService service) => Headers[UbisoftIdentifiers.UbiAppIdHeader] = service.AppId();
+        protected abstract Task<IUbisoftToken> GetToken(UbisoftService service, string sessionId);
 
         /// <summary>
         /// Handles the response before trying to deserialize it.
@@ -63,7 +61,7 @@ namespace DragonFruit.Six.Api
                     throw new UbisoftErrorException(response.StatusCode, error);
 
                 case HttpStatusCode.Unauthorized:
-                    throw new InvalidTokenException(_access.Token);
+                    throw new InvalidTokenException(response.RequestMessage.Headers.Authorization.ToString());
 
                 case HttpStatusCode.BadRequest:
                     throw new ArgumentException("Request was poorly formed. Check the properties passed and try again");
@@ -76,34 +74,9 @@ namespace DragonFruit.Six.Api
             }
         }
 
-        protected internal async ValueTask<ClientTokenInjector> RequestToken()
-        {
-            if (_access?.Expired == false)
-            {
-                return _access;
-            }
-
-            using (await _accessSync.LockAsync().ConfigureAwait(false))
-            {
-                // check again in case of a backlog
-                if (_access?.Expired == false)
-                {
-                    return _access;
-                }
-
-                for (int i = 0; i < 2; i++)
-                {
-                    var token = await GetToken(_access?.Token.SessionId).ConfigureAwait(false);
-                    _access = new ClientTokenInjector(token);
-
-                    if (!_access.Expired)
-                    {
-                        return _access;
-                    }
-                }
-
-                throw new InvalidTokenException(_access?.Token);
-            }
-        }
+        /// <summary>
+        /// Gets a <see cref="ClientTokenAccessor"/> for the requested <see cref="UbisoftService"/>
+        /// </summary>
+        protected internal ClientTokenAccessor GetServiceAccessToken(UbisoftService service) => _access.GetOrAdd(service, s => new ClientTokenAccessor(s, GetToken));
     }
 }
