@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using DragonFruit.Data;
 using DragonFruit.Data.Requests;
+using DragonFruit.Six.Api.Enums;
 
 #nullable enable
 
@@ -17,14 +18,19 @@ namespace DragonFruit.Six.Api
     {
         protected override bool RequireAuth => true;
 
+        /// <summary>
+        /// Optional override to request a specific token source
+        /// </summary>
+        protected virtual UbisoftService? RequiredTokenSource => null;
+
         async ValueTask IAsyncRequestExecutingCallback.OnRequestExecutingAsync(ApiClient client)
         {
             // all ubisoft api requests need authentication
             // the Dragon6Client caches auth tokens and allows the headers to be injected
             if (client is Dragon6Client d6Client)
             {
-                var token = await d6Client.RequestToken().ConfigureAwait(false);
-                token.Inject(this);
+                var injector = await d6Client.GetServiceAccessToken(RequiredTokenSource ?? d6Client.DefaultService).GetInjector().ConfigureAwait(false);
+                injector.Inject(this);
             }
         }
     }
