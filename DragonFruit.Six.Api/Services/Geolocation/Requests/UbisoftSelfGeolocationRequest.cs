@@ -20,11 +20,8 @@ namespace DragonFruit.Six.Api.Services.Geolocation.Requests
 
         void IRequestExecutingCallback.OnRequestExecuting(ApiClient client)
         {
-            if (client is not Dragon6Client)
-            {
-                // can run on anything but needs a ubi-appid header if we're not using dragon6 client
-                this.WithHeader(UbisoftIdentifiers.UbiAppIdHeader, UbisoftService.NewStatsSite.AppId());
-            }
+            var service = client is Dragon6Client d6Client ? d6Client.DefaultService : UbisoftService.NewStatsSite;
+            this.WithHeader(UbisoftIdentifiers.UbiAppIdHeader, service.AppId());
         }
     }
 }

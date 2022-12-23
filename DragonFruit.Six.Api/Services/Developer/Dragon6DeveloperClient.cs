@@ -25,8 +25,11 @@ namespace DragonFruit.Six.Api.Services.Developer
 
         protected override async Task<IUbisoftToken> GetToken(UbisoftService service, string sessionId)
         {
-            // todo add service listener
-            return await PerformAsync<Dragon6Token>(new Dragon6TokenRequest()).ConfigureAwait(false);
+            // todo change request based on service
+            var token = await PerformAsync<Dragon6Token>(new Dragon6TokenRequest()).ConfigureAwait(false);
+            token.AppId = UbisoftService.NewStatsSite.AppId();
+
+            return token;
         }
 
         internal async ValueTask<DragonFruitClientCredentials> RequestDragonFruitAccessToken()
