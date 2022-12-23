@@ -2,6 +2,7 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using System;
+using DragonFruit.Six.Api.Accounts.Entities;
 using Newtonsoft.Json;
 
 namespace DragonFruit.Six.Api.Authentication.Entities
@@ -9,7 +10,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
     /// <summary>
     /// An implementation of <see cref="IUbisoftToken"/> representing a direct response from the Ubisoft servers
     /// </summary>
-    public class UbisoftToken : IUbisoftToken
+    public class UbisoftToken : UbisoftAccount, IUbisoftToken
     {
         /// <summary>
         /// App-Id must be set client side.
