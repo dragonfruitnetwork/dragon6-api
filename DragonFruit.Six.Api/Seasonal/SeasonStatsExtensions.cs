@@ -66,21 +66,24 @@ namespace DragonFruit.Six.Api.Seasonal
 
             if (otherSeasons.Any())
             {
-                var platformRequests = accounts.GroupBy(x => x.Platform).Select(x => new SeasonalStatsRecordRequest(x, otherSeasons, boards.Value));
+                var platformRequests = accounts.GroupBy(x => x.Platform).Select(x =>
+                {
+                    var request = new SeasonalStatsRecordRequest(x, otherSeasons, boards.Value);
+
+                    if (regions.HasValue)
+                    {
+                        request.Regions = regions.Value;
+                    }
+
+                    return request;
+                });
+
                 requests.AddRange(platformRequests);
             }
 
-            var seasonalStatsRequests = requests.Select(x =>
-            {
-                if (regions.HasValue)
-                {
-                    x.Regions = regions.Value;
-                }
-
-                return client.PerformAsync<JObject>(x, token);
-            });
-
+            var seasonalStatsRequests = requests.Select(x => client.PerformAsync<JObject>(x, token));
             var seasonalStatsResponses = await Task.WhenAll(seasonalStatsRequests).ConfigureAwait(false);
+
             return seasonalStatsResponses.SelectMany(x => x.SelectTokens("$..players_skill_records[*]")).Select(x => x.ToObject<SeasonalStats>()).ToList();
         }
     }
