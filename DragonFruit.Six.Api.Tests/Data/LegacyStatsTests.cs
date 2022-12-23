@@ -50,14 +50,5 @@ namespace DragonFruit.Six.Api.Tests.Data
             Assert.IsTrue(selectedOperator.Kd > 0);
             Assert.IsTrue(selectedOperator.Wl > 0);
         }
-
-        [TestCase("603fc6ba-db16-4aba-81b2-e9f9601d7d24", 300)]
-        public async Task PlayerLevelStatsTest(string userId, int level)
-        {
-            var accountLevel = await Client.GetLegacyLevelAsync(Accounts[userId]);
-
-            Assert.IsNotNull(accountLevel);
-            Assert.GreaterOrEqual(accountLevel.Level, level);
-        }
     }
 }

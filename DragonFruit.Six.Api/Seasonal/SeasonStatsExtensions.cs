@@ -49,7 +49,6 @@ namespace DragonFruit.Six.Api.Seasonal
         /// </remarks>
         public static async Task<IReadOnlyCollection<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType? boards = null, Region? regions = null, CancellationToken token = default)
         {
-            regions ??= Region.All;
             boards ??= BoardType.All;
             seasonIds ??= (-1).Yield();
             accounts = accounts as IReadOnlyCollection<UbisoftAccount> ?? accounts.ToList();
@@ -57,14 +56,13 @@ namespace DragonFruit.Six.Api.Seasonal
 
             var requests = new List<SeasonalStatsRecordRequest>(4);
             var ranked2Seasons = seasonIds.Where(x => x is >= SeasonalStatsRecordRequest.CrossPlatformProgressionId or -1);
+            var otherSeasons = seasonIds.Except(ranked2Seasons);
 
             // handle creation of ranked 2.0 requests
             if (ranked2Seasons.Any())
             {
                 requests.Add(new SeasonalStatsRecordRequest(accounts, ranked2Seasons, boards.Value));
             }
-
-            var otherSeasons = seasonIds.Except(ranked2Seasons);
 
             if (otherSeasons.Any())
             {
@@ -74,7 +72,11 @@ namespace DragonFruit.Six.Api.Seasonal
 
             var seasonalStatsRequests = requests.Select(x =>
             {
-                x.Regions = regions.Value;
+                if (regions.HasValue)
+                {
+                    x.Regions = regions.Value;
+                }
+
                 return client.PerformAsync<JObject>(x, token);
             });
 

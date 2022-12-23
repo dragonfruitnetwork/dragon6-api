@@ -3,6 +3,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
 using DragonFruit.Six.Api.Accounts.Enums;
@@ -39,6 +40,18 @@ namespace DragonFruit.Six.Api.Accounts
         {
             var request = new UbisoftAccountRequest(queries, platform, identifierType);
             return client.PerformAsync<JObject>(request).ContinueWith(t => t.Result.DeserializeUbisoftAccounts(), TaskContinuationOptions.OnlyOnRanToCompletion);
+        }
+
+        /// <summary>
+        /// Gets the current clearance level and XP of the provided <see cref="UbisoftAccount"/>
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="account">The <see cref="UbisoftAccount"/> to get level stats for</param>
+        /// <param name="token">Optional cancellation token</param>
+        /// <returns><see cref="AccountLevel"/> containing the values for the user's level and xp</returns>
+        public static Task<AccountLevel> GetAccountLevelAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
+        {
+            return client.PerformAsync<AccountLevel>(new AccountLevelRequest(account), token);
         }
     }
 }

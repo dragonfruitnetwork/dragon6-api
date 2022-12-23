@@ -52,19 +52,29 @@ namespace DragonFruit.Six.Api
         /// Handles the response before trying to deserialize it.
         /// If a recognized error code has been returned, an appropriate exception will be thrown.
         /// </summary>
-        protected override Task<T> ValidateAndProcess<T>(HttpResponseMessage response) => response.StatusCode switch
+        protected override async Task<T> ValidateAndProcess<T>(HttpResponseMessage response)
         {
-            HttpStatusCode.Unauthorized => Task.FromException<T>(new InvalidTokenException(_access.Token)),
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.Forbidden:
+                case HttpStatusCode.BadGateway:
+                case HttpStatusCode.InternalServerError:
+                    var error = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    throw new UbisoftErrorException(response.StatusCode, error);
 
-            HttpStatusCode.BadRequest => Task.FromException<T>(new ArgumentException("Request was poorly formed. Check the properties passed and try again")),
+                case HttpStatusCode.Unauthorized:
+                    throw new InvalidTokenException(_access.Token);
 
-            HttpStatusCode.Forbidden => Task.FromException<T>(new UbisoftErrorException()),
-            HttpStatusCode.BadGateway => Task.FromException<T>(new UbisoftErrorException()),
+                case HttpStatusCode.BadRequest:
+                    throw new ArgumentException("Request was poorly formed. Check the properties passed and try again");
 
-            HttpStatusCode.NoContent => Task.FromResult<T>(default),
+                case HttpStatusCode.NoContent:
+                    return default;
 
-            _ => base.ValidateAndProcess<T>(response)
-        };
+                default:
+                    return await base.ValidateAndProcess<T>(response).ConfigureAwait(false);
+            }
+        }
 
         protected internal async ValueTask<ClientTokenInjector> RequestToken()
         {

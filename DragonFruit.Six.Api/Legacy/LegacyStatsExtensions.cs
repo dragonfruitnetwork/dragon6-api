@@ -99,32 +99,6 @@ namespace DragonFruit.Six.Api.Legacy
             return GetPlatformStatsImplAsync(client, accounts, a => new LegacyStatsRequest(a, LegacyStatTypes.Weapons), LegacyStatsDeserializer.DeserializeWeaponStats, token);
         }
 
-        /// <summary>
-        /// Gets the <see cref="LegacyLevelStats"/> for the <see cref="UbisoftAccount"/> provided
-        /// </summary>
-        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
-        /// <param name="account">The <see cref="UbisoftAccount"/>s to get stats for</param>
-        /// <param name="token">Optional cancellation token</param>
-        /// <returns><see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/>, or null if not found</returns>
-        public static Task<LegacyLevelStats> GetLegacyLevelAsync(this Dragon6Client client, UbisoftAccount account, CancellationToken token = default)
-        {
-            return GetLegacyLevelAsync(client, account.Yield(), token).ContinueWith(t => t.Result.For(account), TaskContinuationOptions.OnlyOnRanToCompletion);
-        }
-
-        /// <summary>
-        /// Gets the <see cref="LegacyLevelStats"/> for the <see cref="UbisoftAccount"/>s provided
-        /// </summary>
-        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
-        /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get stats for</param>
-        /// <param name="token">Optional cancellation token</param>
-        /// <returns><see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="LegacyWeaponStats"/> for the provided <see cref="UbisoftAccount"/></returns>
-        public static Task<IReadOnlyDictionary<string, LegacyLevelStats>> GetLegacyLevelAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, CancellationToken token = default)
-        {
-            return GetPlatformStatsImplAsync(client, accounts,
-                a => new PlayerLevelStatsRequest(a),
-                LegacyStatsDeserializer.DeserializePlayerLevelStats, token);
-        }
-
         internal static Task<T> GetPlatformStatsImplAsync<T>(ApiClient client, IEnumerable<UbisoftAccount> accounts, Func<IEnumerable<UbisoftAccount>, PlatformSpecificRequest> requestFactory, Func<JObject, T> postProcessor, CancellationToken token)
         {
             // LegacyStatsRequest is a PlatformSpecific request, so the accounts need to be split by platform

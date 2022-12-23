@@ -165,14 +165,6 @@ namespace DragonFruit.Six.Api.Legacy
             return json.RemoveContainer<JObject>()?.Properties().SelectMany(x => DeserializeWeaponStatsInternal(x, weaponClasses)).ToLookup(x => x.ProfileId);
         }
 
-        /// <summary>
-        /// Deserializes a <see cref="JObject"/> into a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="LegacyLevelStats"/>
-        /// </summary>
-        public static IReadOnlyDictionary<string, LegacyLevelStats> DeserializePlayerLevelStats(this JObject json)
-        {
-            return json.RemoveContainer<JArray>().ToObject<IEnumerable<LegacyLevelStats>>()?.ToDictionary(x => x.ProfileId);
-        }
-
         private static IEnumerable<LegacyOperatorStats> DeserializeOperatorStatsInternal(JProperty data)
         {
             var property = (JObject)data.Value;
