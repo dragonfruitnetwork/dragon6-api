@@ -32,6 +32,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
 
             // modern api requests need both the session id and the expiration headers added
             request.WithHeader("Expiration", Token.Expiry.ToString("O"));
+            request.WithHeader(UbisoftIdentifiers.UbiAppIdHeader, Token.AppId);
             request.WithHeader(UbisoftIdentifiers.UbiSessionIdHeader, Token.SessionId);
         }
     }
