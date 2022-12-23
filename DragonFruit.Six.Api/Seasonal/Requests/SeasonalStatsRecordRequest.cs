@@ -70,7 +70,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         /// This is left for legacy seasons, which remain region-specific
         /// </remarks>
         [QueryParameter("region_ids", EnumHandlingMode.StringLower)]
-        public Region Regions { get; set; } = Region.All;
+        public Region Regions { get; set; } = Region.APAC | Region.EMEA | Region.NCSA;
 
         [QueryParameter("profile_ids", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> AccountIds => Accounts.Select(x => x.ProfileId);
@@ -78,7 +78,7 @@ namespace DragonFruit.Six.Api.Seasonal.Requests
         [QueryParameter("board_ids", CollectionConversionMode.Concatenated)]
         private IEnumerable<string> BoardIds => Enum.GetValues(typeof(BoardType))
                                                     .Cast<BoardType>()
-                                                    .Where(x => Boards.HasFlagFast(x))
+                                                    .Where(x => Boards.HasFlagFast(x) && x != BoardType.All)
                                                     .Select(x => typeof(BoardType).GetField(x.ToString()).GetCustomAttribute<EnumMemberAttribute>()?.Value);
     }
 }
