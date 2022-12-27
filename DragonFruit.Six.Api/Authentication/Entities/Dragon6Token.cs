@@ -14,7 +14,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
         /// <summary>
         /// App-Id must be set client side.
         /// </summary>
-        [JsonProperty("appId")]
+        [JsonProperty("app_id")]
         public string AppId { get; set; }
 
         [JsonProperty("token")]
