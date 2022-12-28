@@ -54,5 +54,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entities
         public Ranked2SeasonMatchStats Matches { get; set; }
 
         public float KD => RatioUtils.RatioOf(Kills, Deaths);
+
+        public override string ToString() => $"{Platform}/{Board}: {ProfileId}";
     }
 }
