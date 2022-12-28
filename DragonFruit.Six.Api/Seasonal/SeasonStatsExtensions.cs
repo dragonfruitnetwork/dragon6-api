@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DragonFruit.Six.Api.Accounts.Entities;
+using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Seasonal.Entities;
 using DragonFruit.Six.Api.Seasonal.Enums;
 using DragonFruit.Six.Api.Seasonal.Requests;
@@ -16,6 +17,54 @@ namespace DragonFruit.Six.Api.Seasonal
 {
     public static class SeasonStatsExtensions
     {
+        /// <summary>
+        /// Get current season stats for the provided <see cref="UbisoftAccount"/>
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="account">The <see cref="UbisoftAccount"/> to get stats for</param>
+        /// <param name="platforms">The <see cref="PlatformGroup"/>s to return stats for</param>
+        /// <param name="cancellation">Optional cancellation token</param>
+        /// <returns>The current season stats for the account returning Ranked, Casual, Deathmatch and Event stats as separate <see cref="Ranked2SeasonStats"/> objects</returns>
+        /// <remarks>
+        /// This extension uses a protected endpoint to access data, and as such a supported token is needed.
+        /// Ensure that your <see cref="Dragon6Client"/> implementation requests a token for the provided <see cref="UbisoftService"/> when called.
+        /// </remarks>
+        public static Task<IEnumerable<Ranked2SeasonStats>> GetSeasonalStatsAsync(this Dragon6Client client, UbisoftAccount account, PlatformGroup platforms = PlatformGroup.PC | PlatformGroup.Console, CancellationToken cancellation = default)
+        {
+            return GetSeasonalStatsAsync(client, account.Yield(), platforms, cancellation);
+        }
+
+        /// <summary>
+        /// Get current season stats for the provided <see cref="UbisoftAccount"/>s (crossplay compatible)
+        /// </summary>
+        /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
+        /// <param name="accounts">The <see cref="UbisoftAccount"/>s to get stats for</param>
+        /// <param name="platforms">The <see cref="PlatformGroup"/>s to return stats for</param>
+        /// <param name="cancellation">Optional cancellation token</param>
+        /// <returns>The current season stats for each account. Ranked, Casual, Deathmatch and Event stats will be returned as a separate <see cref="Ranked2SeasonStats"/> object</returns>
+        /// <remarks>
+        /// This extension uses a protected endpoint to access data, and as such a supported token is needed.
+        /// Ensure that your <see cref="Dragon6Client"/> implementation requests a token for the provided <see cref="UbisoftService"/> when called.
+        /// </remarks>
+        public static async Task<IEnumerable<Ranked2SeasonStats>> GetSeasonalStatsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, PlatformGroup platforms = PlatformGroup.PC | PlatformGroup.Console, CancellationToken cancellation = default)
+        {
+            var request = new Ranked2StatsRequest(accounts, platforms);
+            var response = await client.PerformAsync<JObject>(request, cancellation).ConfigureAwait(false);
+
+            return response.SelectTokens("$..full_profiles[*]").Select(x =>
+            {
+                var children = x.Values();
+                var root = (JObject)children.First();
+
+                foreach (var other in children.Skip(1).Cast<JObject>())
+                {
+                    root.Merge(other);
+                }
+
+                return root.ToObject<Ranked2SeasonStats>();
+            });
+        }
+
         /// <summary>
         /// Get seasonal stats "records" for the provided <see cref="UbisoftAccount"/>s
         /// </summary>
@@ -29,7 +78,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// This call is able to return results for multiple accounts spanning large numbers of seasons, ranking boards and regions.
         /// Elements are returned ungrouped and unordered - it is recommended to sort then convert the returned <see cref="IEnumerable{T}"/> to an array or list afterwards.
         /// </remarks>
-        public static Task<IReadOnlyCollection<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, UbisoftAccount account, IEnumerable<int> seasonIds, BoardType? boards = null, Region? regions = null, CancellationToken token = default)
+        public static Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, UbisoftAccount account, IEnumerable<int> seasonIds, BoardType? boards = null, Region? regions = null, CancellationToken token = default)
         {
             return GetSeasonalStatsRecordsAsync(client, account.Yield(), seasonIds, boards, regions, token);
         }
@@ -47,7 +96,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// This call is able to return results for multiple accounts spanning large numbers of seasons, ranking boards and regions.
         /// Elements are returned ungrouped and unordered - It is recommended to sort then convert the returned <see cref="IEnumerable{T}"/> to an array or list afterwards.
         /// </remarks>
-        public static async Task<IReadOnlyCollection<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType? boards = null, Region? regions = null, CancellationToken token = default)
+        public static async Task<IEnumerable<SeasonalStats>> GetSeasonalStatsRecordsAsync(this Dragon6Client client, IEnumerable<UbisoftAccount> accounts, IEnumerable<int> seasonIds, BoardType? boards = null, Region? regions = null, CancellationToken token = default)
         {
             boards ??= BoardType.All;
             seasonIds ??= (-1).Yield();
@@ -84,7 +133,7 @@ namespace DragonFruit.Six.Api.Seasonal
             var seasonalStatsRequests = requests.Select(x => client.PerformAsync<JObject>(x, token));
             var seasonalStatsResponses = await Task.WhenAll(seasonalStatsRequests).ConfigureAwait(false);
 
-            return seasonalStatsResponses.SelectMany(x => x.SelectTokens("$..players_skill_records[*]")).Select(x => x.ToObject<SeasonalStats>()).ToList();
+            return seasonalStatsResponses.SelectMany(x => x.SelectTokens("$..players_skill_records[*]")).Select(x => x.ToObject<SeasonalStats>());
         }
     }
 }
