@@ -24,7 +24,7 @@ namespace DragonFruit.Six.Api.Seasonal
         /// <param name="account">The <see cref="UbisoftAccount"/> to get stats for</param>
         /// <param name="platforms">The <see cref="PlatformGroup"/>s to return stats for</param>
         /// <param name="cancellation">Optional cancellation token</param>
-        /// <returns>The current season stats for each account. Ranked, Casual, Deathmatch and Event stats will be returned as a separate <see cref="Ranked2SeasonStats"/> object</returns>
+        /// <returns>The current season stats for the account returning Ranked, Casual, Deathmatch and Event stats as separate <see cref="Ranked2SeasonStats"/> objects</returns>
         /// <remarks>
         /// This extension uses a protected endpoint to access data, and as such a supported token is needed.
         /// Ensure that your <see cref="Dragon6Client"/> implementation requests a token for the provided <see cref="UbisoftService"/> when called.
