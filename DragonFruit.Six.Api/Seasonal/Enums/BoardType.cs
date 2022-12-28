@@ -22,11 +22,11 @@ namespace DragonFruit.Six.Api.Seasonal.Enums
         Casual = 2,
 
         [EnumMember(Value = "pvp_warmup")]
-        Deathmatch = 4,
+        Warmup = 4,
 
         [EnumMember(Value = "pvp_event")]
         Event = 8,
 
-        All = Ranked | Casual | Deathmatch | Event
+        All = Ranked | Casual | Warmup | Event
     }
 }
