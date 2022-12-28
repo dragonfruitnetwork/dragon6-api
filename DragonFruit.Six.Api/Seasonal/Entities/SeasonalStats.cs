@@ -101,5 +101,7 @@ namespace DragonFruit.Six.Api.Seasonal.Entities
         public RankInfo RankInfo => _rankInfo ??= Ranks.GetRank(Rank, SeasonId);
         public RankInfo MaxRankInfo => _maxRankInfo ??= Ranks.GetRank(MaxRank, SeasonId);
         public RankInfo MMRRankInfo => _mmrRankInfo ??= Ranks.GetRank((int)MMR, SeasonId, true);
+
+        public override string ToString() => $"S{SeasonId}/{Board}: {ProfileId}";
     }
 }
