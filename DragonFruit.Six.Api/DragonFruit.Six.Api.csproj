@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DragonFruit.Data" Version="2022.1207.0" />
+        <PackageReference Include="DragonFruit.Data" Version="2022.1230.0" />
         <PackageReference Include="DragonFruit.Data.Serializers.Newtonsoft" Version="2022.1207.0" />
         <PackageReference Include="JetBrains.Annotations" Version="2022.3.1" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
