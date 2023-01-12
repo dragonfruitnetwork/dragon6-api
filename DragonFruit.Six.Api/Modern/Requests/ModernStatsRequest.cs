@@ -24,22 +24,21 @@ namespace DragonFruit.Six.Api.Modern.Requests
 
         private PlaylistType? _playlist;
         private OperatorType? _operatorType;
-        private PlatformGroup? _platformGroup;
         private DateTimeOffset? _startDate, _endDate;
 
-        private readonly IList<KeyValuePair<string, string>> _queries;
+        protected readonly IList<KeyValuePair<string, string>> Queries;
 
         private static readonly DateTimeOffset CrossPlatformStartDate = new(2022, 12, 6, 0, 0, 0, TimeSpan.Zero);
 
         public override string Path => $"https://prod.datadev.ubisoft.com/v1/users/{Account.UbisoftId}/playerstats";
 
-        protected override IEnumerable<KeyValuePair<string, string>> AdditionalQueries => _queries;
+        protected override IEnumerable<KeyValuePair<string, string>> AdditionalQueries => Queries;
 
         protected ModernStatsRequest(UbisoftAccount account)
         {
             Account = account ?? throw new NullReferenceException();
 
-            _queries = new List<KeyValuePair<string, string>>(1);
+            Queries = new List<KeyValuePair<string, string>>(1);
         }
 
         /// <summary>
@@ -110,11 +109,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
         /// <summary>
         /// Optional <see cref="PlatformGroup"/> to override when getting cross-progression metrics
         /// </summary>
-        public PlatformGroup PlatformGroup
-        {
-            get => _platformGroup ??= Account.Platform == Platform.PC ? PlatformGroup.PC : PlatformGroup.Console;
-            set => _platformGroup = value;
-        }
+        public PlatformGroup? PlatformGroup { get; set; }
 
         /// <summary>
         /// The type of request (general, operators, weapons, etc.)
@@ -182,10 +177,10 @@ namespace DragonFruit.Six.Api.Modern.Requests
 
             var platformQuery = useCrossPlayQueries
                 ? new KeyValuePair<string, string>("platform", Account.Platform.ModernName())
-                : new KeyValuePair<string, string>("platformGroup", PlatformGroup.ToString());
+                : new KeyValuePair<string, string>("platformGroup", (PlatformGroup ?? (Account.Platform == Platform.PC ? Api.Enums.PlatformGroup.PC : Api.Enums.PlatformGroup.Console)).ToString());
 
-            _queries.Clear();
-            _queries.Add(platformQuery);
+            Queries.Clear();
+            Queries.Add(platformQuery);
         }
     }
 }
