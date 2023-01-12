@@ -156,7 +156,7 @@ namespace DragonFruit.Six.Api.Modern.Requests
 
             if (Seasons?.Any() != true)
             {
-                useCrossPlayQueries = EndDate < CrossPlatformStartDate;
+                useCrossPlayQueries = EndDate > CrossPlatformStartDate;
             }
             else
             {
