@@ -29,7 +29,7 @@ namespace DragonFruit.Six.Api.Modern
         public static async Task<ModernModeStatsContainer<TResponse>> GetModernStatsAsync<TResponse>(this Dragon6Client client, ModernStatsRequest request, CancellationToken token = default)
         {
             var response = await client.PerformAsync<JObject>(request, token).ConfigureAwait(false);
-            return response.ProcessData<TResponse>(request);
+            return response.ProcessData<TResponse>();
         }
 
         /// <summary>

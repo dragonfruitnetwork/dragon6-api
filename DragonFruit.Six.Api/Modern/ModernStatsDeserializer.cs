@@ -2,7 +2,6 @@
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
 using DragonFruit.Six.Api.Modern.Containers;
-using DragonFruit.Six.Api.Modern.Requests;
 using DragonFruit.Six.Api.Modern.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -14,10 +13,12 @@ namespace DragonFruit.Six.Api.Modern
         /// <summary>
         /// Abstracts a ubisoft stats response to present the data required
         /// </summary>
-        public static ModernModeStatsContainer<T> ProcessData<T>(this JObject source, ModernStatsRequest request)
+        public static ModernModeStatsContainer<T> ProcessData<T>(this JObject source)
         {
-            var platformKey = request.PlatformGroup?.ToString().ToUpperInvariant() ?? request.Account.Platform.ModernName();
-            return source?["platforms"]?[platformKey]?.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
+            var container = (JProperty)source?["profileData"].First;
+            var platformContainer = (JProperty)container?.Value["platforms"]!.First;
+
+            return platformContainer?.Value.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
             {
                 Converters = { new JsonPathConverter() }
             });
