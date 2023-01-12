@@ -29,7 +29,7 @@ namespace DragonFruit.Six.Api.Modern
         public static async Task<ModernModeStatsContainer<TResponse>> GetModernStatsAsync<TResponse>(this Dragon6Client client, ModernStatsRequest request, CancellationToken token = default)
         {
             var response = await client.PerformAsync<JObject>(request, token).ConfigureAwait(false);
-            return response.ProcessData<TResponse>();
+            return response.ProcessData<TResponse>(request.Account);
         }
 
         /// <summary>
@@ -97,13 +97,15 @@ namespace DragonFruit.Six.Api.Modern
         /// <param name="client">The <see cref="Dragon6Client"/> to use</param>
         /// <param name="account">The <see cref="UbisoftAccount"/> to get stats for</param>
         /// <param name="playlistType">The <see cref="PlaylistType"/> to get stats for</param>
+        /// <param name="crossPlatformGroup">Optional <see cref="PlatformGroup"/> to get modern cross-platform stats for.</param>
         /// <param name="token">Optional <see cref="CancellationToken"/></param>
         /// <returns>A container with all seasons tracked. Will return null if no stats found</returns>
-        public static Task<ModernModeStatsContainer<IEnumerable<ModernSeasonStats>>> GetModernSeasonStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, CancellationToken token = default)
+        public static Task<ModernModeStatsContainer<IEnumerable<ModernSeasonStats>>> GetModernSeasonStatsAsync(this Dragon6Client client, UbisoftAccount account, PlaylistType playlistType = PlaylistType.All, PlatformGroup? crossPlatformGroup = null, CancellationToken token = default)
         {
             var request = new ModernSeasonalStatsRequest(account)
             {
-                Playlist = playlistType
+                Playlist = playlistType,
+                PlatformGroup = crossPlatformGroup
             };
 
             return client.GetModernStatsAsync<IEnumerable<ModernSeasonStats>>(request, token);
