@@ -16,8 +16,18 @@ namespace DragonFruit.Six.Api.Modern
         /// </summary>
         public static ModernModeStatsContainer<T> ProcessData<T>(this JObject source, UbisoftAccount account)
         {
-            var platformContainer = (JProperty)source?["profileData"]![account.ProfileId]!["platforms"]!.First;
-            return platformContainer?.Value.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
+            var profileContainer = source?["profileData"].ToObject<JObject>();
+
+            if (profileContainer == null)
+            {
+                return null;
+            }
+
+            var platformContainer = profileContainer.Count == 1
+                ? profileContainer.First.Value<JProperty>().Value.ToObject<JObject>()
+                : profileContainer[account.ProfileId];
+
+            return platformContainer?["platforms"]?.First.Value<JProperty>().Value.ToObject<ModernModeStatsContainer<T>>(new JsonSerializer
             {
                 Converters = { new JsonPathConverter() }
             });
