@@ -30,6 +30,8 @@ namespace DragonFruit.Six.Api.Legacy.Entities
             Wins += stats.Wins;
             Losses += stats.Losses;
 
+            MatchesPlayed += stats.Wins + stats.Losses + stats.Abandons;
+
             if (includeAbandonsAsLosses)
             {
                 Losses += stats.Abandons;
