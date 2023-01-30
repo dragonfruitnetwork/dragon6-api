@@ -3,17 +3,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DragonFruit.Data;
 using DragonFruit.Data.Parameters;
+using DragonFruit.Data.Requests;
 using DragonFruit.Six.Api.Accounts.Entities;
+using DragonFruit.Six.Api.Accounts.Enums;
 using DragonFruit.Six.Api.Enums;
 using DragonFruit.Six.Api.Modern.Enums;
 using DragonFruit.Six.Api.Modern.Utils;
+using DragonFruit.Six.Api.Seasonal.Requests;
 using JetBrains.Annotations;
 
 namespace DragonFruit.Six.Api.Modern.Requests
 {
-    public abstract class ModernStatsRequest : UbiApiRequest
+    public abstract class ModernStatsRequest : UbiApiRequest, IRequestExecutingCallback
     {
         private const string DateTimeFormat = "yyyyMMdd";
         private const int DefaultStartWindow = 14;
@@ -22,11 +26,19 @@ namespace DragonFruit.Six.Api.Modern.Requests
         private OperatorType? _operatorType;
         private DateTimeOffset? _startDate, _endDate;
 
+        protected readonly IList<KeyValuePair<string, string>> Queries;
+
+        private static readonly DateTimeOffset CrossPlatformStartDate = new(2022, 12, 6, 0, 0, 0, TimeSpan.Zero);
+
         public override string Path => $"https://prod.datadev.ubisoft.com/v1/users/{Account.UbisoftId}/playerstats";
+
+        protected override IEnumerable<KeyValuePair<string, string>> AdditionalQueries => Queries;
 
         protected ModernStatsRequest(UbisoftAccount account)
         {
             Account = account ?? throw new NullReferenceException();
+
+            Queries = new List<KeyValuePair<string, string>>(1);
         }
 
         /// <summary>
@@ -92,12 +104,11 @@ namespace DragonFruit.Six.Api.Modern.Requests
         /// List of seasons to return stats for. Provides an alternative timespan compared to start-end dates.
         /// </summary>
         [QueryParameter("seasons", CollectionConversionMode.Concatenated)]
-        public virtual IEnumerable<string> Seasons { get; set; }
+        public virtual IEnumerable<ModernSeason> Seasons { get; set; }
 
         /// <summary>
         /// Optional <see cref="PlatformGroup"/> to override when getting cross-progression metrics
         /// </summary>
-        [QueryParameter("platformGroup", EnumHandlingMode.StringUpper)]
         public PlatformGroup? PlatformGroup { get; set; }
 
         /// <summary>
@@ -116,11 +127,6 @@ namespace DragonFruit.Six.Api.Modern.Requests
         [UsedImplicitly]
         [QueryParameter("view")]
         protected virtual string RequestCategory => "current";
-
-        [CanBeNull]
-        [UsedImplicitly]
-        [QueryParameter("platform")]
-        protected string PlatformName => PlatformGroup.HasValue ? null : Account.Platform.ModernName();
 
         [UsedImplicitly]
         [QueryParameter("spaceId")]
@@ -143,5 +149,38 @@ namespace DragonFruit.Six.Api.Modern.Requests
         [UsedImplicitly]
         [QueryParameter("teamRole")]
         protected virtual string OperatorTypeNames => OperatorType.Expand();
+
+        void IRequestExecutingCallback.OnRequestExecuting(ApiClient client)
+        {
+            bool useCrossPlayQueries;
+
+            if (Seasons?.Any() != true)
+            {
+                useCrossPlayQueries = EndDate > CrossPlatformStartDate;
+            }
+            else
+            {
+                // check seasons to make sure old and new seasons aren't mixed in
+                if (Seasons.All(x => x.SeasonNumber < SeasonalStatsRecordRequest.CrossPlatformProgressionId))
+                {
+                    useCrossPlayQueries = false;
+                }
+                else if (Seasons.All(x => x.SeasonNumber >= SeasonalStatsRecordRequest.CrossPlatformProgressionId))
+                {
+                    useCrossPlayQueries = true;
+                }
+                else
+                {
+                    throw new ArgumentException($"{nameof(Seasons)} combines both cross-platform and individual platform seasons.", nameof(Seasons));
+                }
+            }
+
+            var platformQuery = useCrossPlayQueries
+                ? new KeyValuePair<string, string>("platform", Account.Platform.ModernName())
+                : new KeyValuePair<string, string>("platformGroup", (PlatformGroup ?? (Account.Platform == Platform.PC ? Api.Enums.PlatformGroup.PC : Api.Enums.PlatformGroup.Console)).ToString());
+
+            Queries.Clear();
+            Queries.Add(platformQuery);
+        }
     }
 }
