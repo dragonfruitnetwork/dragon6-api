@@ -14,16 +14,25 @@ namespace DragonFruit.Six.Api.Accounts.Entities
         [JsonProperty("nameOnPlatform")]
         public string Username { get; set; }
 
-        /// <summary>
-        /// Platform this user was looked up on
-        /// </summary>
         [JsonProperty("platformType")]
-        public Platform Platform { get; set; }
+        public string PlatformName { get; set; }
 
         /// <summary>
         /// 256x256px avatar image url
         /// </summary>
         public string Image => $"https://ubisoft-avatars.akamaized.net/{UbisoftId}/default_256_256.png";
+
+        /// <summary>
+        /// Platform this user profile targets. If the platform is not available, <see cref="Platform.CrossPlatform"/> will be returned
+        /// </summary>
+        public Platform Platform => PlatformName switch
+        {
+            UbisoftPlatforms.PC => Platform.PC,
+            UbisoftPlatforms.XBOX => Platform.XB1,
+            UbisoftPlatforms.PLAYSTATION => Platform.PSN,
+
+            _ => Platform.CrossPlatform
+        };
 
         /// <summary>
         /// Unique identifier for the platform-specific account used to get stats.

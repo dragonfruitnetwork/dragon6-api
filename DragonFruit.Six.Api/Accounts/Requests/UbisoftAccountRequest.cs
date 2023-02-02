@@ -30,9 +30,9 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         /// </summary>
         public UbisoftAccountRequest(IEnumerable<string> queries, Platform platform, IdentifierType identifierType)
         {
-            if (Platform == Platform.CrossPlatform)
+            if (Platform == Platform.CrossPlatform && IdentifierType != IdentifierType.UserId)
             {
-                throw new ArgumentException($"Cannot lookup an account against {nameof(Platform.CrossPlatform)}", nameof(Platform));
+                throw new ArgumentException($"Cannot perform a cross-platform search with {IdentifierType} lookup mode");
             }
 
             Platform = platform;
@@ -70,7 +70,9 @@ namespace DragonFruit.Six.Api.Accounts.Requests
 
         [UsedImplicitly]
         [QueryParameter("platformType")]
-        private string PlatformValue => typeof(Platform).GetField(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
+        private string PlatformValue => Platform == Platform.CrossPlatform
+            ? null
+            : typeof(Platform).GetField(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
 
         private IEnumerable<string> LookupString(IdentifierType method) => IdentifierType == method ? Identifiers : null;
     }
