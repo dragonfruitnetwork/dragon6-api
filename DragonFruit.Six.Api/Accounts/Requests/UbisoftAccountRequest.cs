@@ -1,7 +1,6 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -30,11 +29,6 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         /// </summary>
         public UbisoftAccountRequest(IEnumerable<string> queries, Platform platform, IdentifierType identifierType)
         {
-            if (Platform == Platform.CrossPlatform)
-            {
-                throw new ArgumentException($"Cannot lookup an account against {nameof(Platform.CrossPlatform)}", nameof(Platform));
-            }
-
             Platform = platform;
             IdentifierType = identifierType;
 
@@ -70,7 +64,9 @@ namespace DragonFruit.Six.Api.Accounts.Requests
 
         [UsedImplicitly]
         [QueryParameter("platformType")]
-        private string PlatformValue => typeof(Platform).GetField(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
+        private string PlatformValue => Platform == Platform.CrossPlatform
+            ? null
+            : typeof(Platform).GetField(Platform.ToString()).GetCustomAttribute<EnumMemberAttribute>().Value;
 
         private IEnumerable<string> LookupString(IdentifierType method) => IdentifierType == method ? Identifiers : null;
     }
