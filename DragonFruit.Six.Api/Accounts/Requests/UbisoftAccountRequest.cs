@@ -1,6 +1,7 @@
 ﻿// Dragon6 API Copyright DragonFruit Network <inbox@dragonfruit.network>
 // Licensed under Apache-2. Refer to the LICENSE file for more info
 
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -29,6 +30,11 @@ namespace DragonFruit.Six.Api.Accounts.Requests
         /// </summary>
         public UbisoftAccountRequest(IEnumerable<string> queries, Platform platform, IdentifierType identifierType)
         {
+            if (Platform == Platform.CrossPlatform && IdentifierType != IdentifierType.UserId)
+            {
+                throw new ArgumentException($"Cannot perform a cross-platform search with {IdentifierType} lookup mode");
+            }
+
             Platform = platform;
             IdentifierType = identifierType;
 
