@@ -10,16 +10,16 @@ namespace DragonFruit.Six.Api.Accounts.Enums
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Platform
     {
-        [EnumMember(Value = "uplay")]
+        [EnumMember(Value = UbisoftPlatforms.PC)]
         PC = 1,
 
-        [EnumMember(Value = "psn")]
+        [EnumMember(Value = UbisoftPlatforms.PLAYSTATION)]
         PSN = 2,
 
-        [EnumMember(Value = "xbl")]
+        [EnumMember(Value = UbisoftPlatforms.XBOX)]
         XB1 = 3,
 
-        [EnumMember(Value = "xplay")]
+        [EnumMember(Value = UbisoftPlatforms.CROSSPLAY)]
         CrossPlatform = 4
     }
 }
