@@ -14,8 +14,8 @@ namespace DragonFruit.Six.Api.Modern.Utils
         public static string ModernName(this Platform platform) => platform switch
         {
             Platform.PC => "PC",
-            Platform.PSN => "PSN",
-            Platform.XB1 => "XONE",
+            Platform.PSN => "PLAYSTATION",
+            Platform.XB1 => "XBOX",
 
             _ => throw new ArgumentOutOfRangeException()
         };
