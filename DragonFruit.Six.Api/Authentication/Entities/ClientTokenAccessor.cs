@@ -43,7 +43,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
                     return _currentToken;
                 }
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     var token = await _fetchTokenDelegate.Invoke(_service, _currentToken?.Token.SessionId).ConfigureAwait(false);
                     _currentToken = new ClientTokenInjector(token);
