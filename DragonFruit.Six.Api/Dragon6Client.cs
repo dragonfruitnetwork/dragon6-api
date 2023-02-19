@@ -37,6 +37,11 @@ namespace DragonFruit.Six.Api
         public UbisoftService DefaultService { get; set; } = UbisoftService.RainbowSix;
 
         /// <summary>
+        /// Optional getter for service token limits before they are automatically expired regardless of the expiry date.
+        /// </summary>
+        protected virtual int? MaxTokenUses(UbisoftService service) => null;
+
+        /// <summary>
         /// Defines the procedure for retrieving a <see cref="UbisoftToken"/> for the client to use.
         /// </summary>
         /// <param name="service">The service to fetch a token for</param>
@@ -77,6 +82,6 @@ namespace DragonFruit.Six.Api
         /// <summary>
         /// Gets a <see cref="ClientTokenAccessor"/> for the requested <see cref="UbisoftService"/>
         /// </summary>
-        protected internal ClientTokenAccessor GetServiceAccessToken(UbisoftService service) => _access.GetOrAdd(service, s => new ClientTokenAccessor(s, GetToken));
+        protected internal ClientTokenAccessor GetServiceAccessToken(UbisoftService service) => _access.GetOrAdd(service, s => new ClientTokenAccessor(s, MaxTokenUses(s), GetToken));
     }
 }
