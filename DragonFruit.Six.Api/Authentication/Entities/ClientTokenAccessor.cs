@@ -11,17 +11,19 @@ namespace DragonFruit.Six.Api.Authentication.Entities
 {
     public class ClientTokenAccessor
     {
+        private readonly int? _maxTokenUses;
         private readonly AsyncLock _accessSync;
         private readonly UbisoftService _service;
         private readonly Func<UbisoftService, string, Task<IUbisoftToken>> _fetchTokenDelegate;
 
         private ClientTokenInjector _currentToken;
 
-        internal ClientTokenAccessor(UbisoftService service, Func<UbisoftService, string, Task<IUbisoftToken>> fetchTokenDelegate)
+        internal ClientTokenAccessor(UbisoftService service, int? maxTokenUses, Func<UbisoftService, string, Task<IUbisoftToken>> fetchTokenDelegate)
         {
             _accessSync = new AsyncLock();
 
             _service = service;
+            _maxTokenUses = maxTokenUses;
             _fetchTokenDelegate = fetchTokenDelegate;
         }
 
@@ -46,7 +48,7 @@ namespace DragonFruit.Six.Api.Authentication.Entities
                 for (int i = 0; i < 2; i++)
                 {
                     var token = await _fetchTokenDelegate.Invoke(_service, _currentToken?.Token.SessionId).ConfigureAwait(false);
-                    _currentToken = new ClientTokenInjector(token);
+                    _currentToken = new ClientTokenInjector(token, _maxTokenUses);
 
                     if (!_currentToken.Expired)
                     {
@@ -55,6 +57,17 @@ namespace DragonFruit.Six.Api.Authentication.Entities
                 }
 
                 throw new InvalidTokenException(_currentToken?.Token);
+            }
+        }
+
+        /// <summary>
+        /// Expires the current token, forcing it to be re-fetched
+        /// </summary>
+        public async Task ClearToken()
+        {
+            using (await _accessSync.LockAsync().ConfigureAwait(false))
+            {
+                _currentToken = null;
             }
         }
 
