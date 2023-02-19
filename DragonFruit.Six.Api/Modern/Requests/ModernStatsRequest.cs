@@ -22,16 +22,17 @@ namespace DragonFruit.Six.Api.Modern.Requests
         private const string DateTimeFormat = "yyyyMMdd";
         private const int DefaultStartWindow = 14;
 
+        private static readonly DateTimeOffset CrossPlatformStartDate = new(2022, 12, 6, 0, 0, 0, TimeSpan.Zero);
+
         private PlaylistType? _playlist;
         private OperatorType? _operatorType;
         private DateTimeOffset? _startDate, _endDate;
 
         protected readonly IList<KeyValuePair<string, string>> Queries;
 
-        private static readonly DateTimeOffset CrossPlatformStartDate = new(2022, 12, 6, 0, 0, 0, TimeSpan.Zero);
-
         public override string Path => $"https://prod.datadev.ubisoft.com/v1/users/{Account.UbisoftId}/playerstats";
 
+        protected override UbisoftService? RequiredTokenSource => UbisoftService.NewStatsSite;
         protected override IEnumerable<KeyValuePair<string, string>> AdditionalQueries => Queries;
 
         protected ModernStatsRequest(UbisoftAccount account)
