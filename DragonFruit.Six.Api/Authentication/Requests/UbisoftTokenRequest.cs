@@ -23,6 +23,8 @@ namespace DragonFruit.Six.Api.Authentication.Requests
         public UbisoftTokenRequest(UbisoftService service, string authentication)
         {
             this.WithHeader(UbisoftIdentifiers.UbiAppIdHeader, service.AppId());
+            this.WithHeader("Ubi-RequestedPlatformType", "uplay");
+
             this.WithAuthHeader($"Basic {authentication}");
         }
     }
