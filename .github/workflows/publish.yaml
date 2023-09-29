@@ -5,6 +5,28 @@ on:
     types: [ published ]
 
 jobs:
-  deploy:
-    secrets: inherit
-    uses: dragonfruitnetwork/workflows/.github/workflows/nuget-publish.yml@master
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build -c Release -v normal -p:Version=${{ github.ref_name }}
+
+      - name: Pack (Beta)
+        run: dotnet pack -c Release --include-symbols --no-build -v normal -o . -p:PackageVersion=${{ github.ref_name }}-beta
+        if: "github.event.release.prerelease"
+
+      - name: Pack (Stable)
+        run: dotnet pack -c Release --include-symbols --no-build -v normal -o . -p:PackageVersion=${{ github.ref_name }}
+        if: "!github.event.release.prerelease"
+
+      - name: Publish
+        run: dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_KEY }} --skip-duplicate -s https://api.nuget.org/v3/index.json 
